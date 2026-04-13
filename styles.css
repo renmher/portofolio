@@ -429,6 +429,15 @@ section {
   font-size: 1.1rem;
 }
 
+.category-header {
+  font-size: 1.5rem;
+  margin-bottom: 32px;
+  color: var(--text-main);
+  padding-left: 16px;
+  border-left: 4px solid var(--primary);
+  opacity: 0.9;
+}
+
 /* Cards Grid */
 .grid {
   display: grid;
