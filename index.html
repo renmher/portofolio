@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Portfolio Modern & Profesional" />
+  <title>Renaldy Imran H | Portfolio</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body data-theme="dark">
+  <div class="bg-visuals">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="grid-overlay"></div>
+  </div>
+
+  <header>
+    <div class="nav-wrapper">
+      <div class="logo">R.</div>
+      <nav>
+        <ul>
+          <li><a href="#home" class="active" data-i18n="nav-home">Beranda</a></li>
+          <li><a href="#about" data-i18n="nav-about">Tentang</a></li>
+          <li><a href="#projects" data-i18n="nav-projects">Proyek</a></li>
+          <li><a href="#experience" data-i18n="nav-experience">Pengalaman</a></li>
+        </ul>
+      </nav>
+      <div class="controls">
+        <button id="theme-toggle" class="control-btn" title="Toggle Theme">🌓</button>
+        <button id="lang-toggle" class="control-btn" title="Switch Language">EN</button>
+      </div>
+      <a href="#contact" class="nav-cta" data-i18n="nav-contact">Hubungi</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+      <div class="hero-content">
+        <span class="eyebrow" data-i18n="hero-eyebrow">Digital Craftsman</span>
+        <h1 data-i18n="hero-title">Membangun <span class="gradient-text">Pengalaman Digital</span> Masa Depan.</h1>
+        <p data-i18n="hero-desc">Saya adalah UI Designer & Front-End Developer yang berfokus pada estetika visual dan
+          performa yang optimal.</p>
+        <div class="hero-buttons">
+          <a href="#projects" class="btn btn-primary" data-i18n="btn-projects">Lihat Karya</a>
+          <a href="#about" class="btn btn-secondary" data-i18n="btn-about">Tentang Saya</a>
+        </div>
+      </div>
+
+      <aside class="profile-card">
+        <div class="profile-img-container">
+          <img src="profile.png" alt="Renaldy Imran H" class="profile-img">
+        </div>
+        <div class="profile-info">
+          <h2>Renaldy Imran Hermawan</h2>
+          <p data-i18n="profile-role">Junior Devops| Cloud Engineer | IT Network</p>
+          <div class="profile-stats">
+            <div class="stat-item">
+              <span>2024</span>
+              <small data-i18n="stat-years">Graduation</small>
+            </div>
+            <div class="stat-item">
+              <span>6+</span>
+              <small data-i18n="stat-projects">Certifications</small>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+      <div class="section-title">
+        <h2 data-i18n="about-title">Tentang <span class="gradient-text">Saya</span></h2>
+        <p data-i18n="about-subtitle">Kombinasi antara desain kreatif dan kode yang bersih.</p>
+      </div>
+      <div class="grid">
+        <article class="card">
+          <h3 class="mb-4" data-i18n="about-card1-title">Visi Kreatif</h3>
+          <p data-i18n="about-card1-desc">Dedikasi saya adalah menciptakan solusi digital yang tidak hanya berfungsi
+            dengan baik, tetapi juga memberikan kesan mendalam melalui desain yang modern dan intuitif.</p>
+        </article>
+        <article class="card">
+          <h3 class="mb-4" data-i18n="about-card2-title">Keahlian Utama</h3>
+          <div class="skills-container">
+            <span class="skill-tag" data-i18n="skill-cloud">Cloud: GCP, AWS</span>
+            <span class="skill-tag" data-i18n="skill-container">Container: Docker, K8s</span>
+            <span class="skill-tag" data-i18n="skill-cicd">CI/CD: GitLab, GitHub</span>
+            <span class="skill-tag" data-i18n="skill-networking">Networking: TCP/IP, DNS</span>
+            <span class="skill-tag">Terraform</span>
+            <span class="skill-tag">Linux</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+      <div class="section-title">
+        <h2 data-i18n="projects-title">Sertifikasi <span class="gradient-text">Terverifikasi</span></h2>
+        <p data-i18n="projects-subtitle">Kualifikasi profesional saya dalam administrasi jaringan dan pengembangan web.
+        </p>
+      </div>
+      <div class="grid">
+        <article class="card project-card">
+          <div class="project-visual">
+            <img src="mtcna.png" alt="MTCNA Certificate" style="width: 100%; height: 100%; object-fit: cover;">
+          </div>
+          <div class="project-details">
+            <h3 data-i18n="project1-title">MikroTik Certified Network Associate</h3>
+            <p data-i18n="project1-desc">Sertifikasi MTCNA untuk manajemen jaringan dan administrasi routing MikroTik
+              (2024).</p>
+            <a href="mtcna.pdf" target="_blank" class="project-link"><span data-i18n="btn-details">Verifikasi</span>
+              &rarr;</a>
+          </div>
+        </article>
+        <article class="card project-card">
+          <div class="project-visual">
+            <img src="sertif.png" alt="Junior Web Developer Certificate"
+              style="width: 100%; height: 100%; object-fit: cover;">
+          </div>
+          <div class="project-details">
+            <h3 data-i18n="project3-title">Junior Web Developer</h3>
+            <p data-i18n="project3-desc">Sertifikasi BNSP untuk pengembangan aplikasi web dasar dan manajemen database
+              (2022).</p>
+            <a href="sertif.pdf" target="_blank" class="project-link"><span data-i18n="btn-details">Verifikasi</span>
+              &rarr;</a>
+          </div>
+        </article>
+        <article class="card project-card">
+          <div class="project-visual">Lumina</div>
+          <div class="project-details">
+            <h3 data-i18n="project2-title">Enterprise Dashboard</h3>
+            <p data-i18n="project2-desc">Sertifikasi BNSP dalam administrasi jaringan komputer dan konfigurasi sistem
+              (2023).</p>
+            <a href="#" class="project-link"><span data-i18n="btn-details">Verifikasi</span> &rarr;</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience">
+      <div class="section-title">
+        <h2 data-i18n="exp-title">Jejak <span class="gradient-text">Karir</span></h2>
+        <p data-i18n="exp-subtitle">Perjalanan profesional saya dalam dunia teknologi.</p>
+      </div>
+      <div class="experience-list">
+        <article class="card experience-item">
+          <div class="exp-date">Jan 2025 - Jan 2026</div>
+          <div class="exp-content">
+            <h3 data-i18n="exp-job1">L1 Cloud Engineer Support - PT. Data Labs Analytics</h3>
+            <p data-i18n="exp-job1-desc">Mengelola tiket Jira, merespons alert infrastruktur, dan memantau kesehatan
+              sistem via CloudWatch 24/7.</p>
+          </div>
+        </article>
+        <article class="card experience-item">
+          <div class="exp-date">2023 - 2024</div>
+          <div class="exp-content">
+            <h3 data-i18n="exp-job2">IT Network Operation Center - PT. ACSA</h3>
+            <p data-i18n="exp-job2-desc">Menganalisa dan memberikan solusi terkait permasalahan jaringan kartu Telkomsel
+              serta monitoring server.</p>
+          </div>
+        </article>
+        <article class="card experience-item">
+          <div class="exp-date">2023</div>
+          <div class="exp-content">
+            <h3 data-i18n="exp-job3">Frontend Engineering - Ruang Guru</h3>
+            <p data-i18n="exp-job3-desc">Membangun antarmuka web responsif menggunakan HTML, CSS/SASS, JavaScript dan
+              React/Vue.</p>
+          </div>
+        </article>
+        <article class="card experience-item">
+          <div class="exp-date">2018</div>
+          <div class="exp-content">
+            <h3 data-i18n="exp-job4">Staf IT Support - PT WGI</h3>
+            <p data-i18n="exp-job4-desc">Instalasi, konfigurasi, dan pemeliharaan rutin perangkat komputer serta
+              pemantauan jaringan lokal LAN/WAN.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+      <div class="contact-banner">
+        <h2 data-i18n="contact-title">Mari Berkolaborasi</h2>
+        <p data-i18n="contact-desc">Punya ide menarik? Mari kita wujudkan bersama melalui sentuhan desain yang tepat.
+        </p>
+        <div class="contact-grid">
+          <a href="mailto:renaldyimran@gmail.com" class="btn btn-primary" data-i18n="btn-email">Email Saya</a>
+          <a href="https://linkedin.com/in/renaldyimran" class="btn btn-secondary">LinkedIn</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-content">
+      <p>&copy; <span id="year"></span> Renaldy Imran Hermawan. <span data-i18n="footer-rights">Seluruh hak
+          dilindungi.</span>
+      </p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
