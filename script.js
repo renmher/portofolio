@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
       "btn-projects": "Lihat Sertifikat",
       "btn-cv": "Download CV",
       "btn-about": "Tentang Saya",
-      "profile-role": "Cloud Engineer | IT Network",
+      "profile-role": "Junior Devops | Cloud Engineer | IT Network",
       "stat-years": "Tahun Kelulusan",
       "stat-projects": "Sertifikasi Keahlian",
       "about-title": "Tentang <span class='gradient-text'>Saya</span>",
@@ -152,7 +152,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // --- Initial Setup ---
   updateTheme(currentTheme);
   updateLanguage(currentLang);
-  
+
   const yearEl = document.getElementById('year');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
