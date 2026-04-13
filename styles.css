@@ -637,19 +637,73 @@ footer {
 }
 
 @media (max-width: 640px) {
-  .nav-wrapper {
-    gap: 12px;
+  html {
+    scroll-padding-top: 20px;
   }
 
+  .nav-wrapper {
+    gap: 16px;
+    padding: 6px 12px;
+  }
+
+  .controls {
+    margin-right: 0;
+  }
+
+  /* Bottom Mobile Nav */
   nav ul {
-    display: none;
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--bg-surface);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--border);
+    padding: 8px;
+    border-radius: 100px;
+    display: flex;
+    gap: 4px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+    z-index: 1000;
+    width: max-content;
+  }
+  
+  nav a {
+    padding: 8px 14px;
+    font-size: 0.8rem;
   }
 
   .hero-content h1 {
-    font-size: 2.8rem;
+    font-size: 2.5rem;
+  }
+
+  .hero-content p {
+    font-size: 1rem;
+    margin-bottom: 30px;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+  }
+
+  .btn {
+    width: 100%;
+    justify-content: center;
   }
 
   .section-title h2 {
+    font-size: 2.2rem;
+  }
+  
+  section {
+    padding: 60px 0;
+  }
+
+  .contact-banner {
+    padding: 40px 24px;
+  }
+  
+  .contact-banner h2 {
     font-size: 2.2rem;
   }
 }
