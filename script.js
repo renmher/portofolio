@@ -127,17 +127,30 @@ document.addEventListener('DOMContentLoaded', () => {
   let currentLang = localStorage.getItem('lang') || 'id';
   let currentTheme = localStorage.getItem('theme') || 'dark';
 
-  // --- Typing Effect Logic ---
+  // --- Typing Effect Logic (HTML-Aware) ---
   let typingTimer;
-  const startTypingEffect = (text) => {
+  const startTypingEffect = (htmlText) => {
     const titleEl = document.querySelector('.hero-content h1');
     if (!titleEl) return;
     clearTimeout(typingTimer);
     titleEl.innerHTML = '';
+    
     let i = 0;
     const type = () => {
-      if (i <= text.length) {
-        titleEl.innerHTML = text.substring(0, i);
+      if (i < htmlText.length) {
+        // If we encounter an HTML tag, skip to the end of it
+        if (htmlText[i] === '<') {
+          const tagEnd = htmlText.indexOf('>', i);
+          if (tagEnd !== -1) {
+            i = tagEnd + 1;
+            // Recursively call to skip tag but continue typing content
+            titleEl.innerHTML = htmlText.substring(0, i);
+            typingTimer = setTimeout(type, 30);
+            return;
+          }
+        }
+        
+        titleEl.innerHTML = htmlText.substring(0, i + 1);
         i++;
         typingTimer = setTimeout(type, 30);
       }
