@@ -223,30 +223,14 @@ document.addEventListener('DOMContentLoaded', () => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.style.opacity = '1';
-        entry.target.style.transform = 'translateY(0)';
       }
     });
   }, { threshold: 0.1 });
 
   cards.forEach(card => {
     card.style.opacity = '0';
-    card.style.transform = 'translateY(20px)';
-    card.style.transition = 'all 0.6s ease-out';
+    card.style.transition = 'opacity 0.5s ease-out';
     observer.observe(card);
-  });
-
-  // --- Magnetic Buttons ---
-  const magneticBtns = document.querySelectorAll('.btn, .control-btn');
-  magneticBtns.forEach(btn => {
-    btn.addEventListener('mousemove', (e) => {
-      const position = btn.getBoundingClientRect();
-      const x = e.pageX - position.left - position.width / 2;
-      const y = e.pageY - position.top - position.height / 2;
-      btn.style.transform = `translate(${x * 0.3}px, ${y * 0.5}px)`;
-    });
-    btn.addEventListener('mouseleave', () => {
-      btn.style.transform = 'translate(0px, 0px)';
-    });
   });
 
   // --- External Links ---
