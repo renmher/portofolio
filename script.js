@@ -127,37 +127,6 @@ document.addEventListener('DOMContentLoaded', () => {
   let currentLang = localStorage.getItem('lang') || 'id';
   let currentTheme = localStorage.getItem('theme') || 'dark';
 
-  // --- Typing Effect Logic (HTML-Aware) ---
-  let typingTimer;
-  const startTypingEffect = (htmlText) => {
-    const titleEl = document.querySelector('.hero-content h1');
-    if (!titleEl) return;
-    clearTimeout(typingTimer);
-    titleEl.innerHTML = '';
-    
-    let i = 0;
-    const type = () => {
-      if (i < htmlText.length) {
-        // If we encounter an HTML tag, skip to the end of it
-        if (htmlText[i] === '<') {
-          const tagEnd = htmlText.indexOf('>', i);
-          if (tagEnd !== -1) {
-            i = tagEnd + 1;
-            // Recursively call to skip tag but continue typing content
-            titleEl.innerHTML = htmlText.substring(0, i);
-            typingTimer = setTimeout(type, 30);
-            return;
-          }
-        }
-        
-        titleEl.innerHTML = htmlText.substring(0, i + 1);
-        i++;
-        typingTimer = setTimeout(type, 30);
-      }
-    };
-    type();
-  };
-
   const updateLanguage = (lang) => {
     document.querySelectorAll('[data-i18n]').forEach(el => {
       const key = el.getAttribute('data-i18n');
@@ -167,8 +136,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     document.getElementById('lang-toggle').textContent = lang.toUpperCase() === 'ID' ? 'EN' : 'ID';
     localStorage.setItem('lang', lang);
-    // Restart typing effect on language change
-    startTypingEffect(translations[lang]["hero-title"]);
   };
 
   const updateTheme = (theme) => {
@@ -216,22 +183,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
     });
-
-  // --- Reveal Animations ---
-  const cards = document.querySelectorAll('.card');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.style.opacity = '1';
-      }
-    });
-  }, { threshold: 0.1 });
-
-  cards.forEach(card => {
-    card.style.opacity = '0';
-    card.style.transition = 'opacity 0.5s ease-out';
-    observer.observe(card);
-  });
 
   // --- External Links ---
   document.querySelectorAll('a').forEach(link => {

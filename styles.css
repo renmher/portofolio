@@ -137,7 +137,6 @@ header {
 
 .nav-wrapper:hover {
   border-color: var(--border-hover);
-  transform: translateY(-2px);
 }
 
 .logo {
@@ -189,7 +188,6 @@ nav a.active {
 }
 
 .nav-cta:hover {
-  transform: scale(1.05);
   box-shadow: 0 0 20px var(--primary-glow);
 }
 
@@ -283,7 +281,6 @@ nav a.active {
 }
 
 .btn:hover {
-  transform: translateY(-2px);
   filter: brightness(1.1);
 }
 
