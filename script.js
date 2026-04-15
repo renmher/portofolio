@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
       "exp-job4-desc": "Melakukan instalasi, provisioning, dan pemeliharaan infrastruktur IT lokal (LAN/WAN) secara berkala untuk mendukung operasional bisnis yang berkelanjutan.",
       "contact-title": "Mari Berkolaborasi",
       "contact-desc": "Tertarik mendiskusikan peluang kerja atau proyek teknologi? Mari kita hubungkan visi Anda dengan solusi infrastruktur yang tepat.",
-      "btn-email": "Kirim Email",
+      "btn-threads": "Threads",
       "footer-rights": "Setiap detail dirancang dengan presisi."
     },
     en: {
@@ -118,7 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
       "exp-job4-desc": "Performed routine installation, provisioning, and maintenance of local IT infrastructure (LAN/WAN) to support daily business operations.",
       "contact-title": "Let's Collaborate",
       "contact-desc": "Interested in discussing career opportunities or tech projects? Let's connect your vision with the right infrastructure solutions.",
-      "btn-email": "Send Email",
+      "btn-threads": "Threads",
       "footer-rights": "Every detail crafted with precision."
     }
   };
