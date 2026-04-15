@@ -23,6 +23,10 @@
 </head>
 
 <body data-theme="dark">
+  <div class="scroll-progress"></div>
+  <div class="cursor-dot"></div>
+  <div class="cursor-outline"></div>
+
   <div class="bg-visuals">
     <div class="orb orb-1"></div>
     <div class="orb orb-2"></div>
@@ -62,7 +66,7 @@
 
   <main class="container">
     <!-- Hero Section -->
-    <section id="home" class="hero">
+    <section id="home" class="hero reveal">
       <div class="hero-content">
         <span class="eyebrow" data-i18n="hero-eyebrow">Digital Craftsman</span>
         <h1 data-i18n="hero-title">Membangun <span class="gradient-text">Pengalaman Digital</span> Masa Depan.</h1>
@@ -98,7 +102,7 @@
     </section>
 
     <!-- About Section -->
-    <section id="about">
+    <section id="about" class="reveal">
       <div class="section-title">
         <h2 data-i18n="about-title">Tentang <span class="gradient-text">Saya</span></h2>
         <p data-i18n="about-subtitle">Kombinasi antara desain kreatif dan kode yang bersih.</p>
@@ -119,19 +123,19 @@
         <article class="card">
           <h3 class="mb-4" data-i18n="about-card2-title">Keahlian Utama</h3>
           <div class="skills-container">
-            <span class="skill-tag" data-i18n="skill-cloud">Cloud: GCP, AWS</span>
-            <span class="skill-tag" data-i18n="skill-container">Container: Docker, K8s</span>
-            <span class="skill-tag" data-i18n="skill-cicd">CI/CD: GitLab, GitHub</span>
-            <span class="skill-tag" data-i18n="skill-networking">Networking: TCP/IP, DNS</span>
-            <span class="skill-tag">Terraform</span>
-            <span class="skill-tag">Linux</span>
+            <span class="skill-tag" data-i18n="skill-cloud"><i class="fa-solid fa-cloud"></i> GCP, AWS</span>
+            <span class="skill-tag" data-i18n="skill-container"><i class="fa-brands fa-docker"></i> Docker, K8s</span>
+            <span class="skill-tag" data-i18n="skill-cicd"><i class="fa-solid fa-code-merge"></i> GitLab, GitHub</span>
+            <span class="skill-tag" data-i18n="skill-networking"><i class="fa-solid fa-network-wired"></i> TCP/IP, DNS</span>
+            <span class="skill-tag"><i class="fa-solid fa-server"></i> Terraform</span>
+            <span class="skill-tag"><i class="fa-brands fa-linux"></i> Linux</span>
           </div>
         </article>
       </div>
     </section>
 
     <!-- Projects Section -->
-    <section id="projects">
+    <section id="projects" class="reveal">
       <div class="section-title">
         <h2 data-i18n="projects-title">Sertifikasi <span class="gradient-text">Terverifikasi</span></h2>
         <p data-i18n="projects-subtitle">Kualifikasi profesional saya dalam administrasi jaringan dan pengembangan web.</p>
@@ -203,7 +207,7 @@
     </section>
 
     <!-- Experience Section -->
-    <section id="experience">
+    <section id="experience" class="reveal">
       <div class="section-title">
         <h2 data-i18n="exp-title">Jejak <span class="gradient-text">Karir</span></h2>
         <p data-i18n="exp-subtitle">Perjalanan profesional saya dalam dunia teknologi.</p>
@@ -245,14 +249,13 @@
     </section>
 
     <!-- Contact Section -->
-    <section id="contact">
+    <section id="contact" class="reveal">
       <div class="contact-banner">
         <h2 data-i18n="contact-title">Mari Berkolaborasi</h2>
         <p data-i18n="contact-desc">Punya ide menarik? Mari kita wujudkan bersama melalui sentuhan desain yang tepat.
         </p>
         <div class="contact-grid">
-          <a href="https://threads.net/@renmher" class="btn btn-primary" data-i18n="btn-threads"><i
-              class="fa-brands fa-threads"></i> Threads</a>
+          <button id="copy-email" class="btn btn-primary"><i class="fa-solid fa-copy"></i> Copy Email</button>
           <a href="https://linkedin.com/in/renaldyimran" class="btn btn-secondary"><i class="fa-brands fa-linkedin"></i>
             LinkedIn</a>
           <a href="https://github.com/renmher" class="btn btn-secondary"><i class="fa-brands fa-github"></i> GitHub</a>

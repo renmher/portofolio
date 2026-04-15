@@ -1,6 +1,6 @@
 :root {
-  --primary: #3b82f6;
-  --primary-glow: rgba(59, 130, 246, 0.3);
+  --primary: #6366f1;
+  --primary-glow: rgba(99, 102, 241, 0.3);
   --accent: #10b981;
   --accent-glow: rgba(16, 185, 129, 0.3);
   --bg-deep: #030712;
@@ -15,6 +15,55 @@
   --font-heading: 'Outfit', sans-serif;
   --font-body: 'Inter', sans-serif;
   --transition: all 0.25s ease;
+  --glow: 0 0 20px var(--primary-glow);
+}
+
+/* 1. Scroll Progress Bar */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 4px;
+  background: linear-gradient(to right, var(--primary), var(--accent));
+  z-index: 2000;
+}
+
+/* 2. Custom Cursor */
+.cursor-dot, .cursor-outline {
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  z-index: 9999;
+  transition: opacity 0.3s ease;
+}
+
+.cursor-dot {
+  width: 8px;
+  height: 8px;
+  background-color: var(--accent);
+}
+
+.cursor-outline {
+  width: 40px;
+  height: 40px;
+  border: 2px solid var(--accent);
+  transition: all 0.15s ease-out;
+}
+
+/* 3. Reveal System */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.17, 0.55, 0.55, 1);
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 [data-theme="light"] {
@@ -32,6 +81,12 @@
   padding: 0;
   box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
+  cursor: none; /* Hide default cursor on desktop */
+}
+
+@media (max-width: 968px) {
+  * { cursor: auto; }
+  .cursor-dot, .cursor-outline { display: none; }
 }
 
 html {

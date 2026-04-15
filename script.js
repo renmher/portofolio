@@ -163,33 +163,112 @@ document.addEventListener('DOMContentLoaded', () => {
     updateTheme(currentTheme);
   });
 
-  // --- Scroll Logic ---
-    const navLinks = document.querySelectorAll('nav a');
-    const sections = document.querySelectorAll('section');
+  // --- Premium UI Logic ---
 
-    window.addEventListener('scroll', () => {
-      let current = '';
-      sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        if (pageYOffset >= (sectionTop - 150)) {
-          current = section.getAttribute('id');
-        }
-      });
+  // 1. Custom Cursor
+  const dot = document.querySelector('.cursor-dot');
+  const outline = document.querySelector('.cursor-outline');
 
-      navLinks.forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('href').includes(`#${current}`) || link.getAttribute('href') === `#${current}`) {
-          link.classList.add('active');
-        }
+  window.addEventListener('mousemove', (e) => {
+    const posX = e.clientX;
+    const posY = e.clientY;
+
+    dot.style.left = `${posX}px`;
+    dot.style.top = `${posY}px`;
+
+    // Outline follows with a slight delay (smoothly)
+    outline.animate({
+      left: `${posX}px`,
+      top: `${posY}px`
+    }, { duration: 500, fill: "forwards" });
+  });
+
+  // 2. Scroll Progress Bar
+  window.addEventListener('scroll', () => {
+    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = (winScroll / height) * 100;
+    const progressBar = document.querySelector('.scroll-progress');
+    if (progressBar) progressBar.style.width = scrolled + "%";
+  });
+
+  // 3. Reveal Animation System
+  const revealCallback = (entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('active');
+      }
+    });
+  };
+
+  const revealObserver = new IntersectionObserver(revealCallback, {
+    threshold: 0.15
+  });
+
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+  // 4. Copy Email Functionality
+  const copyBtn = document.getElementById('copy-email');
+  if (copyBtn) {
+    copyBtn.addEventListener('click', () => {
+      const email = 'renaldyimran@gmail.com'; // Menggunakan email asli Anda
+      navigator.clipboard.writeText(email).then(() => {
+        const originalText = copyBtn.innerHTML;
+        copyBtn.innerHTML = '<i class="fa-solid fa-check"></i> Email Copied!';
+        copyBtn.style.background = 'var(--accent)';
+        
+        setTimeout(() => {
+          copyBtn.innerHTML = originalText;
+          copyBtn.style.background = '';
+        }, 2000);
       });
     });
+  }
 
-  // --- External Links ---
+  // --- Scroll Logic (Active Link) ---
+  const navLinks = document.querySelectorAll('nav a');
+  const sections = document.querySelectorAll('section');
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop;
+      if (pageYOffset >= (sectionTop - 150)) {
+        current = section.getAttribute('id');
+      }
+    });
+
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      const href = link.getAttribute('href');
+      if (href && (href.includes(`#${current}`) || href === `#${current}`)) {
+        link.classList.add('active');
+      }
+    });
+  });
+
+  // --- External Links & Security ---
   document.querySelectorAll('a').forEach(link => {
     const href = link.getAttribute('href');
     if (href && (href.startsWith('http') || href.endsWith('.pdf')) && !link.hasAttribute('download')) {
       link.setAttribute('target', '_blank');
       link.setAttribute('rel', 'noopener noreferrer');
     }
+  });
+
+  // 5. Hover cursor effects for links/buttons
+  document.querySelectorAll('a, button, .project-card').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      outline.style.width = '60px';
+      outline.style.height = '60px';
+      outline.style.borderColor = 'var(--primary)';
+      outline.style.backgroundColor = 'rgba(99, 102, 241, 0.1)';
+    });
+    el.addEventListener('mouseleave', () => {
+      outline.style.width = '40px';
+      outline.style.height = '40px';
+      outline.style.borderColor = 'var(--accent)';
+      outline.style.backgroundColor = 'transparent';
+    });
   });
 });
