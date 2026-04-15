@@ -243,6 +243,115 @@ nav a.active {
   background: var(--bg-surface);
 }
 
+/* System Status Indicator */
+.system-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  padding: 4px 12px;
+  border-radius: 100px;
+  margin-right: 8px;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--accent);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--accent);
+  animation: pulse-status 2s infinite;
+}
+
+.status-text {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--accent);
+}
+
+@keyframes pulse-status {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.2); opacity: 0.5; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Terminal Card Styling */
+.terminal-card {
+  padding: 0 !important;
+  background: #0d1117 !important;
+  border: 1px solid #30363d !important;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  overflow: hidden;
+  height: 100%;
+}
+
+.terminal-header {
+  background: #161b22;
+  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid #30363d;
+}
+
+.t-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.t-dot.red { background: #ff5f56; }
+.t-dot.yellow { background: #ffbd2e; }
+.t-dot.green { background: #27c93f; }
+
+.terminal-title {
+  font-size: 0.75rem;
+  color: #8b949e;
+  margin-left: 10px;
+}
+
+.terminal-body {
+  padding: 20px;
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+
+.line {
+  margin-bottom: 4px;
+}
+
+.t-prompt {
+  color: #58a6ff;
+  font-weight: bold;
+}
+
+.t-command {
+  color: #d2a8ff;
+}
+
+.t-output {
+  color: #c9d1d9;
+  padding-left: 14px;
+}
+
+.t-cursor {
+  animation: blink 1s infinite;
+  color: var(--accent);
+  font-weight: bold;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Hide on Mobile if needed, or adjust */
+@media (max-width: 640px) {
+  .system-status { display: none; }
+}
+
 /* Hero Section */
 .hero {
   padding-top: 160px;

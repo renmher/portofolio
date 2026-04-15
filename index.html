@@ -45,6 +45,10 @@
         </ul>
       </nav>
       <div class="controls">
+        <div class="system-status" title="Infrastructure Status">
+          <span class="status-dot"></span>
+          <span class="status-text">SYSTEM: OPERATIONAL</span>
+        </div>
         <button id="theme-toggle" class="control-btn" title="Toggle Theme">🌓</button>
         <button id="lang-toggle" class="control-btn" title="Switch Language">EN</button>
       </div>
@@ -106,10 +110,20 @@
         <p data-i18n="about-subtitle">Kombinasi antara desain kreatif dan kode yang bersih.</p>
       </div>
       <div class="grid">
-        <article class="card">
-          <h3 class="mb-4" data-i18n="about-card1-title">Visi Kreatif</h3>
-          <p data-i18n="about-card1-desc">Dedikasi saya adalah menciptakan solusi digital yang tidak hanya berfungsi
-            dengan baik, tetapi juga memberikan kesan mendalam melalui desain yang modern dan intuitif.</p>
+        <article class="card terminal-card">
+          <div class="terminal-header">
+            <div class="t-dot red"></div>
+            <div class="t-dot yellow"></div>
+            <div class="t-dot green"></div>
+            <span class="terminal-title">bash — renaldy@cloud-shell</span>
+          </div>
+          <div class="terminal-body" id="terminal-body">
+            <div class="line"><span class="t-prompt">$</span> <span class="t-command">whoami</span></div>
+            <div class="line t-output">renaldy_imran</div>
+            <div class="line"><span class="t-prompt">$</span> <span class="t-command">uptime</span></div>
+            <div class="line t-output">up 24 years, active and ready.</div>
+            <div class="line"><span class="t-prompt">$</span> <span class="t-cursor">_</span></div>
+          </div>
         </article>
         <article class="card">
           <h3 class="mb-4" data-i18n="about-cv-title">Review CV Terbaru</h3>

@@ -59,7 +59,10 @@ document.addEventListener('DOMContentLoaded', () => {
       "contact-title": "Mari Berkolaborasi",
       "contact-desc": "Tertarik mendiskusikan peluang kerja atau proyek teknologi? Mari kita hubungkan visi Anda dengan solusi infrastruktur yang tepat.",
       "btn-threads": "Threads",
-      "footer-rights": "Setiap detail dirancang dengan presisi."
+      "footer-rights": "Setiap detail dirancang dengan presisi.",
+      "t-whoami": "renaldy_imran",
+      "t-uptime": "aktif 24 tahun, siap berkontribusi.",
+      "t-skills": "GCP | AWS | Docker | K8s"
     },
     en: {
       "nav-home": "Home",
@@ -119,7 +122,10 @@ document.addEventListener('DOMContentLoaded', () => {
       "contact-title": "Let's Collaborate",
       "contact-desc": "Interested in discussing career opportunities or tech projects? Let's connect your vision with the right infrastructure solutions.",
       "btn-threads": "Threads",
-      "footer-rights": "Every detail crafted with precision."
+      "footer-rights": "Every detail crafted with precision.",
+      "t-whoami": "renaldy_imran",
+      "t-uptime": "up 24 years, active and ready.",
+      "t-skills": "GCP | AWS | Docker | K8s"
     }
   };
 
@@ -130,12 +136,33 @@ document.addEventListener('DOMContentLoaded', () => {
   const updateLanguage = (lang) => {
     document.querySelectorAll('[data-i18n]').forEach(el => {
       const key = el.getAttribute('data-i18n');
-      if (translations[lang][key]) {
+      if (translations[lang] && translations[lang][key]) {
         el.innerHTML = translations[lang][key];
       }
     });
+
+    // Update Terminal Content on language change
+    if (document.getElementById('terminal-body')) {
+      renderTerminal(lang);
+    }
+
     document.getElementById('lang-toggle').textContent = lang.toUpperCase() === 'ID' ? 'EN' : 'ID';
     localStorage.setItem('lang', lang);
+  };
+
+  const renderTerminal = (lang) => {
+    const termBody = document.getElementById('terminal-body');
+    if (!termBody) return;
+
+    termBody.innerHTML = `
+      <div class="line"><span class="t-prompt">$</span> <span class="t-command">whoami</span></div>
+      <div class="line t-output">${translations[lang]['t-whoami']}</div>
+      <div class="line"><span class="t-prompt">$</span> <span class="t-command">uptime</span></div>
+      <div class="line t-output">${translations[lang]['t-uptime']}</div>
+      <div class="line"><span class="t-prompt">$</span> <span class="t-command">neofetch --skills</span></div>
+      <div class="line t-output">${translations[lang]['t-skills']}</div>
+      <div class="line"><span class="t-prompt">$</span> <span class="t-cursor">_</span></div>
+    `;
   };
 
   const updateTheme = (theme) => {
@@ -148,6 +175,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // --- Initial Setup ---
   updateTheme(currentTheme);
   updateLanguage(currentLang);
+  renderTerminal(currentLang);
 
   const yearEl = document.getElementById('year');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
@@ -164,7 +192,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // --- Premium UI Logic ---
-
   // --- Premium UI Logic ---
 
   // 1. Scroll Progress Bar
@@ -181,6 +208,10 @@ document.addEventListener('DOMContentLoaded', () => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('active');
+        // Trigger terminal animation if the card is revealed
+        if (entry.target.querySelector('.terminal-card')) {
+          // Terminal static render is handled but we could add typing here
+        }
       }
     });
   };
@@ -195,7 +226,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const copyBtn = document.getElementById('copy-email');
   if (copyBtn) {
     copyBtn.addEventListener('click', () => {
-      const email = 'renaldyimran@gmail.com'; // Menggunakan email asli Anda
+      const email = 'renaldyimran@gmail.com'; 
       navigator.clipboard.writeText(email).then(() => {
         const originalText = copyBtn.innerHTML;
         copyBtn.innerHTML = '<i class="fa-solid fa-check"></i> Email Copied!';
