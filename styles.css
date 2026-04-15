@@ -29,31 +29,6 @@
   z-index: 2000;
 }
 
-/* 2. Custom Cursor */
-.cursor-dot, .cursor-outline {
-  pointer-events: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  transform: translate(-50%, -50%);
-  border-radius: 50%;
-  z-index: 9999;
-  transition: opacity 0.3s ease;
-}
-
-.cursor-dot {
-  width: 8px;
-  height: 8px;
-  background-color: var(--accent);
-}
-
-.cursor-outline {
-  width: 40px;
-  height: 40px;
-  border: 2px solid var(--accent);
-  transition: all 0.15s ease-out;
-}
-
 /* 3. Reveal System */
 .reveal {
   opacity: 0;
@@ -81,12 +56,6 @@
   padding: 0;
   box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
-  cursor: none; /* Hide default cursor on desktop */
-}
-
-@media (max-width: 968px) {
-  * { cursor: auto; }
-  .cursor-dot, .cursor-outline { display: none; }
 }
 
 html {

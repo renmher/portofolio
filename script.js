@@ -165,25 +165,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // --- Premium UI Logic ---
 
-  // 1. Custom Cursor
-  const dot = document.querySelector('.cursor-dot');
-  const outline = document.querySelector('.cursor-outline');
+  // --- Premium UI Logic ---
 
-  window.addEventListener('mousemove', (e) => {
-    const posX = e.clientX;
-    const posY = e.clientY;
-
-    dot.style.left = `${posX}px`;
-    dot.style.top = `${posY}px`;
-
-    // Outline follows with a slight delay (smoothly)
-    outline.animate({
-      left: `${posX}px`,
-      top: `${posY}px`
-    }, { duration: 500, fill: "forwards" });
-  });
-
-  // 2. Scroll Progress Bar
+  // 1. Scroll Progress Bar
   window.addEventListener('scroll', () => {
     const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
     const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
@@ -192,7 +176,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (progressBar) progressBar.style.width = scrolled + "%";
   });
 
-  // 3. Reveal Animation System
+  // 2. Reveal Animation System
   const revealCallback = (entries, observer) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -207,7 +191,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-  // 4. Copy Email Functionality
+  // 3. Copy Email Functionality
   const copyBtn = document.getElementById('copy-email');
   if (copyBtn) {
     copyBtn.addEventListener('click', () => {
@@ -254,21 +238,5 @@ document.addEventListener('DOMContentLoaded', () => {
       link.setAttribute('target', '_blank');
       link.setAttribute('rel', 'noopener noreferrer');
     }
-  });
-
-  // 5. Hover cursor effects for links/buttons
-  document.querySelectorAll('a, button, .project-card').forEach(el => {
-    el.addEventListener('mouseenter', () => {
-      outline.style.width = '60px';
-      outline.style.height = '60px';
-      outline.style.borderColor = 'var(--primary)';
-      outline.style.backgroundColor = 'rgba(99, 102, 241, 0.1)';
-    });
-    el.addEventListener('mouseleave', () => {
-      outline.style.width = '40px';
-      outline.style.height = '40px';
-      outline.style.borderColor = 'var(--accent)';
-      outline.style.backgroundColor = 'transparent';
-    });
   });
 });
