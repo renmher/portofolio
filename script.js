@@ -169,6 +169,13 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.setAttribute('data-theme', theme);
     const toggle = document.getElementById('theme-toggle');
     if (toggle) toggle.textContent = theme === 'dark' ? '☀️' : '🌙';
+    
+    // Update meta theme-color
+    const metaTheme = document.querySelector('meta[name="theme-color"]');
+    if (metaTheme) {
+      metaTheme.setAttribute('content', theme === 'dark' ? '#030712' : '#f8fafc');
+    }
+
     localStorage.setItem('theme', theme);
   };
 
