@@ -252,7 +252,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // --- External Links ---
   document.querySelectorAll('a').forEach(link => {
     const href = link.getAttribute('href');
-    if (href && (href.startsWith('http') || href.endsWith('.pdf'))) {
+    if (href && (href.startsWith('http') || href.endsWith('.pdf')) && !link.hasAttribute('download')) {
       link.setAttribute('target', '_blank');
       link.setAttribute('rel', 'noopener noreferrer');
     }
