@@ -343,15 +343,23 @@ const App = () => {
               </a>
             </article>
 
-            <article className="card">
+            <article className="card skills-card">
               <h3 className="mb-4">{curr["about-card2-title"]}</h3>
               <div className="skills-container">
-                <span className="skill-tag"><i className="fa-solid fa-cloud"></i> GCP, AWS</span>
-                <span className="skill-tag"><i className="fa-brands fa-docker"></i> Docker, K8s</span>
-                <span className="skill-tag"><i className="fa-solid fa-code-merge"></i> GitLab, GitHub</span>
-                <span className="skill-tag"><i className="fa-solid fa-network-wired"></i> TCP/IP, DNS</span>
-                <span className="skill-tag"><i className="fa-solid fa-server"></i> Terraform</span>
-                <span className="skill-tag"><i className="fa-brands fa-linux"></i> Linux</span>
+                {skillsList.map((skill, idx) => (
+                  <div key={idx} className="skill-tag-wrapper">
+                    <span className="skill-tag">
+                      <i className={skill.icon}></i> {skill.name}
+                    </span>
+                    <div className="skill-tooltip">
+                      <div className="tooltip-header">
+                        <i className={skill.icon}></i>
+                        <strong>{skill.name}</strong>
+                      </div>
+                      <p className="tooltip-desc">{skill.desc[lang]}</p>
+                    </div>
+                  </div>
+                ))}
               </div>
             </article>
           </div>

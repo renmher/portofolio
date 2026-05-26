@@ -786,8 +786,17 @@ section {
 .skills-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 12px 8px;
   margin-top: 16px;
+}
+
+.card.skills-card {
+  overflow: visible;
+}
+
+.skill-tag-wrapper {
+  position: relative;
+  display: inline-block;
 }
 
 .skill-tag {
@@ -796,6 +805,105 @@ section {
   padding: 8px 16px;
   border-radius: 100px;
   font-size: 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: border-color var(--transition), background-color var(--transition), box-shadow var(--transition), transform 0.2s ease;
+}
+
+.skill-tag-wrapper:hover .skill-tag {
+  border-color: var(--primary);
+  background: rgba(99, 102, 241, 0.08);
+  box-shadow: 0 0 15px rgba(99, 102, 241, 0.15);
+  transform: translateY(-2px);
+  color: var(--text-main);
+}
+
+[data-theme="light"] .skill-tag-wrapper:hover .skill-tag {
+  background: rgba(99, 102, 241, 0.05);
+}
+
+.skill-tooltip {
+  position: absolute;
+  bottom: calc(100% + 14px);
+  left: 50%;
+  transform: translateX(-50%) translateY(8px);
+  width: 250px;
+  max-width: calc(100vw - 64px);
+  background: var(--bg-deep);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--primary);
+  border-radius: var(--radius-md);
+  padding: 14px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(12px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1), transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 1000;
+  text-align: left;
+}
+
+[data-theme="light"] .skill-tooltip {
+  background: #ffffff;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+}
+
+.skill-tag-wrapper:hover .skill-tooltip {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: auto;
+}
+
+/* Tooltip Content Styling */
+.tooltip-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+  color: var(--text-main);
+}
+
+.tooltip-header i {
+  color: var(--primary);
+}
+
+.tooltip-desc {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.45;
+  margin: 0;
+}
+
+/* Tooltip Arrow */
+.skill-tooltip::before {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 6px;
+  border-style: solid;
+  border-color: var(--border) transparent transparent transparent;
+  z-index: 1;
+}
+
+.skill-tooltip::after {
+  content: '';
+  position: absolute;
+  top: calc(100% - 1px);
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 5px;
+  border-style: solid;
+  border-color: var(--bg-deep) transparent transparent transparent;
+  z-index: 2;
+}
+
+[data-theme="light"] .skill-tooltip::after {
+  border-color: #ffffff transparent transparent transparent;
 }
 
 /* Certifications Filter Tabs */
