@@ -187,6 +187,57 @@ const App = () => {
     });
   };
 
+  const skillsList = [
+    {
+      name: "GCP, AWS",
+      icon: "fa-solid fa-cloud",
+      desc: {
+        id: "Mendeploy VM, monitoring via CloudWatch, dan konfigurasi VPC jaringan cloud.",
+        en: "Deploying VM instances, monitoring via CloudWatch, and configuring cloud VPC networks."
+      }
+    },
+    {
+      name: "Docker, K8s",
+      icon: "fa-brands fa-docker",
+      desc: {
+        id: "Kontainerisasi aplikasi microservices dan mengelola replikasi deployment.",
+        en: "Containerizing microservices and managing replicas of application deployments."
+      }
+    },
+    {
+      name: "GitLab, GitHub",
+      icon: "fa-solid fa-code-merge",
+      desc: {
+        id: "Membuat alur otomatisasi build/test CI/CD Pipeline dan manajemen repositori.",
+        en: "Building automated CI/CD build/test pipelines and repository management."
+      }
+    },
+    {
+      name: "TCP/IP, DNS",
+      icon: "fa-solid fa-network-wired",
+      desc: {
+        id: "Diagnosis routing kartu jaringan Telkomsel dan penanganan record DNS di NOC.",
+        en: "Diagnosing Telkomsel card routing and managing DNS record resolutions at NOC."
+      }
+    },
+    {
+      name: "Terraform",
+      icon: "fa-solid fa-server",
+      desc: {
+        id: "Menulis kode arsitektur (IaC) untuk penyediaan server VPC otomatis.",
+        en: "Writing Infrastructure as Code (IaC) to provision VPC servers automatically."
+      }
+    },
+    {
+      name: "Linux",
+      icon: "fa-brands fa-linux",
+      desc: {
+        id: "Bash scripting untuk backup otomatis, setup environment, dan administrasi OS.",
+        en: "Bash scripting for backups, environment setups, and OS server administration."
+      }
+    }
+  ];
+
   return (
     <>
       {/* Scroll Progress */}
