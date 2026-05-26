@@ -150,63 +150,65 @@ const Certifications = ({ lang }) => {
   const filteredCerts = certs.filter(cert => activeTab === 'all' || cert.category === activeTab);
 
   return (
-    <section id="projects" className="reveal">
-      <div className="section-title">
-        <h2 dangerouslySetInnerHTML={{ __html: currentTranslations.title }} />
-        <p>{currentTranslations.subtitle}</p>
-      </div>
+    <>
+      <section id="projects" className="reveal">
+        <div className="section-title">
+          <h2 dangerouslySetInnerHTML={{ __html: currentTranslations.title }} />
+          <p>{currentTranslations.subtitle}</p>
+        </div>
 
-      <div className="cert-tabs">
-        <button
-          className={`tab-btn ${activeTab === 'all' ? 'active' : ''}`}
-          onClick={() => setActiveTab('all')}
-        >
-          {currentTranslations.tabAll}
-        </button>
-        <button
-          className={`tab-btn ${activeTab === 'professional' ? 'active' : ''}`}
-          onClick={() => setActiveTab('professional')}
-        >
-          {currentTranslations.tabPro}
-        </button>
-        <button
-          className={`tab-btn ${activeTab === 'bootcamp' ? 'active' : ''}`}
-          onClick={() => setActiveTab('bootcamp')}
-        >
-          {currentTranslations.tabBoot}
-        </button>
-      </div>
-
-      <div className="certs-grid grid">
-        {filteredCerts.map((cert, idx) => (
-          <article
-            key={idx}
-            className="card project-card cert-card"
-            onClick={() => handleOpenModal(cert)}
-            style={{ cursor: 'pointer' }}
+        <div className="cert-tabs">
+          <button
+            className={`tab-btn ${activeTab === 'all' ? 'active' : ''}`}
+            onClick={() => setActiveTab('all')}
           >
-            {cert.hasImage ? (
-              <div className="project-visual">
-                <img src={cert.image} alt={currentTranslations[cert.titleId]} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            {currentTranslations.tabAll}
+          </button>
+          <button
+            className={`tab-btn ${activeTab === 'professional' ? 'active' : ''}`}
+            onClick={() => setActiveTab('professional')}
+          >
+            {currentTranslations.tabPro}
+          </button>
+          <button
+            className={`tab-btn ${activeTab === 'bootcamp' ? 'active' : ''}`}
+            onClick={() => setActiveTab('bootcamp')}
+          >
+            {currentTranslations.tabBoot}
+          </button>
+        </div>
+
+        <div className="certs-grid grid">
+          {filteredCerts.map((cert, idx) => (
+            <article
+              key={idx}
+              className="card project-card cert-card"
+              onClick={() => handleOpenModal(cert)}
+              style={{ cursor: 'pointer' }}
+            >
+              {cert.hasImage ? (
+                <div className="project-visual">
+                  <img src={cert.image} alt={currentTranslations[cert.titleId]} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                </div>
+              ) : (
+                <div
+                  className="project-visual"
+                  dangerouslySetInnerHTML={{ __html: cert.placeholderHtml }}
+                  style={{ overflow: 'hidden' }}
+                />
+              )}
+              <div className="project-details">
+                <span className="cert-badge">{cert.badge}</span>
+                <h3>{currentTranslations[cert.titleId]}</h3>
+                <p>{currentTranslations[cert.descId]}</p>
+                <button className="btn btn-secondary btn-sm btn-preview" onClick={(e) => { e.stopPropagation(); handleOpenModal(cert); }}>
+                  <i className="fa-solid fa-eye"></i> <span>{currentTranslations.btnPreview}</span>
+                </button>
               </div>
-            ) : (
-              <div
-                className="project-visual"
-                dangerouslySetInnerHTML={{ __html: cert.placeholderHtml }}
-                style={{ overflow: 'hidden' }}
-              />
-            )}
-            <div className="project-details">
-              <span className="cert-badge">{cert.badge}</span>
-              <h3>{currentTranslations[cert.titleId]}</h3>
-              <p>{currentTranslations[cert.descId]}</p>
-              <button className="btn btn-secondary btn-sm btn-preview" onClick={(e) => { e.stopPropagation(); handleOpenModal(cert); }}>
-                <i className="fa-solid fa-eye"></i> <span>{currentTranslations.btnPreview}</span>
-              </button>
-            </div>
-          </article>
-        ))}
-      </div>
+            </article>
+          ))}
+        </div>
+      </section>
 
       {/* Lightbox Modal */}
       {selectedCert && (
@@ -241,7 +243,7 @@ const Certifications = ({ lang }) => {
           </div>
         </div>
       )}
-    </section>
+    </>
   );
 };
 
