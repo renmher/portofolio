@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Terminal from './components/Terminal';
-import SlaDashboard from './components/SlaDashboard';
 import Certifications from './components/Certifications';
 import Chatbot from './components/Chatbot';
 
@@ -286,9 +284,6 @@ const App = () => {
             <p>{curr["about-subtitle"]}</p>
           </div>
           <div className="grid">
-            <Terminal lang={lang} />
-            <SlaDashboard lang={lang} />
-            
             <article className="card">
               <h3 className="mb-4">{curr["about-cv-title"]}</h3>
               <p className="mb-4">{curr["about-cv-desc"]}</p>
