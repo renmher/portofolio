@@ -70,10 +70,9 @@
     <!-- Hero Section -->
     <section id="home" class="hero reveal">
       <div class="hero-content">
-        <span class="eyebrow" data-i18n="hero-eyebrow">Digital Craftsman</span>
-        <h1 data-i18n="hero-title">Membangun <span class="gradient-text">Pengalaman Digital</span> Masa Depan.</h1>
-        <p data-i18n="hero-desc">Saya adalah UI Designer & Front-End Developer yang berfokus pada estetika visual dan
-          performa yang optimal.</p>
+        <span class="eyebrow" data-i18n="hero-eyebrow">Cloud Engineer & IT Specialist</span>
+        <h1 data-i18n="hero-title">Membangun <span class="gradient-text">Infrastruktur Digital</span> yang Tangguh.</h1>
+        <p data-i18n="hero-desc">Saya adalah lulusan Sarjana Teknik Informatika dari universitas bani saleh bekasi dengan pengalaman di bidang IT Network Operation Center dan Cloud Engineer, berpengalaman melalui program intensif seperti AWS Re/Start dan Bootcamp cloud digitalskola.</p>
         <div class="hero-buttons">
           <a href="#projects" class="btn btn-primary" data-i18n="btn-projects"><i class="fa-solid fa-certificate"></i>
             Lihat Sertifikat</a>
@@ -92,11 +91,11 @@
           <div class="profile-stats">
             <div class="stat-item">
               <span>2024</span>
-              <small data-i18n="stat-years">Graduation</small>
+              <small data-i18n="stat-years">Tahun Kelulusan</small>
             </div>
             <div class="stat-item">
               <span>6+</span>
-              <small data-i18n="stat-projects">Certifications</small>
+              <small data-i18n="stat-projects">Sertifikasi Keahlian</small>
             </div>
           </div>
         </div>
@@ -107,7 +106,7 @@
     <section id="about" class="reveal">
       <div class="section-title">
         <h2 data-i18n="about-title">Tentang <span class="gradient-text">Saya</span></h2>
-        <p data-i18n="about-subtitle">Kombinasi antara desain kreatif dan kode yang bersih.</p>
+        <p data-i18n="about-subtitle">Pakar IT yang fokus pada stabilitas jaringan dan skalabilitas cloud.</p>
       </div>
       <div class="grid">
         <article class="card terminal-card">
@@ -117,21 +116,73 @@
             <div class="t-dot green"></div>
             <span class="terminal-title">bash — renaldy@cloud-shell</span>
           </div>
-          <div class="terminal-body" id="terminal-body">
-            <div class="line"><span class="t-prompt">$</span> <span class="t-command">whoami</span></div>
-            <div class="line t-output">renaldy_imran</div>
-            <div class="line"><span class="t-prompt">$</span> <span class="t-command">uptime</span></div>
-            <div class="line t-output">up 24 years, active and ready.</div>
-            <div class="line"><span class="t-prompt">$</span> <span class="t-cursor">_</span></div>
+          <div class="terminal-container">
+            <div class="terminal-body" id="terminal-body">
+              <!-- Logs will be written dynamically here -->
+            </div>
+            <div class="terminal-input-line">
+              <span class="t-prompt">renaldy@cloud-shell:~$</span>
+              <input type="text" id="terminal-input" autocomplete="off" spellcheck="false" placeholder="ketik 'help'...">
+            </div>
           </div>
         </article>
+        
+        <article class="card telemetry-card">
+          <h3 class="mb-4" data-i18n="about-card1-title">Monitor Infrastruktur (Live)</h3>
+          <div class="telemetry-grid">
+            <div class="telemetry-item">
+              <div class="telemetry-label">
+                <span>CPU Load</span>
+                <span id="telemetry-cpu-val">12%</span>
+              </div>
+              <div class="telemetry-bar-bg">
+                <div class="telemetry-bar" id="telemetry-cpu-bar" style="width: 12%"></div>
+              </div>
+            </div>
+            <div class="telemetry-item">
+              <div class="telemetry-label">
+                <span>RAM Usage</span>
+                <span id="telemetry-ram-val">45%</span>
+              </div>
+              <div class="telemetry-bar-bg">
+                <div class="telemetry-bar" id="telemetry-ram-bar" style="width: 45%"></div>
+              </div>
+            </div>
+            <div class="telemetry-item">
+              <div class="telemetry-label">
+                <span>Traffic Speed</span>
+                <span id="telemetry-net-val">142 Mbps</span>
+              </div>
+              <div class="telemetry-chart">
+                <svg viewBox="0 0 100 30" class="mini-chart">
+                  <path d="M 0 30 L 10 25 L 20 28 L 30 20 L 40 22 L 50 15 L 60 18 L 70 12 L 80 14 L 90 8 L 100 10 L 100 30 Z" id="chart-path"></path>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <div class="ping-section">
+            <h4 class="mb-2" style="font-size: 0.95rem; font-weight: 700;" data-i18n="telemetry-ping-title">Uji Latensi Cloud</h4>
+            <div class="ping-controls">
+              <select id="ping-target">
+                <option value="gcp-sg">GCP Singapore (asia-southeast1)</option>
+                <option value="aws-us">AWS N. Virginia (us-east-1)</option>
+                <option value="local-isp">Local ISP Gateway</option>
+              </select>
+              <button id="btn-ping-test" class="btn btn-primary btn-sm"><i class="fa-solid fa-bolt"></i> Ping</button>
+            </div>
+            <div class="ping-result" id="ping-result-display">
+              <span class="ping-dot grey" id="ping-status-dot"></span>
+              <span id="ping-latency-text">Menunggu pengujian...</span>
+            </div>
+          </div>
+        </article>
+
         <article class="card">
           <h3 class="mb-4" data-i18n="about-cv-title">Review CV Terbaru</h3>
-          <p class="mb-4" data-i18n="about-cv-desc">Lihat detail kualifikasi dan pengalaman saya lebih mendalam melalui
-            dokumen CV yang sudah di-update.</p>
-          <a href="cv-renaldy.pdf" download="CV-Renaldy-Imran-Hermawan.pdf" class="project-link" style="color: var(--accent)"><span data-i18n="btn-view-cv">Buka
-              CV</span> &rarr;</a>
+          <p class="mb-4" data-i18n="about-cv-desc">Lihat detail kualifikasi dan pengalaman saya lebih mendalam melalui dokumen CV yang sudah di-update.</p>
+          <a href="cv-renaldy.pdf" download="CV-Renaldy-Imran-Hermawan.pdf" class="project-link" style="color: var(--accent)"><span data-i18n="btn-view-cv">Buka CV</span> &rarr;</a>
         </article>
+
         <article class="card">
           <h3 class="mb-4" data-i18n="about-card2-title">Keahlian Utama</h3>
           <div class="skills-container">
@@ -153,66 +204,92 @@
         <p data-i18n="projects-subtitle">Kualifikasi profesional saya dalam administrasi jaringan dan pengembangan web.</p>
       </div>
 
-      <!-- Category 1: Professional Certs -->
-      <h3 class="category-header" data-i18n="cert-cat1">Sertifikasi Internasional & Nasional</h3>
-      <div class="grid mb-4">
-        <article class="card project-card">
+      <!-- Tabs Navigation -->
+      <div class="cert-tabs">
+        <button class="tab-btn active" data-filter="all" data-i18n="tab-all">Semua</button>
+        <button class="tab-btn" data-filter="professional" data-i18n="tab-pro">Profesional & Nasional</button>
+        <button class="tab-btn" data-filter="bootcamp" data-i18n="tab-boot">Bootcamp & Intensif</button>
+      </div>
+
+      <div class="certs-grid grid">
+        <!-- Certificate 1 -->
+        <article class="card project-card cert-card" data-category="professional" data-index="0">
           <div class="project-visual">
             <img src="mtcna.png" alt="MTCNA Certificate" style="width: 100%; height: 100%; object-fit: cover;">
           </div>
           <div class="project-details">
+            <span class="cert-badge">MTCNA</span>
             <h3 data-i18n="project1-title">MikroTik Certified Network Associate</h3>
             <p data-i18n="project1-desc">Sertifikasi MTCNA untuk manajemen jaringan dan administrasi routing MikroTik (2024).</p>
-            <a href="mtcna.pdf" target="_blank" class="project-link"><span data-i18n="btn-details">Verifikasi</span> &rarr;</a>
+            <button class="btn btn-secondary btn-sm btn-preview" data-index="0"><i class="fa-solid fa-eye"></i> <span data-i18n="btn-preview">Pratinjau</span></button>
           </div>
         </article>
-        <article class="card project-card">
-          <div class="project-visual" style="background: linear-gradient(135deg, #10b981, #059669); color: white; display:flex; align-items:center; justify-content:center;">BNSP LSK</div>
+
+        <!-- Certificate 2 -->
+        <article class="card project-card cert-card" data-category="professional" data-index="1">
+          <div class="project-visual" style="background: linear-gradient(135deg, #10b981, #059669); color: white; display:flex; align-items:center; justify-content:center; flex-direction:column; gap: 8px;">
+            <i class="fa-solid fa-shield-halved" style="font-size: 2.5rem; opacity: 0.9;"></i>
+            <span style="font-weight: 700; font-size: 0.95rem; letter-spacing: 1px;">BNSP LSK</span>
+          </div>
           <div class="project-details">
+            <span class="cert-badge">BNSP</span>
             <h3 data-i18n="project2-title">Junior Network Administrator</h3>
             <p data-i18n="project2-desc">Sertifikasi BNSP dalam administrasi jaringan komputer dan konfigurasi sistem (2023).</p>
-            <a href="#" class="project-link"><span data-i18n="btn-details">Verifikasi</span> &rarr;</a>
+            <button class="btn btn-secondary btn-sm btn-preview" data-index="1"><i class="fa-solid fa-eye"></i> <span data-i18n="btn-preview">Pratinjau</span></button>
           </div>
         </article>
-        <article class="card project-card">
+
+        <!-- Certificate 3 -->
+        <article class="card project-card cert-card" data-category="professional" data-index="2">
           <div class="project-visual">
             <img src="sertif.png" alt="Junior Web Developer Certificate" style="width: 100%; height: 100%; object-fit: cover;">
           </div>
           <div class="project-details">
+            <span class="cert-badge">BNSP</span>
             <h3 data-i18n="project3-title">Junior Web Developer</h3>
             <p data-i18n="project3-desc">Sertifikasi BNSP untuk pengembangan aplikasi web dasar dan manajemen database (2022).</p>
-            <a href="sertif.pdf" target="_blank" class="project-link"><span data-i18n="btn-details">Verifikasi</span> &rarr;</a>
+            <button class="btn btn-secondary btn-sm btn-preview" data-index="2"><i class="fa-solid fa-eye"></i> <span data-i18n="btn-preview">Pratinjau</span></button>
           </div>
         </article>
-      </div>
 
-      <!-- Category 2: Bootcamp & Programs -->
-      <h3 class="category-header" data-i18n="cert-cat2">Bootcamp & Program Intensif</h3>
-      <div class="grid">
-        <article class="card project-card">
-          <div class="project-visual" style="background: linear-gradient(135deg, #FF9900, #232F3E); color: white; display:flex; align-items:center; justify-content:center;">AWS re/Start</div>
+        <!-- Certificate 4 -->
+        <article class="card project-card cert-card" data-category="bootcamp" data-index="3">
+          <div class="project-visual" style="background: linear-gradient(135deg, #FF9900, #232F3E); color: white; display:flex; align-items:center; justify-content:center; flex-direction:column; gap: 8px;">
+            <i class="fa-brands fa-aws" style="font-size: 3rem; opacity: 0.9;"></i>
+            <span style="font-weight: 700; font-size: 0.95rem;">AWS re/Start</span>
+          </div>
           <div class="project-details">
+            <span class="cert-badge">AWS</span>
             <h3 data-i18n="project4-title">AWS re/Start Cloud Computing</h3>
             <p data-i18n="project4-desc">Program pengembangan karir cloud computing dari AWS & Orbit Future Academy (2025).</p>
-            <a href="#" class="project-link"><span data-i18n="btn-details">Verifikasi</span> &rarr;</a>
+            <button class="btn btn-secondary btn-sm btn-preview" data-index="3"><i class="fa-solid fa-eye"></i> <span data-i18n="btn-preview">Pratinjau</span></button>
           </div>
         </article>
-        <article class="card project-card">
+
+        <!-- Certificate 5 -->
+        <article class="card project-card cert-card" data-category="bootcamp" data-index="4">
           <div class="project-visual">
             <img src="digitalskola.jpg" alt="Digital Skola Certificate" style="width: 100%; height: 100%; object-fit: cover;">
           </div>
           <div class="project-details">
+            <span class="cert-badge">Digital Skola</span>
             <h3 data-i18n="project5-title">Bootcamp Cloud Engineer</h3>
             <p data-i18n="project5-desc">Program bootcamp intensif Digital Skola fokus pada infrastruktur cloud & devops (2023).</p>
-            <a href="#" class="project-link"><span data-i18n="btn-details">Verifikasi</span> &rarr;</a>
+            <button class="btn btn-secondary btn-sm btn-preview" data-index="4"><i class="fa-solid fa-eye"></i> <span data-i18n="btn-preview">Pratinjau</span></button>
           </div>
         </article>
-        <article class="card project-card">
-          <div class="project-visual" style="background: linear-gradient(135deg, #ef4444, #b91c1c); color: white; display:flex; align-items:center; justify-content:center;">Ruang Guru</div>
+
+        <!-- Certificate 6 -->
+        <article class="card project-card cert-card" data-category="bootcamp" data-index="5">
+          <div class="project-visual" style="background: linear-gradient(135deg, #ef4444, #b91c1c); color: white; display:flex; align-items:center; justify-content:center; flex-direction:column; gap: 8px;">
+            <i class="fa-solid fa-code" style="font-size: 2.5rem; opacity: 0.9;"></i>
+            <span style="font-weight: 700; font-size: 0.95rem;">Ruang Guru</span>
+          </div>
           <div class="project-details">
+            <span class="cert-badge">Frontend</span>
             <h3 data-i18n="project6-title">Frontend Engineering</h3>
             <p data-i18n="project6-desc">Program Kampus Merdeka Ruang Guru untuk pengembangan aplikasi web frontend (2024).</p>
-            <a href="#" class="project-link"><span data-i18n="btn-details">Verifikasi</span> &rarr;</a>
+            <button class="btn btn-secondary btn-sm btn-preview" data-index="5"><i class="fa-solid fa-eye"></i> <span data-i18n="btn-preview">Pratinjau</span></button>
           </div>
         </article>
       </div>
@@ -224,37 +301,43 @@
         <h2 data-i18n="exp-title">Jejak <span class="gradient-text">Karir</span></h2>
         <p data-i18n="exp-subtitle">Perjalanan profesional saya dalam dunia teknologi.</p>
       </div>
-      <div class="experience-list">
-        <article class="card experience-item">
-          <div class="exp-date">Jan 2025 - Jan 2026</div>
-          <div class="exp-content">
+      
+      <div class="timeline-container">
+        <div class="timeline-line"></div>
+        
+        <article class="card timeline-item">
+          <div class="timeline-badge"><i class="fa-solid fa-cloud"></i></div>
+          <div class="timeline-date">Jan 2025 - Jan 2026</div>
+          <div class="timeline-content">
             <h3 data-i18n="exp-job1">L1 Cloud Engineer Support - PT. Data Labs Analytics</h3>
-            <p data-i18n="exp-job1-desc">Mengelola tiket Jira, merespons alert infrastruktur, dan memantau kesehatan
-              sistem via CloudWatch 24/7.</p>
+            <p data-i18n="exp-job1-desc">Mengelola tiket Jira, merespons alert infrastruktur, dan memantau kesehatan sistem via CloudWatch 24/7.</p>
           </div>
         </article>
-        <article class="card experience-item">
-          <div class="exp-date">2023 - 2024</div>
-          <div class="exp-content">
+
+        <article class="card timeline-item">
+          <div class="timeline-badge"><i class="fa-solid fa-server"></i></div>
+          <div class="timeline-date">2023 - 2024</div>
+          <div class="timeline-content">
             <h3 data-i18n="exp-job2">IT Network Operation Center - PT. ACSA</h3>
-            <p data-i18n="exp-job2-desc">Menganalisa dan memberikan solusi terkait permasalahan jaringan kartu Telkomsel
-              serta monitoring server.</p>
+            <p data-i18n="exp-job2-desc">Menganalisa dan memberikan solusi terkait permasalahan jaringan kartu Telkomsel serta monitoring server.</p>
           </div>
         </article>
-        <article class="card experience-item">
-          <div class="exp-date">2023</div>
-          <div class="exp-content">
+
+        <article class="card timeline-item">
+          <div class="timeline-badge"><i class="fa-solid fa-code"></i></div>
+          <div class="timeline-date">2023</div>
+          <div class="timeline-content">
             <h3 data-i18n="exp-job3">Frontend Engineering - Ruang Guru</h3>
-            <p data-i18n="exp-job3-desc">Membangun antarmuka web responsif menggunakan HTML, CSS/SASS, JavaScript dan
-              React/Vue.</p>
+            <p data-i18n="exp-job3-desc">Membangun antarmuka web responsif menggunakan HTML, CSS/SASS, JavaScript dan React/Vue.</p>
           </div>
         </article>
-        <article class="card experience-item">
-          <div class="exp-date">2018</div>
-          <div class="exp-content">
+
+        <article class="card timeline-item">
+          <div class="timeline-badge"><i class="fa-solid fa-desktop"></i></div>
+          <div class="timeline-date">2018</div>
+          <div class="timeline-content">
             <h3 data-i18n="exp-job4">Staf IT Support - PT WGI</h3>
-            <p data-i18n="exp-job4-desc">Instalasi, konfigurasi, dan pemeliharaan rutin perangkat komputer serta
-              pemantauan jaringan lokal LAN/WAN.</p>
+            <p data-i18n="exp-job4-desc">Instalasi, konfigurasi, dan pemeliharaan rutin perangkat komputer serta pemantauan jaringan lokal LAN/WAN.</p>
           </div>
         </article>
       </div>
@@ -264,8 +347,7 @@
     <section id="contact" class="reveal">
       <div class="contact-banner">
         <h2 data-i18n="contact-title">Mari Berkolaborasi</h2>
-        <p data-i18n="contact-desc">Punya ide menarik? Mari kita wujudkan bersama melalui sentuhan desain yang tepat.
-        </p>
+        <p data-i18n="contact-desc">Punya ide menarik? Mari kita wujudkan bersama melalui sentuhan desain yang tepat.</p>
         <div class="contact-grid">
           <button id="copy-email" class="btn btn-primary"><i class="fa-solid fa-copy"></i> Copy Email</button>
           <a href="https://linkedin.com/in/renaldyimran" class="btn btn-secondary"><i class="fa-brands fa-linkedin"></i>
@@ -278,11 +360,34 @@
 
   <footer>
     <div class="container footer-content">
-      <p>&copy; <span id="year"></span> Renaldy Imran Hermawan. <span data-i18n="footer-rights">Seluruh hak
-          dilindungi.</span>
-      </p>
+      <p>&copy; <span id="year"></span> Renaldy Imran Hermawan. <span data-i18n="footer-rights">Seluruh hak dilindungi.</span></p>
     </div>
   </footer>
+
+  <!-- Lightbox Modal for Certificates -->
+  <div id="cert-modal" class="modal">
+    <div class="modal-overlay"></div>
+    <div class="modal-wrapper">
+      <button class="modal-close" aria-label="Close modal">&times;</button>
+      <div class="modal-container">
+        <div class="modal-preview-area">
+          <img id="modal-img" src="" alt="Certificate Preview" style="display: none;">
+          <div id="modal-placeholder" class="modal-placeholder-preview" style="display: none;">
+            <!-- Render custom premium badges here for certs without image -->
+          </div>
+        </div>
+        <div class="modal-info-area">
+          <span class="modal-badge" id="modal-badge-text">CATEGORY</span>
+          <h3 id="modal-title-text">Certificate Title</h3>
+          <p id="modal-desc-text">Description of the certificate.</p>
+          <div class="modal-actions-bar">
+            <a id="modal-btn-verify" href="#" target="_blank" class="btn btn-primary btn-sm"><i class="fa-solid fa-shield-check"></i> <span data-i18n="btn-verify">Verifikasi Kredensial</span></a>
+            <a id="modal-btn-download" href="#" download class="btn btn-secondary btn-sm"><i class="fa-solid fa-download"></i> <span data-i18n="btn-download">Unduh</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>
