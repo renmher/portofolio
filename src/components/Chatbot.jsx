@@ -100,7 +100,7 @@ const Chatbot = ({ lang }) => {
     if (q.includes('sertif') || q.includes('cert') || q.includes('bukti') || q.includes('lisensi') || q.includes('piagam')) {
       return res.certifications;
     }
-    if (q.includes('pengalaman') || q.includes('kerja') || q.includes('karir') || q.includes('history') || q.includes('riwayat') || q.includes('noc') || q.includes('noc')) {
+    if (q.includes('pengalaman') || q.includes('kerja') || q.includes('karir') || q.includes('history') || q.includes('riwayat') || q.includes('noc') || q.includes('experience') || q.includes('work') || q.includes('job') || q.includes('timeline')) {
       return res.experience;
     }
     if (q.includes('kontak') || q.includes('contact') || q.includes('hubung') || q.includes('email') || q.includes('linkedin') || q.includes('github') || q.includes('sosial') || q.includes('telepon')) {
