@@ -1,0 +1,406 @@
+import React, { useState, useEffect } from 'react';
+import Terminal from './components/Terminal';
+import SlaDashboard from './components/SlaDashboard';
+import Certifications from './components/Certifications';
+import Chatbot from './components/Chatbot';
+
+const App = () => {
+  // --- States ---
+  const [lang, setLang] = useState(() => localStorage.getItem('lang') || 'id');
+  const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'dark');
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const [activeSection, setActiveSection] = useState('home');
+  const [emailCopied, setEmailCopied] = useState(false);
+
+  // --- Translation Dictionary ---
+  const t = {
+    id: {
+      "nav-home": "Beranda",
+      "nav-about": "Tentang",
+      "nav-projects": "Sertifikasi",
+      "nav-experience": "Pengalaman",
+      "nav-contact": "Hubungi",
+      "hero-eyebrow": "Cloud Engineer & IT Specialist",
+      "hero-title": "Membangun <span class='gradient-text'>Infrastruktur Digital</span> yang Tangguh.",
+      "hero-desc": "Saya adalah lulusan Sarjana Teknik Informatika dari universitas bani saleh bekasi dengan pengalaman di bidang IT Network Operation Center dan Cloud Engineer, berpengalaman melalui program intensif seperti AWS Re/Start dan Bootcamp cloud digitalskola. Menguasai Linux, dasar jaringan, Google Cloud Platform, AWS Serta Docker. Mampu bekerja cepat, teliti, dan kolaboratif dalam menyelesaikan masalah teknis serta meningkatkan efisiensi sistem.",
+      "btn-projects": "Lihat Sertifikat",
+      "btn-cv": "Download CV",
+      "profile-role": "Junior DevOps | Cloud Engineer | IT Network",
+      "stat-years": "Tahun Kelulusan",
+      "stat-projects": "Sertifikasi",
+      "about-title": "Tentang <span class='gradient-text'>Saya</span>",
+      "about-subtitle": "Pakar IT yang fokus pada stabilitas jaringan dan skalabilitas cloud.",
+      "about-cv-title": "Review CV Terbaru",
+      "about-cv-desc": "Lihat detail kualifikasi dan pengalaman saya lebih mendalam melalui dokumen CV yang sudah di-update.",
+      "btn-view-cv": "Buka CV",
+      "about-card2-title": "Keahlian Utama",
+      "skill-cloud": "Cloud: GCP, AWS",
+      "skill-container": "Container: Docker, K8s",
+      "skill-cicd": "CI/CD: GitLab, GitHub",
+      "skill-networking": "Networking: TCP/IP, DNS",
+      "exp-title": "Jejak <span class='gradient-text'>Karir</span>",
+      "exp-subtitle": "Perjalanan profesional saya dalam dunia teknologi.",
+      "exp-job1": "L1 Cloud Engineer Support - PT. Data Labs Analytics",
+      "exp-job1-desc": "Mengelola workflow tiket melalui Jira, merespons incident alert kritis secara real-time, dan mengawal kehandalan sistem berbasis cloud melalui monitoring terpadu Amazon CloudWatch 24/7.",
+      "exp-job2": "IT Network Operation Center - PT. ACSA",
+      "exp-job2-desc": "Mendiagnosis dan memberikan solusi teknis untuk stabilitas jaringan Telkomsel, melakukan monitoring server proaktif, dan memastikan performa infrastruktur tetap berjalan optimal sesuai SLA.",
+      "exp-job3": "Frontend Engineering - Ruang Guru",
+      "exp-job3-desc": "Merancang dan mendemonstrasikan antarmuka web modern yang responsif dan berkinerja tinggi menggunakan React/Vue, serta menerapkan praktik terbaik dalam UI/UX.",
+      "exp-job4": "Staf IT Support - PT WGI",
+      "exp-job4-desc": "Melakukan instalasi, provisioning, dan pemeliharaan infrastruktur IT lokal (LAN/WAN) secara berkala untuk mendukung operasional bisnis yang berkelanjutan.",
+      "contact-title": "Mari Berkolaborasi",
+      "contact-desc": "Punya ide menarik? Mari kita wujudkan bersama melalui sentuhan desain yang tepat.",
+      "btn-threads": "Threads",
+      "footer-rights": "Seluruh hak dilindungi.",
+      "copy-email": "Copy Email",
+      "email-success": "Email Berhasil Disalin!"
+    },
+    en: {
+      "nav-home": "Home",
+      "nav-about": "About",
+      "nav-projects": "Certifications",
+      "nav-experience": "Experience",
+      "nav-contact": "Contact",
+      "hero-eyebrow": "Cloud Engineer & IT Specialist",
+      "hero-title": "Building Resilient <span class='gradient-text'>Digital Infrastructure</span>.",
+      "hero-desc": "I am a Computer Science graduate from Bani Saleh University Bekasi with experience in IT Network Operation Center and Cloud Engineering. Experienced through intensive programs such as AWS Re/Start and DigitalSkola Cloud Bootcamp. Proficient in Linux, networking fundamentals, Google Cloud Platform, AWS, and Docker. Capable of working fast, accurately, and collaboratively in solving technical problems and improving system efficiency.",
+      "btn-projects": "View Certs",
+      "btn-cv": "Download CV",
+      "profile-role": "Junior DevOps | Cloud Engineer | IT Network",
+      "stat-years": "Graduation",
+      "stat-projects": "Certifications",
+      "about-title": "About <span class='gradient-text'>Me</span>",
+      "about-subtitle": "IT Expert focused on network stability and cloud scalability.",
+      "about-cv-title": "Latest CV Review",
+      "about-cv-desc": "See my detailed qualifications and experience more deeply through the updated CV document.",
+      "btn-view-cv": "Open CV",
+      "about-card2-title": "Core Skills",
+      "skill-cloud": "Cloud: GCP, AWS",
+      "skill-container": "Container: Docker, K8s",
+      "skill-cicd": "CI/CD: GitLab, GitHub",
+      "skill-networking": "Networking: TCP/IP, DNS",
+      "exp-title": "Career <span class='gradient-text'>Path</span>",
+      "exp-subtitle": "My professional journey in technology.",
+      "exp-job1": "L1 Cloud Engineer Support - PT. Data Labs Analytics",
+      "exp-job1-desc": "Managed JIRA workflows, responded to critical cloud infrastructure alerts in real-time, and ensured 24/7 system reliability through Amazon CloudWatch monitoring.",
+      "exp-job2": "IT Network Operation Center - PT. ACSA",
+      "exp-job2-desc": "Diagnosed and resolved technical issues for Telkomsel network stability, performed proactive server monitoring, and ensured optimal infrastructure performance according to SLAs.",
+      "exp-job3": "Frontend Engineering - Ruang Guru",
+      "exp-job3-desc": "Architected high-performance, responsive web interfaces using React/Vue, focusing on modern UI/UX principles and optimal user engagement.",
+      "exp-job4": "Staf IT Support - PT WGI",
+      "exp-job4-desc": "Performed routine installation, provisioning, and maintenance of local IT infrastructure (LAN/WAN) to support daily business operations.",
+      "btn-threads": "Threads",
+      "footer-rights": "All rights reserved.",
+      "copy-email": "Copy Email",
+      "email-success": "Email Copied!"
+    }
+  };
+
+  const curr = t[lang];
+
+  // --- Effects ---
+  
+  // Sync Theme
+  useEffect(() => {
+    document.body.setAttribute('data-theme', theme);
+    const metaTheme = document.querySelector('meta[name="theme-color"]');
+    if (metaTheme) {
+      metaTheme.setAttribute('content', theme === 'dark' ? '#030712' : '#f8fafc');
+    }
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+
+  // Sync Language LocalStorage
+  useEffect(() => {
+    localStorage.setItem('lang', lang);
+  }, [lang]);
+
+  // Scroll Progress and Nav Highlights
+  useEffect(() => {
+    const handleScroll = () => {
+      // 1. Progress Bar
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      setScrollProgress(scrolled);
+
+      // 2. Active Section Highlight
+      const sections = document.querySelectorAll('section');
+      let current = 'home';
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        if (window.pageYOffset >= (sectionTop - 180)) {
+          current = section.getAttribute('id');
+        }
+      });
+      setActiveSection(current);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Reveal animations trigger
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
+  // Card mouse-glow hover effect
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      const card = e.currentTarget;
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      card.style.setProperty('--mouse-x', `${x}px`);
+      card.style.setProperty('--mouse-y', `${y}px`);
+    };
+
+    const cards = document.querySelectorAll('.card');
+    cards.forEach(card => card.addEventListener('mousemove', handleMouseMove));
+    return () => {
+      cards.forEach(card => card.removeEventListener('mousemove', handleMouseMove));
+    };
+  }, []);
+
+  // --- Handlers ---
+  const toggleLanguage = () => {
+    setLang(prev => (prev === 'id' ? 'en' : 'id'));
+  };
+
+  const toggleTheme = () => {
+    setTheme(prev => (prev === 'dark' ? 'light' : 'dark'));
+  };
+
+  const handleCopyEmail = () => {
+    const email = 'renaldyimran@gmail.com';
+    navigator.clipboard.writeText(email).then(() => {
+      setEmailCopied(true);
+      setTimeout(() => setEmailCopied(false), 2000);
+    });
+  };
+
+  return (
+    <>
+      {/* Scroll Progress */}
+      <div className="scroll-progress" style={{ width: `${scrollProgress}%` }} />
+
+      {/* Background Visual Blobs */}
+      <div className="bg-visuals">
+        <div className="orb orb-1"></div>
+        <div className="orb orb-2"></div>
+        <div className="grid-overlay"></div>
+      </div>
+
+      {/* Header & Nav */}
+      <header>
+        <div className="nav-wrapper">
+          <div className="logo">R.</div>
+          <nav className="desktop-nav">
+            <ul>
+              <li><a href="#home" className={activeSection === 'home' ? 'active' : ''}>{curr["nav-home"]}</a></li>
+              <li><a href="#about" className={activeSection === 'about' ? 'active' : ''}>{curr["nav-about"]}</a></li>
+              <li><a href="#projects" className={activeSection === 'projects' ? 'active' : ''}>{curr["nav-projects"]}</a></li>
+              <li><a href="#experience" className={activeSection === 'experience' ? 'active' : ''}>{curr["nav-experience"]}</a></li>
+            </ul>
+          </nav>
+          <div className="controls">
+            <div className="system-status" title="Infrastructure Status">
+              <span className="status-dot"></span>
+              <span className="status-text">SYSTEM: OPERATIONAL</span>
+            </div>
+            <button id="theme-toggle" className="control-btn" title="Toggle Theme" onClick={toggleTheme}>
+              {theme === 'dark' ? '☀️' : '🌙'}
+            </button>
+            <button id="lang-toggle" className="control-btn" title="Switch Language" onClick={toggleLanguage}>
+              {lang === 'id' ? 'EN' : 'ID'}
+            </button>
+          </div>
+          <a href="#contact" className="nav-cta">{curr["nav-contact"]}</a>
+        </div>
+      </header>
+
+      {/* Mobile Nav */}
+      <nav className="mobile-nav">
+        <ul>
+          <li><a href="#home" className={activeSection === 'home' ? 'active' : ''}>{curr["nav-home"]}</a></li>
+          <li><a href="#about" className={activeSection === 'about' ? 'active' : ''}>{curr["nav-about"]}</a></li>
+          <li><a href="#projects" className={activeSection === 'projects' ? 'active' : ''}>{curr["nav-projects"]}</a></li>
+          <li><a href="#experience" className={activeSection === 'experience' ? 'active' : ''}>{curr["nav-experience"]}</a></li>
+        </ul>
+      </nav>
+
+      {/* Main Container */}
+      <main className="container">
+        
+        {/* Hero Section */}
+        <section id="home" className="hero reveal">
+          <div className="hero-content">
+            <span className="eyebrow">{curr["hero-eyebrow"]}</span>
+            <h1 dangerouslySetInnerHTML={{ __html: curr["hero-title"] }} />
+            <p>{curr["hero-desc"]}</p>
+            <div className="hero-buttons">
+              <a href="#projects" className="btn btn-primary">
+                <i className="fa-solid fa-certificate"></i> {curr["btn-projects"]}
+              </a>
+              <a href="/cv-renaldy.pdf" download="CV-Renaldy-Imran-Hermawan.pdf" className="btn btn-secondary">
+                <i className="fa-solid fa-file-arrow-down"></i> {curr["btn-cv"]}
+              </a>
+            </div>
+          </div>
+
+          <aside className="profile-card">
+            <div className="profile-img-container">
+              <img src="/profile.png" alt="Renaldy Imran H" className="profile-img" />
+            </div>
+            <div className="profile-info">
+              <h2>Renaldy Imran Hermawan</h2>
+              <p>{curr["profile-role"]}</p>
+              <div className="profile-stats">
+                <div className="stat-item">
+                  <span>2024</span>
+                  <small>{curr["stat-years"]}</small>
+                </div>
+                <div className="stat-item">
+                  <span>6+</span>
+                  <small>{curr["stat-projects"]}</small>
+                </div>
+              </div>
+            </div>
+          </aside>
+        </section>
+
+        {/* About Section */}
+        <section id="about" className="reveal">
+          <div className="section-title">
+            <h2 dangerouslySetInnerHTML={{ __html: curr["about-title"] }} />
+            <p>{curr["about-subtitle"]}</p>
+          </div>
+          <div className="grid">
+            <Terminal lang={lang} />
+            <SlaDashboard lang={lang} />
+            
+            <article className="card">
+              <h3 className="mb-4">{curr["about-cv-title"]}</h3>
+              <p className="mb-4">{curr["about-cv-desc"]}</p>
+              <a href="/cv-renaldy.pdf" download="CV-Renaldy-Imran-Hermawan.pdf" className="project-link" style={{ color: 'var(--accent)', textDecoration: 'none', fontWeight: 600 }}>
+                <span>{curr["btn-view-cv"]}</span> &rarr;
+              </a>
+            </article>
+
+            <article className="card">
+              <h3 className="mb-4">{curr["about-card2-title"]}</h3>
+              <div className="skills-container">
+                <span className="skill-tag"><i className="fa-solid fa-cloud"></i> GCP, AWS</span>
+                <span className="skill-tag"><i className="fa-brands fa-docker"></i> Docker, K8s</span>
+                <span className="skill-tag"><i className="fa-solid fa-code-merge"></i> GitLab, GitHub</span>
+                <span className="skill-tag"><i className="fa-solid fa-network-wired"></i> TCP/IP, DNS</span>
+                <span className="skill-tag"><i className="fa-solid fa-server"></i> Terraform</span>
+                <span className="skill-tag"><i className="fa-brands fa-linux"></i> Linux</span>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        {/* Certifications Showcase Section */}
+        <Certifications lang={lang} />
+
+        {/* Experience Section */}
+        <section id="experience" className="reveal">
+          <div className="section-title">
+            <h2 dangerouslySetInnerHTML={{ __html: curr["exp-title"] }} />
+            <p>{curr["exp-subtitle"]}</p>
+          </div>
+          
+          <div className="timeline-container">
+            <div className="timeline-line"></div>
+            
+            <article className="card timeline-item">
+              <div className="timeline-badge"><i className="fa-solid fa-cloud"></i></div>
+              <div className="timeline-date">Jan 2025 - Jan 2026</div>
+              <div className="timeline-content">
+                <h3>{curr["exp-job1"]}</h3>
+                <p>{curr["exp-job1-desc"]}</p>
+              </div>
+            </article>
+
+            <article className="card timeline-item">
+              <div className="timeline-badge"><i className="fa-solid fa-server"></i></div>
+              <div className="timeline-date">2023 - 2024</div>
+              <div className="timeline-content">
+                <h3>{curr["exp-job2"]}</h3>
+                <p>{curr["exp-job2-desc"]}</p>
+              </div>
+            </article>
+
+            <article className="card timeline-item">
+              <div className="timeline-badge"><i className="fa-solid fa-code"></i></div>
+              <div className="timeline-date">2023</div>
+              <div className="timeline-content">
+                <h3>{curr["exp-job3"]}</h3>
+                <p>{curr["exp-job3-desc"]}</p>
+              </div>
+            </article>
+
+            <article className="card timeline-item">
+              <div className="timeline-badge"><i className="fa-solid fa-desktop"></i></div>
+              <div className="timeline-date">2018</div>
+              <div className="timeline-content">
+                <h3>{curr["exp-job4"]}</h3>
+                <p>{curr["exp-job4-desc"]}</p>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        {/* Contact Section */}
+        <section id="contact" className="reveal">
+          <div className="contact-banner">
+            <h2>{curr["contact-title"]}</h2>
+            <p className="mb-4">{curr["contact-desc"]}</p>
+            <div className="contact-grid">
+              <button id="copy-email" className="btn btn-primary" onClick={handleCopyEmail}>
+                {emailCopied ? (
+                  <>
+                    <i className="fa-solid fa-check"></i> {curr["email-success"]}
+                  </>
+                ) : (
+                  <>
+                    <i className="fa-solid fa-copy"></i> {curr["copy-email"]}
+                  </>
+                )}
+              </button>
+              <a href="https://linkedin.com/in/renaldyimran" target="_blank" rel="noopener noreferrer" className="btn btn-secondary">
+                <i className="fa-brands fa-linkedin"></i> LinkedIn
+              </a>
+              <a href="https://github.com/renmher" target="_blank" rel="noopener noreferrer" className="btn btn-secondary">
+                <i className="fa-brands fa-github"></i> GitHub
+              </a>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      {/* Footer */}
+      <footer>
+        <div className="container footer-content">
+          <p>&copy; {new Date().getFullYear()} Renaldy Imran Hermawan. {curr["footer-rights"]}</p>
+        </div>
+      </footer>
+
+      {/* Chatbot Virtual Assistant */}
+      <Chatbot lang={lang} />
+    </>
+  );
+};
+
+export default App;

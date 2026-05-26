@@ -1,0 +1,191 @@
+import React, { useState, useEffect, useRef } from 'react';
+
+const Chatbot = ({ lang }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [messages, setMessages] = useState([]);
+  const [inputVal, setInputVal] = useState('');
+  const [isTyping, setIsTyping] = useState(false);
+  const messagesEndRef = useRef(null);
+
+  const chatbotData = {
+    id: {
+      botName: "RenBot",
+      botStatus: "Online",
+      inputPlaceholder: "Tanyakan sesuatu tentang Renaldy...",
+      welcome: "Halo! Saya <strong>RenBot</strong>, asisten virtual Renaldy Imran Hermawan. Ada yang bisa saya bantu mengenai keahlian, sertifikasi, atau kontak Renaldy?",
+      quickReplies: [
+        { label: "Keahlian Utama", query: "keahlian" },
+        { label: "Sertifikasi", query: "sertifikasi" },
+        { label: "Jejak Karir", query: "pengalaman" },
+        { label: "Kontak & Sosmed", query: "kontak" },
+        { label: "Unduh CV", query: "cv" }
+      ],
+      responses: {
+        greeting: "Halo! Senang bisa menyapa Anda. Silakan tanyakan hal-hal seputar kualifikasi Renaldy. Contoh: 'Apa keahlian Renaldy?' atau 'Bagaimana cara menghubungi Renaldy?'",
+        skills: "Renaldy memiliki keahlian di bidang:<br>☁️ <strong>Cloud Computing</strong>: Google Cloud Platform (GCP) & AWS<br>🐋 <strong>Containerization</strong>: Docker & Kubernetes<br>⚙️ <strong>DevOps & CI/CD</strong>: GitLab CI, GitHub Actions, Terraform (IaC)<br>🔌 <strong>Networking</strong>: MikroTik (Certified MTCNA), TCP/IP, DNS, Routing & Switching<br>🐧 <strong>Linux</strong>: OS Administrasi & Bash Scripting.",
+        certifications: "Renaldy memiliki beberapa sertifikat keahlian:<br>🏆 <strong>MikroTik Certified Network Associate (MTCNA)</strong> (2024)<br>🛡️ <strong>Junior Network Administrator (BNSP)</strong> (2023)<br>💻 <strong>Junior Web Developer (BNSP)</strong> (2022)<br>☁️ <strong>AWS re/Start Cloud Computing Program</strong> (2025)<br>🚀 <strong>Bootcamp Cloud Engineer - Digital Skola</strong> (2023).",
+        experience: "Jejak karir Renaldy:<br>💼 <strong>L1 Cloud Engineer Support</strong> di <em>PT. Data Labs Analytics</em> (2025 - 2026) - Monitoring AWS via CloudWatch, tiket JIRA.<br>🎛️ <strong>IT Network Operation Center</strong> di <em>PT. ACSA</em> (2023 - 2024) - Monitoring kestabilan jaringan Telkomsel.<br>💻 <strong>Frontend Engineering Program</strong> di <em>Ruang Guru</em> (2023) - Merancang mockup UI web.<br>🛠️ <strong>Staf IT Support</strong> di <em>PT WGI</em> (2018) - Troubleshooting jaringan LAN/WAN.",
+        contact: "Anda bisa menghubungi Renaldy melalui:<br>📧 Email: <strong>renaldyimran@gmail.com</strong><br>🔗 LinkedIn: <a href='https://linkedin.com/in/renaldyimran' target='_blank' rel='noopener noreferrer' style='color: var(--accent); font-weight:700;'>linkedin.com/in/renaldyimran</a><br>🐙 GitHub: <a href='https://github.com/renmher' target='_blank' rel='noopener noreferrer' style='color: var(--accent); font-weight:700;'>github.com/renmher</a>",
+        cv: "Tentu! Anda bisa mengunduh CV terbaru Renaldy di tombol beranda atau langsung klik link berikut: <a href='/cv-renaldy.pdf' download class='project-link' style='color: var(--accent); font-weight:700;'>[Unduh CV - Renaldy.pdf]</a>",
+        fallback: "Maaf, saya tidak mengerti pertanyaan tersebut. Coba gunakan kata kunci lain seperti <em>keahlian</em>, <em>sertifikasi</em>, <em>pengalaman</em>, <em>kontak</em>, atau gunakan tombol pintas yang tersedia di atas input chat!"
+      }
+    },
+    en: {
+      botName: "RenBot",
+      botStatus: "Online",
+      inputPlaceholder: "Ask something about Renaldy...",
+      welcome: "Hi! I am <strong>RenBot</strong>, Renaldy Imran Hermawan's virtual assistant. How can I help you learn about his skills, certifications, or contact details?",
+      quickReplies: [
+        { label: "Core Skills", query: "skills" },
+        { label: "Certifications", query: "certifications" },
+        { label: "Career Path", query: "experience" },
+        { label: "Contact Info", query: "contact" },
+        { label: "Download CV", query: "cv" }
+      ],
+      responses: {
+        greeting: "Hello! Nice to meet you. Feel free to ask about Renaldy's qualifications, such as 'What are Renaldy's skills?' or 'How to contact him?'",
+        skills: "Renaldy specializes in:<br>☁️ <strong>Cloud Computing</strong>: Google Cloud Platform (GCP) & AWS<br>🐋 <strong>Containerization</strong>: Docker & Kubernetes<br>⚙️ <strong>DevOps & CI/CD</strong>: GitLab CI, GitHub Actions, Terraform (IaC)<br>🔌 <strong>Networking</strong>: MikroTik (Certified MTCNA), TCP/IP, DNS, Routing & Switching<br>🐧 <strong>Linux</strong>: OS Administration & Bash Scripting.",
+        certifications: "Renaldy holds several verified certifications:<br>🏆 <strong>MikroTik Certified Network Associate (MTCNA)</strong> (2024)<br>🛡️ <strong>Junior Network Administrator (BNSP)</strong> (2023)<br>💻 <strong>Junior Web Developer (BNSP)</strong> (2022)<br>☁️ <strong>AWS re/Start Cloud Computing Program</strong> (2025)<br>🚀 <strong>Bootcamp Cloud Engineer - Digital Skola</strong> (2023).",
+        experience: "Renaldy's work experience:<br>💼 <strong>L1 Cloud Engineer Support</strong> at <em>PT. Data Labs Analytics</em> (2025 - 2026) - JIRA tickets, AWS monitoring.<br>🎛️ <strong>IT Network Operation Center</strong> at <em>PT. ACSA</em> (2023 - 2024) - Telkomsel server and network monitoring.<br>💻 <strong>Frontend Engineering Program</strong> at <em>Ruang Guru</em> (2023) - UI web engineering.<br>🛠️ <strong>IT Support Staff</strong> at <em>PT WGI</em> (2018) - local network configurations.",
+        contact: "You can connect with Renaldy via:<br>📧 Email: <strong>renaldyimran@gmail.com</strong><br>🔗 LinkedIn: <a href='https://linkedin.com/in/renaldyimran' target='_blank' rel='noopener noreferrer' style='color: var(--accent); font-weight:700;'>linkedin.com/in/renaldyimran</a><br>🐙 GitHub: <a href='https://github.com/renmher' target='_blank' rel='noopener noreferrer' style='color: var(--accent); font-weight:700;'>github.com/renmher</a>",
+        cv: "Sure! You can download Renaldy's latest CV by clicking the link: <a href='/cv-renaldy.pdf' download class='project-link' style='color: var(--accent); font-weight:700;'>[Download CV - Renaldy.pdf]</a>",
+        fallback: "I'm sorry, I didn't quite catch that. Try using key phrases like <em>skills</em>, <em>certifications</em>, <em>experience</em>, <em>contact</em>, <em>cv</em>, or simply click the quick-reply shortcut buttons!"
+      }
+    }
+  };
+
+  const currentData = chatbotData[lang];
+
+  useEffect(() => {
+    // Set initial greeting
+    setMessages([
+      { sender: 'bot', text: currentData.welcome }
+    ]);
+  }, [lang]);
+
+  useEffect(() => {
+    // Scroll chat window to bottom on new message
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [messages, isTyping]);
+
+  const handleSend = (text) => {
+    const trimmed = text.trim();
+    if (!trimmed) return;
+
+    // Add user message
+    setMessages(prev => [...prev, { sender: 'user', text: trimmed }]);
+    setInputVal('');
+    setIsTyping(true);
+
+    // Simulate AI typing delay
+    setTimeout(() => {
+      const response = generateBotResponse(trimmed);
+      setMessages(prev => [...prev, { sender: 'bot', text: response }]);
+      setIsTyping(false);
+    }, 800);
+  };
+
+  const generateBotResponse = (query) => {
+    const q = query.toLowerCase();
+    const res = currentData.responses;
+
+    if (q.includes('hello') || q.includes('hi') || q.includes('halo') || q.includes('hei') || q.includes('siang') || q.includes('pagi') || q.includes('sore') || q.includes('malam') || q.includes('assalamu')) {
+      return res.greeting;
+    }
+    if (q.includes('skill') || q.includes('keahlian') || q.includes('bisa apa') || q.includes('menguasai') || q.includes('kemampuan') || q.includes('stack') || q.includes('teknologi')) {
+      return res.skills;
+    }
+    if (q.includes('sertif') || q.includes('cert') || q.includes('bukti') || q.includes('lisensi') || q.includes('piagam')) {
+      return res.certifications;
+    }
+    if (q.includes('pengalaman') || q.includes('kerja') || q.includes('karir') || q.includes('history') || q.includes('riwayat') || q.includes('noc') || q.includes('noc')) {
+      return res.experience;
+    }
+    if (q.includes('kontak') || q.includes('contact') || q.includes('hubung') || q.includes('email') || q.includes('linkedin') || q.includes('github') || q.includes('sosial') || q.includes('telepon')) {
+      return res.contact;
+    }
+    if (q.includes('cv') || q.includes('resume') || q.includes('unduh') || q.includes('download')) {
+      return res.cv;
+    }
+
+    return res.fallback;
+  };
+
+  return (
+    <>
+      {/* Floating Button */}
+      <button className="chatbot-trigger" onClick={() => setIsOpen(!isOpen)} aria-label="Toggle chat">
+        {isOpen ? (
+          <i className="fa-solid fa-xmark"></i>
+        ) : (
+          <i className="fa-solid fa-comments"></i>
+        )}
+      </button>
+
+      {/* Chat Window */}
+      <div className={`chatbot-window ${isOpen ? 'active' : ''}`}>
+        <div className="chatbot-header">
+          <div className="chatbot-title">
+            <div className="chatbot-avatar">R</div>
+            <div className="chatbot-info">
+              <h4>{currentData.botName}</h4>
+              <span className="status">{currentData.botStatus}</span>
+            </div>
+          </div>
+          <button className="chatbot-close" onClick={() => setIsOpen(false)}>&times;</button>
+        </div>
+
+        <div className="chatbot-messages">
+          {messages.map((msg, idx) => (
+            <div
+              key={idx}
+              className={`chat-bubble ${msg.sender}`}
+              dangerouslySetInnerHTML={{ __html: msg.text }}
+            />
+          ))}
+          {isTyping && (
+            <div className="chat-bubble bot">
+              <div className="typing-indicator">
+                <span className="typing-dot"></span>
+                <span className="typing-dot"></span>
+                <span className="typing-dot"></span>
+              </div>
+            </div>
+          )}
+          <div ref={messagesEndRef} />
+        </div>
+
+        <div className="chatbot-quick-replies">
+          {currentData.quickReplies.map((reply, idx) => (
+            <button
+              key={idx}
+              className="quick-reply-btn"
+              onClick={() => handleSend(reply.query)}
+            >
+              {reply.label}
+            </button>
+          ))}
+        </div>
+
+        <div className="chatbot-input-area">
+          <input
+            type="text"
+            placeholder={currentData.inputPlaceholder}
+            value={inputVal}
+            onChange={(e) => setInputVal(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') handleSend(inputVal);
+            }}
+          />
+          <button className="chatbot-send" onClick={() => handleSend(inputVal)}>
+            <i className="fa-solid fa-paper-plane"></i>
+          </button>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default Chatbot;
