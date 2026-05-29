@@ -20,7 +20,7 @@ const App = () => {
       "nav-contact": "Hubungi",
       "hero-eyebrow": "Cloud Engineer & IT Specialist",
       "hero-title": "Membangun <span class='gradient-text'>Infrastruktur Digital</span> yang Tangguh.",
-      "hero-desc": "Saya adalah lulusan Sarjana Teknik Informatika dari universitas bani saleh bekasi dengan pengalaman di bidang IT Network Operation Center dan Cloud Engineer, berpengalaman melalui program intensif seperti AWS Re/Start dan Bootcamp cloud digitalskola. Menguasai Linux, dasar jaringan, Google Cloud Platform, AWS Serta Docker. Mampu bekerja cepat, teliti, dan kolaboratif dalam menyelesaikan masalah teknis serta meningkatkan efisiensi sistem.",
+      "hero-desc": "Junior DevOps & Cloud Engineer yang fokus pada stabilitas sistem, otomatisasi pipeline CI/CD, dan skalabilitas infrastruktur cloud.",
       "btn-projects": "Lihat Sertifikat",
       "btn-cv": "Download CV",
       "profile-role": "Junior DevOps | Cloud Engineer | IT Network",
@@ -55,7 +55,11 @@ const App = () => {
       "btn-threads": "Threads",
       "footer-rights": "Seluruh hak dilindungi.",
       "copy-email": "Copy Email",
-      "email-success": "Email Berhasil Disalin!"
+      "email-success": "Email Berhasil Disalin!",
+      "profile-birthplace-label": "Tempat Lahir",
+      "profile-birthplace-value": "Bekasi, Indonesia",
+      "profile-birthyear-label": "Tahun Lahir",
+      "profile-birthyear-value": "2001"
     },
     en: {
       "nav-home": "Home",
@@ -65,7 +69,7 @@ const App = () => {
       "nav-contact": "Contact",
       "hero-eyebrow": "Cloud Engineer & IT Specialist",
       "hero-title": "Building Resilient <span class='gradient-text'>Digital Infrastructure</span>.",
-      "hero-desc": "I am a Computer Science graduate from Bani Saleh University Bekasi with experience in IT Network Operation Center and Cloud Engineering. Experienced through intensive programs such as AWS Re/Start and DigitalSkola Cloud Bootcamp. Proficient in Linux, networking fundamentals, Google Cloud Platform, AWS, and Docker. Capable of working fast, accurately, and collaboratively in solving technical problems and improving system efficiency.",
+      "hero-desc": "Junior DevOps & Cloud Engineer focused on system reliability, CI/CD pipeline automation, and cloud infrastructure scalability.",
       "btn-projects": "View Certs",
       "btn-cv": "Download CV",
       "profile-role": "Junior DevOps | Cloud Engineer | IT Network",
@@ -98,7 +102,11 @@ const App = () => {
       "btn-threads": "Threads",
       "footer-rights": "All rights reserved.",
       "copy-email": "Copy Email",
-      "email-success": "Email Copied!"
+      "email-success": "Email Copied!",
+      "profile-birthplace-label": "Place of Birth",
+      "profile-birthplace-value": "Bekasi, Indonesia",
+      "profile-birthyear-label": "Birth Year",
+      "profile-birthyear-value": "2001"
     }
   };
 
@@ -320,7 +328,6 @@ const App = () => {
           <div className="hero-content">
             <span className="eyebrow">{curr["hero-eyebrow"]}</span>
             <h1 dangerouslySetInnerHTML={{ __html: curr["hero-title"] }} />
-            <p>{curr["hero-desc"]}</p>
             <div className="hero-buttons">
               <a href="#projects" className="btn btn-primary">
                 <i className="fa-solid fa-certificate"></i> {curr["btn-projects"]}
@@ -346,6 +353,22 @@ const App = () => {
                 <div className="stat-item">
                   <span>6+</span>
                   <small>{curr["stat-projects"]}</small>
+                </div>
+              </div>
+              <div className="profile-details">
+                <div className="detail-item">
+                  <i className="fa-solid fa-map-pin"></i>
+                  <div className="detail-text">
+                    <span className="detail-label">{curr["profile-birthplace-label"]}</span>
+                    <span className="detail-value">{curr["profile-birthplace-value"]}</span>
+                  </div>
+                </div>
+                <div className="detail-item">
+                  <i className="fa-solid fa-calendar-days"></i>
+                  <div className="detail-text">
+                    <span className="detail-label">{curr["profile-birthyear-label"]}</span>
+                    <span className="detail-value">{curr["profile-birthyear-value"]}</span>
+                  </div>
                 </div>
               </div>
             </div>
