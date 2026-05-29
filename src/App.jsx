@@ -345,39 +345,9 @@ const App = () => {
             </div>
           </div>
 
-          <aside className="profile-card">
-            <div className="profile-img-container">
-              <img src="/profile.png" alt="Renaldy Imran H" className="profile-img" />
-            </div>
-            <div className="profile-info">
-              <div className="profile-stats">
-                <div className="stat-item">
-                  <span>2024</span>
-                  <small>{curr["stat-years"]}</small>
-                </div>
-                <div className="stat-item">
-                  <span>6+</span>
-                  <small>{curr["stat-projects"]}</small>
-                </div>
-              </div>
-              <div className="profile-details">
-                <div className="detail-item">
-                  <i className="fa-solid fa-map-pin"></i>
-                  <div className="detail-text">
-                    <span className="detail-label">{curr["profile-birthplace-label"]}</span>
-                    <span className="detail-value">{curr["profile-birthplace-value"]}</span>
-                  </div>
-                </div>
-                <div className="detail-item">
-                  <i className="fa-solid fa-calendar-days"></i>
-                  <div className="detail-text">
-                    <span className="detail-label">{curr["profile-birthyear-label"]}</span>
-                    <span className="detail-value">{curr["profile-birthyear-value"]}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </aside>
+          <div className="hero-image-container">
+            <img src="/profile.png" alt="Renaldy Imran Hermawan" className="hero-profile-img" />
+          </div>
         </section>
 
         {/* About Section */}
