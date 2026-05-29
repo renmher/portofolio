@@ -152,24 +152,6 @@ const App = () => {
     return () => observer.disconnect();
   }, []);
 
-  // Card mouse-glow hover effect
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      const card = e.currentTarget;
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      card.style.setProperty('--mouse-x', `${x}px`);
-      card.style.setProperty('--mouse-y', `${y}px`);
-    };
-
-    const cards = document.querySelectorAll('.card');
-    cards.forEach(card => card.addEventListener('mousemove', handleMouseMove));
-    return () => {
-      cards.forEach(card => card.removeEventListener('mousemove', handleMouseMove));
-    };
-  }, []);
-
   // --- Handlers ---
   const toggleLanguage = () => {
     setLang(prev => (prev === 'id' ? 'en' : 'id'));
@@ -243,10 +225,8 @@ const App = () => {
       {/* Scroll Progress */}
       <div className="scroll-progress" style={{ width: `${scrollProgress}%` }} />
 
-      {/* Background Visual Blobs */}
+      {/* Background Visuals */}
       <div className="bg-visuals">
-        <div className="orb orb-1"></div>
-        <div className="orb orb-2"></div>
         <div className="grid-overlay"></div>
       </div>
 
@@ -263,9 +243,9 @@ const App = () => {
             </ul>
           </nav>
           <div className="controls">
-            <div className="system-status" title="Infrastructure Status">
+            <div className="system-status" title={lang === 'id' ? 'Status Ketersediaan' : 'Availability Status'}>
               <span className="status-dot"></span>
-              <span className="status-text">SYSTEM: OPERATIONAL</span>
+              <span className="status-text">{lang === 'id' ? 'TERSEDIA' : 'AVAILABLE'}</span>
             </div>
             <button id="theme-toggle" className="control-btn" title="Toggle Theme" onClick={toggleTheme}>
               {theme === 'dark' ? '☀️' : '🌙'}

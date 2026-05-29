@@ -74,10 +74,10 @@ const Certifications = ({ lang }) => {
       downloadUrl: "/cv-renaldy.pdf",
       hasImage: false,
       placeholderHtml: `
-        <div style="background: linear-gradient(135deg, #10b981, #059669); color: white; width: 100%; height: 100%; min-height: 250px; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:16px; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
-          <i class="fa-solid fa-shield-halved" style="font-size: 4rem;"></i>
-          <span style="font-weight: 800; font-size: 1.5rem; letter-spacing: 2px;">BNSP LSK</span>
-          <span style="font-size: 0.8rem; opacity: 0.8; text-transform: uppercase;">Credential Verified</span>
+        <div style="background: var(--bg-card); border: 1px solid var(--border); color: var(--text-main); width: 100%; height: 100%; min-height: 250px; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:12px; border-radius: 12px; transition: border-color var(--transition);">
+          <i class="fa-solid fa-shield-halved" style="font-size: 3.5rem; color: var(--primary);"></i>
+          <span style="font-weight: 700; font-size: 1.3rem; letter-spacing: 1px; font-family: var(--font-heading);">BNSP LSK</span>
+          <span style="font-size: 0.75rem; opacity: 0.7; letter-spacing: 0.05em; text-transform: uppercase;">Credential Verified</span>
         </div>
       `
     },
@@ -101,10 +101,10 @@ const Certifications = ({ lang }) => {
       downloadUrl: "/cv-renaldy.pdf",
       hasImage: false,
       placeholderHtml: `
-        <div style="background: linear-gradient(135deg, #FF9900, #232F3E); color: white; width: 100%; height: 100%; min-height: 250px; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:16px; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
-          <i class="fa-brands fa-aws" style="font-size: 4.5rem;"></i>
-          <span style="font-weight: 800; font-size: 1.3rem;">AWS re/Start Cloud</span>
-          <span style="font-size: 0.8rem; opacity: 0.8; text-transform: uppercase;">Credential Verified</span>
+        <div style="background: var(--bg-card); border: 1px solid var(--border); color: var(--text-main); width: 100%; height: 100%; min-height: 250px; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:12px; border-radius: 12px; transition: border-color var(--transition);">
+          <i class="fa-brands fa-aws" style="font-size: 4rem; color: #ff9900;"></i>
+          <span style="font-weight: 700; font-size: 1.2rem; font-family: var(--font-heading);">AWS re/Start Cloud</span>
+          <span style="font-size: 0.75rem; opacity: 0.7; letter-spacing: 0.05em; text-transform: uppercase;">Credential Verified</span>
         </div>
       `
     },
@@ -128,10 +128,10 @@ const Certifications = ({ lang }) => {
       downloadUrl: "/cv-renaldy.pdf",
       hasImage: false,
       placeholderHtml: `
-        <div style="background: linear-gradient(135deg, #ef4444, #b91c1c); color: white; width: 100%; height: 100%; min-height: 250px; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:16px; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
-          <i class="fa-solid fa-code" style="font-size: 4rem;"></i>
-          <span style="font-weight: 800; font-size: 1.3rem;">Ruang Guru Frontend</span>
-          <span style="font-size: 0.8rem; opacity: 0.8; text-transform: uppercase;">Credential Verified</span>
+        <div style="background: var(--bg-card); border: 1px solid var(--border); color: var(--text-main); width: 100%; height: 100%; min-height: 250px; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:12px; border-radius: 12px; transition: border-color var(--transition);">
+          <i class="fa-solid fa-code" style="font-size: 3.5rem; color: #ef4444;"></i>
+          <span style="font-weight: 700; font-size: 1.2rem; font-family: var(--font-heading);">Ruang Guru Frontend</span>
+          <span style="font-size: 0.75rem; opacity: 0.7; letter-spacing: 0.05em; text-transform: uppercase;">Credential Verified</span>
         </div>
       `
     }
