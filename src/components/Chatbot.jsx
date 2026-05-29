@@ -9,22 +9,23 @@ const Chatbot = ({ lang }) => {
   const messagesEndRef = useRef(null);
 
   // Build experience string for ID
-  const experienceIdText = "Jejak karir Renaldy:<br/>" + experiencesData.map(exp => {
+  const experienceIdText = "Jejak karir Renaldy:<br/><br/>" + experiencesData.map(exp => {
     const roleText = exp.role.id;
     const companyName = exp.companyShort || (typeof exp.company === 'object' ? exp.company.id : exp.company);
     const typeText = exp.type ? ` (${exp.type.id})` : '';
     const duration = getDurationText(exp, 'id');
-    return `${exp.emoji} <strong>${roleText}</strong> di <em>${companyName}${typeText}</em> (${exp.dateText.id}, ${duration}) - ${exp.chatbotSummary.id}`;
-  }).join('<br/>');
+    return `${exp.emoji} <strong>${roleText}</strong> di <em>${companyName}${typeText}</em><br/>&nbsp;&nbsp;&nbsp;&nbsp;📅 ${exp.dateText.id} • ${duration}<br/>&nbsp;&nbsp;&nbsp;&nbsp;💬 ${exp.chatbotSummary.id}`;
+  }).join('<br/><br/>');
 
   // Build experience string for EN
-  const experienceEnText = "Renaldy's work experience:<br/>" + experiencesData.map(exp => {
+  const experienceEnText = "Renaldy's work experience:<br/><br/>" + experiencesData.map(exp => {
     const roleText = exp.role.en;
     const companyName = exp.companyShort || (typeof exp.company === 'object' ? exp.company.en : exp.company);
     const typeText = exp.type ? ` (${exp.type.en})` : '';
     const duration = getDurationText(exp, 'en');
-    return `${exp.emoji} <strong>${roleText}</strong> at <em>${companyName}${typeText}</em> (${exp.dateText.en}, ${duration}) - ${exp.chatbotSummary.en}`;
-  }).join('<br/>');
+    return `${exp.emoji} <strong>${roleText}</strong> at <em>${companyName}${typeText}</em><br/>&nbsp;&nbsp;&nbsp;&nbsp;📅 ${exp.dateText.en} • ${duration}<br/>&nbsp;&nbsp;&nbsp;&nbsp;💬 ${exp.chatbotSummary.en}`;
+  }).join('<br/><br/>');
+
 
   const chatbotData = {
     id: {
