@@ -225,6 +225,22 @@ const App = () => {
         id: "Bash scripting untuk backup otomatis, setup environment, dan administrasi OS.",
         en: "Bash scripting for backups, environment setups, and OS server administration."
       }
+    },
+    {
+      name: "Grafana, VictoriaMetrics",
+      icon: "fa-solid fa-chart-line",
+      desc: {
+        id: "Mengelola log, metrik, sistem alerting, serta analisis performa infrastruktur secara real-time.",
+        en: "Managing logs, metrics, alerting systems, and real-time infrastructure performance analysis."
+      }
+    },
+    {
+      name: "SonarQube, Harbor, Trivy",
+      icon: "fa-solid fa-shield-halved",
+      desc: {
+        id: "Mendukung keamanan pipeline CI/CD, scanning vulnerability image, dan secure container registry.",
+        en: "Supporting CI/CD pipeline security, image vulnerability scanning, and secure container registries."
+      }
     }
   ];
 
