@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Certifications from './components/Certifications';
 import Chatbot from './components/Chatbot';
 import { experiencesData, getDurationText } from './data/experiences';
+import { projectsData } from './data/projects';
 
 const App = () => {
   // --- States ---
@@ -26,6 +27,11 @@ const App = () => {
       "hero-roles": "JUNIOR DEVOPS • CLOUD ENGINEER • IT NETWORK",
       "hero-location": "Bekasi, Indonesia",
       "hero-age": "24 Tahun",
+      "nav-projects-devops": "Proyek",
+      "proj-title": "Proyek <span class='gradient-text'>Pilihan</span>",
+      "proj-subtitle": "Repositori DevOps dan Cloud Engineer terpilih yang pernah saya buat.",
+      "about-github-title": "Aktivitas GitHub",
+      "about-github-desc": "Kontribusi commit, kontribusi repositori, dan ringkasan performa aktivitas GitHub saya.",
       "btn-projects": "Lihat Sertifikat",
       "btn-cv": "Download CV",
       "btn-connect": "Hubungi Saya",
@@ -79,6 +85,11 @@ const App = () => {
       "hero-roles": "JUNIOR DEVOPS • CLOUD ENGINEER • IT NETWORK",
       "hero-location": "Bekasi, Indonesia",
       "hero-age": "24 Years Old",
+      "nav-projects-devops": "Projects",
+      "proj-title": "Featured <span class='gradient-text'>Projects</span>",
+      "proj-subtitle": "Selected DevOps and Cloud Engineering repositories created by me.",
+      "about-github-title": "GitHub Analytics",
+      "about-github-desc": "Real-time summary of commit contributions, repository metrics, and general performance.",
       "btn-projects": "View Certificates",
       "btn-cv": "Download CV",
       "btn-connect": "Let's Connect",
@@ -303,6 +314,7 @@ const App = () => {
             <ul>
               <li><a href="#home" className={activeSection === 'home' ? 'active' : ''}>{curr["nav-home"]}</a></li>
               <li><a href="#about" className={activeSection === 'about' ? 'active' : ''}>{curr["nav-about"]}</a></li>
+              <li><a href="#devops-projects" className={activeSection === 'devops-projects' ? 'active' : ''}>{curr["nav-projects-devops"]}</a></li>
               <li><a href="#projects" className={activeSection === 'projects' ? 'active' : ''}>{curr["nav-projects"]}</a></li>
               <li><a href="#experience" className={activeSection === 'experience' ? 'active' : ''}>{curr["nav-experience"]}</a></li>
             </ul>
@@ -321,6 +333,9 @@ const App = () => {
               {lang === 'id' ? 'EN' : 'ID'}
             </button>
           </div>
+          <a href="/cv-renaldy.pdf" download="CV-Renaldy-Imran-Hermawan.pdf" className="nav-cv-btn">
+            <i className="fa-solid fa-file-arrow-down"></i> CV
+          </a>
           <a href="#contact" className="nav-cta">{curr["nav-contact"]}</a>
         </div>
       </header>
@@ -419,11 +434,59 @@ const App = () => {
                 ))}
               </div>
             </article>
+
+            <article className="card" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+              <div>
+                <h3 className="mb-4">{curr["about-github-title"]}</h3>
+                <p className="mb-4">{curr["about-github-desc"]}</p>
+              </div>
+              <div style={{ width: '100%', textAlign: 'center', marginTop: '12px' }}>
+                <img 
+                  src={theme === 'dark' 
+                    ? `https://github-readme-stats.vercel.app/api?username=renmher&show_icons=true&theme=transparent&hide_border=true&title_color=3b82f6&icon_color=ff9900&text_color=cbd5e1&locale=${lang}`
+                    : `https://github-readme-stats.vercel.app/api?username=renmher&show_icons=true&theme=transparent&hide_border=true&title_color=2563eb&icon_color=d97706&text_color=334155&locale=${lang}`} 
+                  alt="Renaldy GitHub Stats" 
+                  style={{ width: '100%', maxWidth: '380px', height: 'auto', display: 'block', margin: '0 auto' }} 
+                />
+              </div>
+            </article>
           </div>
         </section>
 
         {/* Certifications Showcase Section */}
         <Certifications lang={lang} />
+
+        {/* DevOps Projects Section */}
+        <section id="devops-projects" className="reveal">
+          <div className="section-title">
+            <h2 dangerouslySetInnerHTML={{ __html: curr["proj-title"] }} />
+            <p>{curr["proj-subtitle"]}</p>
+          </div>
+
+          <div className="grid">
+            {projectsData.map((project) => (
+              <article key={project.id} className="card" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: '260px' }}>
+                <div>
+                  <a href={project.url} target="_blank" rel="noopener noreferrer" className="project-card-link" aria-label="View Github Repository">
+                    <i className="fa-brands fa-github"></i>
+                  </a>
+                  <div className="project-header">
+                    <i className={project.icon}></i>
+                    <h3>{project.title[lang]}</h3>
+                  </div>
+                  <p style={{ fontSize: '0.88rem', color: 'var(--text-muted)', lineHeight: '1.5' }}>
+                    {project.desc[lang]}
+                  </p>
+                </div>
+                <div className="project-tech-tags">
+                  {project.tags.map((tag, i) => (
+                    <span key={i} className="tech-badge">{tag}</span>
+                  ))}
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
 
         {/* Experience Section */}
         <section id="experience" className="reveal">
