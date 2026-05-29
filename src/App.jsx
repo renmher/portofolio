@@ -443,8 +443,8 @@ const App = () => {
               <div style={{ width: '100%', textAlign: 'center', marginTop: '12px' }}>
                 <img 
                   src={theme === 'dark' 
-                    ? `https://github-readme-stats.vercel.app/api?username=renmher&show_icons=true&theme=transparent&hide_border=true&title_color=3b82f6&icon_color=ff9900&text_color=cbd5e1&locale=${lang}`
-                    : `https://github-readme-stats.vercel.app/api?username=renmher&show_icons=true&theme=transparent&hide_border=true&title_color=2563eb&icon_color=d97706&text_color=334155&locale=${lang}`} 
+                    ? `https://github-readme-stats.shion.dev/api?username=renmher&show_icons=true&theme=transparent&hide_border=true&title_color=3b82f6&icon_color=ff9900&text_color=cbd5e1&locale=${lang}`
+                    : `https://github-readme-stats.shion.dev/api?username=renmher&show_icons=true&theme=transparent&hide_border=true&title_color=2563eb&icon_color=d97706&text_color=334155&locale=${lang}`} 
                   alt="Renaldy GitHub Stats" 
                   style={{ width: '100%', maxWidth: '380px', height: 'auto', display: 'block', margin: '0 auto' }} 
                 />
