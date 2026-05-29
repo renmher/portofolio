@@ -747,9 +747,26 @@ section {
   margin-bottom: 8px;
 }
 
-.timeline-content p {
+.timeline-desc {
   color: var(--text-muted);
   font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.timeline-list {
+  list-style-type: disc;
+  padding-left: 20px;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: left;
+}
+
+.timeline-list li {
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  line-height: 1.5;
 }
 
 /* Skills */

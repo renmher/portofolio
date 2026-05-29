@@ -39,7 +39,7 @@ const App = () => {
       "exp-title": "Jejak <span class='gradient-text'>Karir</span>",
       "exp-subtitle": "Perjalanan profesional saya dalam dunia teknologi.",
       "exp-job1": "Junior DevOps - NashTa Group (Kontrak)",
-      "exp-job1-desc": "Membangun dan mengelola pipeline CI/CD menggunakan GitLab CI untuk proses build, testing, dan deployment aplikasi. Mendukung keamanan CI/CD, kontainerisasi, dan deployment aplikasi menggunakan SonarQube, Harbor, dan Trivy. Melakukan troubleshooting pada server Linux, jaringan, kontainer, dan pipeline deployment. Mendukung DevOps observability dengan mengelola Grafana, VictoriaLogs, VictoriaMetrics, dan tracing.",
+      "exp-job1-desc": "<ul class='timeline-list'><li>Membangun dan mengelola pipeline CI/CD menggunakan GitLab CI untuk proses build, testing, dan deployment aplikasi.</li><li>Mendukung keamanan CI/CD, kontainerisasi, dan deployment aplikasi menggunakan SonarQube, Harbor, dan Trivy.</li><li>Melakukan troubleshooting pada server Linux, jaringan, kontainer, dan pipeline deployment.</li><li>Mendukung DevOps observability dengan mengelola Grafana, VictoriaLogs, VictoriaMetrics, dan tracing untuk monitoring infrastruktur, analisis log, metrik, alerting, dan penanganan insiden.</li></ul>",
       "exp-job2": "L1 Cloud Engineer Support - PT. Data Labs Analytics",
       "exp-job2-desc": "Mengelola workflow tiket melalui Jira, merespons incident alert kritis secara real-time, dan mengawal kehandalan sistem berbasis cloud melalui monitoring terpadu Amazon CloudWatch 24/7.",
       "exp-job3": "IT Network Operation Center - PT. ACSA",
@@ -82,7 +82,7 @@ const App = () => {
       "exp-title": "Career <span class='gradient-text'>Path</span>",
       "exp-subtitle": "My professional journey in technology.",
       "exp-job1": "Junior DevOps - NashTa Group (Contract)",
-      "exp-job1-desc": "Built and managed CI/CD pipelines using GitLab CI for application build, testing, and deployment processes. Supported secure CI/CD, containerization, and application deployment using SonarQube, Harbor, and Trivy. Performed troubleshooting on Linux servers, networks, containers, and deployment pipelines. Supported DevOps observability by managing Grafana, VictoriaLogs, VictoriaMetrics, and tracing.",
+      "exp-job1-desc": "<ul class='timeline-list'><li>Built and managed CI/CD pipelines using GitLab CI for application build, testing, and deployment processes.</li><li>Supported secure CI/CD, containerization, and application deployment using SonarQube, Harbor, and Trivy.</li><li>Performed troubleshooting on Linux servers, networks, containers, and deployment pipelines.</li><li>Supported DevOps observability by managing Grafana, VictoriaLogs, VictoriaMetrics, and tracing for infrastructure monitoring, log analysis, metrics, alerting, and incident troubleshooting.</li></ul>",
       "exp-job2": "L1 Cloud Engineer Support - PT. Data Labs Analytics",
       "exp-job2-desc": "Managed JIRA workflows, responded to critical cloud infrastructure alerts in real-time, and ensured 24/7 system reliability through Amazon CloudWatch monitoring.",
       "exp-job3": "IT Network Operation Center - PT. ACSA",
@@ -387,7 +387,7 @@ const App = () => {
               <div className="timeline-date">{lang === 'id' ? 'Feb 2026 - Saat ini' : 'Feb 2026 - Present'}</div>
               <div className="timeline-content">
                 <h3>{curr["exp-job1"]}</h3>
-                <p>{curr["exp-job1-desc"]}</p>
+                <div className="timeline-desc" dangerouslySetInnerHTML={{ __html: curr["exp-job1-desc"] }} />
               </div>
             </article>
 
@@ -396,7 +396,7 @@ const App = () => {
               <div className="timeline-date">Jan 2025 - Jan 2026</div>
               <div className="timeline-content">
                 <h3>{curr["exp-job2"]}</h3>
-                <p>{curr["exp-job2-desc"]}</p>
+                <div className="timeline-desc" dangerouslySetInnerHTML={{ __html: curr["exp-job2-desc"] }} />
               </div>
             </article>
 
@@ -405,7 +405,7 @@ const App = () => {
               <div className="timeline-date">2023 - 2024</div>
               <div className="timeline-content">
                 <h3>{curr["exp-job3"]}</h3>
-                <p>{curr["exp-job3-desc"]}</p>
+                <div className="timeline-desc" dangerouslySetInnerHTML={{ __html: curr["exp-job3-desc"] }} />
               </div>
             </article>
 
@@ -414,7 +414,7 @@ const App = () => {
               <div className="timeline-date">2023</div>
               <div className="timeline-content">
                 <h3>{curr["exp-job4"]}</h3>
-                <p>{curr["exp-job4-desc"]}</p>
+                <div className="timeline-desc" dangerouslySetInnerHTML={{ __html: curr["exp-job4-desc"] }} />
               </div>
             </article>
 
@@ -423,7 +423,7 @@ const App = () => {
               <div className="timeline-date">2018</div>
               <div className="timeline-content">
                 <h3>{curr["exp-job5"]}</h3>
-                <p>{curr["exp-job5-desc"]}</p>
+                <div className="timeline-desc" dangerouslySetInnerHTML={{ __html: curr["exp-job5-desc"] }} />
               </div>
             </article>
           </div>
