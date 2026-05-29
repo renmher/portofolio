@@ -55,11 +55,7 @@ const App = () => {
       "btn-threads": "Threads",
       "footer-rights": "Seluruh hak dilindungi.",
       "copy-email": "Copy Email",
-      "email-success": "Email Berhasil Disalin!",
-      "profile-birthplace-label": "Tempat Lahir",
-      "profile-birthplace-value": "Bekasi, Indonesia",
-      "profile-birthyear-label": "Tahun Lahir",
-      "profile-birthyear-value": "2001"
+      "email-success": "Email Berhasil Disalin!"
     },
     en: {
       "nav-home": "Home",
@@ -102,11 +98,7 @@ const App = () => {
       "btn-threads": "Threads",
       "footer-rights": "All rights reserved.",
       "copy-email": "Copy Email",
-      "email-success": "Email Copied!",
-      "profile-birthplace-label": "Place of Birth",
-      "profile-birthplace-value": "Bekasi, Indonesia",
-      "profile-birthyear-label": "Birth Year",
-      "profile-birthyear-value": "2002"
+      "email-success": "Email Copied!"
     }
   };
 
@@ -354,22 +346,6 @@ const App = () => {
                 <div className="stat-item">
                   <span>6+</span>
                   <small>{curr["stat-projects"]}</small>
-                </div>
-              </div>
-              <div className="profile-details">
-                <div className="detail-item">
-                  <i className="fa-solid fa-map-pin"></i>
-                  <div className="detail-text">
-                    <span className="detail-label">{curr["profile-birthplace-label"]}</span>
-                    <span className="detail-value">{curr["profile-birthplace-value"]}</span>
-                  </div>
-                </div>
-                <div className="detail-item">
-                  <i className="fa-solid fa-calendar-days"></i>
-                  <div className="detail-text">
-                    <span className="detail-label">{curr["profile-birthyear-label"]}</span>
-                    <span className="detail-value">{curr["profile-birthyear-value"]}</span>
-                  </div>
                 </div>
               </div>
             </div>
