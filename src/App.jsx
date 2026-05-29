@@ -10,6 +10,7 @@ const App = () => {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [activeSection, setActiveSection] = useState('home');
   const [emailCopied, setEmailCopied] = useState(false);
+  const [time, setTime] = useState(new Date());
 
   // --- Translation Dictionary ---
   const t = {
@@ -138,6 +139,14 @@ const App = () => {
     localStorage.setItem('lang', lang);
   }, [lang]);
 
+  // Live Clock Update
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTime(new Date());
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
+
   // Scroll Progress and Nav Highlights
   useEffect(() => {
     const handleScroll = () => {
@@ -184,6 +193,21 @@ const App = () => {
 
   const toggleTheme = () => {
     setTheme(prev => (prev === 'dark' ? 'light' : 'dark'));
+  };
+
+  const formatRealTime = (date, language) => {
+    const monthsId = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
+    const monthsEn = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const months = language === 'id' ? monthsId : monthsEn;
+    
+    const day = date.getDate();
+    const month = months[date.getMonth()];
+    const year = date.getFullYear();
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const seconds = String(date.getSeconds()).padStart(2, '0');
+    
+    return `${day} ${month} ${year} • ${hours}:${minutes}:${seconds}`;
   };
 
   const handleCopyEmail = () => {
@@ -284,9 +308,11 @@ const App = () => {
             </ul>
           </nav>
           <div className="controls">
-            <div className="system-status" title={lang === 'id' ? 'Status Ketersediaan' : 'Availability Status'}>
+            <div className="system-status" title={lang === 'id' ? 'Waktu Lokal Real-time' : 'Real-time Local Time'}>
               <span className="status-dot"></span>
-              <span className="status-text">{lang === 'id' ? 'TERSEDIA' : 'AVAILABLE'}</span>
+              <span className="status-text" style={{ fontFamily: "'JetBrains Mono', 'Fira Code', monospace" }}>
+                {formatRealTime(time, lang)}
+              </span>
             </div>
             <button id="theme-toggle" className="control-btn" title="Toggle Theme" onClick={toggleTheme}>
               {theme === 'dark' ? <i className="fa-solid fa-sun"></i> : <i className="fa-solid fa-moon"></i>}
