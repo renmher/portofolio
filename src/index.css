@@ -608,6 +608,31 @@ nav a:hover, nav a.active {
   filter: brightness(1.1);
 }
 
+.btn-linkedin {
+  transition: var(--transition);
+}
+.btn-linkedin:hover {
+  background: #0077b5 !important;
+  border-color: #0077b5 !important;
+  color: white !important;
+  box-shadow: 0 4px 15px rgba(0, 119, 181, 0.2);
+}
+
+.btn-github {
+  transition: var(--transition);
+}
+.btn-github:hover {
+  background: #24292e !important;
+  border-color: #444c56 !important;
+  color: white !important;
+  box-shadow: 0 4px 15px rgba(36, 41, 46, 0.2);
+}
+
+[data-theme="light"] .btn-github:hover {
+  background: #171515 !important;
+  border-color: #171515 !important;
+}
+
 /* Profile Card */
 .profile-card {
   background: var(--bg-card);

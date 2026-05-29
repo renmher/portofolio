@@ -475,10 +475,10 @@ const App = () => {
                   </>
                 )}
               </button>
-              <a href="https://linkedin.com/in/renaldyimran" target="_blank" rel="noopener noreferrer" className="btn btn-secondary">
+              <a href="https://linkedin.com/in/renaldyimran" target="_blank" rel="noopener noreferrer" className="btn btn-secondary btn-linkedin">
                 <i className="fa-brands fa-linkedin"></i> LinkedIn
               </a>
-              <a href="https://github.com/renmher" target="_blank" rel="noopener noreferrer" className="btn btn-secondary">
+              <a href="https://github.com/renmher" target="_blank" rel="noopener noreferrer" className="btn btn-secondary btn-github">
                 <i className="fa-brands fa-github"></i> GitHub
               </a>
             </div>
