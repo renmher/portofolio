@@ -38,14 +38,16 @@ const App = () => {
       "skill-networking": "Networking: TCP/IP, DNS",
       "exp-title": "Jejak <span class='gradient-text'>Karir</span>",
       "exp-subtitle": "Perjalanan profesional saya dalam dunia teknologi.",
-      "exp-job1": "L1 Cloud Engineer Support - PT. Data Labs Analytics",
-      "exp-job1-desc": "Mengelola workflow tiket melalui Jira, merespons incident alert kritis secara real-time, dan mengawal kehandalan sistem berbasis cloud melalui monitoring terpadu Amazon CloudWatch 24/7.",
-      "exp-job2": "IT Network Operation Center - PT. ACSA",
-      "exp-job2-desc": "Mendiagnosis dan memberikan solusi teknis untuk stabilitas jaringan Telkomsel, melakukan monitoring server proaktif, dan memastikan performa infrastruktur tetap berjalan optimal sesuai SLA.",
-      "exp-job3": "Frontend Engineering - Ruang Guru",
-      "exp-job3-desc": "Merancang dan mendemonstrasikan antarmuka web modern yang responsif dan berkinerja tinggi menggunakan React/Vue, serta menerapkan praktik terbaik dalam UI/UX.",
-      "exp-job4": "Staf IT Support - PT WGI",
-      "exp-job4-desc": "Melakukan instalasi, provisioning, dan pemeliharaan infrastruktur IT lokal (LAN/WAN) secara berkala untuk mendukung operasional bisnis yang berkelanjutan.",
+      "exp-job1": "Junior DevOps - NashTa Group (Kontrak)",
+      "exp-job1-desc": "Membangun dan mengelola pipeline CI/CD menggunakan GitLab CI untuk proses build, testing, dan deployment aplikasi. Mendukung keamanan CI/CD, kontainerisasi, dan deployment aplikasi menggunakan SonarQube, Harbor, dan Trivy. Melakukan troubleshooting pada server Linux, jaringan, kontainer, dan pipeline deployment. Mendukung DevOps observability dengan mengelola Grafana, VictoriaLogs, VictoriaMetrics, dan tracing.",
+      "exp-job2": "L1 Cloud Engineer Support - PT. Data Labs Analytics",
+      "exp-job2-desc": "Mengelola workflow tiket melalui Jira, merespons incident alert kritis secara real-time, dan mengawal kehandalan sistem berbasis cloud melalui monitoring terpadu Amazon CloudWatch 24/7.",
+      "exp-job3": "IT Network Operation Center - PT. ACSA",
+      "exp-job3-desc": "Mendiagnosis dan memberikan solusi teknis untuk stabilitas jaringan Telkomsel, melakukan monitoring server proaktif, dan memastikan performa infrastruktur tetap berjalan optimal sesuai SLA.",
+      "exp-job4": "Frontend Engineering - Ruang Guru",
+      "exp-job4-desc": "Merancang dan mendemonstrasikan antarmuka web modern yang responsif dan berkinerja tinggi menggunakan React/Vue, serta menerapkan praktik terbaik dalam UI/UX.",
+      "exp-job5": "Staf IT Support - PT WGI",
+      "exp-job5-desc": "Melakukan instalasi, provisioning, dan pemeliharaan infrastruktur IT lokal (LAN/WAN) secara berkala untuk mendukung operasional bisnis yang berkelanjutan.",
       "contact-title": "Mari Berkolaborasi",
       "contact-desc": "Punya ide menarik? Mari kita wujudkan bersama melalui sentuhan desain yang tepat.",
       "btn-threads": "Threads",
@@ -79,14 +81,16 @@ const App = () => {
       "skill-networking": "Networking: TCP/IP, DNS",
       "exp-title": "Career <span class='gradient-text'>Path</span>",
       "exp-subtitle": "My professional journey in technology.",
-      "exp-job1": "L1 Cloud Engineer Support - PT. Data Labs Analytics",
-      "exp-job1-desc": "Managed JIRA workflows, responded to critical cloud infrastructure alerts in real-time, and ensured 24/7 system reliability through Amazon CloudWatch monitoring.",
-      "exp-job2": "IT Network Operation Center - PT. ACSA",
-      "exp-job2-desc": "Diagnosed and resolved technical issues for Telkomsel network stability, performed proactive server monitoring, and ensured optimal infrastructure performance according to SLAs.",
-      "exp-job3": "Frontend Engineering - Ruang Guru",
-      "exp-job3-desc": "Architected high-performance, responsive web interfaces using React/Vue, focusing on modern UI/UX principles and optimal user engagement.",
-      "exp-job4": "Staf IT Support - PT WGI",
-      "exp-job4-desc": "Performed routine installation, provisioning, and maintenance of local IT infrastructure (LAN/WAN) to support daily business operations.",
+      "exp-job1": "Junior DevOps - NashTa Group (Contract)",
+      "exp-job1-desc": "Built and managed CI/CD pipelines using GitLab CI for application build, testing, and deployment processes. Supported secure CI/CD, containerization, and application deployment using SonarQube, Harbor, and Trivy. Performed troubleshooting on Linux servers, networks, containers, and deployment pipelines. Supported DevOps observability by managing Grafana, VictoriaLogs, VictoriaMetrics, and tracing.",
+      "exp-job2": "L1 Cloud Engineer Support - PT. Data Labs Analytics",
+      "exp-job2-desc": "Managed JIRA workflows, responded to critical cloud infrastructure alerts in real-time, and ensured 24/7 system reliability through Amazon CloudWatch monitoring.",
+      "exp-job3": "IT Network Operation Center - PT. ACSA",
+      "exp-job3-desc": "Diagnosed and resolved technical issues for Telkomsel network stability, performed proactive server monitoring, and ensured optimal infrastructure performance according to SLAs.",
+      "exp-job4": "Frontend Engineering - Ruang Guru",
+      "exp-job4-desc": "Architected high-performance, responsive web interfaces using React/Vue, focusing on modern UI/UX principles and optimal user engagement.",
+      "exp-job5": "Staf IT Support - PT WGI",
+      "exp-job5-desc": "Performed routine installation, provisioning, and maintenance of local IT infrastructure (LAN/WAN) to support daily business operations.",
       "btn-threads": "Threads",
       "footer-rights": "All rights reserved.",
       "copy-email": "Copy Email",
@@ -379,8 +383,8 @@ const App = () => {
             <div className="timeline-line"></div>
             
             <article className="card timeline-item">
-              <div className="timeline-badge"><i className="fa-solid fa-cloud"></i></div>
-              <div className="timeline-date">Jan 2025 - Jan 2026</div>
+              <div className="timeline-badge"><i className="fa-solid fa-cubes"></i></div>
+              <div className="timeline-date">{lang === 'id' ? 'Feb 2026 - Saat ini' : 'Feb 2026 - Present'}</div>
               <div className="timeline-content">
                 <h3>{curr["exp-job1"]}</h3>
                 <p>{curr["exp-job1-desc"]}</p>
@@ -388,8 +392,8 @@ const App = () => {
             </article>
 
             <article className="card timeline-item">
-              <div className="timeline-badge"><i className="fa-solid fa-server"></i></div>
-              <div className="timeline-date">2023 - 2024</div>
+              <div className="timeline-badge"><i className="fa-solid fa-cloud"></i></div>
+              <div className="timeline-date">Jan 2025 - Jan 2026</div>
               <div className="timeline-content">
                 <h3>{curr["exp-job2"]}</h3>
                 <p>{curr["exp-job2-desc"]}</p>
@@ -397,8 +401,8 @@ const App = () => {
             </article>
 
             <article className="card timeline-item">
-              <div className="timeline-badge"><i className="fa-solid fa-code"></i></div>
-              <div className="timeline-date">2023</div>
+              <div className="timeline-badge"><i className="fa-solid fa-server"></i></div>
+              <div className="timeline-date">2023 - 2024</div>
               <div className="timeline-content">
                 <h3>{curr["exp-job3"]}</h3>
                 <p>{curr["exp-job3-desc"]}</p>
@@ -406,11 +410,20 @@ const App = () => {
             </article>
 
             <article className="card timeline-item">
-              <div className="timeline-badge"><i className="fa-solid fa-desktop"></i></div>
-              <div className="timeline-date">2018</div>
+              <div className="timeline-badge"><i className="fa-solid fa-code"></i></div>
+              <div className="timeline-date">2023</div>
               <div className="timeline-content">
                 <h3>{curr["exp-job4"]}</h3>
                 <p>{curr["exp-job4-desc"]}</p>
+              </div>
+            </article>
+
+            <article className="card timeline-item">
+              <div className="timeline-badge"><i className="fa-solid fa-desktop"></i></div>
+              <div className="timeline-date">2018</div>
+              <div className="timeline-content">
+                <h3>{curr["exp-job5"]}</h3>
+                <p>{curr["exp-job5-desc"]}</p>
               </div>
             </article>
           </div>
