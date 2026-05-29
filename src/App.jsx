@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import Certifications from './components/Certifications';
 import Chatbot from './components/Chatbot';
 import { experiencesData, getDurationText } from './data/experiences';
-import { projectsData } from './data/projects';
 
 const App = () => {
   // --- States ---
@@ -26,8 +25,6 @@ const App = () => {
       "hero-roles": "JUNIOR DEVOPS • CLOUD ENGINEER • IT NETWORK",
       "hero-location": "Bekasi, Indonesia",
       "hero-age": "24 Tahun",
-      "nav-projects-devops": "Proyek",
-      "proj-title": "Proyek <span class='gradient-text'>Pilihan</span>",
       "about-pillars-title": "Pilar Fokus DevOps",
       "about-pillars-desc": "Mengelola otomatisasi siklus rilis dan integrasi multi-cloud.",
       "about-methods-title": "Metode Kerja",
@@ -87,8 +84,6 @@ const App = () => {
       "hero-roles": "JUNIOR DEVOPS • CLOUD ENGINEER • IT NETWORK",
       "hero-location": "Bekasi, Indonesia",
       "hero-age": "24 Years Old",
-      "nav-projects-devops": "Projects",
-      "proj-title": "Featured <span class='gradient-text'>Projects</span>",
       "about-pillars-title": "DevOps Focus Pillars",
       "about-pillars-desc": "Managing release cycle automation and multi-cloud integration.",
       "about-methods-title": "Core Methodology",
@@ -296,7 +291,6 @@ const App = () => {
             <ul>
               <li><a href="#home" className={activeSection === 'home' ? 'active' : ''}>{curr["nav-home"]}</a></li>
               <li><a href="#about" className={activeSection === 'about' ? 'active' : ''}>{curr["nav-about"]}</a></li>
-              <li><a href="#devops-projects" className={activeSection === 'devops-projects' ? 'active' : ''}>{curr["nav-projects-devops"]}</a></li>
               <li><a href="#projects" className={activeSection === 'projects' ? 'active' : ''}>{curr["nav-projects"]}</a></li>
               <li><a href="#experience" className={activeSection === 'experience' ? 'active' : ''}>{curr["nav-experience"]}</a></li>
             </ul>
@@ -494,38 +488,6 @@ const App = () => {
 
         {/* Certifications Showcase Section */}
         <Certifications lang={lang} />
-
-        {/* DevOps Projects Section */}
-        <section id="devops-projects" className="reveal">
-          <div className="section-title">
-            <h2 dangerouslySetInnerHTML={{ __html: curr["proj-title"] }} />
-            <p>{curr["proj-subtitle"]}</p>
-          </div>
-
-          <div className="grid">
-            {projectsData.map((project) => (
-              <article key={project.id} className="card" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: '260px' }}>
-                <div>
-                  <a href={project.url} target="_blank" rel="noopener noreferrer" className="project-card-link" aria-label="View Github Repository">
-                    <i className="fa-brands fa-github"></i>
-                  </a>
-                  <div className="project-header">
-                    <i className={project.icon}></i>
-                    <h3>{project.title[lang]}</h3>
-                  </div>
-                  <p style={{ fontSize: '0.88rem', color: 'var(--text-muted)', lineHeight: '1.5' }}>
-                    {project.desc[lang]}
-                  </p>
-                </div>
-                <div className="project-tech-tags">
-                  {project.tags.map((tag, i) => (
-                    <span key={i} className="tech-badge">{tag}</span>
-                  ))}
-                </div>
-              </article>
-            ))}
-          </div>
-        </section>
 
         {/* Experience Section */}
         <section id="experience" className="reveal">
