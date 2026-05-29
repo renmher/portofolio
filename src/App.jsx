@@ -42,12 +42,14 @@ const App = () => {
       "exp-job1-desc": "<ul class='timeline-list'><li>Membangun dan mengelola pipeline CI/CD menggunakan GitLab CI untuk proses build, testing, dan deployment aplikasi.</li><li>Mendukung keamanan CI/CD, kontainerisasi, dan deployment aplikasi menggunakan SonarQube, Harbor, dan Trivy.</li><li>Melakukan troubleshooting pada server Linux, jaringan, kontainer, dan pipeline deployment.</li><li>Mendukung DevOps observability dengan mengelola Grafana, VictoriaLogs, VictoriaMetrics, dan tracing untuk monitoring infrastruktur, analisis log, metrik, alerting, dan penanganan insiden.</li></ul>",
       "exp-job2": "L1 Cloud Engineer Support - PT. Data Labs Analytics",
       "exp-job2-desc": "<ul class='timeline-list'><li>Mengelola workflow tiket sistem menggunakan Jira.</li><li>Merespons incident alert kritis secara real-time.</li><li>Mengawal keandalan sistem berbasis cloud melalui monitoring terpadu Amazon CloudWatch 24/7.</li></ul>",
-      "exp-job3": "IT Network Operation Center - PT. ACSA",
-      "exp-job3-desc": "<ul class='timeline-list'><li>Mendiagnosis dan memberikan solusi teknis untuk stabilitas jaringan Telkomsel.</li><li>Melakukan monitoring server secara proaktif.</li><li>Memastikan performa infrastruktur tetap berjalan optimal sesuai target SLA.</li></ul>",
-      "exp-job4": "Frontend Engineering - Ruang Guru",
-      "exp-job4-desc": "<ul class='timeline-list'><li>Merancang dan mengembangkan antarmuka web modern yang responsif dan berkinerja tinggi menggunakan React/Vue.</li><li>Menerapkan praktik terbaik dalam UI/UX dan optimalisasi interaksi pengguna.</li></ul>",
-      "exp-job5": "Staf IT Support - PT WGI",
-      "exp-job5-desc": "<ul class='timeline-list'><li>Melakukan instalasi, provisioning, dan pemeliharaan infrastruktur IT lokal (LAN/WAN) secara berkala.</li><li>Mendukung kelancaran operasional bisnis harian.</li></ul>",
+      "exp-job3": "IT Network Operation Center - PT. ACSA (Kontrak)",
+      "exp-job3-desc": "<ul class='timeline-list'><li>Menerima, menganalisis, dan memberikan solusi untuk masalah terkait kartu Telkomsel.</li><li>Mengidentifikasi, menganalisis, dan menangani insiden layanan yang dilaporkan oleh pelanggan.</li><li>Melakukan monitoring server dan aplikasi Telkomsel.</li></ul>",
+      "exp-job4": "Asisten Lab - Universitas Bani Saleh (Kontrak)",
+      "exp-job4-desc": "<ul class='timeline-list'><li>Membantu dosen dan mahasiswa dalam menggunakan aplikasi dan software laboratorium selama sesi praktikum.</li><li>Menyiapkan, menginstal, dan memastikan aplikasi laboratorium siap digunakan sebelum perkuliahan dimulai.</li><li>Melakukan troubleshooting teknis dasar terkait software, jaringan, dan sistem komputer di laboratorium.</li><li>Memberikan panduan singkat atau pelatihan kepada mahasiswa tentang penggunaan aplikasi sesuai dengan persyaratan mata kuliah.</li><li>Melakukan pemeliharaan sistem, pembaruan software, pencatatan aktivitas, dan dokumentasi lisensi.</li></ul>",
+      "exp-job5": "Frontend Engineering - Ruang Guru",
+      "exp-job5-desc": "<ul class='timeline-list'><li>Merancang dan mengembangkan antarmuka web modern yang responsif dan berkinerja tinggi menggunakan React/Vue.</li><li>Menerapkan praktik terbaik dalam UI/UX dan optimalisasi interaksi pengguna.</li></ul>",
+      "exp-job6": "IT Support - PT Wiraswasta Gemilang Indonesia (Magang)",
+      "exp-job6-desc": "<ul class='timeline-list'><li>Melakukan instalasi, provisioning, dan pemeliharaan infrastruktur IT lokal (LAN/WAN) secara berkala.</li><li>Mendukung kelancaran operasional bisnis harian.</li></ul>",
       "contact-title": "Mari Berkolaborasi",
       "contact-desc": "Punya ide menarik? Mari kita wujudkan bersama melalui sentuhan desain yang tepat.",
       "btn-threads": "Threads",
@@ -85,12 +87,14 @@ const App = () => {
       "exp-job1-desc": "<ul class='timeline-list'><li>Built and managed CI/CD pipelines using GitLab CI for application build, testing, and deployment processes.</li><li>Supported secure CI/CD, containerization, and application deployment using SonarQube, Harbor, and Trivy.</li><li>Performed troubleshooting on Linux servers, networks, containers, and deployment pipelines.</li><li>Supported DevOps observability by managing Grafana, VictoriaLogs, VictoriaMetrics, and tracing for infrastructure monitoring, log analysis, metrics, alerting, and incident troubleshooting.</li></ul>",
       "exp-job2": "L1 Cloud Engineer Support - PT. Data Labs Analytics",
       "exp-job2-desc": "<ul class='timeline-list'><li>Managed JIRA workflows for ticket management.</li><li>Responded to critical cloud infrastructure alerts in real-time.</li><li>Ensured 24/7 system reliability through Amazon CloudWatch integrated monitoring.</li></ul>",
-      "exp-job3": "IT Network Operation Center - PT. ACSA",
-      "exp-job3-desc": "<ul class='timeline-list'><li>Diagnosed and resolved technical issues for Telkomsel network stability.</li><li>Performed proactive server monitoring.</li><li>Ensured optimal infrastructure performance in compliance with SLA targets.</li></ul>",
-      "exp-job4": "Frontend Engineering - Ruang Guru",
-      "exp-job4-desc": "<ul class='timeline-list'><li>Architected high-performance, responsive web interfaces using React/Vue.</li><li>Focused on modern UI/UX principles and optimal user engagement.</li></ul>",
-      "exp-job5": "Staf IT Support - PT WGI",
-      "exp-job5-desc": "<ul class='timeline-list'><li>Performed routine installation, provisioning, and maintenance of local IT infrastructure (LAN/WAN).</li><li>Supported daily business operations.</li></ul>",
+      "exp-job3": "IT Network Operation Center - PT. ACSA (Contract)",
+      "exp-job3-desc": "<ul class='timeline-list'><li>Received, analyzed, and provided solutions for Telkomsel card-related issues.</li><li>Identified, analyzed, and troubleshot service incidents reported by customers.</li><li>Monitored Telkomsel servers and applications.</li></ul>",
+      "exp-job4": "Lab Assistant - Bani Saleh University (Contract)",
+      "exp-job4-desc": "<ul class='timeline-list'><li>Assisted lecturers and students in using laboratory applications and software during practical sessions.</li><li>Prepared, installed, and ensured laboratory applications were ready before classes started.</li><li>Performed basic technical troubleshooting related to software, networks, and computer systems in the laboratory.</li><li>Provided brief guidance or training to students on application usage based on course requirements.</li><li>Performed system maintenance, software updates, activity records, and license documentation.</li></ul>",
+      "exp-job5": "Frontend Engineering - Ruang Guru",
+      "exp-job5-desc": "<ul class='timeline-list'><li>Architected high-performance, responsive web interfaces using React/Vue.</li><li>Focused on modern UI/UX principles and optimal user engagement.</li></ul>",
+      "exp-job6": "IT Support - PT Wiraswasta Gemilang Indonesia (Internship)",
+      "exp-job6-desc": "<ul class='timeline-list'><li>Performed routine installation, provisioning, and maintenance of local IT infrastructure (LAN/WAN).</li><li>Supported daily business operations.</li></ul>",
       "btn-threads": "Threads",
       "footer-rights": "All rights reserved.",
       "copy-email": "Copy Email",
@@ -402,7 +406,7 @@ const App = () => {
 
             <article className="card timeline-item">
               <div className="timeline-badge"><i className="fa-solid fa-server"></i></div>
-              <div className="timeline-date">2023 - 2024</div>
+              <div className="timeline-date">{lang === 'id' ? 'Okt 2023 - Sep 2024' : 'Oct 2023 - Sep 2024'}</div>
               <div className="timeline-content">
                 <h3>{curr["exp-job3"]}</h3>
                 <div className="timeline-desc" dangerouslySetInnerHTML={{ __html: curr["exp-job3-desc"] }} />
@@ -410,8 +414,8 @@ const App = () => {
             </article>
 
             <article className="card timeline-item">
-              <div className="timeline-badge"><i className="fa-solid fa-code"></i></div>
-              <div className="timeline-date">2023</div>
+              <div className="timeline-badge"><i className="fa-solid fa-chalkboard-user"></i></div>
+              <div className="timeline-date">{lang === 'id' ? 'Mar 2022 - Okt 2023' : 'Mar 2022 - Oct 2023'}</div>
               <div className="timeline-content">
                 <h3>{curr["exp-job4"]}</h3>
                 <div className="timeline-desc" dangerouslySetInnerHTML={{ __html: curr["exp-job4-desc"] }} />
@@ -419,11 +423,20 @@ const App = () => {
             </article>
 
             <article className="card timeline-item">
-              <div className="timeline-badge"><i className="fa-solid fa-desktop"></i></div>
-              <div className="timeline-date">2018</div>
+              <div className="timeline-badge"><i className="fa-solid fa-code"></i></div>
+              <div className="timeline-date">2023</div>
               <div className="timeline-content">
                 <h3>{curr["exp-job5"]}</h3>
                 <div className="timeline-desc" dangerouslySetInnerHTML={{ __html: curr["exp-job5-desc"] }} />
+              </div>
+            </article>
+
+            <article className="card timeline-item">
+              <div className="timeline-badge"><i className="fa-solid fa-desktop"></i></div>
+              <div className="timeline-date">Feb 2018 - Apr 2018</div>
+              <div className="timeline-content">
+                <h3>{curr["exp-job6"]}</h3>
+                <div className="timeline-desc" dangerouslySetInnerHTML={{ __html: curr["exp-job6-desc"] }} />
               </div>
             </article>
           </div>
