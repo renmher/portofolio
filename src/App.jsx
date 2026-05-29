@@ -257,10 +257,7 @@ const App = () => {
       {/* Header & Nav */}
       <header>
         <div className="nav-wrapper">
-          <div className="logo">
-            <img src="/logo-devops.svg" alt="Logo" />
-            <span>R.</span>
-          </div>
+          <div className="logo">R.</div>
           <nav className="desktop-nav">
             <ul>
               <li><a href="#home" className={activeSection === 'home' ? 'active' : ''}>{curr["nav-home"]}</a></li>
@@ -275,7 +272,7 @@ const App = () => {
               <span className="status-text">{lang === 'id' ? 'TERSEDIA' : 'AVAILABLE'}</span>
             </div>
             <button id="theme-toggle" className="control-btn" title="Toggle Theme" onClick={toggleTheme}>
-              {theme === 'dark' ? '☀️' : '🌙'}
+              {theme === 'dark' ? <i className="fa-solid fa-sun"></i> : <i className="fa-solid fa-moon"></i>}
             </button>
             <button id="lang-toggle" className="control-btn" title="Switch Language" onClick={toggleLanguage}>
               {lang === 'id' ? 'EN' : 'ID'}
@@ -365,7 +362,7 @@ const App = () => {
             <article className="card">
               <h3 className="mb-4">{curr["about-cv-title"]}</h3>
               <p className="mb-4">{curr["about-cv-desc"]}</p>
-              <a href="/cv-renaldy.pdf" download="CV-Renaldy-Imran-Hermawan.pdf" className="project-link" style={{ color: 'var(--accent)', textDecoration: 'none', fontWeight: 600 }}>
+              <a href="/cv-renaldy.pdf" target="_blank" rel="noopener noreferrer" className="project-link" style={{ color: 'var(--accent)', textDecoration: 'none', fontWeight: 600 }}>
                 <span>{curr["btn-view-cv"]}</span> &rarr;
               </a>
             </article>

@@ -154,21 +154,12 @@ header {
 }
 
 .logo {
-  display: flex;
-  align-items: center;
-  gap: 8px;
   font-family: var(--font-heading);
   font-weight: 800;
   font-size: 1.15rem;
   padding-left: 10px;
   letter-spacing: -0.05em;
   color: var(--primary);
-}
-
-.logo img {
-  width: 24px;
-  height: 24px;
-  display: block;
 }
 
 .desktop-nav {
