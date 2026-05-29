@@ -464,7 +464,7 @@ const App = () => {
               <a href="https://github.com/renmher" target="_blank" rel="noopener noreferrer" className="btn btn-secondary btn-github">
                 <i className="fa-brands fa-github"></i> GitHub
               </a>
-              <a href="https://wa.me/628123456789" target="_blank" rel="noopener noreferrer" className="btn btn-secondary btn-whatsapp">
+              <a href="https://wa.me/6287872481308" target="_blank" rel="noopener noreferrer" className="btn btn-secondary btn-whatsapp">
                 <i className="fa-brands fa-whatsapp"></i> WhatsApp
               </a>
             </div>
