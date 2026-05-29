@@ -257,7 +257,10 @@ const App = () => {
       {/* Header & Nav */}
       <header>
         <div className="nav-wrapper">
-          <div className="logo">R.</div>
+          <div className="logo">
+            <img src="/logo-devops.svg" alt="Logo" />
+            <span>R.</span>
+          </div>
           <nav className="desktop-nav">
             <ul>
               <li><a href="#home" className={activeSection === 'home' ? 'active' : ''}>{curr["nav-home"]}</a></li>
