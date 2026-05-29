@@ -29,9 +29,12 @@ const App = () => {
       "hero-age": "24 Tahun",
       "nav-projects-devops": "Proyek",
       "proj-title": "Proyek <span class='gradient-text'>Pilihan</span>",
-      "proj-subtitle": "Repositori DevOps dan Cloud Engineer terpilih yang pernah saya buat.",
-      "about-github-title": "Aktivitas GitHub",
-      "about-github-desc": "Kontribusi commit, kontribusi repositori, dan ringkasan performa aktivitas GitHub saya.",
+      "about-pillars-title": "Pilar Fokus DevOps",
+      "about-pillars-desc": "Mengelola otomatisasi siklus rilis dan integrasi multi-cloud.",
+      "about-methods-title": "Metode Kerja",
+      "about-methods-desc": "Mengutamakan otomatisasi, pemantauan aktif, dan keamanan sistem.",
+      "about-edu-title": "Edukasi & Profil",
+      "about-edu-desc": "Latar belakang akademis dan fokus spesialisasi profesional.",
       "btn-projects": "Lihat Sertifikat",
       "btn-cv": "Download CV",
       "btn-connect": "Hubungi Saya",
@@ -87,9 +90,12 @@ const App = () => {
       "hero-age": "24 Years Old",
       "nav-projects-devops": "Projects",
       "proj-title": "Featured <span class='gradient-text'>Projects</span>",
-      "proj-subtitle": "Selected DevOps and Cloud Engineering repositories created by me.",
-      "about-github-title": "GitHub Analytics",
-      "about-github-desc": "Real-time summary of commit contributions, repository metrics, and general performance.",
+      "about-pillars-title": "DevOps Focus Pillars",
+      "about-pillars-desc": "Managing release cycle automation and multi-cloud integration.",
+      "about-methods-title": "Core Methodology",
+      "about-methods-desc": "Prioritizing automation, active monitoring, and system security.",
+      "about-edu-title": "Education & Profile",
+      "about-edu-desc": "Academic background and specialized professional focus.",
       "btn-projects": "View Certificates",
       "btn-cv": "Download CV",
       "btn-connect": "Let's Connect",
@@ -437,17 +443,76 @@ const App = () => {
 
             <article className="card" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
               <div>
-                <h3 className="mb-4">{curr["about-github-title"]}</h3>
-                <p className="mb-4">{curr["about-github-desc"]}</p>
+                <h3 className="mb-4">{curr["about-pillars-title"]}</h3>
+                <p className="mb-3" style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>{curr["about-pillars-desc"]}</p>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginTop: '12px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.88rem' }}>
+                    <i className="fa-solid fa-code" style={{ color: 'var(--primary)', width: '16px' }}></i>
+                    <span><strong>IaC:</strong> Terraform, Ansible</span>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.88rem' }}>
+                    <i className="fa-solid fa-repeat" style={{ color: 'var(--primary)', width: '16px' }}></i>
+                    <span><strong>CI/CD:</strong> GitLab CI, GitHub Actions</span>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.88rem' }}>
+                    <i className="fa-solid fa-cubes" style={{ color: 'var(--primary)', width: '16px' }}></i>
+                    <span><strong>Cloud:</strong> GCP, AWS, Docker, K8s</span>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.88rem' }}>
+                    <i className="fa-solid fa-chart-line" style={{ color: 'var(--primary)', width: '16px' }}></i>
+                    <span><strong>Observability:</strong> Grafana, VictoriaMetrics</span>
+                  </div>
+                </div>
               </div>
-              <div style={{ width: '100%', textAlign: 'center', marginTop: '12px' }}>
-                <img 
-                  src={theme === 'dark' 
-                    ? `https://github-readme-stats.shion.dev/api?username=renmher&show_icons=true&theme=transparent&hide_border=true&title_color=3b82f6&icon_color=ff9900&text_color=cbd5e1&locale=${lang}`
-                    : `https://github-readme-stats.shion.dev/api?username=renmher&show_icons=true&theme=transparent&hide_border=true&title_color=2563eb&icon_color=d97706&text_color=334155&locale=${lang}`} 
-                  alt="Renaldy GitHub Stats" 
-                  style={{ width: '100%', maxWidth: '380px', height: 'auto', display: 'block', margin: '0 auto' }} 
-                />
+            </article>
+
+            <article className="card" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+              <div>
+                <h3 className="mb-4">{curr["about-methods-title"]}</h3>
+                <p className="mb-3" style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>{curr["about-methods-desc"]}</p>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginTop: '12px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.88rem' }}>
+                    <i className="fa-solid fa-shield-halved" style={{ color: 'var(--primary)', width: '16px' }}></i>
+                    <span>{lang === 'id' ? '🛡️ Keamanan: Security scanning di pipeline' : '🛡️ Security-First: Scanning in pipeline'}</span>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.88rem' }}>
+                    <i className="fa-solid fa-robot" style={{ color: 'var(--primary)', width: '16px' }}></i>
+                    <span>{lang === 'id' ? '🤖 Otomatisasi: Mengurangi error manual' : '🤖 Automation: Minimizing manual errors'}</span>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.88rem' }}>
+                    <i className="fa-solid fa-magnifying-glass-chart" style={{ color: 'var(--primary)', width: '16px' }}></i>
+                    <span>{lang === 'id' ? '📈 Observability: Monitoring proaktif 24/7' : '📈 Observability: Proactive 24/7 monitoring'}</span>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.88rem' }}>
+                    <i className="fa-solid fa-network-wired" style={{ color: 'var(--primary)', width: '16px' }}></i>
+                    <span>{lang === 'id' ? '☁️ Skalabilitas: Desain sistem handal' : '☁️ Scalability: Resilient architecture'}</span>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article className="card" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+              <div>
+                <h3 className="mb-4">{curr["about-edu-title"]}</h3>
+                <p className="mb-3" style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>{curr["about-edu-desc"]}</p>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginTop: '12px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.88rem' }}>
+                    <i className="fa-solid fa-graduation-cap" style={{ color: 'var(--primary)', width: '16px' }}></i>
+                    <span><strong>S.Kom:</strong> Universitas Bani Saleh</span>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.88rem' }}>
+                    <i className="fa-solid fa-bullseye" style={{ color: 'var(--primary)', width: '16px' }}></i>
+                    <span>{lang === 'id' ? 'Fokus: Infrastruktur & Jaringan' : 'Focus: Infrastructure & Network'}</span>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.88rem' }}>
+                    <i className="fa-solid fa-house-laptop" style={{ color: 'var(--primary)', width: '16px' }}></i>
+                    <span>{lang === 'id' ? 'Siap Kerja: On-site / Hybrid / Remote' : 'Work Mode: On-site / Hybrid / Remote'}</span>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.88rem' }}>
+                    <i className="fa-solid fa-location-dot" style={{ color: 'var(--primary)', width: '16px' }}></i>
+                    <span>{lang === 'id' ? 'Domisili: Bekasi, Indonesia' : 'Location: Bekasi, Indonesia'}</span>
+                  </div>
+                </div>
               </div>
             </article>
           </div>
