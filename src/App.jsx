@@ -20,9 +20,11 @@ const App = () => {
       "nav-experience": "Pengalaman",
       "nav-contact": "Hubungi",
       "hero-eyebrow": "WELCOME TO MY PORTFOLIO",
-      "hero-title": "RENALDY IMRAN HERMAWAN, S.Kom",
+      "hero-title": "Renaldy Imran <span class='gradient-text'>Hermawan</span>, S.Kom",
       "hero-desc": "Junior DevOps & Cloud Engineer: Membangun infrastruktur digital yang tangguh, otomatisasi CI/CD, dan stabilitas sistem.",
       "hero-roles": "JUNIOR DEVOPS • CLOUD ENGINEER • IT NETWORK",
+      "hero-location": "Bekasi, Indonesia",
+      "hero-age": "24 Tahun",
       "btn-projects": "Lihat Sertifikat",
       "btn-cv": "Download CV",
       "btn-connect": "Hubungi Saya",
@@ -71,9 +73,11 @@ const App = () => {
       "nav-experience": "Experience",
       "nav-contact": "Contact",
       "hero-eyebrow": "WELCOME TO MY PORTFOLIO",
-      "hero-title": "RENALDY IMRAN HERMAWAN, S.Kom",
+      "hero-title": "Renaldy Imran <span class='gradient-text'>Hermawan</span>, S.Kom",
       "hero-desc": "Junior DevOps & Cloud Engineer: Building resilient digital infrastructures, automating CI/CD, and system stability.",
       "hero-roles": "JUNIOR DEVOPS • CLOUD ENGINEER • IT NETWORK",
+      "hero-location": "Bekasi, Indonesia",
+      "hero-age": "24 Years Old",
       "btn-projects": "View Certificates",
       "btn-cv": "Download CV",
       "btn-connect": "Let's Connect",
@@ -335,6 +339,11 @@ const App = () => {
             <h1 dangerouslySetInnerHTML={{ __html: curr["hero-title"] }} />
             <p className="hero-desc">{curr["hero-desc"]}</p>
             <div className="hero-roles">{curr["hero-roles"]}</div>
+            <div className="hero-meta">
+              <span><i className="fa-solid fa-map-pin"></i> {curr["hero-location"]}</span>
+              <span className="separator">•</span>
+              <span><i className="fa-solid fa-cake-candles"></i> {curr["hero-age"]}</span>
+            </div>
             <div className="hero-buttons">
               <a href="#projects" className="btn btn-primary">
                 {curr["btn-projects"]}
