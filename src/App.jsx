@@ -11,7 +11,6 @@ const App = () => {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [activeSection, setActiveSection] = useState('home');
   const [emailCopied, setEmailCopied] = useState(false);
-  const [time, setTime] = useState(new Date());
 
   // --- Translation Dictionary ---
   const t = {
@@ -156,14 +155,6 @@ const App = () => {
     localStorage.setItem('lang', lang);
   }, [lang]);
 
-  // Live Clock Update
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setTime(new Date());
-    }, 1000);
-    return () => clearInterval(timer);
-  }, []);
-
   // Scroll Progress and Nav Highlights
   useEffect(() => {
     const handleScroll = () => {
@@ -210,21 +201,6 @@ const App = () => {
 
   const toggleTheme = () => {
     setTheme(prev => (prev === 'dark' ? 'light' : 'dark'));
-  };
-
-  const formatRealTime = (date, language) => {
-    const monthsId = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
-    const monthsEn = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    const months = language === 'id' ? monthsId : monthsEn;
-    
-    const day = date.getDate();
-    const month = months[date.getMonth()];
-    const year = date.getFullYear();
-    const hours = String(date.getHours()).padStart(2, '0');
-    const minutes = String(date.getMinutes()).padStart(2, '0');
-    const seconds = String(date.getSeconds()).padStart(2, '0');
-    
-    return `${day} ${month} ${year} • ${hours}:${minutes}:${seconds}`;
   };
 
   const handleCopyEmail = () => {
@@ -326,11 +302,9 @@ const App = () => {
             </ul>
           </nav>
           <div className="controls">
-            <div className="system-status" title={lang === 'id' ? 'Waktu Lokal Real-time' : 'Real-time Local Time'}>
+            <div className="system-status" title={lang === 'id' ? 'Status Ketersediaan' : 'Availability Status'}>
               <span className="status-dot"></span>
-              <span className="status-text" style={{ fontFamily: "'JetBrains Mono', 'Fira Code', monospace" }}>
-                {formatRealTime(time, lang)}
-              </span>
+              <span className="status-text">{lang === 'id' ? 'TERSEDIA' : 'AVAILABLE'}</span>
             </div>
             <button id="theme-toggle" className="control-btn" title="Toggle Theme" onClick={toggleTheme}>
               {theme === 'dark' ? <i className="fa-solid fa-sun"></i> : <i className="fa-solid fa-moon"></i>}
@@ -473,19 +447,19 @@ const App = () => {
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginTop: '12px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.88rem' }}>
                     <i className="fa-solid fa-shield-halved" style={{ color: 'var(--primary)', width: '16px' }}></i>
-                    <span>{lang === 'id' ? '🛡️ Keamanan: Security scanning di pipeline' : '🛡️ Security-First: Scanning in pipeline'}</span>
+                    <span>{lang === 'id' ? 'Keamanan: Security scanning di pipeline' : 'Security-First: Scanning in pipeline'}</span>
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.88rem' }}>
                     <i className="fa-solid fa-robot" style={{ color: 'var(--primary)', width: '16px' }}></i>
-                    <span>{lang === 'id' ? '🤖 Otomatisasi: Mengurangi error manual' : '🤖 Automation: Minimizing manual errors'}</span>
+                    <span>{lang === 'id' ? 'Otomatisasi: Mengurangi error manual' : 'Automation: Minimizing manual errors'}</span>
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.88rem' }}>
                     <i className="fa-solid fa-magnifying-glass-chart" style={{ color: 'var(--primary)', width: '16px' }}></i>
-                    <span>{lang === 'id' ? '📈 Observability: Monitoring proaktif 24/7' : '📈 Observability: Proactive 24/7 monitoring'}</span>
+                    <span>{lang === 'id' ? 'Observability: Monitoring proaktif 24/7' : 'Observability: Proactive 24/7 monitoring'}</span>
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.88rem' }}>
                     <i className="fa-solid fa-network-wired" style={{ color: 'var(--primary)', width: '16px' }}></i>
-                    <span>{lang === 'id' ? '☁️ Skalabilitas: Desain sistem handal' : '☁️ Scalability: Resilient architecture'}</span>
+                    <span>{lang === 'id' ? 'Skalabilitas: Desain sistem handal' : 'Scalability: Resilient architecture'}</span>
                   </div>
                 </div>
               </div>
