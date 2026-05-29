@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Certifications from './components/Certifications';
 import Chatbot from './components/Chatbot';
+import { experiencesData, getDurationText } from './data/experiences';
 
 const App = () => {
   // --- States ---
@@ -425,59 +426,18 @@ const App = () => {
           <div className="timeline-container">
             <div className="timeline-line"></div>
 
-            <article className="card timeline-item">
-              <div className="timeline-badge"><i className="fa-solid fa-cubes"></i></div>
-              <div className="timeline-date">{lang === 'id' ? 'Feb 2026 - Saat ini' : 'Feb 2026 - Present'}</div>
-              <div className="timeline-content">
-                <h3>{curr["exp-job1"]}</h3>
-                <div className="timeline-desc" dangerouslySetInnerHTML={{ __html: curr["exp-job1-desc"] }} />
-              </div>
-            </article>
-
-            <article className="card timeline-item">
-              <div className="timeline-badge"><i className="fa-solid fa-cloud"></i></div>
-              <div className="timeline-date">Jan 2025 - Jan 2026</div>
-              <div className="timeline-content">
-                <h3>{curr["exp-job2"]}</h3>
-                <div className="timeline-desc" dangerouslySetInnerHTML={{ __html: curr["exp-job2-desc"] }} />
-              </div>
-            </article>
-
-            <article className="card timeline-item">
-              <div className="timeline-badge"><i className="fa-solid fa-server"></i></div>
-              <div className="timeline-date">{lang === 'id' ? 'Okt 2023 - Sep 2024' : 'Oct 2023 - Sep 2024'}</div>
-              <div className="timeline-content">
-                <h3>{curr["exp-job3"]}</h3>
-                <div className="timeline-desc" dangerouslySetInnerHTML={{ __html: curr["exp-job3-desc"] }} />
-              </div>
-            </article>
-
-            <article className="card timeline-item">
-              <div className="timeline-badge"><i className="fa-solid fa-chalkboard-user"></i></div>
-              <div className="timeline-date">{lang === 'id' ? 'Mar 2022 - Okt 2023' : 'Mar 2022 - Oct 2023'}</div>
-              <div className="timeline-content">
-                <h3>{curr["exp-job4"]}</h3>
-                <div className="timeline-desc" dangerouslySetInnerHTML={{ __html: curr["exp-job4-desc"] }} />
-              </div>
-            </article>
-
-            <article className="card timeline-item">
-              <div className="timeline-badge"><i className="fa-solid fa-code"></i></div>
-              <div className="timeline-date">2023</div>
-              <div className="timeline-content">
-                <h3>{curr["exp-job5"]}</h3>
-                <div className="timeline-desc" dangerouslySetInnerHTML={{ __html: curr["exp-job5-desc"] }} />
-              </div>
-            </article>
-
-            <article className="card timeline-item">
-              <div className="timeline-badge"><i className="fa-solid fa-desktop"></i></div>
-              <div className="timeline-date">Feb 2018 - Apr 2018</div>
-              <div className="timeline-content">
-                <h3>{curr["exp-job6"]}</h3>
-                <div className="timeline-desc" dangerouslySetInnerHTML={{ __html: curr["exp-job6-desc"] }} />
-              </div>
-            </article>
+            {experiencesData.map((exp) => (
+              <article key={exp.id} className="card timeline-item">
+                <div className="timeline-badge"><i className={exp.icon}></i></div>
+                <div className="timeline-date">
+                  {exp.dateText[lang]} ({getDurationText(exp, lang)})
+                </div>
+                <div className="timeline-content">
+                  <h3>{curr[exp.titleKey]}</h3>
+                  <div className="timeline-desc" dangerouslySetInnerHTML={{ __html: curr[exp.descKey] }} />
+                </div>
+              </article>
+            ))}
           </div>
         </section>
 

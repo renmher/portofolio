@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { experiencesData, getDurationText } from '../data/experiences';
 
 const Chatbot = ({ lang }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -6,6 +7,24 @@ const Chatbot = ({ lang }) => {
   const [inputVal, setInputVal] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef(null);
+
+  // Build experience string for ID
+  const experienceIdText = "Jejak karir Renaldy:<br/>" + experiencesData.map(exp => {
+    const roleText = exp.role.id;
+    const companyName = exp.companyShort || (typeof exp.company === 'object' ? exp.company.id : exp.company);
+    const typeText = exp.type ? ` (${exp.type.id})` : '';
+    const duration = getDurationText(exp, 'id');
+    return `${exp.emoji} <strong>${roleText}</strong> di <em>${companyName}${typeText}</em> (${exp.dateText.id}, ${duration}) - ${exp.chatbotSummary.id}`;
+  }).join('<br/>');
+
+  // Build experience string for EN
+  const experienceEnText = "Renaldy's work experience:<br/>" + experiencesData.map(exp => {
+    const roleText = exp.role.en;
+    const companyName = exp.companyShort || (typeof exp.company === 'object' ? exp.company.en : exp.company);
+    const typeText = exp.type ? ` (${exp.type.en})` : '';
+    const duration = getDurationText(exp, 'en');
+    return `${exp.emoji} <strong>${roleText}</strong> at <em>${companyName}${typeText}</em> (${exp.dateText.en}, ${duration}) - ${exp.chatbotSummary.en}`;
+  }).join('<br/>');
 
   const chatbotData = {
     id: {
@@ -24,7 +43,7 @@ const Chatbot = ({ lang }) => {
         greeting: "Halo! Senang bisa menyapa Anda. Silakan tanyakan hal-hal seputar kualifikasi Renaldy. Contoh: 'Apa keahlian Renaldy?' atau 'Bagaimana cara menghubungi Renaldy?'",
         skills: "Renaldy memiliki keahlian di bidang:<br>☁️ <strong>Cloud Computing</strong>: Google Cloud Platform (GCP) & AWS<br>🐋 <strong>Containerization</strong>: Docker & Kubernetes<br>⚙️ <strong>DevOps & CI/CD</strong>: GitLab CI, GitHub Actions, Terraform (IaC)<br>🔌 <strong>Networking</strong>: MikroTik (Certified MTCNA), TCP/IP, DNS, Routing & Switching<br>🐧 <strong>Linux</strong>: OS Administrasi & Bash Scripting.",
         certifications: "Renaldy memiliki beberapa sertifikat keahlian:<br>🏆 <strong>MikroTik Certified Network Associate (MTCNA)</strong> (2024)<br>🛡️ <strong>Junior Network Administrator (BNSP)</strong> (2023)<br>💻 <strong>Junior Web Developer (BNSP)</strong> (2022)<br>☁️ <strong>AWS re/Start Cloud Computing Program</strong> (2025)<br>🚀 <strong>Bootcamp Cloud Engineer - Digital Skola</strong> (2023).",
-        experience: "Jejak karir Renaldy:<br>💼 <strong>L1 Cloud Engineer Support</strong> di <em>PT. Data Labs Analytics</em> (2025 - 2026) - Monitoring AWS via CloudWatch, tiket JIRA.<br>🎛️ <strong>IT Network Operation Center</strong> di <em>PT. ACSA</em> (2023 - 2024) - Monitoring kestabilan jaringan Telkomsel.<br>💻 <strong>Frontend Engineering Program</strong> di <em>Ruang Guru</em> (2023) - Merancang mockup UI web.<br>🛠️ <strong>Staf IT Support</strong> di <em>PT WGI</em> (2018) - Troubleshooting jaringan LAN/WAN.",
+        experience: experienceIdText,
         contact: "Anda bisa menghubungi Renaldy melalui:<br>📧 Email: <strong>renaldyimran@gmail.com</strong><br>🔗 LinkedIn: <a href='https://linkedin.com/in/renaldyimran' target='_blank' rel='noopener noreferrer' style='color: var(--accent); font-weight:700;'>linkedin.com/in/renaldyimran</a><br>🐙 GitHub: <a href='https://github.com/renmher' target='_blank' rel='noopener noreferrer' style='color: var(--accent); font-weight:700;'>github.com/renmher</a>",
         cv: "Tentu! Anda bisa mengunduh CV terbaru Renaldy di tombol beranda atau langsung klik link berikut: <a href='/cv-renaldy.pdf' download class='project-link' style='color: var(--accent); font-weight:700;'>[Unduh CV - Renaldy.pdf]</a>",
         fallback: "Maaf, saya tidak mengerti pertanyaan tersebut. Coba gunakan kata kunci lain seperti <em>keahlian</em>, <em>sertifikasi</em>, <em>pengalaman</em>, <em>kontak</em>, atau gunakan tombol pintas yang tersedia di atas input chat!"
@@ -46,7 +65,7 @@ const Chatbot = ({ lang }) => {
         greeting: "Hello! Nice to meet you. Feel free to ask about Renaldy's qualifications, such as 'What are Renaldy's skills?' or 'How to contact him?'",
         skills: "Renaldy specializes in:<br>☁️ <strong>Cloud Computing</strong>: Google Cloud Platform (GCP) & AWS<br>🐋 <strong>Containerization</strong>: Docker & Kubernetes<br>⚙️ <strong>DevOps & CI/CD</strong>: GitLab CI, GitHub Actions, Terraform (IaC)<br>🔌 <strong>Networking</strong>: MikroTik (Certified MTCNA), TCP/IP, DNS, Routing & Switching<br>🐧 <strong>Linux</strong>: OS Administration & Bash Scripting.",
         certifications: "Renaldy holds several verified certifications:<br>🏆 <strong>MikroTik Certified Network Associate (MTCNA)</strong> (2024)<br>🛡️ <strong>Junior Network Administrator (BNSP)</strong> (2023)<br>💻 <strong>Junior Web Developer (BNSP)</strong> (2022)<br>☁️ <strong>AWS re/Start Cloud Computing Program</strong> (2025)<br>🚀 <strong>Bootcamp Cloud Engineer - Digital Skola</strong> (2023).",
-        experience: "Renaldy's work experience:<br>💼 <strong>L1 Cloud Engineer Support</strong> at <em>PT. Data Labs Analytics</em> (2025 - 2026) - JIRA tickets, AWS monitoring.<br>🎛️ <strong>IT Network Operation Center</strong> at <em>PT. ACSA</em> (2023 - 2024) - Telkomsel server and network monitoring.<br>💻 <strong>Frontend Engineering Program</strong> at <em>Ruang Guru</em> (2023) - UI web engineering.<br>🛠️ <strong>IT Support Staff</strong> at <em>PT WGI</em> (2018) - local network configurations.",
+        experience: experienceEnText,
         contact: "You can connect with Renaldy via:<br>📧 Email: <strong>renaldyimran@gmail.com</strong><br>🔗 LinkedIn: <a href='https://linkedin.com/in/renaldyimran' target='_blank' rel='noopener noreferrer' style='color: var(--accent); font-weight:700;'>linkedin.com/in/renaldyimran</a><br>🐙 GitHub: <a href='https://github.com/renmher' target='_blank' rel='noopener noreferrer' style='color: var(--accent); font-weight:700;'>github.com/renmher</a>",
         cv: "Sure! You can download Renaldy's latest CV by clicking the link: <a href='/cv-renaldy.pdf' download class='project-link' style='color: var(--accent); font-weight:700;'>[Download CV - Renaldy.pdf]</a>",
         fallback: "I'm sorry, I didn't quite catch that. Try using key phrases like <em>skills</em>, <em>certifications</em>, <em>experience</em>, <em>contact</em>, <em>cv</em>, or simply click the quick-reply shortcut buttons!"
