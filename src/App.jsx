@@ -261,10 +261,30 @@ const App = () => {
       {/* Mobile Nav */}
       <nav className="mobile-nav">
         <ul>
-          <li><a href="#home" className={activeSection === 'home' ? 'active' : ''}>{curr["nav-home"]}</a></li>
-          <li><a href="#about" className={activeSection === 'about' ? 'active' : ''}>{curr["nav-about"]}</a></li>
-          <li><a href="#projects" className={activeSection === 'projects' ? 'active' : ''}>{curr["nav-projects"]}</a></li>
-          <li><a href="#experience" className={activeSection === 'experience' ? 'active' : ''}>{curr["nav-experience"]}</a></li>
+          <li>
+            <a href="#home" className={activeSection === 'home' ? 'active' : ''}>
+              <i className="fa-solid fa-house"></i>
+              <span>{curr["nav-home"]}</span>
+            </a>
+          </li>
+          <li>
+            <a href="#about" className={activeSection === 'about' ? 'active' : ''}>
+              <i className="fa-solid fa-user"></i>
+              <span>{curr["nav-about"]}</span>
+            </a>
+          </li>
+          <li>
+            <a href="#projects" className={activeSection === 'projects' ? 'active' : ''}>
+              <i className="fa-solid fa-certificate"></i>
+              <span>{lang === 'id' ? 'Sertif' : 'Certs'}</span>
+            </a>
+          </li>
+          <li>
+            <a href="#experience" className={activeSection === 'experience' ? 'active' : ''}>
+              <i className="fa-solid fa-briefcase"></i>
+              <span>{lang === 'id' ? 'Karir' : 'Exp'}</span>
+            </a>
+          </li>
         </ul>
       </nav>
 

@@ -1527,9 +1527,9 @@ footer {
   }
 
   .nav-wrapper {
-    gap: 8px;
-    padding: 6px 10px;
+    justify-content: space-between;
     width: 95%;
+    padding: 6px 12px;
   }
 
   .logo {
@@ -1543,13 +1543,32 @@ footer {
 
   .controls {
     margin-right: 0;
-    gap: 4px;
+    gap: 6px;
+    align-items: center;
+    display: flex;
   }
 
   .control-btn {
     width: 32px;
     height: 32px;
     font-size: 0.8rem;
+  }
+
+  .system-status {
+    padding: 0;
+    background: transparent;
+    border: none;
+    margin-right: 2px;
+  }
+
+  .system-status .status-text {
+    display: none;
+  }
+
+  .system-status .status-dot {
+    margin: 0;
+    width: 8px;
+    height: 8px;
   }
 
   .desktop-nav {
@@ -1560,27 +1579,27 @@ footer {
     display: block;
     position: fixed;
     bottom: 20px;
-    left: 10px;
-    right: 10px;
+    left: 12px;
+    right: 12px;
     z-index: 1000;
   }
 
   .mobile-nav ul {
     background: var(--bg-surface);
-    backdrop-filter: blur(20px);
+    backdrop-filter: blur(24px);
     border: 1px solid var(--border);
-    padding: 6px;
+    padding: 8px;
     border-radius: 100px;
     display: flex;
     justify-content: space-around;
     gap: 4px;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     list-style: none;
   }
   
   .mobile-nav a {
-    padding: 10px 12px;
-    font-size: 0.75rem;
+    padding: 6px 4px;
+    font-size: 0.65rem;
     white-space: nowrap;
     color: var(--text-muted);
     text-decoration: none;
@@ -1588,12 +1607,21 @@ footer {
     transition: var(--transition);
     flex: 1;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+  }
+
+  .mobile-nav a i {
+    font-size: 1.15rem;
     display: block;
   }
 
   .mobile-nav a:hover, .mobile-nav a.active {
-    background: var(--primary);
-    color: white;
+    background: transparent;
+    color: var(--primary);
   }
 
   .grid {
