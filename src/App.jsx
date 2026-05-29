@@ -59,7 +59,7 @@ const App = () => {
       "profile-birthplace-label": "Tempat Lahir",
       "profile-birthplace-value": "Bekasi, Indonesia",
       "profile-birthyear-label": "Tahun Lahir",
-      "profile-birthyear-value": "2002"
+      "profile-birthyear-value": "2001"
     },
     en: {
       "nav-home": "Home",
@@ -113,7 +113,7 @@ const App = () => {
   const curr = t[lang];
 
   // --- Effects ---
-  
+
   // Sync Theme
   useEffect(() => {
     document.body.setAttribute('data-theme', theme);
@@ -322,7 +322,7 @@ const App = () => {
 
       {/* Main Container */}
       <main className="container">
-        
+
         {/* Hero Section */}
         <section id="home" className="hero reveal">
           <div className="hero-content">
@@ -422,10 +422,10 @@ const App = () => {
             <h2 dangerouslySetInnerHTML={{ __html: curr["exp-title"] }} />
             <p>{curr["exp-subtitle"]}</p>
           </div>
-          
+
           <div className="timeline-container">
             <div className="timeline-line"></div>
-            
+
             <article className="card timeline-item">
               <div className="timeline-badge"><i className="fa-solid fa-cubes"></i></div>
               <div className="timeline-date">{lang === 'id' ? 'Feb 2026 - Saat ini' : 'Feb 2026 - Present'}</div>
