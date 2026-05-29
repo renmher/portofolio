@@ -554,26 +554,41 @@ nav a:hover, nav a.active {
 }
 
 .hero-content .eyebrow {
-  color: var(--accent);
+  color: var(--primary);
   text-transform: uppercase;
-  letter-spacing: 0.15em;
-  font-weight: 600;
-  font-size: 0.75rem;
-  margin-bottom: 16px;
-  display: block;
+  letter-spacing: 0.12em;
+  font-weight: 700;
+  font-size: 0.7rem;
+  margin-bottom: 24px;
+  display: inline-block;
+  border: 1px solid rgba(37, 99, 235, 0.35);
+  background: rgba(37, 99, 235, 0.08);
+  padding: 6px 16px;
+  border-radius: 100px;
 }
 
 .hero-content h1 {
-  font-size: clamp(2.5rem, 6vw, 4rem);
-  line-height: 1;
-  margin-bottom: 20px;
+  font-size: clamp(2.5rem, 6vw, 4.2rem);
+  line-height: 1.1;
+  margin-bottom: 24px;
+  font-weight: 800;
 }
 
-.hero-content p {
-  font-size: 1rem;
+.hero-desc {
+  font-size: 1.05rem;
   color: var(--text-muted);
-  max-width: 480px;
-  margin-bottom: 32px;
+  max-width: 520px;
+  margin-bottom: 16px;
+  line-height: 1.6;
+}
+
+.hero-roles {
+  color: var(--primary);
+  font-weight: 700;
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  margin-bottom: 36px;
+  text-transform: uppercase;
 }
 
 .hero-buttons {

@@ -19,11 +19,13 @@ const App = () => {
       "nav-projects": "Sertifikasi",
       "nav-experience": "Pengalaman",
       "nav-contact": "Hubungi",
-      "hero-eyebrow": "Cloud Engineer & IT Specialist",
-      "hero-title": "Membangun <span class='gradient-text'>Infrastruktur Digital</span> yang Tangguh.",
-      "hero-desc": "Junior DevOps & Cloud Engineer yang fokus pada stabilitas sistem, otomatisasi pipeline CI/CD, dan skalabilitas infrastruktur cloud.",
+      "hero-eyebrow": "WELCOME TO MY PORTFOLIO",
+      "hero-title": "RENALDY IMRAN HERMAWAN",
+      "hero-desc": "Junior DevOps & Cloud Engineer: Membangun infrastruktur digital yang tangguh, otomatisasi CI/CD, dan stabilitas sistem.",
+      "hero-roles": "JUNIOR DEVOPS • CLOUD ENGINEER • IT NETWORK",
       "btn-projects": "Lihat Sertifikat",
       "btn-cv": "Download CV",
+      "btn-connect": "Hubungi Saya",
       "profile-role": "Junior DevOps | Cloud Engineer | IT Network",
       "stat-years": "Tahun Kelulusan",
       "stat-projects": "Sertifikasi",
@@ -68,11 +70,13 @@ const App = () => {
       "nav-projects": "Certifications",
       "nav-experience": "Experience",
       "nav-contact": "Contact",
-      "hero-eyebrow": "Cloud Engineer & IT Specialist",
-      "hero-title": "Building Resilient <span class='gradient-text'>Digital Infrastructure</span>.",
-      "hero-desc": "Junior DevOps & Cloud Engineer focused on system reliability, CI/CD pipeline automation, and cloud infrastructure scalability.",
-      "btn-projects": "View Certs",
+      "hero-eyebrow": "WELCOME TO MY PORTFOLIO",
+      "hero-title": "RENALDY IMRAN HERMAWAN",
+      "hero-desc": "Junior DevOps & Cloud Engineer: Building resilient digital infrastructures, automating CI/CD, and system stability.",
+      "hero-roles": "JUNIOR DEVOPS • CLOUD ENGINEER • IT NETWORK",
+      "btn-projects": "View Certificates",
       "btn-cv": "Download CV",
+      "btn-connect": "Let's Connect",
       "profile-role": "Junior DevOps | Cloud Engineer | IT Network",
       "stat-years": "Graduation",
       "stat-projects": "Certifications",
@@ -329,12 +333,14 @@ const App = () => {
           <div className="hero-content">
             <span className="eyebrow">{curr["hero-eyebrow"]}</span>
             <h1 dangerouslySetInnerHTML={{ __html: curr["hero-title"] }} />
+            <p className="hero-desc">{curr["hero-desc"]}</p>
+            <div className="hero-roles">{curr["hero-roles"]}</div>
             <div className="hero-buttons">
               <a href="#projects" className="btn btn-primary">
-                <i className="fa-solid fa-certificate"></i> {curr["btn-projects"]}
+                {curr["btn-projects"]}
               </a>
-              <a href="/cv-renaldy.pdf" download="CV-Renaldy-Imran-Hermawan.pdf" className="btn btn-secondary">
-                <i className="fa-solid fa-file-arrow-down"></i> {curr["btn-cv"]}
+              <a href="#contact" className="btn btn-secondary">
+                {curr["btn-connect"]}
               </a>
             </div>
           </div>
