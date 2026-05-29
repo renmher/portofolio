@@ -633,6 +633,16 @@ nav a:hover, nav a.active {
   border-color: #171515 !important;
 }
 
+.btn-whatsapp {
+  transition: var(--transition);
+}
+.btn-whatsapp:hover {
+  background: #25d366 !important;
+  border-color: #25d366 !important;
+  color: white !important;
+  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.2);
+}
+
 /* Profile Card */
 .profile-card {
   background: var(--bg-card);
