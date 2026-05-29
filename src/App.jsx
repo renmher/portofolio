@@ -350,8 +350,6 @@ const App = () => {
               <img src="/profile.png" alt="Renaldy Imran H" className="profile-img" />
             </div>
             <div className="profile-info">
-              <h2>Renaldy Imran Hermawan</h2>
-              <p>{curr["profile-role"]}</p>
               <div className="profile-stats">
                 <div className="stat-item">
                   <span>2024</span>
