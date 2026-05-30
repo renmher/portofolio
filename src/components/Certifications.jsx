@@ -151,7 +151,7 @@ const Certifications = ({ lang }) => {
 
   return (
     <>
-      <section id="projects" className="reveal">
+      <section id="certifications" className="reveal">
         <div className="section-title">
           <h2 dangerouslySetInnerHTML={{ __html: currentTranslations.title }} />
           <p>{currentTranslations.subtitle}</p>
