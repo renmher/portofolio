@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Certifications from './components/Certifications';
+import PipelineSimulator from './components/PipelineSimulator';
 import Chatbot from './components/Chatbot';
 import { experiencesData, getDurationText } from './data/experiences';
 
@@ -18,6 +19,7 @@ const App = () => {
       "nav-home": "Beranda",
       "nav-about": "Tentang",
       "nav-projects": "Proyek",
+      "nav-pipeline": "Pipeline",
       "nav-certs": "Sertifikasi",
       "nav-experience": "Pengalaman",
       "nav-contact": "Hubungi",
@@ -131,6 +133,7 @@ const App = () => {
       "nav-home": "Home",
       "nav-about": "About",
       "nav-projects": "Projects",
+      "nav-pipeline": "Pipeline",
       "nav-certs": "Certifications",
       "nav-experience": "Experience",
       "nav-contact": "Contact",
@@ -426,6 +429,7 @@ const App = () => {
               <li><a href="#home" className={activeSection === 'home' ? 'active' : ''}>{curr["nav-home"]}</a></li>
               <li><a href="#about" className={activeSection === 'about' ? 'active' : ''}>{curr["nav-about"]}</a></li>
               <li><a href="#projects" className={activeSection === 'projects' ? 'active' : ''}>{curr["nav-projects"]}</a></li>
+              <li><a href="#pipeline-simulator" className={activeSection === 'pipeline-simulator' ? 'active' : ''}>{curr["nav-pipeline"]}</a></li>
               <li><a href="#certifications" className={activeSection === 'certifications' ? 'active' : ''}>{curr["nav-certs"]}</a></li>
               <li><a href="#experience" className={activeSection === 'experience' ? 'active' : ''}>{curr["nav-experience"]}</a></li>
             </ul>
@@ -468,6 +472,12 @@ const App = () => {
             <a href="#projects" className={activeSection === 'projects' ? 'active' : ''}>
               <i className="fa-solid fa-diagram-project"></i>
               <span>{lang === 'id' ? 'Proyek' : 'Proj'}</span>
+            </a>
+          </li>
+          <li>
+            <a href="#pipeline-simulator" className={activeSection === 'pipeline-simulator' ? 'active' : ''}>
+              <i className="fa-solid fa-terminal"></i>
+              <span>{lang === 'id' ? 'Pipeline' : 'Pipeline'}</span>
             </a>
           </li>
           <li>
@@ -786,6 +796,9 @@ const App = () => {
             })}
           </div>
         </section>
+
+        {/* Pipeline Simulator Section */}
+        <PipelineSimulator lang={lang} />
 
         {/* Certifications Showcase Section */}
         <Certifications lang={lang} />
