@@ -5,9 +5,9 @@
   --accent: #d97706; /* Muted Warm Copper/Amber */
   --accent-hover: #b45309;
   --accent-glow: rgba(217, 119, 6, 0.15);
-  --bg-deep: #0a0b0f; /* Matte Charcoal Black */
-  --bg-surface: rgba(18, 20, 29, 0.7); /* Slate semi-transparent */
-  --bg-card: rgba(22, 25, 35, 0.45);
+  --bg-deep: #0b0c0e; /* Premium Carbon Obsidian Black */
+  --bg-surface: rgba(20, 21, 24, 0.75); /* Semi-transparent Charcoal */
+  --bg-card: rgba(28, 29, 34, 0.45); /* Matte Gray Slate */
   --text-main: #f8fafc; /* Ice White */
   --text-muted: #94a3b8; /* Cool Slate Gray */
   --border: rgba(255, 255, 255, 0.06);
@@ -17,7 +17,7 @@
   --font-heading: 'Outfit', sans-serif;
   --font-body: 'Inter', sans-serif;
   --transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-  --bg-visuals-grad: radial-gradient(circle at top right, #0e111d 0%, #050608 100%);
+  --bg-visuals-grad: radial-gradient(circle at top right, #16171a 0%, #08090a 100%);
   --grid-dot: rgba(255, 255, 255, 0.015);
 }
 
@@ -309,7 +309,7 @@ nav a:hover, nav a.active {
 
 .card:hover {
   border-color: var(--primary);
-  background-color: rgba(22, 25, 35, 0.7);
+  background-color: rgba(28, 29, 34, 0.7);
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
   transform: translateY(-2px);
 }
