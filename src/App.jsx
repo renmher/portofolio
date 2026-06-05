@@ -315,12 +315,16 @@ const App = () => {
   useEffect(() => {
     const hash = window.location.hash;
     if (hash) {
+      const element = document.querySelector(hash);
+      if (element) {
+        element.scrollIntoView({ behavior: 'auto' });
+      }
       const timer = setTimeout(() => {
-        const element = document.querySelector(hash);
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
+        const el = document.querySelector(hash);
+        if (el) {
+          el.scrollIntoView({ behavior: 'auto' });
         }
-      }, 500);
+      }, 50);
       return () => clearTimeout(timer);
     }
   }, []);
