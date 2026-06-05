@@ -13,6 +13,7 @@ const App = () => {
   const [activeSection, setActiveSection] = useState('home');
   const [emailCopied, setEmailCopied] = useState(false);
   const [projectTabs, setProjectTabs] = useState({ 1: 'overview', 2: 'overview' });
+  const [pipelineState, setPipelineState] = useState({ status: 'idle', stage: 0 });
 
   const handleProjectTabChange = (projectId, tab) => {
     setProjectTabs(prev => ({ ...prev, [projectId]: tab }));
@@ -856,10 +857,14 @@ const App = () => {
         </section>
 
         {/* Pipeline Simulator Section */}
-        <PipelineSimulator lang={lang} />
+        <PipelineSimulator 
+          lang={lang} 
+          onStatusChange={(status) => setPipelineState(prev => ({ ...prev, status }))}
+          onStageChange={(stage) => setPipelineState(prev => ({ ...prev, stage }))}
+        />
 
         {/* Observability & Monitoring Simulator Section */}
-        <ObservabilitySimulator lang={lang} />
+        <ObservabilitySimulator lang={lang} pipelineState={pipelineState} />
 
         {/* Certifications Showcase Section */}
         <Certifications lang={lang} />

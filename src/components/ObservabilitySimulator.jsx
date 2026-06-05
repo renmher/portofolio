@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect, useRef } from 'react';
 
-const ObservabilitySimulator = ({ lang }) => {
+const ObservabilitySimulator = ({ lang, pipelineState }) => {
   const [status, setStatus] = useState('healthy'); // 'healthy' | 'warning' | 'critical' | 'resolving'
   const [cpu, setCpu] = useState(34.2);
   const [ram, setRam] = useState(54.1);
@@ -111,6 +111,64 @@ const ObservabilitySimulator = ({ lang }) => {
 
     return () => clearInterval(timerRef.current);
   }, [status]);
+
+  // Sync with CI/CD Pipeline Simulator State
+  useEffect(() => {
+    if (!pipelineState) return;
+    const now = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+
+    if (pipelineState.status === 'running') {
+      setStatus('warning');
+      if (pipelineState.stage === 1) {
+        setAlerts(prev => [
+          ...prev,
+          { id: Date.now() + 1, type: 'warning', text: lang === 'id' ? '[CI/CD] Tahap Checkout & Lint: Klon repo & verifikasi sintaks...' : '[CI/CD] Stage Checkout & Lint: Cloning repo & verifying syntax...', time: now }
+        ]);
+      } else if (pipelineState.stage === 2) {
+        setAlerts(prev => [
+          ...prev,
+          { id: Date.now() + 2, type: 'warning', text: lang === 'id' ? '[CI/CD] Tahap Security Gate: Memulai analisis SonarQube & Trivy...' : '[CI/CD] Stage Security Gate: Initiating SonarQube & Trivy scan...', time: now }
+        ]);
+      } else if (pipelineState.stage === 3) {
+        setAlerts(prev => [
+          ...prev,
+          { id: Date.now() + 3, type: 'warning', text: lang === 'id' ? '[CI/CD] Tahap Docker Build: Kompilasi aset & push image ke Harbor...' : '[CI/CD] Stage Docker Build: Compiling assets & pushing image to Harbor...', time: now }
+        ]);
+      } else if (pipelineState.stage === 4) {
+        setAlerts(prev => [
+          ...prev,
+          { id: Date.now() + 4, type: 'warning', text: lang === 'id' ? '[CI/CD] Tahap Cloud Deploy: Melakukan rolling update di Kubernetes...' : '[CI/CD] Stage Cloud Deploy: Executing rolling update in Kubernetes...', time: now }
+        ]);
+      }
+    } else if (pipelineState.status === 'failed') {
+      setStatus('critical');
+      setAlerts(prev => [
+        ...prev,
+        { id: Date.now() + 5, type: 'critical', text: lang === 'id' ? '[ALARM] Pipeline GAGAL: Kerentanan keamanan terdeteksi di Tahap 2!' : '[ALARM] Pipeline FAILED: Security vulnerabilities detected in Stage 2!', time: now }
+      ]);
+      setShowTelegram(true);
+    } else if (pipelineState.status === 'success') {
+      setStatus('resolving');
+      setAlerts(prev => [
+        ...prev,
+        { id: Date.now() + 6, type: 'resolving', text: lang === 'id' ? '[CI/CD] Pipeline SUKSES: Memasang rilis baru di cluster produksi...' : '[CI/CD] Pipeline SUCCESS: Deploying new release on production cluster...', time: now }
+      ]);
+      
+      const timer = setTimeout(() => {
+        setStatus('healthy');
+        setShowTelegram(false);
+        setAlerts(prev => [
+          ...prev,
+          { id: Date.now() + 7, type: 'ok', text: lang === 'id' ? '[SUKSES] Rilis baru aktif. Beban CPU kembali normal.' : '[SUCCESS] New release active. CPU load normalized.', time: now }
+        ]);
+      }, 3000);
+
+      return () => clearTimeout(timer);
+    } else if (pipelineState.status === 'idle') {
+      setStatus('healthy');
+      setShowTelegram(false);
+    }
+  }, [pipelineState, lang]);
 
   const triggerLoadTest = () => {
     setStatus('warning');

@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect, useRef } from 'react';
 
-const PipelineSimulator = ({ lang }) => {
+const PipelineSimulator = ({ lang, onStatusChange, onStageChange }) => {
   const [status, setStatus] = useState('idle'); // 'idle' | 'running' | 'success' | 'failed'
   const [activeStage, setActiveStage] = useState(0); // 0 (none), 1, 2, 3, 4
   const [failMode, setFailMode] = useState(false);
@@ -9,6 +9,15 @@ const PipelineSimulator = ({ lang }) => {
   const [progress, setProgress] = useState({ 1: 0, 2: 0, 3: 0, 4: 0 });
   const terminalRef = useRef(null);
   const activeIntervals = useRef([]);
+
+  // Sync state to parent for ObservabilitySimulator integration
+  useEffect(() => {
+    if (onStatusChange) onStatusChange(status);
+  }, [status, onStatusChange]);
+
+  useEffect(() => {
+    if (onStageChange) onStageChange(activeStage);
+  }, [activeStage, onStageChange]);
 
   const clearAllIntervals = () => {
     activeIntervals.current.forEach(clearInterval);
