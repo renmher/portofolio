@@ -306,7 +306,7 @@ const ObservabilitySimulator = ({ lang, pipelineState }) => {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px', marginBottom: '28px' }}>
           
           {/* Panel 1: CPU */}
-          <div className="card" style={{ background: '#090a0c', border: '1px solid var(--border)', padding: '20px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+          <div className="card" style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', padding: '20px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', fontWeight: '800', color: 'var(--text-muted)' }}>
               <span>{t.charts.cpu}</span>
               <span style={{ fontFamily: 'monospace', color: cpu > 80 ? '#ef4444' : '#22c55e' }}>{cpu}%</span>
@@ -325,7 +325,7 @@ const ObservabilitySimulator = ({ lang, pipelineState }) => {
           </div>
 
           {/* Panel 2: RAM */}
-          <div className="card" style={{ background: '#090a0c', border: '1px solid var(--border)', padding: '20px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+          <div className="card" style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', padding: '20px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', fontWeight: '800', color: 'var(--text-muted)' }}>
               <span>{t.charts.ram}</span>
               <span style={{ fontFamily: 'monospace', color: ram > 75 ? '#eab308' : '#22c55e' }}>{ram}%</span>
@@ -344,7 +344,7 @@ const ObservabilitySimulator = ({ lang, pipelineState }) => {
           </div>
 
           {/* Panel 3: Network */}
-          <div className="card" style={{ background: '#090a0c', border: '1px solid var(--border)', padding: '20px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+          <div className="card" style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', padding: '20px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', fontWeight: '800', color: 'var(--text-muted)' }}>
               <span>{t.charts.net}</span>
               <span style={{ fontFamily: 'monospace', color: '#58a6ff' }}>{network} Mbps</span>
@@ -365,7 +365,7 @@ const ObservabilitySimulator = ({ lang, pipelineState }) => {
         </div>
 
         {/* Alerts Log Panel */}
-        <div className="card" style={{ background: '#08090b', padding: '20px', border: '1px solid var(--border)' }}>
+        <div className="card" style={{ background: 'var(--bg-deep)', padding: '20px', border: '1px solid var(--border)' }}>
           <h4 style={{ fontSize: '0.8rem', fontWeight: 800, color: 'var(--text-muted)', marginBottom: '16px', letterSpacing: '0.05em' }}>
             <i className="fa-solid fa-list-check"></i> {t.alertHeader}
           </h4>

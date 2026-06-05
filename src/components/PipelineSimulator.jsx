@@ -542,14 +542,14 @@ const PipelineSimulator = ({ lang, onStatusChange, onStageChange }) => {
 
         {/* Terminal logs block */}
         <div className="pipeline-terminal" style={{
-          background: '#08090b',
+          background: 'var(--bg-deep)',
           border: '1px solid var(--border)',
           borderRadius: 'var(--radius-md)',
           overflow: 'hidden',
-          boxShadow: 'inset 0 0 10px rgba(0,0,0,0.8)'
+          boxShadow: 'inset 0 0 10px rgba(0,0,0,0.1)'
         }}>
           <div className="terminal-header" style={{
-            background: '#121318',
+            background: 'var(--bg-card)',
             padding: '10px 18px',
             borderBottom: '1px solid var(--border)',
             display: 'flex',
@@ -574,9 +574,9 @@ const PipelineSimulator = ({ lang, onStatusChange, onStageChange }) => {
             fontFamily: 'monospace',
             fontSize: '0.82rem',
             lineHeight: '1.6',
-            color: '#c9d1d9',
+            color: 'var(--text-main)',
             textAlign: 'left',
-            background: '#08090b'
+            background: 'var(--bg-deep)'
           }}>
             {logs.length === 0 ? (
               <span style={{ color: 'var(--text-muted)', fontStyle: 'italic' }}>
