@@ -20,7 +20,6 @@ const App = () => {
       "nav-projects": "Proyek",
       "nav-certs": "Sertifikasi",
       "nav-experience": "Pengalaman",
-      "nav-reflection": "Refleksi",
       "nav-contact": "Hubungi",
       "hero-eyebrow": "WELCOME TO MY PORTFOLIO",
       "hero-title": "Renaldy Imran <span class='gradient-text'>Hermawan</span>, S.Kom",
@@ -86,8 +85,6 @@ const App = () => {
       "brand-strength-val": "Troubleshooting cepat under pressure, Automation-First mindset, kolaborasi NOC & lintas tim",
       "brand-interest-label": "Bidang yang Diminati",
       "brand-interest-val": "Platform Engineering, SRE, DevSecOps, Cloud-Native Systems",
-      "brand-value-label": "Value yang Ingin Ditampilkan",
-      "brand-value-val": "Membangun sistem rilis yang tidak hanya berjalan, tetapi juga tangguh, terukur, dan aman secara otomatis.",
 
       // About Me Section Narrative
       "about-narrative-p1": "Halo! Saya Renaldy Imran Hermawan, lulusan Sarjana Komputer (S.Kom) dari Universitas Bani Saleh yang berdedikasi sebagai Junior DevOps & Cloud Engineer. Dengan latar belakang kuat dalam administrasi jaringan dan infrastruktur IT, saya berfokus pada otomatisasi siklus deployment (CI/CD), orkestrasi kontainer (Docker & Kubernetes), serta pengamanan pipeline (DevSecOps). Saya memiliki rekam jejak dalam merancang pipeline GitLab CI yang aman, mengelola registri kontainer, dan mengonfigurasi pemantauan real-time menggunakan Grafana dan VictoriaMetrics.",
@@ -129,19 +126,6 @@ const App = () => {
       "proj2-solution": "Mendeploy VictoriaMetrics sebagai penyimpanan metrik deret waktu berkapasitas tinggi, mengonfigurasi Prometheus Node Exporter di seluruh VM, mengintegrasikan VictoriaLogs untuk pengumpulan log logis, dan mendesain dasbor komprehensif di Grafana dengan visualisasi grafik CPU, RAM, disk I/O, serta seting alert otomatis ke Telegram.",
       "proj2-impact": "Menurunkan MTTD insiden dari 45 menit menjadi kurang dari 2 menit (penurunan 95%). Meningkatkan uptime sistem sebesar 40% berkat deteksi dini dan troubleshooting logs yang terpusat.",
 
-      // Reflection Section
-      "refl-title": "Refleksi <span class='gradient-text'>Profesional</span>",
-      "refl-subtitle": "Pembelajaran dan pemikiran kritis saya dalam perjalanan membuat portofolio ini.",
-      "refl-q1-title": "1. Tantangan Terbesar Pembuatan Portofolio",
-      "refl-q1-desc": "Menyelaraskan seluruh pengalaman teknis (jaringan, cloud, dan DevOps) ke dalam narasi visual yang mudah dipahami oleh pewawancara teknis maupun non-teknis. Menyederhanakan detail pipeline CI/CD dan monitoring agar tetap padat tetapi bercerita (storytelling).",
-      "refl-q2-title": "2. Proyek yang Paling Merepresentasikan Diri",
-      "refl-q2-desc": "Proyek 'Otomatisasi Pipeline CI/CD Aman'. Proyek ini mencerminkan kompetensi utama saya karena menggabungkan otomatisasi (GitLab CI), infrastruktur cloud, dan integrasi keamanan kontainer (SonarQube & Trivy) secara langsung dalam alur kerja praktis.",
-      "refl-q3-title": "3. Skill yang Paling Berkembang",
-      "refl-q3-desc": "Keterampilan dalam merancang Infrastructure as Code (IaC) menggunakan Terraform serta mengimplementasikan Observability canggih menggunakan VictoriaMetrics, VictoriaLogs, dan Grafana.",
-      "refl-q4-title": "4. Apa yang Ingin Ditingkatkan ke Depannya",
-      "refl-q4-desc": "Mempelajari teknologi orkestrasi skala besar tingkat lanjut seperti Service Mesh (Istio) dan memperdalam konsep GitOps dengan ArgoCD untuk deployment berbasis Kubernetes.",
-      "refl-q5-title": "5. Mengapa Portofolio Penting untuk Karir",
-      "refl-q5-desc": "Portofolio berfungsi sebagai bukti konkret (proof of work) dari keterampilan teknis yang dimiliki. Bagi seorang DevOps/Cloud Engineer, portofolio menunjukkan tidak hanya 'apa yang bisa dilakukan', tetapi 'bagaimana cara berpikir' dalam menyelesaikan masalah skalabilitas, keandalan sistem, dan otomatisasi."
     },
     en: {
       "nav-home": "Home",
@@ -149,7 +133,6 @@ const App = () => {
       "nav-projects": "Projects",
       "nav-certs": "Certifications",
       "nav-experience": "Experience",
-      "nav-reflection": "Reflection",
       "nav-contact": "Contact",
       "hero-eyebrow": "WELCOME TO MY PORTFOLIO",
       "hero-title": "Renaldy Imran <span class='gradient-text'>Hermawan</span>, S.Kom",
@@ -213,8 +196,6 @@ const App = () => {
       "brand-strength-val": "Rapid troubleshooting under pressure, Automation-First mindset, NOC & cross-team collaboration",
       "brand-interest-label": "Fields of Interest",
       "brand-interest-val": "Platform Engineering, SRE, DevSecOps, Cloud-Native Systems",
-      "brand-value-label": "Value to Deliver",
-      "brand-value-val": "Building software delivery systems that don't just run, but are resilient, scalable, and automatically secure.",
 
       // About Me Section Narrative
       "about-narrative-p1": "Hello! I am Renaldy Imran Hermawan, a Computer Science graduate (S.Kom) from Bani Saleh University, dedicated to working as a Junior DevOps & Cloud Engineer. With a solid foundation in network administration and IT infrastructure, I focus on automating deployment cycles (CI/CD), container orchestration (Docker & Kubernetes), and securing delivery pipelines (DevSecOps). I have a proven track record of designing secure GitLab CI pipelines, managing container registries, and configuring real-time observability using Grafana and VictoriaMetrics.",
@@ -256,19 +237,6 @@ const App = () => {
       "proj2-solution": "Deployed VictoriaMetrics as a high-capacity time-series metrics database, configured Prometheus Node Exporter across virtual instances, integrated VictoriaLogs for log collection, and designed a comprehensive Grafana dashboard showing CPU, RAM, disk usage, and integrated automated Telegram notifications.",
       "proj2-impact": "Reduced incident MTTD from 45 minutes to less than 2 minutes (95% detection speedup). Improved system uptime by 40% through early detection and centralized log troubleshooting.",
 
-      // Reflection Section
-      "refl-title": "Professional <span class='gradient-text'>Reflection</span>",
-      "refl-subtitle": "My learnings and critical takeaways during the development of this portfolio.",
-      "refl-q1-title": "1. Biggest Challenge in Portfolio Development",
-      "refl-q1-desc": "Translating complex technical workflows (network topology, cloud configuration, and DevOps pipelines) into a cohesive visual narrative that is easily digestible for both technical and non-technical recruiters, while maintaining clean storytelling.",
-      "refl-q2-title": "2. Most Representative Project",
-      "refl-q2-desc": "The 'Secure CI/CD Pipeline Automation' project. This project encapsulates my core engineering values by integrating automation (GitLab CI), cloud infra, and DevSecOps security scanning (SonarQube & Trivy) into a streamlined pipeline.",
-      "refl-q3-title": "3. Most Developed Skill",
-      "refl-q3-desc": "Infrastructure as Code (IaC) design with Terraform and modern production observability setups using Grafana and VictoriaMetrics.",
-      "refl-q4-title": "4. Future Areas of Improvement",
-      "refl-q4-desc": "Mastering advanced container orchestration concepts such as Service Mesh (Istio) and implementing GitOps patterns with ArgoCD for automated Kubernetes deployments.",
-      "refl-q5-title": "5. Why a Portfolio is Critical for My Career",
-      "refl-q5-desc": "A portfolio acts as concrete proof of work. For a DevOps/Cloud Engineer, it showcases not just a list of tools, but the architectural thinking process to solve reliability, scalability, and delivery pipeline problems."
     }
   };
 
@@ -460,7 +428,6 @@ const App = () => {
               <li><a href="#projects" className={activeSection === 'projects' ? 'active' : ''}>{curr["nav-projects"]}</a></li>
               <li><a href="#certifications" className={activeSection === 'certifications' ? 'active' : ''}>{curr["nav-certs"]}</a></li>
               <li><a href="#experience" className={activeSection === 'experience' ? 'active' : ''}>{curr["nav-experience"]}</a></li>
-              <li><a href="#reflection" className={activeSection === 'reflection' ? 'active' : ''}>{curr["nav-reflection"]}</a></li>
             </ul>
           </nav>
           <div className="controls">
@@ -513,12 +480,6 @@ const App = () => {
             <a href="#experience" className={activeSection === 'experience' ? 'active' : ''}>
               <i className="fa-solid fa-briefcase"></i>
               <span>{lang === 'id' ? 'Karir' : 'Exp'}</span>
-            </a>
-          </li>
-          <li>
-            <a href="#reflection" className={activeSection === 'reflection' ? 'active' : ''}>
-              <i className="fa-solid fa-brain"></i>
-              <span>{lang === 'id' ? 'Refleksi' : 'Refl'}</span>
             </a>
           </li>
         </ul>
@@ -593,11 +554,6 @@ const App = () => {
                 <div className="brand-map-icon" style={{ fontSize: '1.8rem', color: 'var(--primary)' }}><i className="fa-solid fa-compass"></i></div>
                 <h4 style={{ fontSize: '1.05rem', fontWeight: '700' }}>{curr["brand-interest-label"]}</h4>
                 <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>{curr["brand-interest-val"]}</p>
-              </div>
-              <div className="card brand-map-card full-width" style={{ gridColumn: '1 / -1', display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                <div className="brand-map-icon" style={{ fontSize: '1.8rem', color: 'var(--accent)' }}><i className="fa-solid fa-heart"></i></div>
-                <h4 style={{ fontSize: '1.05rem', fontWeight: '700' }}>{curr["brand-value-label"]}</h4>
-                <p style={{ fontSize: '0.95rem', color: 'var(--text-main)', fontStyle: 'italic' }}>"{curr["brand-value-val"]}"</p>
               </div>
             </div>
           </div>
@@ -856,56 +812,6 @@ const App = () => {
                 </div>
               </article>
             ))}
-          </div>
-        </section>
-
-        {/* Reflection Section */}
-        <section id="reflection" className="reveal">
-          <div className="section-title">
-            <h2 dangerouslySetInnerHTML={{ __html: curr["refl-title"] }} />
-            <p>{curr["refl-subtitle"]}</p>
-          </div>
-
-          <div className="reflection-container grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '24px' }}>
-            <div className="card reflection-card" style={{ display: 'flex', flexDirection: 'column', gap: '12px', padding: '24px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', fontSize: '1.25rem', color: 'var(--accent)' }}>
-                <i className="fa-solid fa-triangle-exclamation"></i>
-                <h4 style={{ fontSize: '1.05rem', fontWeight: '700', color: 'var(--text-main)' }}>{curr["refl-q1-title"]}</h4>
-              </div>
-              <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', lineHeight: '1.6' }}>{curr["refl-q1-desc"]}</p>
-            </div>
-
-            <div className="card reflection-card" style={{ display: 'flex', flexDirection: 'column', gap: '12px', padding: '24px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', fontSize: '1.25rem', color: 'var(--primary)' }}>
-                <i className="fa-solid fa-code"></i>
-                <h4 style={{ fontSize: '1.05rem', fontWeight: '700', color: 'var(--text-main)' }}>{curr["refl-q2-title"]}</h4>
-              </div>
-              <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', lineHeight: '1.6' }}>{curr["refl-q2-desc"]}</p>
-            </div>
-
-            <div className="card reflection-card" style={{ display: 'flex', flexDirection: 'column', gap: '12px', padding: '24px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', fontSize: '1.25rem', color: 'var(--primary)' }}>
-                <i className="fa-solid fa-bolt"></i>
-                <h4 style={{ fontSize: '1.05rem', fontWeight: '700', color: 'var(--text-main)' }}>{curr["refl-q3-title"]}</h4>
-              </div>
-              <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', lineHeight: '1.6' }}>{curr["refl-q3-desc"]}</p>
-            </div>
-
-            <div className="card reflection-card" style={{ display: 'flex', flexDirection: 'column', gap: '12px', padding: '24px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', fontSize: '1.25rem', color: 'var(--primary)' }}>
-                <i className="fa-solid fa-arrow-up-right-dots"></i>
-                <h4 style={{ fontSize: '1.05rem', fontWeight: '700', color: 'var(--text-main)' }}>{curr["refl-q4-title"]}</h4>
-              </div>
-              <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', lineHeight: '1.6' }}>{curr["refl-q4-desc"]}</p>
-            </div>
-
-            <div className="card reflection-card full-width" style={{ gridColumn: '1 / -1', display: 'flex', flexDirection: 'column', gap: '12px', padding: '24px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', fontSize: '1.25rem', color: 'var(--accent)' }}>
-                <i className="fa-solid fa-briefcase"></i>
-                <h4 style={{ fontSize: '1.05rem', fontWeight: '700', color: 'var(--text-main)' }}>{curr["refl-q5-title"]}</h4>
-              </div>
-              <p style={{ fontSize: '0.92rem', color: 'var(--text-muted)', lineHeight: '1.6' }}>{curr["refl-q5-desc"]}</p>
-            </div>
           </div>
         </section>
 
