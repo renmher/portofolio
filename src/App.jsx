@@ -446,7 +446,6 @@ const App = () => {
       {/* Header & Nav */}
       <header>
         <div className="nav-wrapper">
-          <div className="logo">R.</div>
           <nav className="desktop-nav">
             <ul>
               <li><a href="#home" className={activeSection === 'home' ? 'active' : ''}>{curr["nav-home"]}</a></li>
@@ -459,10 +458,6 @@ const App = () => {
             </ul>
           </nav>
           <div className="controls">
-            <div className="system-status" title={lang === 'id' ? 'Status Ketersediaan' : 'Availability Status'}>
-              <span className="status-dot"></span>
-              <span className="status-text">{lang === 'id' ? 'TERSEDIA' : 'AVAILABLE'}</span>
-            </div>
             <button id="theme-toggle" className="control-btn" title="Toggle Theme" onClick={toggleTheme}>
               {theme === 'dark' ? <i className="fa-solid fa-sun"></i> : <i className="fa-solid fa-moon"></i>}
             </button>
