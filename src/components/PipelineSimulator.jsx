@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
+/* eslint-disable react/prop-types */
+import { useState, useEffect, useRef } from 'react';
 
 const PipelineSimulator = ({ lang }) => {
   const [status, setStatus] = useState('idle'); // 'idle' | 'running' | 'success' | 'failed'

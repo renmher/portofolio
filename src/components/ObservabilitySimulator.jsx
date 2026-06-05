@@ -1,0 +1,368 @@
+/* eslint-disable react/prop-types */
+import { useState, useEffect, useRef } from 'react';
+
+const ObservabilitySimulator = ({ lang }) => {
+  const [status, setStatus] = useState('healthy'); // 'healthy' | 'warning' | 'critical' | 'resolving'
+  const [cpu, setCpu] = useState(34.2);
+  const [ram, setRam] = useState(54.1);
+  const [network, setNetwork] = useState(128);
+  const [cpuHistory, setCpuHistory] = useState(Array(20).fill(35));
+  const [ramHistory, setRamHistory] = useState(Array(20).fill(54));
+  const [networkHistory, setNetworkHistory] = useState(Array(20).fill(128));
+  const [alerts, setAlerts] = useState([
+    { id: 1, type: 'ok', text: 'System Bootstrapped Successfully', time: '13:10' },
+    { id: 2, type: 'ok', text: 'VictoriaMetrics Database Online', time: '13:12' },
+    { id: 3, type: 'ok', text: 'Grafana Dashboard connected', time: '13:15' }
+  ]);
+  const [showTelegram, setShowTelegram] = useState(false);
+  const timerRef = useRef(null);
+
+  const translations = {
+    id: {
+      title: "Simulator <span class='gradient-text'>Monitoring & Observabilitas</span>",
+      subtitle: "Simulasikan load-testing server, saksikan sistem monitoring bekerja, dan amati respon autoscaling.",
+      btnLoadTest: "Jalankan Load Test (Serangan Trafik)",
+      btnAutoscale: "Aktifkan Autoscaling (Mitigasi)",
+      btnReset: "Reset Sistem",
+      statusHealthy: "SISTEM NORMAL",
+      statusWarning: "PERINGATAN: BEBAN TINGGI",
+      statusCritical: "KRITIS: OVERLOAD SERVER",
+      statusResolving: "AUTOSCALING: PROVISIONING NODE BARU...",
+      charts: {
+        cpu: "CPU USAGE (LOAD)",
+        ram: "RAM USAGE (USED)",
+        net: "TRAFIK JARINGAN"
+      },
+      alertHeader: "LOG NOTIFIKASI ALARM",
+      tgTitle: "Telegram Bot Alert (Production)",
+      tgBody: "⚠️ WARNING: CPU overload detected on node-04 (95.4%). Auto-mitigation triggered."
+    },
+    en: {
+      title: "Interactive <span class='gradient-text'>Observability & Monitoring Simulator</span>",
+      subtitle: "Simulate server load-testing, watch the monitoring stack react, and see autoscaling mitigation in action.",
+      btnLoadTest: "Trigger Load Test (Traffic Spike)",
+      btnAutoscale: "Trigger Autoscaling (Mitigate)",
+      btnReset: "Reset Dashboard",
+      statusHealthy: "SYSTEM HEALTHY",
+      statusWarning: "WARNING: HIGH LOAD",
+      statusCritical: "CRITICAL: SERVER OVERLOAD",
+      statusResolving: "AUTOSCALING: PROVISIONING NEW REPLICAS...",
+      charts: {
+        cpu: "CPU USAGE (LOAD)",
+        ram: "RAM USAGE (USED)",
+        net: "NETWORK TRAFFIC"
+      },
+      alertHeader: "ALERT ALARM LOGS",
+      tgTitle: "Telegram Bot Alert (Production)",
+      tgBody: "⚠️ WARNING: CPU overload detected on node-04 (95.4%). Auto-mitigation triggered."
+    }
+  };
+
+  const t = translations[lang] || translations['id'];
+
+  // Animate Charts Loop
+  useEffect(() => {
+    timerRef.current = setInterval(() => {
+      setCpu(prev => {
+        let next = prev;
+        if (status === 'healthy') {
+          next = 30 + Math.random() * 12;
+        } else if (status === 'warning') {
+          next = 72 + Math.random() * 8;
+        } else if (status === 'critical') {
+          next = 94 + Math.random() * 4.5;
+        } else if (status === 'resolving') {
+          next = Math.max(38, prev - 12);
+        }
+        setCpuHistory(hist => [...hist.slice(1), next]);
+        return parseFloat(next.toFixed(1));
+      });
+
+      setRam(prev => {
+        let next = prev;
+        if (status === 'healthy') {
+          next = 50 + Math.random() * 5;
+        } else if (status === 'warning') {
+          next = 75 + Math.random() * 3;
+        } else if (status === 'critical') {
+          next = 88 + Math.random() * 2.5;
+        } else if (status === 'resolving') {
+          next = Math.max(58, prev - 4);
+        }
+        setRamHistory(hist => [...hist.slice(1), next]);
+        return parseFloat(next.toFixed(1));
+      });
+
+      setNetwork(prev => {
+        let next = prev;
+        if (status === 'healthy') {
+          next = 100 + Math.floor(Math.random() * 35);
+        } else if (status === 'warning') {
+          next = 190 + Math.floor(Math.random() * 25);
+        } else if (status === 'critical') {
+          next = 240 + Math.floor(Math.random() * 15);
+        } else if (status === 'resolving') {
+          next = Math.max(120, prev - 25);
+        }
+        setNetworkHistory(hist => [...hist.slice(1), next]);
+        return Math.floor(next);
+      });
+    }, 1000);
+
+    return () => clearInterval(timerRef.current);
+  }, [status]);
+
+  const triggerLoadTest = () => {
+    setStatus('warning');
+    const now = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    
+    // Add Warning Alert
+    setAlerts(prev => [
+      ...prev,
+      { id: prev.length + 1, type: 'warning', text: 'High CPU Load detected on node-04 (>70%)', time: now }
+    ]);
+
+    // Transition to Critical after 3 seconds
+    setTimeout(() => {
+      setStatus('critical');
+      const nowCritical = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+      setAlerts(prev => [
+        ...prev,
+        { id: prev.length + 1, type: 'critical', text: 'CRITICAL: node-04 CPU Spike (96.2%) - Request queue full', time: nowCritical }
+      ]);
+      setShowTelegram(true);
+    }, 3000);
+  };
+
+  const triggerAutoscale = () => {
+    setStatus('resolving');
+    const now = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    setAlerts(prev => [
+      ...prev,
+      { id: prev.length + 1, type: 'resolving', text: 'HorizontalPodAutoscaler triggered: Provisioning 2 new nodes', time: now }
+    ]);
+
+    // Back to Healthy after 4 seconds
+    setTimeout(() => {
+      setStatus('healthy');
+      setShowTelegram(false);
+      const nowHealthy = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+      setAlerts(prev => [
+        ...prev,
+        { id: prev.length + 1, type: 'ok', text: 'Autoscale scale-up completed. System Load Normalized', time: nowHealthy }
+      ]);
+    }, 4000);
+  };
+
+  const resetSimulator = () => {
+    setStatus('healthy');
+    setShowTelegram(false);
+    setCpu(34.2);
+    setRam(54.1);
+    setNetwork(128);
+    setCpuHistory(Array(20).fill(35));
+    setRamHistory(Array(20).fill(54));
+    setNetworkHistory(Array(20).fill(128));
+    setAlerts([
+      { id: 1, type: 'ok', text: 'System Bootstrapped Successfully', time: '13:10' },
+      { id: 2, type: 'ok', text: 'VictoriaMetrics Database Online', time: '13:12' },
+      { id: 3, type: 'ok', text: 'Grafana Dashboard connected', time: '13:15' }
+    ]);
+  };
+
+  // Convert points array to SVG Path coordinates
+  const generateSvgPath = (points, maxVal) => {
+    const width = 300;
+    const height = 80;
+    const step = width / (points.length - 1);
+    return points.map((p, index) => {
+      const x = index * step;
+      const y = height - (p / maxVal) * height * 0.9 - 5;
+      return `${index === 0 ? 'M' : 'L'} ${x} ${y}`;
+    }).join(' ');
+  };
+
+  return (
+    <section id="observability-simulator" className="reveal active">
+      <div className="section-title">
+        <h2 dangerouslySetInnerHTML={{ __html: t.title }} />
+        <p>{t.subtitle}</p>
+      </div>
+
+      <div className="card monitoring-container" style={{ padding: '32px', background: 'var(--bg-surface)', border: '1px solid var(--border)' }}>
+        
+        {/* Header Controls */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '28px', flexWrap: 'wrap', gap: '16px' }}>
+          
+          {/* Status Badge */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <span style={{
+              width: '12px',
+              height: '12px',
+              borderRadius: '50%',
+              background: status === 'healthy' ? '#22c55e' : status === 'warning' ? '#eab308' : status === 'critical' ? '#ef4444' : '#58a6ff',
+              boxShadow: `0 0 10px ${status === 'healthy' ? '#22c55e' : status === 'warning' ? '#eab308' : status === 'critical' ? '#ef4444' : '#58a6ff'}`,
+              animation: 'pulse-status 1.5s infinite'
+            }}></span>
+            <span style={{
+              fontWeight: 800,
+              fontSize: '0.88rem',
+              color: status === 'healthy' ? '#22c55e' : status === 'warning' ? '#eab308' : status === 'critical' ? '#ef4444' : '#58a6ff'
+            }}>
+              {status === 'healthy' && t.statusHealthy}
+              {status === 'warning' && t.statusWarning}
+              {status === 'critical' && t.statusCritical}
+              {status === 'resolving' && t.statusResolving}
+            </span>
+          </div>
+
+          {/* Buttons Controls */}
+          <div style={{ display: 'flex', gap: '12px' }}>
+            {status === 'healthy' && (
+              <button className="btn btn-primary" onClick={triggerLoadTest} style={{ background: '#ef4444', color: '#fff' }}>
+                <i className="fa-solid fa-gauge-high"></i> {t.btnLoadTest}
+              </button>
+            )}
+            {status === 'critical' && (
+              <button className="btn btn-primary" onClick={triggerAutoscale} style={{ background: '#22c55e', color: '#fff' }}>
+                <i className="fa-solid fa-server"></i> {t.btnAutoscale}
+              </button>
+            )}
+            {status === 'warning' && (
+              <button className="btn btn-primary" disabled style={{ opacity: 0.6 }}>
+                <i className="fa-solid fa-spinner fa-spin"></i> Triggering Alert...
+              </button>
+            )}
+            {status === 'resolving' && (
+              <button className="btn btn-primary" disabled style={{ opacity: 0.6 }}>
+                <i className="fa-solid fa-spinner fa-spin"></i> Scaling Up Nodes...
+              </button>
+            )}
+            <button className="btn btn-secondary" onClick={resetSimulator} disabled={status === 'resolving'}>
+              <i className="fa-solid fa-rotate-left"></i> {t.btnReset}
+            </button>
+          </div>
+        </div>
+
+        {/* Dashboard Grid Panels */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px', marginBottom: '28px' }}>
+          
+          {/* Panel 1: CPU */}
+          <div className="card" style={{ background: '#090a0c', border: '1px solid var(--border)', padding: '20px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', fontWeight: '800', color: 'var(--text-muted)' }}>
+              <span>{t.charts.cpu}</span>
+              <span style={{ fontFamily: 'monospace', color: cpu > 80 ? '#ef4444' : '#22c55e' }}>{cpu}%</span>
+            </div>
+            <div style={{ height: '80px', position: 'relative', overflow: 'hidden' }}>
+              <svg width="100%" height="80" viewBox="0 0 300 80" preserveAspectRatio="none" style={{ overflow: 'visible' }}>
+                <path
+                  d={generateSvgPath(cpuHistory, 100)}
+                  fill="none"
+                  stroke={cpu > 80 ? '#ef4444' : '#22c55e'}
+                  strokeWidth="2"
+                  style={{ transition: 'all 0.1s linear' }}
+                />
+              </svg>
+            </div>
+          </div>
+
+          {/* Panel 2: RAM */}
+          <div className="card" style={{ background: '#090a0c', border: '1px solid var(--border)', padding: '20px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', fontWeight: '800', color: 'var(--text-muted)' }}>
+              <span>{t.charts.ram}</span>
+              <span style={{ fontFamily: 'monospace', color: ram > 75 ? '#eab308' : '#22c55e' }}>{ram}%</span>
+            </div>
+            <div style={{ height: '80px', position: 'relative', overflow: 'hidden' }}>
+              <svg width="100%" height="80" viewBox="0 0 300 80" preserveAspectRatio="none" style={{ overflow: 'visible' }}>
+                <path
+                  d={generateSvgPath(ramHistory, 100)}
+                  fill="none"
+                  stroke={ram > 75 ? '#eab308' : '#22c55e'}
+                  strokeWidth="2"
+                  style={{ transition: 'all 0.1s linear' }}
+                />
+              </svg>
+            </div>
+          </div>
+
+          {/* Panel 3: Network */}
+          <div className="card" style={{ background: '#090a0c', border: '1px solid var(--border)', padding: '20px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', fontWeight: '800', color: 'var(--text-muted)' }}>
+              <span>{t.charts.net}</span>
+              <span style={{ fontFamily: 'monospace', color: '#58a6ff' }}>{network} Mbps</span>
+            </div>
+            <div style={{ height: '80px', position: 'relative', overflow: 'hidden' }}>
+              <svg width="100%" height="80" viewBox="0 0 300 80" preserveAspectRatio="none" style={{ overflow: 'visible' }}>
+                <path
+                  d={generateSvgPath(networkHistory, 300)}
+                  fill="none"
+                  stroke="#58a6ff"
+                  strokeWidth="2"
+                  style={{ transition: 'all 0.1s linear' }}
+                />
+              </svg>
+            </div>
+          </div>
+
+        </div>
+
+        {/* Alerts Log Panel */}
+        <div className="card" style={{ background: '#08090b', padding: '20px', border: '1px solid var(--border)' }}>
+          <h4 style={{ fontSize: '0.8rem', fontWeight: 800, color: 'var(--text-muted)', marginBottom: '16px', letterSpacing: '0.05em' }}>
+            <i className="fa-solid fa-list-check"></i> {t.alertHeader}
+          </h4>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', maxHeight: '160px', overflowY: 'auto' }}>
+            {alerts.slice().reverse().map((alert) => (
+              <div key={alert.id} style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '12px',
+                fontSize: '0.82rem',
+                borderLeft: `3px solid ${alert.type === 'ok' ? '#22c55e' : alert.type === 'warning' ? '#eab308' : alert.type === 'critical' ? '#ef4444' : '#58a6ff'}`,
+                padding: '8px 12px',
+                background: 'rgba(255,255,255,0.01)',
+                color: alert.type === 'critical' ? '#ff6b6b' : 'var(--text-main)'
+              }}>
+                <span style={{ opacity: 0.5, fontFamily: 'monospace' }}>[{alert.time}]</span>
+                <span style={{ fontWeight: 600 }}>{alert.text}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Telegram Overlay Mockup */}
+        {showTelegram && (
+          <div style={{
+            position: 'fixed',
+            bottom: '24px',
+            right: '24px',
+            width: '320px',
+            background: '#182533', // Telegram dark blue theme
+            border: '1px solid #2b394a',
+            borderRadius: '12px',
+            boxShadow: '0 8px 30px rgba(0,0,0,0.5)',
+            zIndex: 1000,
+            overflow: 'hidden',
+            animation: 'slide-in-right 0.3s ease-out',
+            textAlign: 'left'
+          }}>
+            <div style={{ background: '#202b36', padding: '10px 14px', display: 'flex', alignItems: 'center', gap: '10px', borderBottom: '1px solid #24313f' }}>
+              <i className="fa-brands fa-telegram" style={{ color: '#54a9eb', fontSize: '1.4rem' }}></i>
+              <span style={{ fontSize: '0.8rem', fontWeight: 700, color: '#fff' }}>{t.tgTitle}</span>
+              <button 
+                onClick={() => setShowTelegram(false)} 
+                style={{ marginLeft: 'auto', background: 'transparent', border: 'none', color: '#fff', fontSize: '1.2rem', cursor: 'pointer', opacity: 0.6 }}
+              >&times;</button>
+            </div>
+            <div style={{ padding: '14px', fontSize: '0.78rem', color: '#f5f5f5', lineHeight: '1.5' }}>
+              {t.tgBody}
+            </div>
+          </div>
+        )}
+
+      </div>
+    </section>
+  );
+};
+
+export default ObservabilitySimulator;

@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Certifications from './components/Certifications';
 import PipelineSimulator from './components/PipelineSimulator';
+import ObservabilitySimulator from './components/ObservabilitySimulator';
 import Chatbot from './components/Chatbot';
 import { experiencesData, getDurationText } from './data/experiences';
 
@@ -25,6 +26,7 @@ const App = () => {
       "nav-about": "Tentang",
       "nav-projects": "Proyek",
       "nav-pipeline": "Pipeline",
+      "nav-monitor": "Observabilitas",
       "nav-certs": "Sertifikasi",
       "nav-experience": "Pengalaman",
       "nav-contact": "Hubungi",
@@ -139,6 +141,7 @@ const App = () => {
       "nav-about": "About",
       "nav-projects": "Projects",
       "nav-pipeline": "Pipeline",
+      "nav-monitor": "Observability",
       "nav-certs": "Certifications",
       "nav-experience": "Experience",
       "nav-contact": "Contact",
@@ -435,6 +438,7 @@ const App = () => {
               <li><a href="#about" className={activeSection === 'about' ? 'active' : ''}>{curr["nav-about"]}</a></li>
               <li><a href="#projects" className={activeSection === 'projects' ? 'active' : ''}>{curr["nav-projects"]}</a></li>
               <li><a href="#pipeline-simulator" className={activeSection === 'pipeline-simulator' ? 'active' : ''}>{curr["nav-pipeline"]}</a></li>
+              <li><a href="#observability-simulator" className={activeSection === 'observability-simulator' ? 'active' : ''}>{curr["nav-monitor"]}</a></li>
               <li><a href="#certifications" className={activeSection === 'certifications' ? 'active' : ''}>{curr["nav-certs"]}</a></li>
               <li><a href="#experience" className={activeSection === 'experience' ? 'active' : ''}>{curr["nav-experience"]}</a></li>
             </ul>
@@ -483,6 +487,12 @@ const App = () => {
             <a href="#pipeline-simulator" className={activeSection === 'pipeline-simulator' ? 'active' : ''}>
               <i className="fa-solid fa-terminal"></i>
               <span>{lang === 'id' ? 'Pipeline' : 'Pipeline'}</span>
+            </a>
+          </li>
+          <li>
+            <a href="#observability-simulator" className={activeSection === 'observability-simulator' ? 'active' : ''}>
+              <i className="fa-solid fa-chart-line"></i>
+              <span>{lang === 'id' ? 'Monitor' : 'Monitor'}</span>
             </a>
           </li>
           <li>
@@ -815,6 +825,27 @@ const App = () => {
                             </a>
                           </div>
                         )}
+                        {project.id === 2 && (
+                          <div style={{ marginTop: '20px' }}>
+                            <a 
+                              href="#observability-simulator" 
+                              className="btn btn-secondary btn-sm" 
+                              style={{ 
+                                display: 'inline-flex', 
+                                alignItems: 'center', 
+                                gap: '8px', 
+                                background: 'var(--primary-glow)', 
+                                color: 'var(--primary)', 
+                                border: '1px solid rgba(37, 99, 235, 0.2)', 
+                                fontWeight: '600', 
+                                fontSize: '0.85rem',
+                                textDecoration: 'none'
+                              }}
+                            >
+                              <i className="fa-solid fa-chart-line"></i> {lang === 'id' ? 'Coba Simulator Monitoring' : 'Try Monitoring Simulator'} &rarr;
+                            </a>
+                          </div>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -826,6 +857,9 @@ const App = () => {
 
         {/* Pipeline Simulator Section */}
         <PipelineSimulator lang={lang} />
+
+        {/* Observability & Monitoring Simulator Section */}
+        <ObservabilitySimulator lang={lang} />
 
         {/* Certifications Showcase Section */}
         <Certifications lang={lang} />
