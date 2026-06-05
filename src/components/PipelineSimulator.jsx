@@ -9,14 +9,22 @@ const PipelineSimulator = ({ lang, onStatusChange, onStageChange }) => {
   const [progress, setProgress] = useState({ 1: 0, 2: 0, 3: 0, 4: 0 });
   const terminalRef = useRef(null);
   const activeIntervals = useRef([]);
+  const lastStatusPropagated = useRef(null);
+  const lastStagePropagated = useRef(null);
 
-  // Sync state to parent for ObservabilitySimulator integration
+  // Sync state to parent for ObservabilitySimulator integration with duplication guard
   useEffect(() => {
-    if (onStatusChange) onStatusChange(status);
+    if (onStatusChange && lastStatusPropagated.current !== status) {
+      lastStatusPropagated.current = status;
+      onStatusChange(status);
+    }
   }, [status, onStatusChange]);
 
   useEffect(() => {
-    if (onStageChange) onStageChange(activeStage);
+    if (onStageChange && lastStagePropagated.current !== activeStage) {
+      lastStagePropagated.current = activeStage;
+      onStageChange(activeStage);
+    }
   }, [activeStage, onStageChange]);
 
   const clearAllIntervals = () => {

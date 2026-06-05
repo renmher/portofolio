@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Certifications from './components/Certifications';
 import PipelineSimulator from './components/PipelineSimulator';
 import ObservabilitySimulator from './components/ObservabilitySimulator';
@@ -18,6 +18,20 @@ const App = () => {
   const handleProjectTabChange = (projectId, tab) => {
     setProjectTabs(prev => ({ ...prev, [projectId]: tab }));
   };
+
+  const handlePipelineStatusChange = useCallback((status) => {
+    setPipelineState(prev => {
+      if (prev.status === status) return prev;
+      return { ...prev, status };
+    });
+  }, []);
+
+  const handlePipelineStageChange = useCallback((stage) => {
+    setPipelineState(prev => {
+      if (prev.stage === stage) return prev;
+      return { ...prev, stage };
+    });
+  }, []);
 
 
   // --- Translation Dictionary ---
@@ -859,8 +873,8 @@ const App = () => {
         {/* Pipeline Simulator Section */}
         <PipelineSimulator 
           lang={lang} 
-          onStatusChange={(status) => setPipelineState(prev => ({ ...prev, status }))}
-          onStageChange={(stage) => setPipelineState(prev => ({ ...prev, stage }))}
+          onStatusChange={handlePipelineStatusChange}
+          onStageChange={handlePipelineStageChange}
         />
 
         {/* Observability & Monitoring Simulator Section */}

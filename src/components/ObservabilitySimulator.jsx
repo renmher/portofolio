@@ -17,6 +17,35 @@ const ObservabilitySimulator = ({ lang, pipelineState }) => {
   const [showTelegram, setShowTelegram] = useState(false);
   const timerRef = useRef(null);
 
+  const [traces, setTraces] = useState([
+    {
+      id: 'tr-8a1f',
+      method: 'GET',
+      path: '/api/v1/products',
+      status: 200,
+      duration: 42,
+      time: '13:50:24',
+      spans: [
+        { name: 'gateway', duration: 42, color: '#58a6ff', pct: 100 },
+        { name: 'product-service', duration: 30, color: '#22c55e', pct: 71 },
+        { name: 'redis-cache', duration: 8, color: '#eab308', pct: 19 }
+      ]
+    },
+    {
+      id: 'tr-9c4b',
+      method: 'POST',
+      path: '/api/v1/checkout',
+      status: 201,
+      duration: 115,
+      time: '13:50:31',
+      spans: [
+        { name: 'gateway', duration: 115, color: '#58a6ff', pct: 100 },
+        { name: 'order-service', duration: 85, color: '#22c55e', pct: 74 },
+        { name: 'inventory-db', duration: 35, color: '#eab308', pct: 30 }
+      ]
+    }
+  ]);
+
   const translations = {
     id: {
       title: "Simulator <span class='gradient-text'>Monitoring & Observabilitas</span>",
@@ -34,6 +63,7 @@ const ObservabilitySimulator = ({ lang, pipelineState }) => {
         net: "TRAFIK JARINGAN"
       },
       alertHeader: "LOG NOTIFIKASI ALARM",
+      traceHeader: "TRACE TERDISTRIBUSI (JAEGER/TEMPO)",
       tgTitle: "Telegram Bot Alert (Production)",
       tgBody: "⚠️ WARNING: CPU overload detected on node-04 (95.4%). Auto-mitigation triggered."
     },
@@ -53,6 +83,7 @@ const ObservabilitySimulator = ({ lang, pipelineState }) => {
         net: "NETWORK TRAFFIC"
       },
       alertHeader: "ALERT ALARM LOGS",
+      traceHeader: "DISTRIBUTED TRACES (JAEGER/TEMPO)",
       tgTitle: "Telegram Bot Alert (Production)",
       tgBody: "⚠️ WARNING: CPU overload detected on node-04 (95.4%). Auto-mitigation triggered."
     }
@@ -124,20 +155,83 @@ const ObservabilitySimulator = ({ lang, pipelineState }) => {
           ...prev,
           { id: Date.now() + 1, type: 'warning', text: lang === 'id' ? '[CI/CD] Tahap Checkout & Lint: Klon repo & verifikasi sintaks...' : '[CI/CD] Stage Checkout & Lint: Cloning repo & verifying syntax...', time: now }
         ]);
+        setTraces(prev => [
+          {
+            id: `tr-${Math.random().toString(36).substring(2, 6)}`,
+            method: 'GIT',
+            path: 'git clone repo.git',
+            status: 200,
+            duration: 1240,
+            time: now,
+            spans: [
+              { name: 'git-cli', duration: 1240, color: '#58a6ff', pct: 100 },
+              { name: 'github-auth', duration: 340, color: '#eab308', pct: 27 }
+            ]
+          },
+          ...prev.slice(0, 3)
+        ]);
       } else if (pipelineState.stage === 2) {
         setAlerts(prev => [
           ...prev,
           { id: Date.now() + 2, type: 'warning', text: lang === 'id' ? '[CI/CD] Tahap Security Gate: Memulai analisis SonarQube & Trivy...' : '[CI/CD] Stage Security Gate: Initiating SonarQube & Trivy scan...', time: now }
+        ]);
+        setTraces(prev => [
+          {
+            id: `tr-${Math.random().toString(36).substring(2, 6)}`,
+            method: 'SCAN',
+            path: 'sonar-scanner',
+            status: 200,
+            duration: 2100,
+            time: now,
+            spans: [
+              { name: 'sonar-scanner', duration: 2100, color: '#58a6ff', pct: 100 },
+              { name: 'code-analysis', duration: 1600, color: '#22c55e', pct: 76 },
+              { name: 'api-upload', duration: 500, color: '#eab308', pct: 24 }
+            ]
+          },
+          ...prev.slice(0, 3)
         ]);
       } else if (pipelineState.stage === 3) {
         setAlerts(prev => [
           ...prev,
           { id: Date.now() + 3, type: 'warning', text: lang === 'id' ? '[CI/CD] Tahap Docker Build: Kompilasi aset & push image ke Harbor...' : '[CI/CD] Stage Docker Build: Compiling assets & pushing image to Harbor...', time: now }
         ]);
+        setTraces(prev => [
+          {
+            id: `tr-${Math.random().toString(36).substring(2, 6)}`,
+            method: 'BUILD',
+            path: 'docker build',
+            status: 200,
+            duration: 4120,
+            time: now,
+            spans: [
+              { name: 'docker-daemon', duration: 4120, color: '#58a6ff', pct: 100 },
+              { name: 'npm-install', duration: 2900, color: '#22c55e', pct: 70 },
+              { name: 'harbor-push', duration: 1220, color: '#eab308', pct: 29 }
+            ]
+          },
+          ...prev.slice(0, 3)
+        ]);
       } else if (pipelineState.stage === 4) {
         setAlerts(prev => [
           ...prev,
           { id: Date.now() + 4, type: 'warning', text: lang === 'id' ? '[CI/CD] Tahap Cloud Deploy: Melakukan rolling update di Kubernetes...' : '[CI/CD] Stage Cloud Deploy: Executing rolling update in Kubernetes...', time: now }
+        ]);
+        setTraces(prev => [
+          {
+            id: `tr-${Math.random().toString(36).substring(2, 6)}`,
+            method: 'DEPLOY',
+            path: 'k8s rolling-update',
+            status: 200,
+            duration: 3500,
+            time: now,
+            spans: [
+              { name: 'kubectl-apply', duration: 3500, color: '#58a6ff', pct: 100 },
+              { name: 'rolling-upgrade', duration: 2700, color: '#22c55e', pct: 77 },
+              { name: 'readiness-probe', duration: 800, color: '#eab308', pct: 22 }
+            ]
+          },
+          ...prev.slice(0, 3)
         ]);
       }
     } else if (pipelineState.status === 'failed') {
@@ -145,6 +239,21 @@ const ObservabilitySimulator = ({ lang, pipelineState }) => {
       setAlerts(prev => [
         ...prev,
         { id: Date.now() + 5, type: 'critical', text: lang === 'id' ? '[ALARM] Pipeline GAGAL: Kerentanan keamanan terdeteksi di Tahap 2!' : '[ALARM] Pipeline FAILED: Security vulnerabilities detected in Stage 2!', time: now }
+      ]);
+      setTraces(prev => [
+        {
+          id: `tr-${Math.random().toString(36).substring(2, 6)}`,
+          method: 'SCAN',
+          path: 'trivy scan',
+          status: 500,
+          duration: 1540,
+          time: now,
+          spans: [
+            { name: 'trivy-audit', duration: 1540, color: '#ef4444', pct: 100 },
+            { name: 'security-fail', duration: 1300, color: '#ef4444', pct: 84, error: true }
+          ]
+        },
+        ...prev.slice(0, 3)
       ]);
       setShowTelegram(true);
     } else if (pipelineState.status === 'success') {
@@ -160,6 +269,21 @@ const ObservabilitySimulator = ({ lang, pipelineState }) => {
         setAlerts(prev => [
           ...prev,
           { id: Date.now() + 7, type: 'ok', text: lang === 'id' ? '[SUKSES] Rilis baru aktif. Beban CPU kembali normal.' : '[SUCCESS] New release active. CPU load normalized.', time: now }
+        ]);
+        setTraces(prev => [
+          {
+            id: `tr-${Math.random().toString(36).substring(2, 6)}`,
+            method: 'GET',
+            path: '/healthz',
+            status: 200,
+            duration: 15,
+            time: now,
+            spans: [
+              { name: 'gateway', duration: 15, color: '#58a6ff', pct: 100 },
+              { name: 'health-check', duration: 10, color: '#22c55e', pct: 66 }
+            ]
+          },
+          ...prev.slice(0, 3)
         ]);
       }, 3000);
 
@@ -188,6 +312,22 @@ const ObservabilitySimulator = ({ lang, pipelineState }) => {
         ...prev,
         { id: prev.length + 1, type: 'critical', text: 'CRITICAL: node-04 CPU Spike (96.2%) - Request queue full', time: nowCritical }
       ]);
+      setTraces(prev => [
+        {
+          id: `tr-${Math.random().toString(36).substring(2, 6)}`,
+          method: 'POST',
+          path: '/api/v1/payment',
+          status: 504,
+          duration: 5000,
+          time: nowCritical,
+          spans: [
+            { name: 'gateway', duration: 5000, color: '#ef4444', pct: 100 },
+            { name: 'payment-service', duration: 4800, color: '#ef4444', pct: 96 },
+            { name: 'mysql-db-pool', duration: 4500, color: '#ef4444', pct: 90, error: true }
+          ]
+        },
+        ...prev.slice(0, 3)
+      ]);
       setShowTelegram(true);
     }, 3000);
   };
@@ -209,6 +349,22 @@ const ObservabilitySimulator = ({ lang, pipelineState }) => {
         ...prev,
         { id: prev.length + 1, type: 'ok', text: 'Autoscale scale-up completed. System Load Normalized', time: nowHealthy }
       ]);
+      setTraces(prev => [
+        {
+          id: `tr-${Math.random().toString(36).substring(2, 6)}`,
+          method: 'POST',
+          path: '/api/v1/payment',
+          status: 200,
+          duration: 95,
+          time: nowHealthy,
+          spans: [
+            { name: 'gateway', duration: 95, color: '#58a6ff', pct: 100 },
+            { name: 'payment-service', duration: 65, color: '#22c55e', pct: 68 },
+            { name: 'mysql-db-pool', duration: 15, color: '#eab308', pct: 15 }
+          ]
+        },
+        ...prev.slice(0, 3)
+      ]);
     }, 4000);
   };
 
@@ -225,6 +381,34 @@ const ObservabilitySimulator = ({ lang, pipelineState }) => {
       { id: 1, type: 'ok', text: 'System Bootstrapped Successfully', time: '13:10' },
       { id: 2, type: 'ok', text: 'VictoriaMetrics Database Online', time: '13:12' },
       { id: 3, type: 'ok', text: 'Grafana Dashboard connected', time: '13:15' }
+    ]);
+    setTraces([
+      {
+        id: 'tr-8a1f',
+        method: 'GET',
+        path: '/api/v1/products',
+        status: 200,
+        duration: 42,
+        time: '13:50:24',
+        spans: [
+          { name: 'gateway', duration: 42, color: '#58a6ff', pct: 100 },
+          { name: 'product-service', duration: 30, color: '#22c55e', pct: 71 },
+          { name: 'redis-cache', duration: 8, color: '#eab308', pct: 19 }
+        ]
+      },
+      {
+        id: 'tr-9c4b',
+        method: 'POST',
+        path: '/api/v1/checkout',
+        status: 201,
+        duration: 115,
+        time: '13:50:31',
+        spans: [
+          { name: 'gateway', duration: 115, color: '#58a6ff', pct: 100 },
+          { name: 'order-service', duration: 85, color: '#22c55e', pct: 74 },
+          { name: 'inventory-db', duration: 35, color: '#eab308', pct: 30 }
+        ]
+      }
     ]);
   };
 
@@ -364,28 +548,97 @@ const ObservabilitySimulator = ({ lang, pipelineState }) => {
 
         </div>
 
-        {/* Alerts Log Panel */}
-        <div className="card" style={{ background: 'var(--bg-deep)', padding: '20px', border: '1px solid var(--border)' }}>
-          <h4 style={{ fontSize: '0.8rem', fontWeight: 800, color: 'var(--text-muted)', marginBottom: '16px', letterSpacing: '0.05em' }}>
-            <i className="fa-solid fa-list-check"></i> {t.alertHeader}
-          </h4>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', maxHeight: '160px', overflowY: 'auto' }}>
-            {alerts.slice().reverse().map((alert) => (
-              <div key={alert.id} style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '12px',
-                fontSize: '0.82rem',
-                borderLeft: `3px solid ${alert.type === 'ok' ? '#22c55e' : alert.type === 'warning' ? '#eab308' : alert.type === 'critical' ? '#ef4444' : '#58a6ff'}`,
-                padding: '8px 12px',
-                background: 'rgba(255,255,255,0.01)',
-                color: alert.type === 'critical' ? '#ff6b6b' : 'var(--text-main)'
-              }}>
-                <span style={{ opacity: 0.5, fontFamily: 'monospace' }}>[{alert.time}]</span>
-                <span style={{ fontWeight: 600 }}>{alert.text}</span>
-              </div>
-            ))}
+        {/* Grid for Alerts Log and Distributed Tracing */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '24px' }}>
+          
+          {/* Alerts Log Panel */}
+          <div className="card" style={{ background: 'var(--bg-deep)', padding: '20px', border: '1px solid var(--border)', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+            <h4 style={{ fontSize: '0.8rem', fontWeight: 800, color: 'var(--text-muted)', marginBottom: '16px', letterSpacing: '0.05em' }}>
+              <i className="fa-solid fa-list-check"></i> {t.alertHeader}
+            </h4>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', maxHeight: '160px', overflowY: 'auto' }}>
+              {alerts.slice().reverse().map((alert) => (
+                <div key={alert.id} style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '12px',
+                  fontSize: '0.82rem',
+                  borderLeft: `3px solid ${alert.type === 'ok' ? '#22c55e' : alert.type === 'warning' ? '#eab308' : alert.type === 'critical' ? '#ef4444' : '#58a6ff'}`,
+                  padding: '8px 12px',
+                  background: 'rgba(255,255,255,0.01)',
+                  color: alert.type === 'critical' ? '#ff6b6b' : 'var(--text-main)'
+                }}>
+                  <span style={{ opacity: 0.5, fontFamily: 'monospace' }}>[{alert.time}]</span>
+                  <span style={{ fontWeight: 600 }}>{alert.text}</span>
+                </div>
+              ))}
+            </div>
           </div>
+
+          {/* Distributed Tracing Panel */}
+          <div className="card" style={{ background: 'var(--bg-deep)', padding: '20px', border: '1px solid var(--border)', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+            <h4 style={{ fontSize: '0.8rem', fontWeight: 800, color: 'var(--text-muted)', marginBottom: '16px', letterSpacing: '0.05em' }}>
+              <i className="fa-solid fa-route"></i> {t.traceHeader}
+            </h4>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', maxHeight: '160px', overflowY: 'auto' }}>
+              {traces.map((trace) => (
+                <div key={trace.id} style={{
+                  background: 'rgba(255,255,255,0.01)',
+                  padding: '10px 14px',
+                  borderLeft: `3px solid ${trace.status >= 500 ? '#ef4444' : '#22c55e'}`,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '8px',
+                  textAlign: 'left'
+                }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.78rem' }}>
+                    <div>
+                      <span style={{
+                        fontWeight: 800,
+                        color: trace.method === 'GET' ? '#61afef' : trace.method === 'POST' ? '#98c379' : '#e5c07b',
+                        marginRight: '6px'
+                      }}>{trace.method}</span>
+                      <span style={{ fontFamily: 'monospace', fontWeight: 600, color: 'var(--text-main)' }}>{trace.path}</span>
+                    </div>
+                    <div style={{ fontSize: '0.75rem' }}>
+                      <span style={{ color: trace.status >= 500 ? '#ef4444' : '#22c55e', fontWeight: 700, marginRight: '8px' }}>
+                        {trace.status}
+                      </span>
+                      <span style={{ fontFamily: 'monospace', opacity: 0.6 }}>
+                        {trace.duration}ms
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Waterfall Spans */}
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', paddingLeft: '8px', borderLeft: '1px dashed var(--border)' }}>
+                    {trace.spans.map((span, sIdx) => (
+                      <div key={sIdx} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.7rem' }}>
+                        <span style={{ width: '80px', color: 'var(--text-muted)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', opacity: 0.8 }}>
+                          {span.name}
+                        </span>
+                        <div style={{ flex: 1, height: '6px', background: 'rgba(255,255,255,0.05)', borderRadius: '3px', position: 'relative' }}>
+                          <div style={{
+                            position: 'absolute',
+                            left: `${sIdx * 10}%`,
+                            width: `${span.pct}%`,
+                            maxWidth: `${100 - (sIdx * 10)}%`,
+                            height: '100%',
+                            background: span.color,
+                            borderRadius: '3px'
+                          }}></div>
+                        </div>
+                        <span style={{ fontSize: '0.65rem', opacity: 0.5, fontFamily: 'monospace', width: '35px', textAlign: 'right' }}>
+                          {span.duration}ms
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
         </div>
 
         {/* Telegram Overlay Mockup */}
