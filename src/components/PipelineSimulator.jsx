@@ -6,7 +6,7 @@ const PipelineSimulator = ({ lang }) => {
   const [failMode, setFailMode] = useState(false);
   const [logs, setLogs] = useState([]);
   const [progress, setProgress] = useState({ 1: 0, 2: 0, 3: 0, 4: 0 });
-  const terminalEndRef = useRef(null);
+  const terminalRef = useRef(null);
 
   const translations = {
     id: {
@@ -152,8 +152,8 @@ const PipelineSimulator = ({ lang }) => {
   };
 
   useEffect(() => {
-    if (terminalEndRef.current) {
-      terminalEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    if (terminalRef.current) {
+      terminalRef.current.scrollTop = terminalRef.current.scrollHeight;
     }
   }, [logs]);
 
@@ -531,7 +531,7 @@ const PipelineSimulator = ({ lang }) => {
             <span></span>
           </div>
 
-          <div className="terminal-logs-body" style={{
+          <div className="terminal-logs-body" ref={terminalRef} style={{
             padding: '18px',
             height: '240px',
             overflowY: 'auto',
@@ -562,7 +562,6 @@ const PipelineSimulator = ({ lang }) => {
                 );
               })
             )}
-            <div ref={terminalEndRef} />
           </div>
         </div>
 
