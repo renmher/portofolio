@@ -7,6 +7,16 @@ const PipelineSimulator = ({ lang }) => {
   const [logs, setLogs] = useState([]);
   const [progress, setProgress] = useState({ 1: 0, 2: 0, 3: 0, 4: 0 });
   const terminalRef = useRef(null);
+  const activeIntervals = useRef([]);
+
+  const clearAllIntervals = () => {
+    activeIntervals.current.forEach(clearInterval);
+    activeIntervals.current = [];
+  };
+
+  useEffect(() => {
+    return () => clearAllIntervals();
+  }, []);
 
   const translations = {
     id: {
@@ -158,6 +168,10 @@ const PipelineSimulator = ({ lang }) => {
   }, [logs]);
 
   const addLogWithDelay = (lines, delay, onComplete) => {
+    if (!lines) {
+      if (onComplete) onComplete();
+      return null;
+    }
     let index = 0;
     const interval = setInterval(() => {
       if (index < lines.length) {
@@ -168,10 +182,12 @@ const PipelineSimulator = ({ lang }) => {
         if (onComplete) onComplete();
       }
     }, delay);
+    activeIntervals.current.push(interval);
     return interval;
   };
 
   const runPipeline = () => {
+    clearAllIntervals();
     setStatus('running');
     setActiveStage(1);
     setLogs(["[SYSTEM] Starting pipeline run..."]);
@@ -184,8 +200,9 @@ const PipelineSimulator = ({ lang }) => {
       setProgress(prev => ({ ...prev, 1: Math.min(p1, 100) }));
       if (p1 >= 100) clearInterval(prog1);
     }, 150);
+    activeIntervals.current.push(prog1);
 
-    const int1 = addLogWithDelay(logDatabase.stage1, 150, () => {
+    addLogWithDelay(logDatabase.stage1, 150, () => {
       clearInterval(prog1);
       setProgress(prev => ({ ...prev, 1: 100 }));
 
@@ -197,6 +214,7 @@ const PipelineSimulator = ({ lang }) => {
         setProgress(prev => ({ ...prev, 2: Math.min(p2, 100) }));
         if (p2 >= 100) clearInterval(prog2);
       }, 200);
+      activeIntervals.current.push(prog2);
 
       const secLogs = failMode ? logDatabase.stage2.failed : logDatabase.stage2.success;
       addLogWithDelay(secLogs, 200, () => {
@@ -218,6 +236,7 @@ const PipelineSimulator = ({ lang }) => {
           setProgress(prev => ({ ...prev, 3: Math.min(p3, 100) }));
           if (p3 >= 100) clearInterval(prog3);
         }, 120);
+        activeIntervals.current.push(prog3);
 
         addLogWithDelay(logDatabase.stage3, 120, () => {
           clearInterval(prog3);
@@ -231,6 +250,7 @@ const PipelineSimulator = ({ lang }) => {
             setProgress(prev => ({ ...prev, 4: Math.min(p4, 100) }));
             if (p4 >= 100) clearInterval(prog4);
           }, 180);
+          activeIntervals.current.push(prog4);
 
           addLogWithDelay(logDatabase.stage4, 180, () => {
             clearInterval(prog4);
@@ -243,6 +263,7 @@ const PipelineSimulator = ({ lang }) => {
   };
 
   const resetPipeline = () => {
+    clearAllIntervals();
     setStatus('idle');
     setActiveStage(0);
     setLogs([]);
@@ -252,7 +273,7 @@ const PipelineSimulator = ({ lang }) => {
   const handleFixAndRun = () => {
     setFailMode(false);
     resetPipeline();
-    setTimeout(() => {
+    const fixTimeout = setTimeout(() => {
       setStatus('running');
       setActiveStage(1);
       setLogs(["[SYSTEM] Hotfix: Docker base image updated to patch vulnerability.", "[SYSTEM] Restarting pipeline run..."]);
@@ -263,6 +284,7 @@ const PipelineSimulator = ({ lang }) => {
         setProgress(prev => ({ ...prev, 1: Math.min(p1, 100) }));
         if (p1 >= 100) clearInterval(prog1);
       }, 100);
+      activeIntervals.current.push(prog1);
 
       addLogWithDelay(logDatabase.stage1, 100, () => {
         clearInterval(prog1);
@@ -275,6 +297,7 @@ const PipelineSimulator = ({ lang }) => {
           setProgress(prev => ({ ...prev, 2: Math.min(p2, 100) }));
           if (p2 >= 100) clearInterval(prog2);
         }, 100);
+        activeIntervals.current.push(prog2);
 
         // Fixed base image logs showing 0 vulnerabilities
         const fixedSecLogs = [
@@ -299,6 +322,7 @@ const PipelineSimulator = ({ lang }) => {
             setProgress(prev => ({ ...prev, 3: Math.min(p3, 100) }));
             if (p3 >= 100) clearInterval(prog3);
           }, 80);
+          activeIntervals.current.push(prog3);
 
           addLogWithDelay(logDatabase.stage3, 80, () => {
             clearInterval(prog3);
@@ -311,6 +335,7 @@ const PipelineSimulator = ({ lang }) => {
               setProgress(prev => ({ ...prev, 4: Math.min(p4, 100) }));
               if (p4 >= 100) clearInterval(prog4);
             }, 100);
+            activeIntervals.current.push(prog4);
 
             addLogWithDelay(logDatabase.stage4, 100, () => {
               clearInterval(prog4);
@@ -321,6 +346,7 @@ const PipelineSimulator = ({ lang }) => {
         });
       });
     }, 300);
+    activeIntervals.current.push(fixTimeout);
   };
 
   return (
@@ -548,6 +574,7 @@ const PipelineSimulator = ({ lang }) => {
               </span>
             ) : (
               logs.map((log, index) => {
+                if (!log || typeof log !== 'string') return null;
                 let color = '#c9d1d9';
                 if (log.startsWith('[SUCCESS]')) color = '#22c55e';
                 else if (log.startsWith('[CRITICAL ERROR]') || log.startsWith('[ERROR]') || log.startsWith('[FATAL]')) color = '#ef4444';

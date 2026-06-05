@@ -13,6 +13,11 @@ const App = () => {
   const [emailCopied, setEmailCopied] = useState(false);
   const [projectTabs, setProjectTabs] = useState({ 1: 'overview', 2: 'overview' });
 
+  const handleProjectTabChange = (projectId, tab) => {
+    setProjectTabs(prev => ({ ...prev, [projectId]: tab }));
+  };
+
+
   // --- Translation Dictionary ---
   const t = {
     id: {
