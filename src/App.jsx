@@ -793,6 +793,28 @@ const App = () => {
                             </div>
                           )}
                         </div>
+
+                        {project.id === 1 && (
+                          <div style={{ marginTop: '20px' }}>
+                            <a 
+                              href="#pipeline-simulator" 
+                              className="btn btn-secondary btn-sm" 
+                              style={{ 
+                                display: 'inline-flex', 
+                                alignItems: 'center', 
+                                gap: '8px', 
+                                background: 'var(--primary-glow)', 
+                                color: 'var(--primary)', 
+                                border: '1px solid rgba(37, 99, 235, 0.2)', 
+                                fontWeight: '600', 
+                                fontSize: '0.85rem',
+                                textDecoration: 'none'
+                              }}
+                            >
+                              <i className="fa-solid fa-terminal"></i> {lang === 'id' ? 'Coba Simulator Pipeline' : 'Try Pipeline Simulator'} &rarr;
+                            </a>
+                          </div>
+                        )}
                       </div>
                     </div>
                   </div>
