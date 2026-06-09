@@ -911,7 +911,7 @@ const App = () => {
                           </div>
                         )}
                         {project.id === 3 && (
-                          <div style={{ marginTop: '20px' }}>
+                          <div style={{ marginTop: '20px', display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
                             <a 
                               href="#gitops-simulator" 
                               className="btn btn-secondary btn-sm" 
@@ -928,6 +928,25 @@ const App = () => {
                               }}
                             >
                               <i className="fa-solid fa-cloud"></i> {lang === 'id' ? 'Coba Simulator GitOps' : 'Try GitOps Simulator'} &rarr;
+                            </a>
+                            <a 
+                              href="https://www.linkedin.com/posts/renaldyimran_deploy-web-apps-with-gitops-kustomize-ugcPost-7469681645827149824-cQCa/?utm_source=share&utm_medium=member_desktop&rcm=ACoAADLDcboB8Li8JAKNskoirQXMi6T90v8rVEY" 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              className="btn btn-secondary btn-sm" 
+                              style={{ 
+                                display: 'inline-flex', 
+                                alignItems: 'center', 
+                                gap: '8px', 
+                                background: 'rgba(10, 102, 194, 0.1)', 
+                                color: '#0a66c2', 
+                                border: '1px solid rgba(10, 102, 194, 0.3)', 
+                                fontWeight: '600', 
+                                fontSize: '0.85rem',
+                                textDecoration: 'none'
+                              }}
+                            >
+                              <i className="fa-brands fa-linkedin"></i> {lang === 'id' ? 'Lihat Postingan LinkedIn' : 'View LinkedIn Post'} &rarr;
                             </a>
                           </div>
                         )}
