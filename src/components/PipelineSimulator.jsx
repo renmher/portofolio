@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect, useRef } from 'react';
 
-const PipelineSimulator = ({ lang, onStatusChange, onStageChange }) => {
+const PipelineSimulator = ({ lang, onStatusChange, onStageChange, onProceedToGitOps }) => {
   const [status, setStatus] = useState('idle'); // 'idle' | 'running' | 'success' | 'failed'
   const [activeStage, setActiveStage] = useState(0); // 0 (none), 1, 2, 3, 4
   const [failMode, setFailMode] = useState(false);
@@ -629,6 +629,57 @@ const PipelineSimulator = ({ lang, onStatusChange, onStageChange }) => {
             )}
           </div>
         </div>
+
+        {status === 'success' && onProceedToGitOps && (
+          <div style={{
+            marginTop: '24px',
+            padding: '20px',
+            background: 'rgba(16, 185, 129, 0.04)',
+            border: '1px dashed rgba(16, 185, 129, 0.25)',
+            borderRadius: 'var(--radius-md)',
+            textAlign: 'center',
+            animation: 'fadeIn 0.5s ease-out',
+            boxShadow: '0 4px 20px rgba(0, 0, 0, 0.15)',
+            backdropFilter: 'blur(10px)'
+          }}>
+            <p style={{ margin: 0, fontSize: '0.92rem', color: '#4ade80', fontWeight: '600', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
+              <i className="fa-solid fa-circle-check" style={{ fontSize: '1.1rem' }}></i>
+              {lang === 'id' 
+                ? 'CI/CD Pipeline Selesai! Docker image node-v2.1.1-alpine berhasil di-push ke Harbor Registry.' 
+                : 'CI/CD Pipeline Completed! Docker image node-v2.1.1-alpine successfully pushed to Harbor Registry.'}
+            </p>
+            <p style={{ margin: '6px 0 16px 0', fontSize: '0.82rem', color: 'var(--text-muted)' }}>
+              {lang === 'id'
+                ? 'Langkah selanjutnya dalam GitOps: Sinkronisasikan perubahan konfigurasi ini ke cluster Kubernetes.'
+                : 'Next GitOps step: Reconcile this configuration change to the Kubernetes cluster.'}
+            </p>
+            <button 
+              onClick={() => {
+                onProceedToGitOps();
+                const el = document.getElementById('gitops-simulator');
+                if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }}
+              className="btn btn-primary"
+              style={{
+                background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+                borderColor: '#10b981',
+                boxShadow: '0 4px 12px rgba(16, 185, 129, 0.2)',
+                color: '#fff',
+                fontSize: '0.88rem',
+                fontWeight: 700,
+                padding: '10px 20px',
+                borderRadius: 'var(--radius-sm)',
+                cursor: 'pointer',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px'
+              }}
+            >
+              <i className="fa-solid fa-cloud-arrow-up"></i>
+              {lang === 'id' ? 'Lanjutkan ke Simulator GitOps (Deploy)' : 'Proceed to GitOps Simulator (Deploy)'} &rarr;
+            </button>
+          </div>
+        )}
 
       </div>
     </section>

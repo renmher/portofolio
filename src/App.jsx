@@ -15,6 +15,8 @@ const App = () => {
   const [emailCopied, setEmailCopied] = useState(false);
   const [projectTabs, setProjectTabs] = useState({ 1: 'overview', 2: 'overview' });
   const [pipelineState, setPipelineState] = useState({ status: 'idle', stage: 0 });
+  const [isPipelineLinked, setIsPipelineLinked] = useState(false);
+  const [gitopsDeployedVersion, setGitopsDeployedVersion] = useState(null);
 
   const handleProjectTabChange = (projectId, tab) => {
     setProjectTabs(prev => ({ ...prev, [projectId]: tab }));
@@ -32,6 +34,19 @@ const App = () => {
       if (prev.stage === stage) return prev;
       return { ...prev, stage };
     });
+  }, []);
+
+  const handleProceedToGitOps = useCallback(() => {
+    setIsPipelineLinked(true);
+  }, []);
+
+  const handleGitOpsSyncComplete = useCallback((version) => {
+    setGitopsDeployedVersion(version);
+  }, []);
+
+  const handleResetAllSimulators = useCallback(() => {
+    setIsPipelineLinked(false);
+    setGitopsDeployedVersion(null);
   }, []);
 
 
@@ -964,13 +979,23 @@ const App = () => {
           lang={lang} 
           onStatusChange={handlePipelineStatusChange}
           onStageChange={handlePipelineStageChange}
+          onProceedToGitOps={handleProceedToGitOps}
         />
 
         {/* GitOps & Kustomize Simulator Section */}
-        <GitOpsSimulator lang={lang} />
+        <GitOpsSimulator 
+          lang={lang} 
+          pipelineLinked={isPipelineLinked}
+          onSyncComplete={handleGitOpsSyncComplete}
+          onResetLink={handleResetAllSimulators}
+        />
 
         {/* Observability & Monitoring Simulator Section */}
-        <ObservabilitySimulator lang={lang} pipelineState={pipelineState} />
+        <ObservabilitySimulator 
+          lang={lang} 
+          pipelineState={pipelineState} 
+          gitopsDeployedVersion={gitopsDeployedVersion}
+        />
 
         {/* Certifications Showcase Section */}
         <Certifications lang={lang} />

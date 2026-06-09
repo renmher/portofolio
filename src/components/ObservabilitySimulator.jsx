@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect, useRef } from 'react';
 
-const ObservabilitySimulator = ({ lang, pipelineState }) => {
+const ObservabilitySimulator = ({ lang, pipelineState, gitopsDeployedVersion }) => {
   const [status, setStatus] = useState('healthy'); // 'healthy' | 'warning' | 'critical' | 'resolving'
   const [cpu, setCpu] = useState(34.2);
   const [ram, setRam] = useState(54.1);
@@ -16,6 +16,7 @@ const ObservabilitySimulator = ({ lang, pipelineState }) => {
   ]);
   const [showTelegram, setShowTelegram] = useState(false);
   const timerRef = useRef(null);
+  const [isDeploySpike, setIsDeploySpike] = useState(false);
 
   const [traces, setTraces] = useState([
     {
@@ -96,7 +97,9 @@ const ObservabilitySimulator = ({ lang, pipelineState }) => {
     timerRef.current = setInterval(() => {
       setCpu(prev => {
         let next = prev;
-        if (status === 'healthy') {
+        if (isDeploySpike) {
+          next = 82 + Math.random() * 8;
+        } else if (status === 'healthy') {
           next = 30 + Math.random() * 12;
         } else if (status === 'warning') {
           next = 72 + Math.random() * 8;
@@ -111,7 +114,9 @@ const ObservabilitySimulator = ({ lang, pipelineState }) => {
 
       setRam(prev => {
         let next = prev;
-        if (status === 'healthy') {
+        if (isDeploySpike) {
+          next = 68 + Math.random() * 4;
+        } else if (status === 'healthy') {
           next = 50 + Math.random() * 5;
         } else if (status === 'warning') {
           next = 75 + Math.random() * 3;
@@ -126,7 +131,9 @@ const ObservabilitySimulator = ({ lang, pipelineState }) => {
 
       setNetwork(prev => {
         let next = prev;
-        if (status === 'healthy') {
+        if (isDeploySpike) {
+          next = 260 + Math.floor(Math.random() * 20);
+        } else if (status === 'healthy') {
           next = 100 + Math.floor(Math.random() * 35);
         } else if (status === 'warning') {
           next = 190 + Math.floor(Math.random() * 25);
@@ -141,7 +148,7 @@ const ObservabilitySimulator = ({ lang, pipelineState }) => {
     }, 1000);
 
     return () => clearInterval(timerRef.current);
-  }, [status]);
+  }, [status, isDeploySpike]);
 
   // Sync with CI/CD Pipeline Simulator State
   useEffect(() => {
@@ -293,6 +300,79 @@ const ObservabilitySimulator = ({ lang, pipelineState }) => {
       setShowTelegram(false);
     }
   }, [pipelineState, lang]);
+
+  // Sync with GitOps Deploy version trigger
+  useEffect(() => {
+    if (gitopsDeployedVersion !== 'v2.1.1') return;
+
+    const now = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    setIsDeploySpike(true);
+    
+    // Add deployment roll-out alerts
+    setAlerts(prev => [
+      ...prev,
+      { 
+        id: Date.now() + 10, 
+        type: 'warning', 
+        text: lang === 'id' 
+          ? `[GITOPS] Deteksi update konfigurasi: Menggulirkan deployment v2.1.1...` 
+          : `[GITOPS] Config change detected: Rolling out deployment v2.1.1...`, 
+        time: now 
+      }
+    ]);
+
+    // Setup temporary deployment logs
+    setTraces(prev => [
+      {
+        id: `tr-${Math.random().toString(36).substring(2, 6)}`,
+        method: 'SYNC',
+        path: 'argocd reconcile',
+        status: 200,
+        duration: 1800,
+        time: now,
+        spans: [
+          { name: 'git-fetch', duration: 300, color: '#58a6ff', pct: 17 },
+          { name: 'manifest-reconcile', duration: 1000, color: '#22c55e', pct: 55 },
+          { name: 'pod-rolling-upgrade', duration: 500, color: '#eab308', pct: 28 }
+        ]
+      },
+      ...prev.slice(0, 3)
+    ]);
+
+    const timer = setTimeout(() => {
+      setIsDeploySpike(false);
+      
+      setAlerts(prev => [
+        ...prev,
+        { 
+          id: Date.now() + 11, 
+          type: 'ok', 
+          text: lang === 'id' 
+            ? `[SUKSES] Image node-v2.1.1-alpine berhasil dideploy via GitOps. Verifikasi pod selesai.` 
+            : `[SUCCESS] Image node-v2.1.1-alpine successfully deployed via GitOps. Pod checks verified.`, 
+          time: now 
+        }
+      ]);
+
+      setTraces(prev => [
+        {
+          id: `tr-${Math.random().toString(36).substring(2, 6)}`,
+          method: 'GET',
+          path: '/healthz',
+          status: 200,
+          duration: 18,
+          time: now,
+          spans: [
+            { name: 'gateway', duration: 18, color: '#58a6ff', pct: 100 },
+            { name: 'health-check', duration: 12, color: '#22c55e', pct: 67 }
+          ]
+        },
+        ...prev.slice(0, 3)
+      ]);
+    }, 2500);
+
+    return () => clearTimeout(timer);
+  }, [gitopsDeployedVersion, lang]);
 
   const triggerLoadTest = () => {
     setStatus('warning');

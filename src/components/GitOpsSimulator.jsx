@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect, useRef } from 'react';
 
-const GitOpsSimulator = ({ lang }) => {
+const GitOpsSimulator = ({ lang, pipelineLinked, onSyncComplete, onResetLink }) => {
   const [env, setEnv] = useState('production'); // 'alpha' | 'beta' | 'production'
   const [app, setApp] = useState('node'); // 'node' | 'python'
   const [syncStatus, setSyncStatus] = useState('synced'); // 'synced' | 'out-of-sync' | 'syncing'
@@ -44,6 +44,24 @@ const GitOpsSimulator = ({ lang }) => {
     };
   }, []);
 
+  // Listen to pipelineLinked trigger to auto-configure drift to v2.1.1-alpine
+  useEffect(() => {
+    if (pipelineLinked) {
+      setEnv('production');
+      setApp('node');
+      setSyncStatus('out-of-sync');
+      setConsoleLogs(prev => {
+        if (prev.some(log => log.includes('node-v2.1.1-alpine'))) return prev;
+        return [
+          ...prev,
+          `[INFO] New container image detected in registry: harbor.local/renaldy/portfolio:node-v2.1.1-alpine`,
+          `[WARNING] Drift detected! Git repository configured target (node-v2.1.1-alpine) differs from live cluster deployment (node-v2.1.0-alpine).`,
+          `[WARNING] ArgoCD status marked as: OUT OF SYNC.`
+        ];
+      });
+    }
+  }, [pipelineLinked]);
+
   const translations = {
     id: {
       title: "Simulator <span class='gradient-text'>GitOps & Kustomize</span>",
@@ -51,6 +69,7 @@ const GitOpsSimulator = ({ lang }) => {
       envLabel: "Pilih Environment (Overlay):",
       appLabel: "Pilih Aplikasi:",
       btnSync: "Commit & Sync (GitOps)",
+      btnReset: "Reset Simulator",
       syncStatusText: "Status Rekonsiliasi:",
       argocdStatus: "Status ArgoCD:",
       activePods: "Status Cluster Kubernetes (Pods):",
@@ -83,6 +102,7 @@ const GitOpsSimulator = ({ lang }) => {
       envLabel: "Select Environment (Overlay):",
       appLabel: "Select Application:",
       btnSync: "Commit & Sync (GitOps)",
+      btnReset: "Reset Simulator",
       syncStatusText: "Reconciliation Status:",
       argocdStatus: "ArgoCD Status:",
       activePods: "Kubernetes Cluster State (Pods):",
@@ -148,7 +168,9 @@ const GitOpsSimulator = ({ lang }) => {
   const getYamlContent = () => {
     const replicasCount = env === 'alpha' ? 1 : env === 'beta' ? 2 : 3;
     const namespace = `${env}-web`;
-    const imageTag = app === 'node' ? 'node-v2.1.0-alpine' : 'python-v3.10-slim';
+    const imageTag = app === 'node' 
+      ? (pipelineLinked ? 'node-v2.1.1-alpine' : 'node-v2.1.0-alpine') 
+      : 'python-v3.10-slim';
     const cpuLimit = env === 'alpha' ? '100m' : env === 'beta' ? '250m' : '500m';
     const ramLimit = env === 'alpha' ? '128Mi' : env === 'beta' ? '256Mi' : '512Mi';
     const port = app === 'node' ? 3000 : 5000;
@@ -217,7 +239,6 @@ spec:
     }
   };
 
-  // Perform GitOps sync simulation
   const startGitOpsSync = () => {
     if (syncStatus === 'syncing') return;
 
@@ -244,7 +265,7 @@ spec:
       `[INFO] [Sync-1/3] kubectl apply -k overlays/${env}/`,
       `[INFO] [Sync-2/3] Configuration applied. Kubernetes controller starting rolling update...`,
       `[INFO] Kubernetes: Terminating old container instances...`,
-      `[INFO] Kubernetes: Spin up replacement pods with image: [internal-registry/${app}-app:${app === 'node' ? 'node-v2.1.0-alpine' : 'python-v3.10-slim'}]`,
+      `[INFO] Kubernetes: Spin up replacement pods with image: [internal-registry/${app}-app:${app === 'node' ? (pipelineLinked ? 'node-v2.1.1-alpine' : 'node-v2.1.0-alpine') : 'python-v3.10-slim'}]`,
       `[INFO] [Sync-3/3] Readiness probe checks executing on namespaces...`,
       `[SUCCESS] Readiness probe: HTTP GET 200 OK on check path '/healthz'. Pods active.`,
       `[SUCCESS] Route registered successfully: Ingress Controller NGINX -> host: [${app}-app.${env}.local]`,
@@ -294,6 +315,9 @@ spec:
         ...prev,
         `[SUCCESS] Cluster state updated. ArgoCD status is now: SYNCED.`
       ]);
+      if (pipelineLinked && env === 'production' && app === 'node') {
+        if (onSyncComplete) onSyncComplete('v2.1.1');
+      }
     }, 4200);
   };
 
@@ -315,6 +339,7 @@ spec:
       "[INFO] Monitoring Git repository for changes...",
       "[SUCCESS] Cluster state matches Git head. Status: SYNCED."
     ]);
+    if (onResetLink) onResetLink();
   };
 
   return (
@@ -417,7 +442,7 @@ spec:
               disabled={syncStatus === 'syncing'}
               style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}
             >
-              <i className="fa-solid fa-rotate-left"></i> Reset
+              <i className="fa-solid fa-rotate-left"></i> {t.btnReset}
             </button>
           </div>
         </div>
@@ -818,13 +843,64 @@ spec:
                   {t.browserStatus}
                 </span>
                 <span>
-                  {t.browserVersion} <strong style={{ color: '#f1f5f9' }}>{deployedApp === 'node' ? 'v2.1.0' : 'v3.10'}</strong>
+                  {t.browserVersion} <strong style={{ color: '#f1f5f9' }}>{deployedApp === 'node' ? (pipelineLinked && deployedEnv === 'production' ? 'v2.1.1' : 'v2.1.0') : 'v3.10'}</strong>
                 </span>
               </div>
             </div>
 
           </div>
         </div>
+
+        {syncStatus === 'synced' && pipelineLinked && env === 'production' && app === 'node' && (
+          <div style={{
+            marginTop: '24px',
+            padding: '20px',
+            background: 'rgba(16, 185, 129, 0.04)',
+            border: '1px dashed rgba(16, 185, 129, 0.25)',
+            borderRadius: 'var(--radius-md)',
+            textAlign: 'center',
+            animation: 'fadeIn 0.5s ease-out',
+            boxShadow: '0 4px 20px rgba(0, 0, 0, 0.15)',
+            backdropFilter: 'blur(10px)',
+            width: '100%'
+          }}>
+            <p style={{ margin: 0, fontSize: '0.92rem', color: '#4ade80', fontWeight: '600', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
+              <i className="fa-solid fa-cloud-arrow-up" style={{ fontSize: '1.1rem' }}></i>
+              {lang === 'id' 
+                ? 'Sinkronisasi GitOps Berhasil! Aplikasi v2.1.1-alpine kini aktif di Kubernetes.' 
+                : 'GitOps Sync Successful! App v2.1.1-alpine is now live in Kubernetes.'}
+            </p>
+            <p style={{ margin: '6px 0 16px 0', fontSize: '0.82rem', color: 'var(--text-muted)' }}>
+              {lang === 'id'
+                ? 'Langkah selanjutnya: Amati status kesehatan sistem dan alarm notifikasi di Simulator Monitoring.'
+                : 'Next step: Observe system health metrics and alerts in the Monitoring Simulator.'}
+            </p>
+            <button 
+              onClick={() => {
+                const el = document.getElementById('observability-simulator');
+                if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }}
+              className="btn btn-primary"
+              style={{
+                background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+                borderColor: '#10b981',
+                boxShadow: '0 4px 12px rgba(16, 185, 129, 0.2)',
+                color: '#fff',
+                fontSize: '0.88rem',
+                fontWeight: 700,
+                padding: '10px 20px',
+                borderRadius: 'var(--radius-sm)',
+                cursor: 'pointer',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px'
+              }}
+            >
+              <i className="fa-solid fa-chart-line"></i>
+              {lang === 'id' ? 'Lanjutkan ke Simulator Monitoring (Observabilitas)' : 'Proceed to Monitoring Simulator'} &rarr;
+            </button>
+          </div>
+        )}
 
       </div>
     </section>
