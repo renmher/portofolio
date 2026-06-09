@@ -213,7 +213,8 @@ const PipelineSimulator = ({ lang, onStatusChange, onStageChange, onProceedToGit
     let index = 0;
     const interval = setInterval(() => {
       if (index < lines.length) {
-        setLogs(prev => [...prev, lines[index]]);
+        const nextLine = lines[index];
+        setLogs(prev => [...prev, nextLine]);
         index++;
       } else {
         clearInterval(interval);

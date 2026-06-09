@@ -299,7 +299,8 @@ spec:
     // Console logs animation interval
     logIntervalRef.current = setInterval(() => {
       if (logIndex < reconciliationLogs.length) {
-        setConsoleLogs(prev => [...prev, reconciliationLogs[logIndex]]);
+        const nextLog = reconciliationLogs[logIndex];
+        setConsoleLogs(prev => [...prev, nextLog]);
         logIndex++;
       } else {
         clearInterval(logIntervalRef.current);
@@ -710,6 +711,7 @@ spec:
             }}
           >
             {consoleLogs.map((log, idx) => {
+              if (!log || typeof log !== 'string') return null;
               let logColor = '#c9d1d9';
               if (log.startsWith('[SUCCESS]')) logColor = '#22c55e';
               else if (log.startsWith('[WARNING]')) logColor = '#f59e0b';
