@@ -62,6 +62,11 @@ const GitOpsSimulator = ({ lang }) => {
         'out-of-sync': "OUT OF SYNC (TIDAK SINKRON)",
         syncing: "SYNCING (SEDANG REKONSILIASI...)"
       },
+      tabs: {
+        kustomize: "kustomization.yaml",
+        patch: "deployment-patch.yaml",
+        ingress: "ingress.yaml"
+      },
       envDetails: {
         alpha: "Alpha Env - Internal Testing (1 Replika, Resource Limit Rendah)",
         beta: "Beta Env - staging/QAs (2 Replika, Resource Limit Sedang)",
@@ -88,6 +93,11 @@ const GitOpsSimulator = ({ lang }) => {
         synced: "SYNCED",
         'out-of-sync': "OUT OF SYNC",
         syncing: "SYNCING..."
+      },
+      tabs: {
+        kustomize: "kustomization.yaml",
+        patch: "deployment-patch.yaml",
+        ingress: "ingress.yaml"
       },
       envDetails: {
         alpha: "Alpha Env - Internal Testing (1 Replica, Low Resource Limit)",
