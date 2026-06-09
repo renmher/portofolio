@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import Certifications from './components/Certifications';
 import PipelineSimulator from './components/PipelineSimulator';
+import GitOpsSimulator from './components/GitOpsSimulator';
 import ObservabilitySimulator from './components/ObservabilitySimulator';
 import Chatbot from './components/Chatbot';
 import { experiencesData, getDurationText } from './data/experiences';
@@ -42,6 +43,7 @@ const App = () => {
       "nav-projects": "Proyek",
       "nav-pipeline": "Pipeline",
       "nav-monitor": "Observabilitas",
+      "nav-gitops": "GitOps",
       "nav-certs": "Sertifikasi",
       "nav-experience": "Pengalaman",
       "nav-contact": "Hubungi",
@@ -150,6 +152,13 @@ const App = () => {
       "proj2-solution": "Mendeploy VictoriaMetrics sebagai penyimpanan metrik deret waktu berkapasitas tinggi, mengonfigurasi Prometheus Node Exporter di seluruh VM, mengintegrasikan VictoriaLogs untuk pengumpulan log logis, dan mendesain dasbor komprehensif di Grafana dengan visualisasi grafik CPU, RAM, disk I/O, serta seting alert otomatis ke Telegram.",
       "proj2-impact": "Menurunkan MTTD insiden dari 45 menit menjadi kurang dari 2 menit (penurunan 95%). Meningkatkan uptime sistem sebesar 40% berkat deteksi dini dan troubleshooting logs yang terpusat.",
 
+      // Project 3 Details
+      "proj3-name": "Otomatisasi GitOps & Pipeline Terpusat (Multi-Environment GitOps & Centralized CI/CD)",
+      "proj3-overview": "Membangun sistem deployment berbasis GitOps untuk mengelola siklus hidup rilis dua aplikasi web (Node.js & Python) ke kluster Kubernetes menggunakan GitLab CI terpusat dan Kustomize untuk manajemen konfigurasi multi-environment.",
+      "proj3-problem": "Setiap repositori aplikasi memiliki pipeline CI/CD yang terpisah dan tidak standar, menyulitkan standarisasi dan pemeliharaan. Selain itu, manajemen konfigurasi untuk lingkungan yang berbeda (alpha, beta, prod) berantakan dan rentan terhadap kesalahan konfigurasi manual.",
+      "proj3-role": "DevOps Engineer: Merancang centralized pipeline GitLab CI yang dapat digunakan kembali, menyusun struktur repositori GitOps menggunakan Kustomize (base & overlays), mengonfigurasi Ingress, dan menguji routing.",
+      "proj3-solution": "Mengembangkan pipeline CI/CD terpusat di GitLab yang efisien. Menggunakan Kustomize untuk memisahkan konfigurasi dasar (base) dari variasi environment (overlays untuk alpha, beta, prod). Mengintegrasikan workflow GitOps untuk sinkronisasi otomatis status repositori Git ke cluster Kubernetes.",
+      "proj3-impact": "Menyederhanakan pengelolaan rilis dari banyak repositori ke satu pipeline terpusat (mengurangi duplikasi kode hingga 100%). Manajemen konfigurasi multi-environment menjadi modular menggunakan overlay Kustomize, serta mempercepat proses deployment dan verifikasi routing.",
     },
     en: {
       "nav-home": "Home",
@@ -157,6 +166,7 @@ const App = () => {
       "nav-projects": "Projects",
       "nav-pipeline": "Pipeline",
       "nav-monitor": "Observability",
+      "nav-gitops": "GitOps",
       "nav-certs": "Certifications",
       "nav-experience": "Experience",
       "nav-contact": "Contact",
@@ -263,6 +273,13 @@ const App = () => {
       "proj2-solution": "Deployed VictoriaMetrics as a high-capacity time-series metrics database, configured Prometheus Node Exporter across virtual instances, integrated VictoriaLogs for log collection, and designed a comprehensive Grafana dashboard showing CPU, RAM, disk usage, and integrated automated Telegram notifications.",
       "proj2-impact": "Reduced incident MTTD from 45 minutes to less than 2 minutes (95% detection speedup). Improved system uptime by 40% through early detection and centralized log troubleshooting.",
 
+      // Project 3 Details
+      "proj3-name": "Multi-Environment GitOps & Centralized CI/CD",
+      "proj3-overview": "Built a GitOps-based deployment system to manage the release lifecycle of two web applications (Node.js & Python) to a Kubernetes cluster using a centralized GitLab CI pipeline and Kustomize for multi-environment configuration management.",
+      "proj3-problem": "Each application repository had duplicate and non-standardized CI/CD pipelines, making maintenance complex. Additionally, environment configuration management (alpha, beta, prod) was fragmented and prone to manual configuration errors.",
+      "proj3-role": "DevOps Engineer: Designed the centralized GitLab CI pipeline, structured the GitOps repository using Kustomize overlays (base & alpha/beta/prod), configured Kubernetes Ingress, and validated routing.",
+      "proj3-solution": "Developed a centralized and reusable GitLab CI pipeline. Utilized Kustomize to decouple base manifests from environment-specific configurations (overlays for alpha, beta, and production). Implemented a GitOps workflow to reconcile Git state with the live Kubernetes cluster.",
+      "proj3-impact": "Standardized application deployments under a single centralized pipeline (reducing pipeline script duplication by 100%). Achieved modular, declarative multi-environment configurations using Kustomize overlays, improving deployment velocity and routing verification.",
     }
   };
 
@@ -449,6 +466,17 @@ const App = () => {
       solutionKey: "proj2-solution",
       impactKey: "proj2-impact",
       tools: ["Grafana", "VictoriaMetrics", "VictoriaLogs", "Node Exporter", "Telegram API"]
+    },
+    {
+      id: 3,
+      image: "/projects/gitops-project.png",
+      nameKey: "proj3-name",
+      overviewKey: "proj3-overview",
+      problemKey: "proj3-problem",
+      roleKey: "proj3-role",
+      solutionKey: "proj3-solution",
+      impactKey: "proj3-impact",
+      tools: ["GitLab CI", "Kubernetes", "Kustomize", "GitOps", "Docker", "Node.js", "Python", "NGINX Ingress"]
     }
   ];
 
@@ -471,6 +499,7 @@ const App = () => {
               <li><a href="#about" className={activeSection === 'about' ? 'active' : ''}>{curr["nav-about"]}</a></li>
               <li><a href="#projects" className={activeSection === 'projects' ? 'active' : ''}>{curr["nav-projects"]}</a></li>
               <li><a href="#pipeline-simulator" className={activeSection === 'pipeline-simulator' ? 'active' : ''}>{curr["nav-pipeline"]}</a></li>
+              <li><a href="#gitops-simulator" className={activeSection === 'gitops-simulator' ? 'active' : ''}>{curr["nav-gitops"]}</a></li>
               <li><a href="#observability-simulator" className={activeSection === 'observability-simulator' ? 'active' : ''}>{curr["nav-monitor"]}</a></li>
               <li><a href="#certifications" className={activeSection === 'certifications' ? 'active' : ''}>{curr["nav-certs"]}</a></li>
               <li><a href="#experience" className={activeSection === 'experience' ? 'active' : ''}>{curr["nav-experience"]}</a></li>
@@ -516,6 +545,12 @@ const App = () => {
             <a href="#pipeline-simulator" className={activeSection === 'pipeline-simulator' ? 'active' : ''}>
               <i className="fa-solid fa-terminal"></i>
               <span>{lang === 'id' ? 'Pipeline' : 'Pipeline'}</span>
+            </a>
+          </li>
+          <li>
+            <a href="#gitops-simulator" className={activeSection === 'gitops-simulator' ? 'active' : ''}>
+              <i className="fa-solid fa-cloud"></i>
+              <span>GitOps</span>
             </a>
           </li>
           <li>
@@ -875,6 +910,27 @@ const App = () => {
                             </a>
                           </div>
                         )}
+                        {project.id === 3 && (
+                          <div style={{ marginTop: '20px' }}>
+                            <a 
+                              href="#gitops-simulator" 
+                              className="btn btn-secondary btn-sm" 
+                              style={{ 
+                                display: 'inline-flex', 
+                                alignItems: 'center', 
+                                gap: '8px', 
+                                background: 'var(--primary-glow)', 
+                                color: 'var(--primary)', 
+                                border: '1px solid rgba(37, 99, 235, 0.2)', 
+                                fontWeight: '600', 
+                                fontSize: '0.85rem',
+                                textDecoration: 'none'
+                              }}
+                            >
+                              <i className="fa-solid fa-cloud"></i> {lang === 'id' ? 'Coba Simulator GitOps' : 'Try GitOps Simulator'} &rarr;
+                            </a>
+                          </div>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -890,6 +946,9 @@ const App = () => {
           onStatusChange={handlePipelineStatusChange}
           onStageChange={handlePipelineStageChange}
         />
+
+        {/* GitOps & Kustomize Simulator Section */}
+        <GitOpsSimulator lang={lang} />
 
         {/* Observability & Monitoring Simulator Section */}
         <ObservabilitySimulator lang={lang} pipelineState={pipelineState} />
