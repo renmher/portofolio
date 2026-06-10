@@ -5,6 +5,7 @@ import GitOpsSimulator from './components/GitOpsSimulator';
 import ObservabilitySimulator from './components/ObservabilitySimulator';
 import Chatbot from './components/Chatbot';
 import { experiencesData, getDurationText } from './data/experiences';
+import CVBuilder from './components/CVBuilder';
 
 const App = () => {
   // --- States ---
@@ -487,6 +488,14 @@ const App = () => {
       tools: ["GitLab CI", "Kubernetes", "Kustomize", "GitOps", "Docker", "Node.js", "Python", "NGINX Ingress"]
     }
   ];
+
+  // --- CV Builder URL Parameter Interception ---
+  const urlParams = new URLSearchParams(window.location.search);
+  const isBuilderMode = urlParams.get('mode') === 'cv-builder';
+
+  if (isBuilderMode) {
+    return <CVBuilder />;
+  }
 
   return (
     <>
