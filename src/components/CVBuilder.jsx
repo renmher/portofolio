@@ -124,6 +124,14 @@ const CVBuilder = () => {
     window.location.href = window.location.origin + window.location.pathname;
   };
 
+  const getCompanyName = (exp) => {
+    if (!exp.company) return '';
+    if (typeof exp.company === 'object') {
+      return exp.company[lang] || exp.company.en || exp.company.id;
+    }
+    return exp.company;
+  };
+
   // Toggle helpers
   const toggleJob = (id) => {
     setSelectedJobs(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]);
@@ -232,7 +240,7 @@ const CVBuilder = () => {
                   checked={selectedJobs.includes(exp.id)}
                   onChange={() => toggleJob(exp.id)}
                 />
-                <span>{dict[exp.titleKey] || exp.role[lang]} ({exp.company})</span>
+                <span>{dict[exp.titleKey] || exp.role[lang]} ({getCompanyName(exp)})</span>
               </label>
             ))}
           </div>
@@ -331,7 +339,7 @@ const CVBuilder = () => {
                         <div className="cv-job-header">
                           <div className="cv-job-title-company">
                             <strong>{dict[exp.titleKey] || exp.role[lang]}</strong>
-                            <span> | {exp.company} {exp.type ? `(${exp.type[lang]})` : ''}</span>
+                            <span> | {getCompanyName(exp)} {exp.type ? `(${exp.type[lang]})` : ''}</span>
                           </div>
                           <span className="cv-job-date">{exp.dateText[lang]}</span>
                         </div>
