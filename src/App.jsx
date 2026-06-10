@@ -18,6 +18,7 @@ const App = () => {
   const [pipelineState, setPipelineState] = useState({ status: 'idle', stage: 0 });
   const [isPipelineLinked, setIsPipelineLinked] = useState(false);
   const [gitopsDeployedVersion, setGitopsDeployedVersion] = useState(null);
+  const [activeSimulatorTab, setActiveSimulatorTab] = useState('pipeline');
 
   const handleProjectTabChange = (projectId, tab) => {
     setProjectTabs(prev => ({ ...prev, [projectId]: tab }));
@@ -57,6 +58,7 @@ const App = () => {
       "nav-home": "Beranda",
       "nav-about": "Tentang",
       "nav-projects": "Proyek",
+      "nav-playground": "Playground",
       "nav-pipeline": "Pipeline",
       "nav-monitor": "Observabilitas",
       "nav-gitops": "GitOps",
@@ -180,6 +182,7 @@ const App = () => {
       "nav-home": "Home",
       "nav-about": "About",
       "nav-projects": "Projects",
+      "nav-playground": "Playground",
       "nav-pipeline": "Pipeline",
       "nav-monitor": "Observability",
       "nav-gitops": "GitOps",
@@ -525,9 +528,7 @@ const App = () => {
               <li><a href="#home" className={activeSection === 'home' ? 'active' : ''}>{curr["nav-home"]}</a></li>
               <li><a href="#about" className={activeSection === 'about' ? 'active' : ''}>{curr["nav-about"]}</a></li>
               <li><a href="#projects" className={activeSection === 'projects' ? 'active' : ''}>{curr["nav-projects"]}</a></li>
-              <li><a href="#pipeline-simulator" className={activeSection === 'pipeline-simulator' ? 'active' : ''}>{curr["nav-pipeline"]}</a></li>
-              <li><a href="#gitops-simulator" className={activeSection === 'gitops-simulator' ? 'active' : ''}>{curr["nav-gitops"]}</a></li>
-              <li><a href="#observability-simulator" className={activeSection === 'observability-simulator' ? 'active' : ''}>{curr["nav-monitor"]}</a></li>
+              <li><a href="#simulators" className={activeSection === 'simulators' ? 'active' : ''}>{curr["nav-playground"]}</a></li>
               <li><a href="#certifications" className={activeSection === 'certifications' ? 'active' : ''}>{curr["nav-certs"]}</a></li>
               <li><a href="#experience" className={activeSection === 'experience' ? 'active' : ''}>{curr["nav-experience"]}</a></li>
             </ul>
@@ -572,21 +573,9 @@ const App = () => {
             </a>
           </li>
           <li>
-            <a href="#pipeline-simulator" className={activeSection === 'pipeline-simulator' ? 'active' : ''}>
-              <i className="fa-solid fa-terminal"></i>
-              <span>{lang === 'id' ? 'Pipeline' : 'Pipeline'}</span>
-            </a>
-          </li>
-          <li>
-            <a href="#gitops-simulator" className={activeSection === 'gitops-simulator' ? 'active' : ''}>
-              <i className="fa-solid fa-cloud"></i>
-              <span>GitOps</span>
-            </a>
-          </li>
-          <li>
-            <a href="#observability-simulator" className={activeSection === 'observability-simulator' ? 'active' : ''}>
-              <i className="fa-solid fa-chart-line"></i>
-              <span>{lang === 'id' ? 'Monitor' : 'Monitor'}</span>
+            <a href="#simulators" className={activeSection === 'simulators' ? 'active' : ''}>
+              <i className="fa-solid fa-gamepad"></i>
+              <span>{lang === 'id' ? 'Playground' : 'Playground'}</span>
             </a>
           </li>
           <li>
@@ -953,7 +942,8 @@ const App = () => {
                         {project.id === 1 && (
                           <div style={{ marginTop: '20px' }}>
                             <a 
-                              href="#pipeline-simulator" 
+                              href="#simulators" 
+                              onClick={() => setActiveSimulatorTab('pipeline')}
                               className="btn btn-secondary btn-sm" 
                               style={{ 
                                 display: 'inline-flex', 
@@ -974,7 +964,8 @@ const App = () => {
                         {project.id === 2 && (
                           <div style={{ marginTop: '20px' }}>
                             <a 
-                              href="#observability-simulator" 
+                              href="#simulators" 
+                              onClick={() => setActiveSimulatorTab('monitoring')}
                               className="btn btn-secondary btn-sm" 
                               style={{ 
                                 display: 'inline-flex', 
@@ -995,7 +986,8 @@ const App = () => {
                         {project.id === 3 && (
                           <div style={{ marginTop: '20px', display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
                             <a 
-                              href="#gitops-simulator" 
+                              href="#simulators" 
+                              onClick={() => setActiveSimulatorTab('gitops')}
                               className="btn btn-secondary btn-sm" 
                               style={{ 
                                 display: 'inline-flex', 
@@ -1041,28 +1033,66 @@ const App = () => {
           </div>
         </section>
 
-        {/* Pipeline Simulator Section */}
-        <PipelineSimulator 
-          lang={lang} 
-          onStatusChange={handlePipelineStatusChange}
-          onStageChange={handlePipelineStageChange}
-          onProceedToGitOps={handleProceedToGitOps}
-        />
+        {/* Interactive DevOps Playground Section */}
+        <section id="simulators" className="reveal">
+          <div className="section-title">
+            <h2>{lang === 'id' ? 'DevOps Playground & Simulators' : 'DevOps Playground & Simulators'}</h2>
+            <p>
+              {lang === 'id' 
+                ? 'Simulasikan siklus otomatisasi pipeline, deployment GitOps, dan monitoring sistem secara langsung.' 
+                : 'Simulate pipeline automation cycles, GitOps deployments, and system monitoring live.'}
+            </p>
+          </div>
 
-        {/* GitOps & Kustomize Simulator Section */}
-        <GitOpsSimulator 
-          lang={lang} 
-          pipelineLinked={isPipelineLinked}
-          onSyncComplete={handleGitOpsSyncComplete}
-          onResetLink={handleResetAllSimulators}
-        />
+          {/* Simulator Tab Controls */}
+          <div className="simulator-tabs" style={{ display: 'flex', justifyContent: 'center', gap: '12px', marginBottom: '40px', flexWrap: 'wrap' }}>
+            <button 
+              className={`btn ${activeSimulatorTab === 'pipeline' ? 'btn-primary' : 'btn-secondary'}`}
+              onClick={() => setActiveSimulatorTab('pipeline')}
+            >
+              <i className="fa-solid fa-terminal"></i> 1. CI/CD Pipeline
+            </button>
+            <button 
+              className={`btn ${activeSimulatorTab === 'gitops' ? 'btn-primary' : 'btn-secondary'}`}
+              onClick={() => setActiveSimulatorTab('gitops')}
+            >
+              <i className="fa-solid fa-cloud"></i> 2. GitOps & K8s
+            </button>
+            <button 
+              className={`btn ${activeSimulatorTab === 'monitoring' ? 'btn-primary' : 'btn-secondary'}`}
+              onClick={() => setActiveSimulatorTab('monitoring')}
+            >
+              <i className="fa-solid fa-chart-line"></i> 3. Observability & Alarm
+            </button>
+          </div>
 
-        {/* Observability & Monitoring Simulator Section */}
-        <ObservabilitySimulator 
-          lang={lang} 
-          pipelineState={pipelineState} 
-          gitopsDeployedVersion={gitopsDeployedVersion}
-        />
+          {/* Active Simulator Render */}
+          <div className="simulator-active-content">
+            {activeSimulatorTab === 'pipeline' && (
+              <PipelineSimulator 
+                lang={lang} 
+                onStatusChange={handlePipelineStatusChange}
+                onStageChange={handlePipelineStageChange}
+                onProceedToGitOps={handleProceedToGitOps}
+              />
+            )}
+            {activeSimulatorTab === 'gitops' && (
+              <GitOpsSimulator 
+                lang={lang} 
+                pipelineLinked={isPipelineLinked}
+                onSyncComplete={handleGitOpsSyncComplete}
+                onResetLink={handleResetAllSimulators}
+              />
+            )}
+            {activeSimulatorTab === 'monitoring' && (
+              <ObservabilitySimulator 
+                lang={lang} 
+                pipelineState={pipelineState} 
+                gitopsDeployedVersion={gitopsDeployedVersion}
+              />
+            )}
+          </div>
+        </section>
 
         {/* Certifications Showcase Section */}
         <Certifications lang={lang} />
