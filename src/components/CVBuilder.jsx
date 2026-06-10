@@ -240,7 +240,7 @@ const CVBuilder = () => {
                   checked={selectedJobs.includes(exp.id)}
                   onChange={() => toggleJob(exp.id)}
                 />
-                <span>{dict[exp.titleKey] || exp.role[lang]} ({getCompanyName(exp)})</span>
+                <span>{exp.role[lang]} - {getCompanyName(exp)}</span>
               </label>
             ))}
           </div>
@@ -294,13 +294,16 @@ const CVBuilder = () => {
               <h1>Renaldy Imran Hermawan, S.Kom</h1>
               <p className="cv-role-subtitle">{customRole}</p>
               <div className="cv-contact-row">
-                <span><i className="fa-solid fa-envelope"></i> renaldyimran@gmail.com</span>
-                <span><i className="fa-solid fa-phone"></i> +62 878-7248-1308</span>
-                <span><i className="fa-solid fa-location-dot"></i> Bekasi, Indonesia</span>
+                <span>renaldyimran@gmail.com</span>
+                <span className="cv-separator">|</span>
+                <span>+62 878-7248-1308</span>
+                <span className="cv-separator">|</span>
+                <span>Bekasi, Indonesia</span>
               </div>
               <div className="cv-links-row">
-                <span><i className="fa-brands fa-linkedin"></i> linkedin.com/in/renaldyimran</span>
-                <span><i className="fa-brands fa-github"></i> github.com/renmher</span>
+                <span>linkedin.com/in/renaldyimran</span>
+                <span className="cv-separator">|</span>
+                <span>github.com/renmher</span>
               </div>
             </header>
 
@@ -337,11 +340,14 @@ const CVBuilder = () => {
                     .map(exp => (
                       <article key={exp.id} className="cv-job-item">
                         <div className="cv-job-header">
-                          <div className="cv-job-title-company">
-                            <strong>{dict[exp.titleKey] || exp.role[lang]}</strong>
-                            <span> | {getCompanyName(exp)} {exp.type ? `(${exp.type[lang]})` : ''}</span>
-                          </div>
+                          <strong className="cv-job-role">{exp.role[lang]}</strong>
                           <span className="cv-job-date">{exp.dateText[lang]}</span>
+                        </div>
+                        <div className="cv-job-subheader">
+                          <span className="cv-job-company">
+                            {getCompanyName(exp)} {exp.type ? `(${exp.type[lang]})` : ''}
+                          </span>
+                          <span className="cv-job-location">Bekasi, Indonesia</span>
                         </div>
                         <div 
                           className="cv-job-desc" 
@@ -364,8 +370,8 @@ const CVBuilder = () => {
                     .map(proj => (
                       <article key={proj.id} className="cv-proj-item">
                         <div className="cv-proj-header">
-                          <strong>{dict[proj.nameKey]}</strong>
-                          <span className="cv-proj-tools">({proj.tools.join(', ')})</span>
+                          <strong className="cv-proj-name">{dict[proj.nameKey]}</strong>
+                          <span className="cv-proj-tools">{proj.tools.join(', ')}</span>
                         </div>
                         <p className="cv-proj-desc">{dict[proj.descKey]}</p>
                       </article>

@@ -2609,17 +2609,18 @@ footer {
 .cv-links-row {
   display: flex;
   justify-content: center;
+  align-items: center;
   flex-wrap: wrap;
-  gap: 16px;
-  font-size: 0.8rem;
+  gap: 8px;
+  font-size: 0.82rem;
   color: #4b5563 !important;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
 }
 
-.cv-contact-row i,
-.cv-links-row i {
-  color: var(--primary) !important;
-  margin-right: 4px;
+.cv-separator {
+  color: #9ca3af !important;
+  margin: 0 4px;
+  font-weight: 300;
 }
 
 .cv-section {
@@ -2636,8 +2637,8 @@ footer {
 }
 
 .cv-divider {
-  height: 2px;
-  background: #e5e7eb;
+  height: 1px;
+  background: #374151;
   margin-bottom: 12px;
 }
 
@@ -2680,16 +2681,29 @@ footer {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  font-size: 0.82rem;
-  margin-bottom: 6px;
+  font-size: 0.85rem;
+  margin-bottom: 2px;
 }
 
-.cv-job-title-company strong {
+.cv-job-role {
   color: #111827 !important;
   font-weight: 700;
 }
 
-.cv-job-title-company span {
+.cv-job-subheader {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: #4b5563 !important;
+  margin-bottom: 6px;
+  font-style: italic;
+}
+
+.cv-job-company {
+  color: #4b5563 !important;
+}
+
+.cv-job-location {
   color: #4b5563 !important;
 }
 
@@ -2706,10 +2720,12 @@ footer {
 
 .cv-job-desc ul {
   list-style-type: disc;
-  padding-left: 18px;
+  padding-left: 20px;
   display: flex;
   flex-direction: column;
   gap: 4px;
+  margin-top: 4px;
+  margin-bottom: 0;
 }
 
 .cv-job-desc li {
@@ -2729,19 +2745,22 @@ footer {
 }
 
 .cv-proj-header {
-  font-size: 0.82rem;
-  margin-bottom: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 0.85rem;
+  margin-bottom: 2px;
 }
 
-.cv-proj-header strong {
+.cv-proj-name {
   color: #111827 !important;
+  font-weight: 700;
 }
 
 .cv-proj-tools {
-  color: #4b5563 !important;
-  font-size: 0.75rem;
-  margin-left: 6px;
-  font-weight: 500;
+  color: var(--primary) !important;
+  font-size: 0.78rem;
+  font-weight: 600;
 }
 
 .cv-proj-desc {
@@ -2752,11 +2771,11 @@ footer {
 
 /* Certs printable */
 .cv-certs-list {
-  list-style-type: square;
-  padding-left: 18px;
+  list-style-type: disc;
+  padding-left: 20px;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 6px 24px;
+  gap: 6px 32px;
   font-size: 0.8rem;
   color: #374151 !important;
 }
@@ -2774,7 +2793,7 @@ footer {
   body {
     background: white !important;
     color: black !important;
-    font-size: 12pt;
+    font-size: 11pt;
     margin: 0;
     padding: 0;
   }
@@ -2841,11 +2860,12 @@ footer {
   }
 
   .cv-role-subtitle {
-    color: #4F46E5 !important; /* Keep indigo title */
+    color: #000000 !important; /* Force black role title on print for standard ATS compatibility */
+    font-weight: 700 !important;
   }
 
   .cv-divider {
-    background-color: #d1d5db !important;
+    background-color: #374151 !important;
     height: 1px !important;
     border: none !important;
   }
