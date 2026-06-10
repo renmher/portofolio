@@ -343,21 +343,14 @@ const App = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Handle initial scroll to hash on page refresh
+  // Redirect back to home (#home) on page refresh
   useEffect(() => {
-    const hash = window.location.hash;
-    if (hash) {
-      const element = document.querySelector(hash);
-      if (element) {
-        element.scrollIntoView({ behavior: 'auto' });
-      }
-      const timer = setTimeout(() => {
-        const el = document.querySelector(hash);
-        if (el) {
-          el.scrollIntoView({ behavior: 'auto' });
-        }
-      }, 50);
-      return () => clearTimeout(timer);
+    if (window.history.scrollRestoration) {
+      window.history.scrollRestoration = 'manual';
+    }
+    window.scrollTo(0, 0);
+    if (window.location.hash && window.location.hash !== '#home') {
+      window.history.replaceState(null, null, ' ');
     }
   }, []);
 
@@ -670,10 +663,10 @@ const App = () => {
                   </filter>
                 </defs>
                 <g filter="url(#glow-blur)">
-                  <ellipse cx="65" cy="65" rx="35" ry="25" fill="#4285F4" opacity="0.7" />
-                  <ellipse cx="135" cy="65" rx="25" ry="35" fill="#EA4335" opacity="0.7" />
-                  <ellipse cx="65" cy="135" rx="25" ry="35" fill="#34A853" opacity="0.7" />
-                  <ellipse cx="135" cy="135" rx="35" ry="25" fill="#FBBC04" opacity="0.7" />
+                  <ellipse cx="65" cy="65" rx="35" ry="25" fill="#6366F1" opacity="0.7" />
+                  <ellipse cx="135" cy="65" rx="25" ry="35" fill="#06B6D4" opacity="0.7" />
+                  <ellipse cx="65" cy="135" rx="25" ry="35" fill="#8B5CF6" opacity="0.7" />
+                  <ellipse cx="135" cy="135" rx="35" ry="25" fill="#EC4899" opacity="0.7" />
                 </g>
               </svg>
               <div className="glow-inner-circle"></div>
