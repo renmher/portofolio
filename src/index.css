@@ -206,10 +206,19 @@ header.site-header {
   transition: var(--transition);
 }
 
-.desktop-nav a:hover, 
+.desktop-nav a:hover {
+  color: var(--primary);
+  background: var(--primary-glow);
+  transform: scale(1.03);
+}
+
 .desktop-nav a.active {
   color: var(--primary);
   background: var(--primary-glow);
+}
+
+.desktop-nav a:active {
+  transform: scale(0.97);
 }
 
 @media (max-width: 1200px) and (min-width: 969px) {
@@ -252,6 +261,15 @@ header.site-header {
 .control-btn:hover {
   border-color: var(--primary);
   background: var(--primary-glow);
+  transform: scale(1.08);
+}
+
+.control-btn i {
+  transition: transform 0.3s ease;
+}
+
+.control-btn:hover i {
+  transform: rotate(15deg);
 }
 
 .nav-cv-btn {
@@ -283,11 +301,34 @@ header.site-header {
   font-weight: 700;
   font-size: 0.85rem;
   transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-cta::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.25),
+    transparent
+  );
+  transform: skewX(-25deg);
+  pointer-events: none;
 }
 
 .nav-cta:hover {
   background: var(--primary-hover);
   box-shadow: 0 4px 12px var(--primary-glow);
+}
+
+.nav-cta:hover::after {
+  animation: shine-sweep 0.8s ease-in-out;
 }
 
 /* System Status */
@@ -343,12 +384,8 @@ header.site-header {
 
 .card:hover {
   border-color: var(--primary);
-  box-shadow: 0 4px 12px 2px rgba(60, 64, 67, 0.12), 0 1px 3px rgba(60, 64, 67, 0.08);
-  transform: translateY(-4px);
-}
-
-[data-theme="dark"] .card:hover {
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 12px 30px var(--primary-glow);
+  transform: translateY(-6px);
 }
 
 
@@ -659,7 +696,18 @@ header.site-header {
 }
 
 .hero-title .text-highlight {
-  color: var(--primary);
+  background: linear-gradient(120deg, #6366f1 10%, #22d3ee 50%, #ec4899 90%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient-shimmer 4s linear infinite;
+  display: inline-block;
+}
+
+@keyframes gradient-shimmer {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 .hero-subtitle {
@@ -746,6 +794,7 @@ header.site-header {
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
 
 .glow-inner-circle {
@@ -767,6 +816,7 @@ header.site-header {
   background: var(--primary);
   overflow: hidden;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease;
 }
 
 .hero-profile-img {
@@ -784,6 +834,17 @@ header.site-header {
   z-index: 0;
   pointer-events: none;
   animation: slow-rotate 28s linear infinite, breathe 7s ease-in-out infinite alternate;
+}
+
+.relative-glow-container:hover .profile-img-circle {
+  transform: scale(1.05) rotate(1.5deg);
+  box-shadow: 0 16px 40px var(--primary-glow);
+  border-color: var(--primary);
+}
+
+.relative-glow-container:hover .hero-glow-svg {
+  animation: slow-rotate 10s linear infinite, breathe 3s ease-in-out infinite alternate;
+  opacity: 0.95;
 }
 
 @keyframes slow-rotate {
@@ -815,6 +876,34 @@ header.site-header {
 .btn-primary {
   background: var(--primary);
   color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.25),
+    transparent
+  );
+  transform: skewX(-25deg);
+  pointer-events: none;
+}
+
+.btn-primary:hover::after {
+  animation: shine-sweep 0.8s ease-in-out;
+}
+
+@keyframes shine-sweep {
+  0% { left: -100%; }
+  100% { left: 150%; }
 }
 
 .btn-secondary {
@@ -1111,8 +1200,8 @@ section {
 .skill-tag-wrapper:hover .skill-tag {
   border-color: var(--primary);
   background: var(--primary-glow);
-  box-shadow: 0 4px 12px var(--primary-glow);
-  transform: translateY(-2px);
+  box-shadow: 0 6px 16px var(--primary-glow);
+  transform: translateY(-3px) scale(1.03);
   color: var(--text-main);
 }
 
