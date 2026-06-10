@@ -40,6 +40,7 @@ const App = () => {
 
   const handleProceedToGitOps = useCallback(() => {
     setIsPipelineLinked(true);
+    setActiveSimulatorTab('gitops');
   }, []);
 
   const handleGitOpsSyncComplete = useCallback((version) => {
