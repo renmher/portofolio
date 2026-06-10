@@ -9,7 +9,7 @@ import { experiencesData, getDurationText } from './data/experiences';
 const App = () => {
   // --- States ---
   const [lang, setLang] = useState(() => localStorage.getItem('lang') || 'id');
-  const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'dark');
+  const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'light');
   const [scrollProgress, setScrollProgress] = useState(0);
   const [activeSection, setActiveSection] = useState('home');
   const [emailCopied, setEmailCopied] = useState(false);
@@ -506,8 +506,18 @@ const App = () => {
       </div>
 
       {/* Header & Nav */}
-      <header>
-        <div className="nav-wrapper">
+      <header className="site-header">
+        <div className="header-container">
+          <a href="#home" className="nav-logo">
+            <div className="logo-dots">
+              <div className="dot blue"></div>
+              <div className="dot red"></div>
+              <div className="dot yellow"></div>
+              <div className="dot green"></div>
+            </div>
+            <span className="logo-text">Renaldy.dev</span>
+          </a>
+
           <nav className="desktop-nav">
             <ul>
               <li><a href="#home" className={activeSection === 'home' ? 'active' : ''}>{curr["nav-home"]}</a></li>
@@ -520,18 +530,21 @@ const App = () => {
               <li><a href="#experience" className={activeSection === 'experience' ? 'active' : ''}>{curr["nav-experience"]}</a></li>
             </ul>
           </nav>
-          <div className="controls">
-            <button id="theme-toggle" className="control-btn" title="Toggle Theme" onClick={toggleTheme}>
-              {theme === 'dark' ? <i className="fa-solid fa-sun"></i> : <i className="fa-solid fa-moon"></i>}
-            </button>
-            <button id="lang-toggle" className="control-btn" title="Switch Language" onClick={toggleLanguage}>
-              {lang === 'id' ? 'EN' : 'ID'}
-            </button>
+
+          <div className="header-controls">
+            <div className="controls">
+              <button id="theme-toggle" className="control-btn" title="Toggle Theme" onClick={toggleTheme}>
+                {theme === 'dark' ? <i className="fa-solid fa-sun"></i> : <i className="fa-solid fa-moon"></i>}
+              </button>
+              <button id="lang-toggle" className="control-btn" title="Switch Language" onClick={toggleLanguage}>
+                {lang === 'id' ? 'EN' : 'ID'}
+              </button>
+            </div>
+            <a href="/cv-renaldy.pdf" download="CV-Renaldy-Imran-Hermawan.pdf" className="nav-cv-btn">
+              <i className="fa-solid fa-file-arrow-down"></i> CV
+            </a>
+            <a href="#contact" className="nav-cta">{curr["nav-contact"]}</a>
           </div>
-          <a href="/cv-renaldy.pdf" download="CV-Renaldy-Imran-Hermawan.pdf" className="nav-cv-btn">
-            <i className="fa-solid fa-file-arrow-down"></i> CV
-          </a>
-          <a href="#contact" className="nav-cta">{curr["nav-contact"]}</a>
         </div>
       </header>
 
@@ -593,29 +606,81 @@ const App = () => {
       <main className="container">
 
         {/* Hero Section */}
-        <section id="home" className="hero reveal">
+        <section id="home" className="hero reveal active">
           <div className="hero-content">
-            <span className="eyebrow">{curr["hero-eyebrow"]}</span>
-            <h1 dangerouslySetInnerHTML={{ __html: curr["hero-title"] }} />
+            <div className="open-to-work-badge">
+              <span className="dot pulse"></span>
+              <span>{lang === 'id' ? 'Aktif Mencari Kerja' : 'Open to work'}</span>
+            </div>
+            
+            <h1 className="hero-title">
+              {lang === 'id' ? 'Halo, Saya' : 'Hi, I\'m'}<br />
+              <span className="text-highlight">Renaldy Imran Hermawan, S.Kom</span>
+            </h1>
+            
+            <p className="hero-subtitle">{curr["hero-roles"]}</p>
             <p className="hero-desc">{curr["hero-desc"]}</p>
-            <div className="hero-roles">{curr["hero-roles"]}</div>
+            
             <div className="hero-meta">
               <span><i className="fa-solid fa-map-pin"></i> {curr["hero-location"]}</span>
               <span className="separator">•</span>
               <span><i className="fa-solid fa-cake-candles"></i> {curr["hero-age"]}</span>
             </div>
+            
             <div className="hero-buttons">
               <a href="#projects" className="btn btn-primary">
-                {curr["btn-projects"]}
+                {curr["btn-projects"]} <span className="arrow">→</span>
               </a>
-              <a href="#contact" className="btn btn-secondary">
-                {curr["btn-connect"]}
+              <a href="/cv-renaldy.pdf" download="CV-Renaldy-Imran-Hermawan.pdf" className="btn btn-secondary">
+                {curr["btn-cv"]}
               </a>
+            </div>
+
+            <div className="hero-stats-grid">
+              <div className="stat-item">
+                <div className="stat-num text-blue">2+</div>
+                <div className="stat-label">{lang === 'id' ? 'Tahun Pengalaman' : 'Years Experience'}</div>
+              </div>
+              <div className="stat-item">
+                <div className="stat-num text-green">10+</div>
+                <div className="stat-label">{lang === 'id' ? 'Projects Selesai' : 'Completed Projects'}</div>
+              </div>
+              <div className="stat-item">
+                <div className="stat-num text-red">6+</div>
+                <div className="stat-label">{lang === 'id' ? 'Sertifikasi' : 'Certifications'}</div>
+              </div>
+              <div className="stat-item">
+                <div className="stat-num text-yellow">2024</div>
+                <div className="stat-label">{lang === 'id' ? 'Tahun Kelulusan' : 'Graduation Year'}</div>
+              </div>
             </div>
           </div>
 
-          <div className="hero-image-container">
-            <img src="/profile.png" alt="Renaldy Imran Hermawan" className="hero-profile-img" />
+          <div className="hero-image-wrapper">
+            <div className="relative-glow-container">
+              {/* Rotating breathing SVG background glow */}
+              <svg className="hero-glow-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <filter id="glow-blur" x="-50%" y="-50%" width="200%" height="200%">
+                    <feGaussianBlur stdDeviation="16" result="blur" />
+                    <feMerge>
+                      <feMergeNode in="blur" />
+                      <feMergeNode in="SourceGraphic" />
+                    </feMerge>
+                  </filter>
+                </defs>
+                <g filter="url(#glow-blur)">
+                  <ellipse cx="65" cy="65" rx="35" ry="25" fill="#4285F4" opacity="0.7" />
+                  <ellipse cx="135" cy="65" rx="25" ry="35" fill="#EA4335" opacity="0.7" />
+                  <ellipse cx="65" cy="135" rx="25" ry="35" fill="#34A853" opacity="0.7" />
+                  <ellipse cx="135" cy="135" rx="35" ry="25" fill="#FBBC04" opacity="0.7" />
+                </g>
+              </svg>
+              <div className="glow-inner-circle"></div>
+              <div className="profile-img-circle">
+                <img src="/profile.png" alt="Renaldy Imran Hermawan" className="hero-profile-img" />
+              </div>
+            </div>
           </div>
         </section>
 

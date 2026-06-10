@@ -614,15 +614,15 @@ const PipelineSimulator = ({ lang, onStatusChange, onStageChange, onProceedToGit
             ) : (
               logs.map((log, index) => {
                 if (!log || typeof log !== 'string') return null;
-                let color = '#c9d1d9';
-                if (log.startsWith('[SUCCESS]')) color = '#22c55e';
-                else if (log.startsWith('[CRITICAL ERROR]') || log.startsWith('[ERROR]') || log.startsWith('[FATAL]')) color = '#ef4444';
-                else if (log.startsWith('[WARNING]')) color = '#eab308';
-                else if (log.startsWith('[INFO]')) color = '#58a6ff';
-                else if (log.startsWith('[SYSTEM]')) color = '#d2a8ff';
+                let logClass = 'log-default';
+                if (log.startsWith('[SUCCESS]')) logClass = 'log-success';
+                else if (log.startsWith('[CRITICAL ERROR]') || log.startsWith('[ERROR]') || log.startsWith('[FATAL]')) logClass = 'log-error';
+                else if (log.startsWith('[WARNING]')) logClass = 'log-warning';
+                else if (log.startsWith('[INFO]')) logClass = 'log-info';
+                else if (log.startsWith('[SYSTEM]')) logClass = 'log-system';
 
                 return (
-                  <div key={index} style={{ color, whiteSpace: 'pre-wrap' }}>
+                  <div key={index} className={logClass} style={{ whiteSpace: 'pre-wrap' }}>
                     {log}
                   </div>
                 );
