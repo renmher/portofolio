@@ -465,8 +465,7 @@ const PipelineSimulator = ({ lang, onStatusChange, onStageChange, onProceedToGit
             right: '40px',
             height: '4px',
             background: 'var(--border)',
-            zIndex: 1,
-            display: 'block'
+            zIndex: 1
           }}></div>
 
           {/* Individual Stages */}

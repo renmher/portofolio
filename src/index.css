@@ -602,6 +602,7 @@ header.site-header {
   grid-template-columns: 1.2fr 0.8fr;
   gap: 48px;
   align-items: center;
+  text-align: left;
 }
 
 .open-to-work-badge {
@@ -640,7 +641,6 @@ header.site-header {
   margin-bottom: 12px;
   font-weight: 800;
   color: var(--text-main);
-  text-align: left;
 }
 
 .hero-title .text-highlight {
@@ -652,7 +652,6 @@ header.site-header {
   font-weight: 700;
   color: var(--text-muted);
   margin-bottom: 20px;
-  text-align: left;
 }
 
 .hero-desc {
@@ -661,7 +660,6 @@ header.site-header {
   max-width: 540px;
   margin-bottom: 24px;
   line-height: 1.7;
-  text-align: left;
 }
 
 .hero-meta {
@@ -1758,25 +1756,29 @@ footer {
   .hero {
     grid-template-columns: 1fr;
     text-align: center;
-    padding-top: 120px;
+    padding-top: 100px;
     padding-bottom: 60px;
     gap: 40px;
   }
 
-  .hero-content h1 {
+  .open-to-work-badge {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-title {
     font-size: clamp(2rem, 8vw, 2.8rem);
   }
 
-  .hero-content .eyebrow {
-    font-size: 0.7rem;
-    margin-bottom: 12px;
-  }
-
-  .hero-content p {
+  .hero-desc {
     margin-left: auto;
     margin-right: auto;
     font-size: 1rem;
-    margin-bottom: 32px;
+    margin-bottom: 24px;
+  }
+
+  .hero-meta {
+    justify-content: center;
   }
 
   .hero-buttons {
@@ -1789,6 +1791,34 @@ footer {
     width: 100%;
     justify-content: center;
     padding: 12px 20px;
+  }
+
+  .hero-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: center;
+    gap: 20px;
+    margin-top: 24px;
+    padding-top: 24px;
+  }
+
+  .hero-stats-grid .stat-item {
+    align-items: center;
+    text-align: center;
+  }
+
+  .glow-inner-circle {
+    width: 220px;
+    height: 220px;
+  }
+
+  .profile-img-circle {
+    width: 180px;
+    height: 180px;
+  }
+
+  .hero-glow-svg {
+    width: 250px;
+    height: 250px;
   }
 
   .profile-card {
@@ -2067,8 +2097,12 @@ footer {
 }
 
 @media (max-width: 768px) {
-  .nav-cv-btn {
-    display: none;
+  .nav-cv-btn,
+  .nav-cta {
+    display: none !important;
+  }
+  .pipeline-track-line {
+    display: none !important;
   }
 }
 
