@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-portofolio
+  namespace: demo
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx-portofolio
+  template:
+    metadata:
+      labels:
+        app: nginx-portofolio
+    spec:
+      containers:
+        - name: nginx-portofolio
+          # image: nginx:1.30.2
+          image: nginx:1.31.1-alpine
+          ports:
+            - containerPort: 80
