@@ -2834,19 +2834,8 @@ footer {
   }
 
   /* Isolate printable section */
-  body * {
-    visibility: hidden;
-  }
-
-  .cv-print-area,
-  .cv-print-area * {
-    visibility: visible;
-  }
-
   .cv-print-area {
-    position: absolute;
-    left: 0;
-    top: 0;
+    position: relative !important;
     width: 100% !important;
     padding: 0 !important;
     margin: 0 !important;
