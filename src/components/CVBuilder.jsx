@@ -100,7 +100,14 @@ const CV_DICTIONARY = {
 };
 
 const CVBuilder = () => {
-  const [lang, setLang] = useState('en');
+  const [lang, setLang] = useState(() => {
+    const params = new URLSearchParams(window.location.search);
+    const queryLang = params.get('lang');
+    if (queryLang === 'id' || queryLang === 'en') {
+      return queryLang;
+    }
+    return localStorage.getItem('lang') || 'en';
+  });
   const [selectedJobs, setSelectedJobs] = useState(experiencesData.map(j => j.id));
   const [selectedProjects, setSelectedProjects] = useState([1, 2, 3]);
   const [selectedCerts, setSelectedCerts] = useState(['mtcna', 'bnsp-net', 'bnsp-web', 'aws', 'ds', 'rg']);
@@ -112,6 +119,7 @@ const CVBuilder = () => {
   useEffect(() => {
     setCustomRole(CV_DICTIONARY[lang].defaultRole);
     setCustomSummary(CV_DICTIONARY[lang].defaultSummary);
+    localStorage.setItem('lang', lang);
   }, [lang]);
 
   const dict = CV_DICTIONARY[lang];

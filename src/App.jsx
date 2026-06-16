@@ -544,9 +544,15 @@ const App = () => {
                 {lang === 'id' ? 'EN' : 'ID'}
               </button>
             </div>
-            <a href="/cv-renaldy.pdf" download="CV-Renaldy-Imran-Hermawan.pdf" className="nav-cv-btn">
-              <i className="fa-solid fa-file-arrow-down"></i> CV
-            </a>
+            {lang === 'id' ? (
+              <a href="?mode=cv-builder" className="nav-cv-btn">
+                <i className="fa-solid fa-file-arrow-down"></i> CV
+              </a>
+            ) : (
+              <a href="/cv-renaldy.pdf" download="CV-Renaldy-Imran-Hermawan.pdf" className="nav-cv-btn">
+                <i className="fa-solid fa-file-arrow-down"></i> CV
+              </a>
+            )}
             <a href="#contact" className="nav-cta">{curr["nav-contact"]}</a>
           </div>
         </div>
@@ -623,9 +629,15 @@ const App = () => {
               <a href="#projects" className="btn btn-primary">
                 {curr["btn-projects"]} <span className="arrow">→</span>
               </a>
-              <a href="/cv-renaldy.pdf" download="CV-Renaldy-Imran-Hermawan.pdf" className="btn btn-secondary">
-                {curr["btn-cv"]}
-              </a>
+              {lang === 'id' ? (
+                <a href="?mode=cv-builder" className="btn btn-secondary">
+                  {curr["btn-cv"]}
+                </a>
+              ) : (
+                <a href="/cv-renaldy.pdf" download="CV-Renaldy-Imran-Hermawan.pdf" className="btn btn-secondary">
+                  {curr["btn-cv"]}
+                </a>
+              )}
             </div>
 
             <div className="hero-stats-grid">
@@ -748,7 +760,13 @@ const App = () => {
             <article className="card">
               <h3 className="mb-4">{curr["about-cv-title"]}</h3>
               <p className="mb-4">{curr["about-cv-desc"]}</p>
-              <a href="/cv-renaldy.pdf" target="_blank" rel="noopener noreferrer" className="project-link" style={{ color: 'var(--accent)', textDecoration: 'none', fontWeight: 600 }}>
+              <a 
+                href={lang === 'id' ? "?mode=cv-builder" : "/cv-renaldy.pdf"} 
+                target={lang === 'id' ? "_self" : "_blank"} 
+                rel="noopener noreferrer" 
+                className="project-link" 
+                style={{ color: 'var(--accent)', textDecoration: 'none', fontWeight: 600 }}
+              >
                 <span>{curr["btn-view-cv"]}</span> &rarr;
               </a>
             </article>
