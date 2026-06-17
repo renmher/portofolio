@@ -11,7 +11,7 @@ const CV_DICTIONARY = {
     certificationsTitle: "Sertifikasi",
     skillsTitle: "Keahlian Teknis",
     contactTitle: "Kontak & Tautan",
-    
+
     // Default values
     defaultRole: "DevOps & Cloud Engineer",
     defaultSummary: "Lulusan Sarjana Teknik Informatika dengan pengalaman di bidang IT Network Operation Center dan Cloud Engineering. Berpengalaman dalam pemantauan infrastruktur, pemecahan masalah jaringan dasar dan Linux, serta dukungan teknis berbasis cloud. Akrab dengan Google Cloud Platform, AWS, Docker, dan dasar-dasar jaringan, dengan kemampuan bekerja secara cepat, akurat, dan kolaboratif dalam menyelesaikan masalah teknis.",
@@ -35,10 +35,10 @@ const CV_DICTIONARY = {
     // Projects
     "proj1-name": "Secure CI/CD Pipeline Automation",
     "proj1-desc": "Mengembangkan pipeline multi-stage menggunakan GitLab CI (Build, Test, Security-Scan, Push, Deploy). Mengintegrasikan Trivy untuk scanning image, SonarQube untuk analisis kode statis, dan registry Harbor privat. Meningkatkan efisiensi rilis hingga 93% (dari 2 jam menjadi 8 menit).",
-    
+
     "proj2-name": "High-Performance Observability Stack",
     "proj2-desc": "Mendeploy VictoriaMetrics dan Prometheus Node Exporter di seluruh VM. Mengintegrasikan VictoriaLogs untuk pengumpulan log logis, dan mendesain dasbor komprehensif di Grafana dengan alerting otomatis ke Telegram. Menurunkan MTTD insiden dari 45 menit menjadi kurang dari 2 menit.",
-    
+
     "proj3-name": "Multi-Environment GitOps & Centralized CI/CD",
     "proj3-desc": "Membangun sistem deployment berbasis GitOps untuk dua aplikasi web ke kluster Kubernetes menggunakan Kustomize. Mengintegrasikan workflow GitOps untuk sinkronisasi otomatis status repositori Git ke cluster Kubernetes.",
 
@@ -82,10 +82,10 @@ const CV_DICTIONARY = {
     // Projects
     "proj1-name": "Secure CI/CD Pipeline Automation",
     "proj1-desc": "Developed a multi-stage pipeline using GitLab CI (Build, Test, Security-Scan, Push, Deploy). Integrated Trivy for image vulnerability scanning, SonarQube for static code analysis, and Harbor registry. Reduced deployment cycle time from 2 hours to 8 minutes (93% efficiency).",
-    
+
     "proj2-name": "High-Performance Observability Stack",
     "proj2-desc": "Deployed VictoriaMetrics and Prometheus Node Exporter across VMs. Integrated VictoriaLogs for centralized log aggregation and designed comprehensive dashboards in Grafana with alerting notifications to Telegram. Reduced incident MTTD from 45 minutes to under 2 minutes.",
-    
+
     "proj3-name": "Multi-Environment GitOps & Centralized CI/CD",
     "proj3-desc": "Constructed a GitOps-based deployment workflow for web applications to a Kubernetes cluster using Kustomize. Configured GitOps pipelines to sync Git repository state to the Kubernetes cluster automatically.",
 
@@ -111,7 +111,7 @@ const CVBuilder = () => {
   const [selectedJobs, setSelectedJobs] = useState(experiencesData.map(j => j.id));
   const [selectedProjects, setSelectedProjects] = useState([1, 2, 3]);
   const [selectedCerts, setSelectedCerts] = useState(['mtcna', 'bnsp-net', 'bnsp-web', 'aws', 'ds', 'rg']);
-  
+
   const [customRole, setCustomRole] = useState('');
   const [customSummary, setCustomSummary] = useState('');
 
@@ -201,13 +201,13 @@ const CVBuilder = () => {
         <div className="cv-control-section">
           <h3>1. Bahasa Dokumen</h3>
           <div className="cv-lang-toggles">
-            <button 
+            <button
               className={`cv-lang-btn ${lang === 'en' ? 'active' : ''}`}
               onClick={() => setLang('en')}
             >
               English
             </button>
-            <button 
+            <button
               className={`cv-lang-btn ${lang === 'id' ? 'active' : ''}`}
               onClick={() => setLang('id')}
             >
@@ -220,19 +220,19 @@ const CVBuilder = () => {
           <h3>2. Kustomisasi Profil</h3>
           <div className="cv-input-group">
             <label>Target Jabatan / Role</label>
-            <input 
-              type="text" 
-              value={customRole} 
-              onChange={(e) => setCustomRole(e.target.value)} 
+            <input
+              type="text"
+              value={customRole}
+              onChange={(e) => setCustomRole(e.target.value)}
               placeholder="Contoh: Senior DevOps Engineer"
             />
           </div>
           <div className="cv-input-group">
             <label>Ringkasan Profil (Summary)</label>
-            <textarea 
+            <textarea
               rows="6"
-              value={customSummary} 
-              onChange={(e) => setCustomSummary(e.target.value)} 
+              value={customSummary}
+              onChange={(e) => setCustomSummary(e.target.value)}
               placeholder="Tulis ringkasan singkat profil Anda..."
             />
           </div>
@@ -243,8 +243,8 @@ const CVBuilder = () => {
           <div className="cv-checkbox-list">
             {experiencesData.map(exp => (
               <label key={exp.id} className="cv-checkbox-item">
-                <input 
-                  type="checkbox" 
+                <input
+                  type="checkbox"
                   checked={selectedJobs.includes(exp.id)}
                   onChange={() => toggleJob(exp.id)}
                 />
@@ -259,8 +259,8 @@ const CVBuilder = () => {
           <div className="cv-checkbox-list">
             {projects.map(proj => (
               <label key={proj.id} className="cv-checkbox-item">
-                <input 
-                  type="checkbox" 
+                <input
+                  type="checkbox"
                   checked={selectedProjects.includes(proj.id)}
                   onChange={() => toggleProject(proj.id)}
                 />
@@ -275,8 +275,8 @@ const CVBuilder = () => {
           <div className="cv-checkbox-list">
             {certifications.map(cert => (
               <label key={cert.id} className="cv-checkbox-item">
-                <input 
-                  type="checkbox" 
+                <input
+                  type="checkbox"
                   checked={selectedCerts.includes(cert.id)}
                   onChange={() => toggleCert(cert.id)}
                 />
@@ -309,9 +309,9 @@ const CVBuilder = () => {
                 <span>Bekasi, Indonesia</span>
               </div>
               <div className="cv-links-row">
-                <a href="https://linkedin.com/in/renaldyimran" target="_blank" rel="noopener noreferrer">linkedin.com/in/renaldyimran</a>
+                <a href="https://linkedin.com/in/renaldyimran" target="_blank" rel="noopener noreferrer">linkedin.com</a>
                 <span className="cv-separator">|</span>
-                <a href="https://github.com/renmher" target="_blank" rel="noopener noreferrer">github.com/renmher</a>
+                <a href="https://github.com/renmher" target="_blank" rel="noopener noreferrer">github.com</a>
               </div>
             </header>
 
@@ -357,9 +357,9 @@ const CVBuilder = () => {
                           </span>
                           <span className="cv-job-location">Bekasi, Indonesia</span>
                         </div>
-                        <div 
-                          className="cv-job-desc" 
-                          dangerouslySetInnerHTML={{ __html: dict[exp.descKey] }} 
+                        <div
+                          className="cv-job-desc"
+                          dangerouslySetInnerHTML={{ __html: dict[exp.descKey] }}
                         />
                       </article>
                     ))}
