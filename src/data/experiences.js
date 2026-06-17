@@ -4,14 +4,14 @@ export const experiencesData = [
     icon: "fa-solid fa-cubes",
     emoji: "🛠️",
     role: {
-      id: "Junior DevOps",
-      en: "Junior DevOps"
+      id: "Devops Engineer",
+      en: "Devops Engineer"
     },
-    company: "NashTa Group",
-    type: {
-      id: "Kontrak",
-      en: "Contract"
+    company: {
+      id: "PT. Indostorage Solusi Teknologi",
+      en: "PT. Indostorage Solusi Teknologi"
     },
+    type: null,
     startDate: "2026-02",
     endDate: "present",
     dateText: {
@@ -21,8 +21,8 @@ export const experiencesData = [
     titleKey: "exp-job1",
     descKey: "exp-job1-desc",
     chatbotSummary: {
-      id: "CI/CD GitLab CI, SonarQube, observability Grafana.",
-      en: "GitLab CI, SonarQube, Grafana observability."
+      id: "CI/CD GitLab CI, SonarQube, observability Grafana dan VictoriaMetrics di PT. Indostorage Solusi Teknologi.",
+      en: "GitLab CI, SonarQube, Grafana and VictoriaMetrics observability at PT. Indostorage Solusi Teknologi."
     }
   },
   {
@@ -30,10 +30,13 @@ export const experiencesData = [
     icon: "fa-solid fa-cloud",
     emoji: "💼",
     role: {
-      id: "L1 Cloud Engineer Support",
-      en: "L1 Cloud Engineer Support"
+      id: "L1 Cloud Engineer Support (GCP)",
+      en: "L1 Cloud Engineer Support (GCP)"
     },
-    company: "PT. Data Labs Analytics",
+    company: {
+      id: "PT. Data Labs Analytics",
+      en: "PT. Data Labs Analytics"
+    },
     type: null,
     startDate: "2025-01",
     endDate: "2026-01",
@@ -45,8 +48,8 @@ export const experiencesData = [
     titleKey: "exp-job2",
     descKey: "exp-job2-desc",
     chatbotSummary: {
-      id: "Monitoring AWS via CloudWatch, tiket JIRA.",
-      en: "JIRA tickets, AWS monitoring."
+      id: "Monitoring AWS via CloudWatch, tiket JIRA, dan Cloud Armor di PT. Data Labs Analytics.",
+      en: "JIRA tickets, AWS monitoring, and Cloud Armor at PT. Data Labs Analytics."
     }
   },
   {
@@ -54,14 +57,14 @@ export const experiencesData = [
     icon: "fa-solid fa-server",
     emoji: "🎛️",
     role: {
-      id: "IT Network Operation Center",
-      en: "IT Network Operation Center"
+      id: "Staf IT Network Operation Center",
+      en: "IT Network Operation Center Staff"
     },
-    company: "PT. ACSA",
-    type: {
-      id: "Kontrak",
-      en: "Contract"
+    company: {
+      id: "PT. Adyatma Cendekia Sinergi Abadi (ACSA)",
+      en: "PT. Adyatma Cendekia Sinergi Abadi (ACSA)"
     },
+    type: null,
     startDate: "2023-10",
     endDate: "2024-09",
     durationMonths: 12,
@@ -72,8 +75,8 @@ export const experiencesData = [
     titleKey: "exp-job3",
     descKey: "exp-job3-desc",
     chatbotSummary: {
-      id: "Monitoring kestabilan jaringan Telkomsel.",
-      en: "Telkomsel server and network monitoring."
+      id: "Monitoring kestabilan server dan aplikasi Telkomsel di PT. ACSA.",
+      en: "Telkomsel server and network monitoring at PT. ACSA."
     }
   },
   {
@@ -102,8 +105,8 @@ export const experiencesData = [
     titleKey: "exp-job4",
     descKey: "exp-job4-desc",
     chatbotSummary: {
-      id: "Pemeliharaan sistem lab & troubleshooting.",
-      en: "Lab system maintenance & troubleshooting."
+      id: "Pemeliharaan sistem lab & troubleshooting di Universitas Bani Saleh.",
+      en: "Lab system maintenance & troubleshooting at Bani Saleh University."
     }
   },
   {
@@ -111,23 +114,26 @@ export const experiencesData = [
     icon: "fa-solid fa-code",
     emoji: "💻",
     role: {
-      id: "Frontend Engineering Program",
-      en: "Frontend Engineering Program"
+      id: "Frontend Engineering",
+      en: "Frontend Engineering"
     },
-    company: "Ruang Guru",
+    company: {
+      id: "Kampus Merdeka Ruang Guru",
+      en: "Kampus Merdeka Ruang Guru"
+    },
     type: null,
     startDate: "2023-02",
     endDate: "2023-06",
     durationMonths: 5,
     dateText: {
-      id: "2023",
-      en: "2023"
+      id: "Feb 2023 - Jun 2023",
+      en: "Feb 2023 - Jun 2023"
     },
     titleKey: "exp-job5",
     descKey: "exp-job5-desc",
     chatbotSummary: {
-      id: "Merancang mockup UI web.",
-      en: "UI web engineering."
+      id: "Merancang antarmuka web modern dengan React di Ruang Guru.",
+      en: "UI web engineering and React development at Ruang Guru."
     }
   },
   {
@@ -135,7 +141,7 @@ export const experiencesData = [
     icon: "fa-solid fa-desktop",
     emoji: "🛠️",
     role: {
-      id: "IT Support",
+      id: "Staf IT Support",
       en: "IT Support Staff"
     },
     company: {
@@ -157,8 +163,8 @@ export const experiencesData = [
     titleKey: "exp-job6",
     descKey: "exp-job6-desc",
     chatbotSummary: {
-      id: "Troubleshooting jaringan LAN/WAN.",
-      en: "local network configurations."
+      id: "Troubleshooting jaringan LAN/WAN di PT Wiraswasta Gemilang Indonesia.",
+      en: "Local network configurations and IT support at PT Wiraswasta Gemilang Indonesia."
     }
   }
 ];

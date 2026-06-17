@@ -14,23 +14,23 @@ const CV_DICTIONARY = {
     
     // Default values
     defaultRole: "DevOps & Cloud Engineer",
-    defaultSummary: "Junior DevOps & Cloud Engineer lulusan Sarjana Komputer (S.Kom) dari Universitas Bani Saleh yang berdedikasi tinggi. Memiliki latar belakang kuat dalam administrasi jaringan dan infrastruktur IT dengan fokus utama pada otomatisasi siklus deployment (CI/CD), orkestrasi kontainer (Docker & Kubernetes), serta pengamanan pipeline (DevSecOps). Memiliki rekam jejak dalam merancang pipeline GitLab CI yang aman, mengelola registri kontainer, dan mengonfigurasi pemantauan real-time menggunakan Grafana dan VictoriaMetrics.",
+    defaultSummary: "Lulusan Sarjana Teknik Informatika dengan pengalaman di bidang IT Network Operation Center dan Cloud Engineering. Berpengalaman dalam pemantauan infrastruktur, pemecahan masalah jaringan dasar dan Linux, serta dukungan teknis berbasis cloud. Akrab dengan Google Cloud Platform, AWS, Docker, dan dasar-dasar jaringan, dengan kemampuan bekerja secara cepat, akurat, dan kolaboratif dalam menyelesaikan masalah teknis.",
 
     // Job Titles
-    "exp-job1": "Junior DevOps - NashTa Group",
-    "exp-job2": "L1 Cloud Engineer Support - PT. Data Labs Analytics",
-    "exp-job3": "IT Network Operation Center - PT. ACSA",
+    "exp-job1": "Devops Engineer - PT. Indostorage Solusi Teknologi",
+    "exp-job2": "L1 Cloud Engineer Support (GCP) - PT. Data Labs Analytics",
+    "exp-job3": "Staf IT Network Operation Center - PT. Adyatma Cendekia Sinergi Abadi (ACSA)",
     "exp-job4": "Asisten Lab - Universitas Bani Saleh",
-    "exp-job5": "Frontend Engineering Program - Ruang Guru",
-    "exp-job6": "IT Support - PT Wiraswasta Gemilang Indonesia",
+    "exp-job5": "Frontend Engineering - Kampus Merdeka Ruang Guru",
+    "exp-job6": "Staf IT Support - PT Wiraswasta Gemilang Indonesia",
 
     // Job Descriptions
-    "exp-job1-desc": "<ul><li>Membangun dan mengelola pipeline CI/CD menggunakan GitLab CI untuk proses build, testing, dan deployment aplikasi.</li><li>Mendukung keamanan CI/CD, kontainerisasi, dan deployment aplikasi menggunakan SonarQube, Harbor, dan Trivy.</li><li>Melakukan troubleshooting pada server Linux, jaringan, kontainer, dan pipeline deployment.</li><li>Mengelola Grafana, VictoriaLogs, VictoriaMetrics, dan tracing untuk monitoring infrastruktur, analisis log, metrik, alerting, dan penanganan insiden.</li></ul>",
-    "exp-job2-desc": "<ul><li>Mengelola workflow tiket sistem menggunakan Jira untuk memastikan respons incident alert kritis secara real-time.</li><li>Mengawal keandalan sistem berbasis cloud melalui monitoring terpadu Amazon CloudWatch 24/7.</li></ul>",
-    "exp-job3-desc": "<ul><li>Menerima, menganalisis, dan memberikan solusi untuk masalah terkait kartu Telkomsel.</li><li>Mengidentifikasi, menganalisis, dan menangani insiden layanan yang dilaporkan oleh pelanggan.</li><li>Melakukan monitoring server dan aplikasi Telkomsel secara berkala.</li></ul>",
-    "exp-job4-desc": "<ul><li>Membantu dosen dan mahasiswa dalam menggunakan aplikasi dan software laboratorium selama sesi praktikum.</li><li>Menyiapkan, menginstal, dan memastikan aplikasi laboratorium siap digunakan sebelum perkuliahan dimulai.</li><li>Melakukan pemeliharaan sistem, pembaruan software, pencatatan aktivitas, dan dokumentasi lisensi.</li></ul>",
-    "exp-job5-desc": "<ul><li>Merancang dan mengembangkan antarmuka web modern yang responsif dan berkinerja tinggi menggunakan React/Vue.</li><li>Menerapkan praktik terbaik dalam UI/UX dan optimalisasi interaksi pengguna.</li></ul>",
-    "exp-job6-desc": "<ul><li>Melakukan instalasi, provisioning, dan pemeliharaan infrastruktur IT lokal (LAN/WAN) secara berkala.</li><li>Mendukung kelancaran operasional bisnis harian.</li></ul>",
+    "exp-job1-desc": "<ul><li>Membangun dan mengelola pipeline CI/CD menggunakan GitLab CI untuk proses build, testing, dan deployment aplikasi.</li><li>Mendukung keamanan CI/CD, kontainerisasi, dan deployment aplikasi menggunakan SonarQube, Harbor, dan Trivy.</li><li>Melakukan troubleshooting pada server Linux, jaringan, kontainer, dan pipeline deployment.</li><li>Mendukung DevOps observability dengan mengelola Grafana, VictoriaLogs, VictoriaMetrics, dan tracing untuk monitoring infrastruktur, analisis log, metrik, alerting, dan penanganan insiden.</li></ul>",
+    "exp-job2-desc": "<ul><li>Menerima, mencatat, dan mengklasifikasikan tiket dukungan masuk melalui email, telepon, atau portal tiket Jira.</li><li>Merespons alarm infrastruktur seperti penggunaan CPU tinggi, disk penuh, atau downtime layanan.</li><li>Mengesarasi masalah L1 yang belum terselesaikan ke tim L2/L3 dengan dokumentasi masalah yang jelas dan lengkap.</li><li>Memantau dasbor kesehatan sistem secara proaktif seperti CloudWatch secara 24/7.</li><li>Memastikan resolusi tiket selaras dengan Service Level Agreement (SLA) yang berlaku.</li><li>Mendiagnosis masalah konektivitas jaringan dasar menggunakan ping, traceroute, telnet, serta pemeriksaan aturan grup keamanan/firewall.</li><li>Memantau dan memvalidasi kebijakan Cloud Armor untuk membantu melindungi aplikasi dari serangan DDoS dan berbasis web.</li><li>Memverifikasi peran (roles) dan izin IAM pada tingkat proyek, folder, dan organisasi.</li><li>Menganalisis log sistem dasar untuk mengidentifikasi penyebab kesalahan umum dan menangani masalah dasar OS Linux/Windows seperti pembersihan disk dan proses yang menggantung (hung).</li></ul>",
+    "exp-job3-desc": "<ul><li>Menerima, menganalisis, dan memberikan solusi untuk masalah terkait kartu Telkomsel.</li><li>Mengidentifikasi, menganalisis, dan menangani insiden layanan yang dilaporkan oleh pelanggan.</li><li>Melakukan monitoring server dan aplikasi Telkomsel.</li></ul>",
+    "exp-job4-desc": "<ul><li>Membantu dosen dan mahasiswa dalam menggunakan aplikasi dan software laboratorium selama sesi praktikum.</li><li>Menyiapkan, menginstal, dan memastikan aplikasi laboratorium siap digunakan sebelum perkuliahan dimulai.</li><li>Melakukan pemecahan masalah teknis dasar terkait software, jaringan, dan sistem komputer di laboratorium.</li><li>Memberikan panduan atau pelatihan singkat kepada mahasiswa tentang penggunaan aplikasi berdasarkan persyaratan mata kuliah.</li><li>Melakukan pemeliharaan sistem, pembaruan software, pencatatan aktivitas, dan dokumentasi lisensi.</li></ul>",
+    "exp-job5-desc": "<ul><li>Membangun antarmuka pengguna web yang responsif menggunakan HTML, CSS/SASS, JavaScript, dan React/Vue yang terintegrasi dengan RESTful API.</li><li>Melatih keterampilan komunikasi dan presentasi melalui aktivitas pembelajaran berbasis proyek.</li><li>Mengoptimalkan kinerja frontend termasuk waktu muat (load time), responsivitas, kompatibilitas lintas perangkat, dan debugging integrasi UI.</li></ul>",
+    "exp-job6-desc": "<ul><li>Menginstal, mengonfigurasi, dan memelihara komputer, laptop, printer, dan periferal lainnya untuk mendukung operasional sehari-hari.</li><li>Memantau kondisi LAN/WAN dan konektivitas internet, membantu tim jaringan saat terjadi masalah akses atau kecepatan, serta mendokumentasikan insiden.</li><li>Memberikan dukungan teknis untuk perangkat seluler, akses jarak jauh (remote), dan aplikasi internal, termasuk penyusunan akun pengguna, hak akses, dan reset kata sandi.</li><li>Melakukan troubleshooting masalah IT dasar seperti kesalahan sistem operasi, aplikasi yang menggantung (hang), virus/malware, serta memastikan pembaruan keamanan dilakukan tepat waktu.</li><li>Membantu inventarisasi aset IT, laporan penggunaan, catatan perbaikan, dan kebutuhan pengadaan IT.</li></ul>",
 
     // Projects
     "proj1-name": "Secure CI/CD Pipeline Automation",
@@ -61,23 +61,23 @@ const CV_DICTIONARY = {
 
     // Default values
     defaultRole: "DevOps & Cloud Engineer",
-    defaultSummary: "Highly dedicated Junior DevOps & Cloud Engineer with a Bachelor of Computer Science (S.Kom) from Bani Saleh University. Possesses a strong background in network administration and IT infrastructure, focusing on continuous integration and deployment (CI/CD) pipeline automation, container orchestration (Docker & Kubernetes), and DevSecOps. Proven track record in designing secure GitLab CI pipelines, managing container registries, and configuring real-time observability using Grafana and VictoriaMetrics.",
+    defaultSummary: "Highly dedicated DevOps & Cloud Engineer with a Bachelor of Computer Science (S.Kom) from Bani Saleh University. Possesses a strong background in network administration and IT infrastructure, focusing on continuous integration and deployment (CI/CD) pipeline automation, container orchestration (Docker & Kubernetes), and DevSecOps. Proven track record in designing secure GitLab CI pipelines, managing container registries, and configuring real-time observability using Grafana and VictoriaMetrics.",
 
     // Job Titles
-    "exp-job1": "Junior DevOps - NashTa Group",
-    "exp-job2": "L1 Cloud Engineer Support - PT. Data Labs Analytics",
-    "exp-job3": "IT Network Operation Center - PT. ACSA",
+    "exp-job1": "Devops Engineer - PT. Indostorage Solusi Teknologi",
+    "exp-job2": "L1 Cloud Engineer Support (GCP) - PT. Data Labs Analytics",
+    "exp-job3": "IT Network Operation Center Staff - PT. Adyatma Cendekia Sinergi Abadi (ACSA)",
     "exp-job4": "Lab Assistant - Bani Saleh University",
-    "exp-job5": "Frontend Engineering Program - Ruang Guru",
-    "exp-job6": "IT Support - PT Wiraswasta Gemilang Indonesia",
+    "exp-job5": "Frontend Engineering - Kampus Merdeka Ruang Guru",
+    "exp-job6": "IT Support Staff - PT Wiraswasta Gemilang Indonesia",
 
     // Job Descriptions
     "exp-job1-desc": "<ul><li>Built and managed CI/CD pipelines using GitLab CI for application build, testing, and deployment.</li><li>Supported pipeline security, containerization, and deployment using SonarQube, Harbor, and Trivy.</li><li>Troubleshot Linux servers, local networks, container systems, and deployment pipelines.</li><li>Managed Grafana, VictoriaLogs, VictoriaMetrics, and tracing for infrastructure monitoring, log analysis, metrics, alerting, and incident response.</li></ul>",
-    "exp-job2-desc": "<ul><li>Managed system ticketing workflow using Jira to ensure real-time response to critical incident alerts.</li><li>Maintained cloud system reliability through unified monitoring with Amazon CloudWatch 24/7.</li></ul>",
+    "exp-job2-desc": "<ul><li>Received, recorded, and classified incoming support tickets via email, phone, or Jira ticketing portal.</li><li>Responded to infrastructure alerts such as high CPU usage, full disk, or service downtime.</li><li>Escalated unresolved L1 issues to L2/L3 teams with clear and complete issue documentation.</li><li>Proactively monitored system health dashboards such as CloudWatch on a 24/7 basis.</li><li>Ensured ticket resolution aligned with applicable Service Level Agreements (SLA).</li><li>Diagnosed basic network connectivity issues using ping, traceroute, telnet, and security group/firewall rule checks.</li><li>Monitored and validated Cloud Armor policies to help protect applications from DDoS and web-based attacks.</li><li>Verified IAM roles and permissions at project, folder, and organization levels.</li><li>Analyzed basic system logs to identify common error causes and handled basic Linux/Windows OS issues such as disk cleanup and hung processes.</li></ul>",
     "exp-job3-desc": "<ul><li>Received, analyzed, and solved issues regarding Telkomsel card services.</li><li>Identified, analyzed, and resolved service incidents reported by customers.</li><li>Conducted regular monitoring on Telkomsel servers and applications.</li></ul>",
     "exp-job4-desc": "<ul><li>Assisted professors and students in utilizing laboratory applications and software during practical sessions.</li><li>Prepared, installed, and ensured laboratory applications were ready before classes started.</li><li>Performed basic troubleshooting and handled system maintenance, updates, and software licensing records.</li></ul>",
-    "exp-job5-desc": "<ul><li>Designed and developed modern, responsive, high-performance web interfaces using React/Vue.</li><li>Applied UI/UX best practices and optimized user interactions.</li></ul>",
-    "exp-job6-desc": "<ul><li>Installed, provisioned, and maintained local IT infrastructure (LAN/WAN) on a regular basis.</li><li>Supported smooth daily business operations.</li></ul>",
+    "exp-job5-desc": "<ul><li>Built responsive web user interfaces using HTML, CSS/SASS, JavaScript, and React/Vue integrated with RESTful APIs.</li><li>Practiced communication and presentation skills through project-based learning activities.</li><li>Optimized frontend performance including load time, responsiveness, cross-device compatibility, and UI integration debugging.</li></ul>",
+    "exp-job6-desc": "<ul><li>Installed, configured, and maintained computers, laptops, printers, and other peripherals to support daily operations.</li><li>Monitored LAN/WAN conditions and internet connectivity, assisted the network team during access or speed issues, and documented incidents.</li><li>Provided technical support for mobile devices, remote access, and internal applications, including user account setup, access rights, and password resets.</li><li>Troubleshot basic IT issues such as operating system errors, application hangs, viruses/malware, and ensured security updates were performed on time.</li><li>Assisted with IT asset inventory, usage reports, repair records, and IT procurement needs.</li></ul>",
 
     // Projects
     "proj1-name": "Secure CI/CD Pipeline Automation",
