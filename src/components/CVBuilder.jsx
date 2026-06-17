@@ -302,16 +302,16 @@ const CVBuilder = () => {
               <h1>Renaldy Imran Hermawan, S.Kom</h1>
               <p className="cv-role-subtitle">{customRole}</p>
               <div className="cv-contact-row">
-                <span>renaldyimran@gmail.com</span>
+                <a href="mailto:renaldyimran@gmail.com">renaldyimran@gmail.com</a>
                 <span className="cv-separator">|</span>
                 <span>+62 878-7248-1308</span>
                 <span className="cv-separator">|</span>
                 <span>Bekasi, Indonesia</span>
               </div>
               <div className="cv-links-row">
-                <span>linkedin.com/in/renaldyimran</span>
+                <a href="https://linkedin.com/in/renaldyimran" target="_blank" rel="noopener noreferrer">linkedin.com/in/renaldyimran</a>
                 <span className="cv-separator">|</span>
-                <span>github.com/renmher</span>
+                <a href="https://github.com/renmher" target="_blank" rel="noopener noreferrer">github.com/renmher</a>
               </div>
             </header>
 

@@ -2617,6 +2617,12 @@ footer {
   margin-bottom: 4px;
 }
 
+.cv-contact-row a,
+.cv-links-row a {
+  color: #0044cc !important;
+  text-decoration: underline !important;
+}
+
 .cv-separator {
   color: #9ca3af !important;
   margin: 0 4px;
