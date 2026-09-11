@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const certTranslations = {
   id: {
@@ -156,6 +156,17 @@ const Certifications = ({ lang }) => {
     document.body.style.overflow = '';
   };
 
+  // Keyboard accessibility: Close modal on Escape
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape' && selectedCert) {
+        handleCloseModal();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [selectedCert]);
+
   const filteredCerts = certs.filter(cert => activeTab === 'all' || cert.category === activeTab);
 
   return (
@@ -187,39 +198,61 @@ const Certifications = ({ lang }) => {
           </button>
         </div>
 
-        <div className="certs-grid grid">
-          {filteredCerts.map((cert, idx) => (
-            <article
-              key={idx}
-              className="card project-card cert-card"
-              onClick={() => handleOpenModal(cert)}
-              style={{ cursor: 'pointer' }}
-            >
-              {cert.hasImage ? (
-                <div className="project-visual">
-                  <img src={cert.image} alt={currentTranslations[cert.titleId]} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+        {filteredCerts.length === 0 ? (
+          <div className="card text-center" style={{ padding: '40px 20px', margin: '20px auto', maxWidth: '480px' }}>
+            <i className="fa-solid fa-folder-open text-muted" style={{ fontSize: '2rem', marginBottom: '12px' }}></i>
+            <h4 style={{ marginBottom: '6px' }}>
+              {lang === 'id' ? 'Tidak ada sertifikasi pada kategori ini' : 'No certifications in this category'}
+            </h4>
+            <p className="text-muted" style={{ fontSize: '0.88rem' }}>
+              {lang === 'id' ? 'Silakan pilih tab kategori lain.' : 'Please select another category tab.'}
+            </p>
+          </div>
+        ) : (
+          <div className="certs-grid grid">
+            {filteredCerts.map((cert, idx) => (
+              <article
+                key={idx}
+                className="card project-card cert-card"
+                onClick={() => handleOpenModal(cert)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    handleOpenModal(cert);
+                  }
+                }}
+                tabIndex={0}
+                role="button"
+                aria-haspopup="dialog"
+                aria-label={`${currentTranslations[cert.titleId]} - ${currentTranslations.btnPreview}`}
+                style={{ cursor: 'pointer' }}
+              >
+                {cert.hasImage ? (
+                  <div className="project-visual">
+                    <img src={cert.image} alt={currentTranslations[cert.titleId]} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  </div>
+                ) : (
+                  <div className="project-visual" style={{ overflow: 'hidden' }}>
+                    <CertPlaceholder placeholder={cert.placeholder} />
+                  </div>
+                )}
+                <div className="project-details">
+                  <span className="cert-badge">{cert.badge}</span>
+                  <h3>{currentTranslations[cert.titleId]}</h3>
+                  <p>{currentTranslations[cert.descId]}</p>
+                  <button className="btn btn-secondary btn-sm btn-preview" onClick={(e) => { e.stopPropagation(); handleOpenModal(cert); }}>
+                    <i className="fa-solid fa-eye"></i> <span>{currentTranslations.btnPreview}</span>
+                  </button>
                 </div>
-              ) : (
-                <div className="project-visual" style={{ overflow: 'hidden' }}>
-                  <CertPlaceholder placeholder={cert.placeholder} />
-                </div>
-              )}
-              <div className="project-details">
-                <span className="cert-badge">{cert.badge}</span>
-                <h3>{currentTranslations[cert.titleId]}</h3>
-                <p>{currentTranslations[cert.descId]}</p>
-                <button className="btn btn-secondary btn-sm btn-preview" onClick={(e) => { e.stopPropagation(); handleOpenModal(cert); }}>
-                  <i className="fa-solid fa-eye"></i> <span>{currentTranslations.btnPreview}</span>
-                </button>
-              </div>
-            </article>
-          ))}
-        </div>
+              </article>
+            ))}
+          </div>
+        )}
       </section>
 
       {/* Lightbox Modal */}
       {selectedCert && (
-        <div className="modal active">
+        <div className="modal active" role="dialog" aria-modal="true" aria-labelledby="modal-title-text">
           <div className="modal-overlay" onClick={handleCloseModal}></div>
           <div className="modal-wrapper">
             <button className="modal-close" onClick={handleCloseModal} aria-label="Close modal">&times;</button>

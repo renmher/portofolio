@@ -132,7 +132,6 @@ const App = () => {
       <div className="scroll-progress" style={{ width: `${scrollProgress}%` }} />
 
       <div className="bg-visuals">
-        <div className="grid-overlay"></div>
       </div>
 
       <header className="site-header">
@@ -239,7 +238,7 @@ const App = () => {
             
             <div className="hero-buttons">
               <a href="#projects" className="btn btn-primary">
-                {curr["btn-projects"]} <span className="arrow">→</span>
+                {curr["btn-projects"]}
               </a>
               <a 
                 href={lang === 'id' ? "/cv-renaldy-id.pdf" : "/cv-renaldy.pdf"} 
@@ -298,7 +297,7 @@ const App = () => {
             <h3 className="mb-4 text-center" dangerouslySetInnerHTML={{ __html: curr["brand-title"] }} />
             <p className="text-muted text-center mb-8">{curr["brand-subtitle"]}</p>
             <div className="brand-mapping-grid grid mb-8">
-              <div className="card brand-map-card">
+              <div className="card brand-map-card brand-map-featured">
                 <div className="brand-map-icon"><i className="fa-solid fa-crosshairs"></i></div>
                 <h4>{curr["brand-role-label"]}</h4>
                 <p className="text-muted">{curr["brand-role-val"]}</p>
@@ -309,7 +308,7 @@ const App = () => {
                 <p className="text-muted">{curr["brand-skills-val"]}</p>
               </div>
               <div className="card brand-map-card">
-                <div className="brand-map-icon"><i className="fa-solid fa-bolt"></i></div>
+                <div className="brand-map-icon"><i className="fa-solid fa-gauge-high"></i></div>
                 <h4>{curr["brand-strength-label"]}</h4>
                 <p className="text-muted">{curr["brand-strength-val"]}</p>
               </div>
@@ -399,7 +398,7 @@ const App = () => {
                   <span>{lang === 'id' ? 'Keamanan: Security scanning di pipeline' : 'Security-First: Scanning in pipeline'}</span>
                 </div>
                 <div className="about-info-item">
-                  <i className="fa-solid fa-robot"></i>
+                  <i className="fa-solid fa-sliders"></i>
                   <span>{lang === 'id' ? 'Otomatisasi: Mengurangi error manual' : 'Automation: Minimizing manual errors'}</span>
                 </div>
                 <div className="about-info-item">
@@ -517,7 +516,7 @@ const App = () => {
                               onClick={() => setActiveSimulatorTab('pipeline')}
                               className="project-action-link"
                             >
-                              <i className="fa-solid fa-terminal"></i> {lang === 'id' ? 'Coba Simulator Pipeline' : 'Try Pipeline Simulator'} &rarr;
+                              <i className="fa-solid fa-terminal"></i> {lang === 'id' ? 'Coba Simulator Pipeline' : 'Try Pipeline Simulator'}
                             </a>
                           </div>
                         )}
@@ -528,7 +527,7 @@ const App = () => {
                               onClick={() => setActiveSimulatorTab('monitoring')}
                               className="project-action-link"
                             >
-                              <i className="fa-solid fa-chart-line"></i> {lang === 'id' ? 'Coba Simulator Monitoring' : 'Try Monitoring Simulator'} &rarr;
+                              <i className="fa-solid fa-chart-line"></i> {lang === 'id' ? 'Coba Simulator Monitoring' : 'Try Monitoring Simulator'}
                             </a>
                           </div>
                         )}
@@ -539,7 +538,7 @@ const App = () => {
                               onClick={() => setActiveSimulatorTab('gitops')}
                               className="project-action-link"
                             >
-                              <i className="fa-solid fa-cloud"></i> {lang === 'id' ? 'Coba Simulator GitOps' : 'Try GitOps Simulator'} &rarr;
+                              <i className="fa-solid fa-cloud"></i> {lang === 'id' ? 'Coba Simulator GitOps' : 'Try GitOps Simulator'}
                             </a>
                             <a 
                               href="https://www.linkedin.com/posts/renaldyimran_deploy-web-apps-with-gitops-kustomize-ugcPost-7469681645827149824-cQCa/?utm_source=share&utm_medium=member_desktop&rcm=ACoAADLDcboB8Li8JAKNskoirQXMi6T90v8rVEY" 
@@ -547,7 +546,7 @@ const App = () => {
                               rel="noopener noreferrer"
                               className="project-action-link linkedin"
                             >
-                              <i className="fa-brands fa-linkedin"></i> {lang === 'id' ? 'Lihat Postingan LinkedIn' : 'View LinkedIn Post'} &rarr;
+                              <i className="fa-brands fa-linkedin"></i> {lang === 'id' ? 'Lihat Postingan LinkedIn' : 'View LinkedIn Post'}
                             </a>
                           </div>
                         )}

@@ -1,10 +1,13 @@
 :root {
+  /* R-31 Rationale: Primary indigo represents reliable cloud infrastructure & stable CI/CD pipelines */
   --primary: #4F46E5; /* Cobalt Indigo */
   --primary-hover: #4338CA;
   --primary-glow: rgba(79, 70, 229, 0.08);
+  /* R-31 Rationale: Accent cyan evokes real-time network telemetry and observability dashboards */
   --accent: #06B6D4; /* Cyan */
   --accent-hover: #0891B2;
   --accent-glow: rgba(6, 182, 212, 0.08);
+  /* R-31 Rationale: Neutral slate tones maximize readability and meet strict WCAG AA contrast standards */
   --bg-deep: #F9FAFB; /* Slate 50 */
   --bg-surface: rgba(255, 255, 255, 0.85);
   --bg-card: rgba(255, 255, 255, 0.7);
@@ -46,6 +49,11 @@
   padding: 0;
   box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
+}
+
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
 }
 
 html {
@@ -95,11 +103,7 @@ body {
 
 
 .grid-overlay {
-  position: fixed;
-  inset: 0;
-  background-image: radial-gradient(var(--grid-dot) 1px, transparent 1px);
-  background-size: 32px 32px;
-  z-index: -1;
+  display: none;
 }
 
 .container {
@@ -381,8 +385,12 @@ header.site-header {
 
 .card:hover {
   border-color: var(--primary);
-  box-shadow: 0 12px 30px var(--primary-glow);
-  transform: translateY(-6px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  transform: translateY(-4px);
+}
+
+[data-theme="dark"] .card:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
 }
 
 
@@ -497,10 +505,14 @@ header.site-header {
   flex: 1;
   background: transparent;
   border: none;
-  outline: none;
   color: var(--text-main);
   font-family: 'JetBrains Mono', 'Fira Code', monospace;
   font-size: 0.85rem;
+}
+
+#terminal-input:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 1px;
 }
 
 /* SLA Status Card Styling */
@@ -2281,7 +2293,39 @@ footer {
 
 .brand-map-card:hover {
   border-color: var(--primary);
-  box-shadow: 0 10px 25px var(--primary-glow);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+}
+
+[data-theme="dark"] .brand-map-card:hover {
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+}
+
+.brand-map-card.brand-map-featured {
+  border-color: var(--primary);
+  background: var(--bg-surface);
+  box-shadow: 0 4px 14px rgba(79, 70, 229, 0.08);
+}
+
+.simulator-select {
+  background: var(--bg-card);
+  color: var(--text-main);
+  border: 1px solid var(--border);
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.simulator-select:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+.simulator-select:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
 }
 
 .brand-map-card.full-width {
@@ -2936,16 +2980,7 @@ footer {
    ========================================================================== */
 
 .hero-ambient-glow {
-  position: absolute;
-  width: 280px;
-  height: 280px;
-  border-radius: 50%;
-  background: radial-gradient(circle, var(--primary-glow) 0%, rgba(37, 99, 235, 0.08) 60%, transparent 75%);
-  filter: blur(28px);
-  z-index: 0;
-  pointer-events: none;
-  opacity: 0.8;
-  animation: ambient-pulse 6s ease-in-out infinite alternate;
+  display: none;
 }
 
 @keyframes ambient-pulse {

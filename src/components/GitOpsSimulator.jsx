@@ -363,17 +363,7 @@ spec:
                 value={env} 
                 onChange={handleEnvChange}
                 disabled={syncStatus === 'syncing'}
-                style={{
-                  background: 'var(--bg-card)',
-                  color: 'var(--text-main)',
-                  border: '1px solid var(--border)',
-                  padding: '8px 14px',
-                  borderRadius: 'var(--radius-sm)',
-                  fontSize: '0.88rem',
-                  fontWeight: 600,
-                  outline: 'none',
-                  cursor: syncStatus === 'syncing' ? 'not-allowed' : 'pointer'
-                }}
+                className="simulator-select"
               >
                 <option value="alpha">alpha-web</option>
                 <option value="beta">beta-web</option>
@@ -388,17 +378,7 @@ spec:
                 value={app} 
                 onChange={handleAppChange}
                 disabled={syncStatus === 'syncing'}
-                style={{
-                  background: 'var(--bg-card)',
-                  color: 'var(--text-main)',
-                  border: '1px solid var(--border)',
-                  padding: '8px 14px',
-                  borderRadius: 'var(--radius-sm)',
-                  fontSize: '0.88rem',
-                  fontWeight: 600,
-                  outline: 'none',
-                  cursor: syncStatus === 'syncing' ? 'not-allowed' : 'pointer'
-                }}
+                className="simulator-select"
               >
                 <option value="node">Node.js Web App</option>
                 <option value="python">Python API</option>
