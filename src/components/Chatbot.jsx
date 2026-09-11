@@ -3,6 +3,75 @@
 import { useState, useEffect, useRef } from 'react';
 import { experiencesData, getDurationText } from '../data/experiences';
 
+const buildExperienceText = (targetLang) => {
+  const isId = targetLang === 'id';
+  const prefix = isId ? "Jejak karir Renaldy:" : "Renaldy's work experience:";
+  const items = experiencesData.map(exp => {
+    const roleText = exp.role[targetLang];
+    const companyName = exp.companyShort || (typeof exp.company === 'object' ? exp.company[targetLang] : exp.company);
+    const typeText = exp.type ? ` (${exp.type[targetLang]})` : '';
+    const duration = getDurationText(exp, targetLang);
+    return `<strong>${roleText}</strong> - ${companyName}${typeText}<br/>&nbsp;&nbsp;📅 ${exp.dateText[targetLang]} • ${duration}<br/>&nbsp;&nbsp;💡 ${exp.chatbotSummary[targetLang]}`;
+  }).join('<br/><br/>');
+  return `${prefix}<br/><br/>${items}`;
+};
+
+const getChatbotData = () => {
+  const experienceIdText = buildExperienceText('id');
+  const experienceEnText = buildExperienceText('en');
+
+  return {
+    id: {
+      botName: "RenBot",
+      botStatus: "Online",
+      inputPlaceholder: "Tanyakan sesuatu tentang Renaldy...",
+      welcome: "Halo! Saya <strong>RenBot</strong>, asisten virtual Renaldy Imran Hermawan. Ada yang bisa saya bantu mengenai keahlian, proyek, sertifikasi, atau kontak?",
+      quickReplies: [
+        { label: "Keahlian", query: "keahlian" },
+        { label: "Proyek", query: "proyek" },
+        { label: "Sertifikasi", query: "sertifikasi" },
+        { label: "Pengalaman", query: "pengalaman" },
+        { label: "Kontak", query: "kontak" }
+      ],
+      responses: {
+        greeting: "Halo! Senang menyapa Anda. Silakan tanyakan seputar kualifikasi Renaldy. Contoh: <em>'Apa proyek Renaldy?'</em> atau <em>'Bagaimana cara menghubungi Renaldy?'</em>",
+        skills: "Keahlian utama Renaldy meliputi:<br>• <strong>Cloud Platform</strong>: Google Cloud Platform (GCP) & AWS<br>• <strong>Container & Orchestration</strong>: Docker & Kubernetes (Kustomize)<br>• <strong>DevOps & CI/CD</strong>: GitLab CI, GitHub Actions, SonarQube, Harbor, Trivy<br>• <strong>Observability</strong>: Grafana, VictoriaMetrics, VictoriaLogs, Prometheus<br>• <strong>Networking & Linux</strong>: MikroTik (MTCNA Certified), TCP/IP, DNS, Bash Scripting.",
+        projects: "Renaldy memiliki 3 proyek utama di portofolio:<br>1. <strong>Secure CI/CD Pipeline Automation</strong>: Multi-stage GitLab CI terintegrasi Trivy & SonarQube (memangkas waktu rilis dari 2 jam ke 8 menit).<br>2. <strong>High-Performance Observability Stack</strong>: Monitoring terpusat Grafana & VictoriaMetrics dengan Telegram alert (menurunkan MTTD sebesar 95%).<br>3. <strong>Multi-Environment GitOps & Centralized CI/CD</strong>: Otomatisasi rilis Kubernetes lintas environment (alpha, beta, prod) berbasis Kustomize & GitLab CI.",
+        certifications: "Sertifikasi profesional Renaldy:<br>• <strong>MikroTik Certified Network Associate (MTCNA)</strong> (2024)<br>• <strong>Junior Network Administrator (BNSP)</strong> (2023)<br>• <strong>Junior Web Developer (BNSP)</strong> (2022)<br>• <strong>AWS re/Start Cloud Computing</strong> (2025)<br>• <strong>Bootcamp Cloud Engineer - Digital Skola</strong> (2023)<br>• <strong>Frontend Engineering - Kampus Merdeka Ruang Guru</strong> (2024).",
+        experience: experienceIdText,
+        contact: "Hubungi Renaldy melalui:<br>• Email: <strong>renaldyimran@gmail.com</strong><br>• LinkedIn: <a href='https://linkedin.com/in/renaldyimran' target='_blank' rel='noopener noreferrer' style='color: var(--accent); font-weight:600;'>linkedin.com/in/renaldyimran</a><br>• GitHub: <a href='https://github.com/renmher' target='_blank' rel='noopener noreferrer' style='color: var(--accent); font-weight:600;'>github.com/renmher</a><br>• WhatsApp: <a href='https://wa.me/6287872481308' target='_blank' rel='noopener noreferrer' style='color: var(--accent); font-weight:600;'>+62 878-7248-1308</a>",
+        cv: "Anda dapat mengunduh CV terbaru Renaldy:<br>• <a href='/cv-renaldy-id.pdf' download='CV-Renaldy-Imran-Hermawan-ID.pdf' style='color: var(--accent); font-weight:600;'>CV Versi Bahasa Indonesia (PDF)</a><br>• <a href='/cv-renaldy.pdf' download style='color: var(--accent); font-weight:600;'>CV English Version (PDF)</a>",
+        fallback: "Maaf, saya belum memahami pertanyaan tersebut. Coba gunakan kata kunci seperti <em>keahlian</em>, <em>proyek</em>, <em>sertifikasi</em>, <em>pengalaman</em>, atau pilih tombol pintas di atas."
+      }
+    },
+    en: {
+      botName: "RenBot",
+      botStatus: "Online",
+      inputPlaceholder: "Ask something about Renaldy...",
+      welcome: "Hi! I am <strong>RenBot</strong>, Renaldy Imran Hermawan's virtual assistant. How can I help you explore his skills, projects, certifications, or contact details?",
+      quickReplies: [
+        { label: "Skills", query: "skills" },
+        { label: "Projects", query: "projects" },
+        { label: "Certifications", query: "certifications" },
+        { label: "Experience", query: "experience" },
+        { label: "Contact", query: "contact" }
+      ],
+      responses: {
+        greeting: "Hello! Nice to meet you. Feel free to ask about Renaldy's qualifications, such as <em>'What are Renaldy's projects?'</em> or <em>'How can I contact him?'</em>",
+        skills: "Renaldy's core competencies include:<br>• <strong>Cloud Platforms</strong>: Google Cloud Platform (GCP) & AWS<br>• <strong>Container & Orchestration</strong>: Docker & Kubernetes (Kustomize)<br>• <strong>DevOps & CI/CD</strong>: GitLab CI, GitHub Actions, SonarQube, Harbor, Trivy<br>• <strong>Observability</strong>: Grafana, VictoriaMetrics, VictoriaLogs, Prometheus<br>• <strong>Networking & Linux</strong>: MikroTik (MTCNA Certified), TCP/IP, DNS, Bash Scripting.",
+        projects: "Renaldy features 3 key projects in his portfolio:<br>1. <strong>Secure CI/CD Pipeline Automation</strong>: Multi-stage GitLab CI with Trivy & SonarQube (reduced release cycle from 2 hours to 8 mins).<br>2. <strong>High-Performance Observability Stack</strong>: Unified Grafana & VictoriaMetrics monitoring with Telegram alerts (95% MTTD reduction).<br>3. <strong>Multi-Environment GitOps & Centralized CI/CD</strong>: Automated Kubernetes deployment across environments (alpha, beta, prod) using Kustomize & GitLab CI.",
+        certifications: "Renaldy holds the following verified certifications:<br>• <strong>MikroTik Certified Network Associate (MTCNA)</strong> (2024)<br>• <strong>Junior Network Administrator (BNSP)</strong> (2023)<br>• <strong>Junior Web Developer (BNSP)</strong> (2022)<br>• <strong>AWS re/Start Cloud Computing</strong> (2025)<br>• <strong>Bootcamp Cloud Engineer - Digital Skola</strong> (2023)<br>• <strong>Frontend Engineering - Kampus Merdeka Ruang Guru</strong> (2024).",
+        experience: experienceEnText,
+        contact: "Connect with Renaldy via:<br>• Email: <strong>renaldyimran@gmail.com</strong><br>• LinkedIn: <a href='https://linkedin.com/in/renaldyimran' target='_blank' rel='noopener noreferrer' style='color: var(--accent); font-weight:600;'>linkedin.com/in/renaldyimran</a><br>• GitHub: <a href='https://github.com/renmher' target='_blank' rel='noopener noreferrer' style='color: var(--accent); font-weight:600;'>github.com/renmher</a><br>• WhatsApp: <a href='https://wa.me/6287872481308' target='_blank' rel='noopener noreferrer' style='color: var(--accent); font-weight:600;'>+62 878-7248-1308</a>",
+        cv: "You can download Renaldy's latest CV:<br>• <a href='/cv-renaldy.pdf' download style='color: var(--accent); font-weight:600;'>Download CV (PDF)</a>",
+        fallback: "I'm sorry, I didn't quite catch that. Try keywords like <em>skills</em>, <em>projects</em>, <em>certifications</em>, <em>experience</em>, or click the quick-reply buttons above."
+      }
+    }
+  };
+};
+
+const CHATBOT_STATIC_DATA = getChatbotData();
+
 const Chatbot = ({ lang }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([]);
@@ -10,75 +79,7 @@ const Chatbot = ({ lang }) => {
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef(null);
 
-  // Build experience string for ID
-  const experienceIdText = "Jejak karir Renaldy:<br/><br/>" + experiencesData.map(exp => {
-    const roleText = exp.role.id;
-    const companyName = exp.companyShort || (typeof exp.company === 'object' ? exp.company.id : exp.company);
-    const typeText = exp.type ? ` (${exp.type.id})` : '';
-    const duration = getDurationText(exp, 'id');
-    return `${exp.emoji} <strong>${roleText}</strong> di <em>${companyName}${typeText}</em><br/>&nbsp;&nbsp;&nbsp;&nbsp;📅 ${exp.dateText.id} • ${duration}<br/>&nbsp;&nbsp;&nbsp;&nbsp;💬 ${exp.chatbotSummary.id}`;
-  }).join('<br/><br/>');
-
-  // Build experience string for EN
-  const experienceEnText = "Renaldy's work experience:<br/><br/>" + experiencesData.map(exp => {
-    const roleText = exp.role.en;
-    const companyName = exp.companyShort || (typeof exp.company === 'object' ? exp.company.en : exp.company);
-    const typeText = exp.type ? ` (${exp.type.en})` : '';
-    const duration = getDurationText(exp, 'en');
-    return `${exp.emoji} <strong>${roleText}</strong> at <em>${companyName}${typeText}</em><br/>&nbsp;&nbsp;&nbsp;&nbsp;📅 ${exp.dateText.en} • ${duration}<br/>&nbsp;&nbsp;&nbsp;&nbsp;💬 ${exp.chatbotSummary.en}`;
-  }).join('<br/><br/>');
-
-
-  const chatbotData = {
-    id: {
-      botName: "RenBot",
-      botStatus: "Online",
-      inputPlaceholder: "Tanyakan sesuatu tentang Renaldy...",
-      welcome: "Halo! Saya <strong>RenBot</strong>, asisten virtual Renaldy Imran Hermawan. Ada yang bisa saya bantu mengenai keahlian, proyek, sertifikasi, atau kontak Renaldy?",
-      quickReplies: [
-        { label: "Keahlian Utama", query: "keahlian" },
-        { label: "Proyek Utama", query: "proyek" },
-        { label: "Sertifikasi", query: "sertifikasi" },
-        { label: "Jejak Karir", query: "pengalaman" },
-        { label: "Kontak & Sosmed", query: "kontak" }
-      ],
-      responses: {
-        greeting: "Halo! Senang bisa menyapa Anda. Silakan tanyakan hal-hal seputar kualifikasi Renaldy. Contoh: 'Apa proyek Renaldy?' atau 'Bagaimana cara menghubungi Renaldy?'",
-        skills: "Renaldy memiliki keahlian di bidang:<br>☁️ <strong>Cloud Computing</strong>: Google Cloud Platform (GCP) & AWS<br>🐋 <strong>Containerization</strong>: Docker & Kubernetes<br>⚙️ <strong>DevOps & CI/CD</strong>: GitLab CI, GitHub Actions, Terraform (IaC)<br>🔌 <strong>Networking</strong>: MikroTik (Certified MTCNA), TCP/IP, DNS, Routing & Switching<br>🐧 <strong>Linux</strong>: OS Administrasi & Bash Scripting.",
-        projects: "Renaldy memiliki 2 proyek utama dengan konsep storytelling:<br>🚀 <strong>1. Otomatisasi Pipeline CI/CD Aman</strong>: Membangun pipeline GitLab CI terintegrasi Trivy & SonarQube untuk mengurangi waktu rilis dari 2 jam menjadi 8 menit.<br>📊 <strong>2. Infrastruktur Observabilitas Berkinerja Tinggi</strong>: Implementasi monitoring Grafana & VictoriaMetrics yang berhasil memangkas MTTD insiden hingga 95%.",
-        certifications: "Renaldy memiliki beberapa sertifikat keahlian:<br>🏆 <strong>MikroTik Certified Network Associate (MTCNA)</strong> (2024)<br>🛡️ <strong>Junior Network Administrator (BNSP)</strong> (2023)<br>💻 <strong>Junior Web Developer (BNSP)</strong> (2022)<br>☁️ <strong>AWS re/Start Cloud Computing Program</strong> (2025)<br>🚀 <strong>Bootcamp Cloud Engineer - Digital Skola</strong> (2023).",
-        experience: experienceIdText,
-        contact: "Anda bisa menghubungi Renaldy melalui:<br>📧 Email: <strong>renaldyimran@gmail.com</strong><br>🔗 LinkedIn: <a href='https://linkedin.com/in/renaldyimran' target='_blank' rel='noopener noreferrer' style='color: var(--accent); font-weight:700;'>linkedin.com/in/renaldyimran</a><br>🐙 GitHub: <a href='https://github.com/renmher' target='_blank' rel='noopener noreferrer' style='color: var(--accent); font-weight:700;'>github.com/renmher</a><br>🟢 WhatsApp: <a href='https://wa.me/6287872481308' target='_blank' rel='noopener noreferrer' style='color: var(--accent); font-weight:700;'>wa.me/6287872481308</a>",
-        cv: "Tentu! Anda bisa mengunduh CV terbaru Renaldy dalam Bahasa Indonesia dengan klik link berikut: <a href='/cv-renaldy-id.pdf' download='CV-Renaldy-Imran-Hermawan-ID.pdf' class='project-link' style='color: var(--accent); font-weight:700;'>[Unduh CV - Renaldy (Indonesia).pdf]</a> atau versi Inggris di sini: <a href='/cv-renaldy.pdf' download class='project-link' style='color: var(--accent); font-weight:700;'>[Unduh CV - Renaldy (English).pdf]</a>",
-        fallback: "Maaf, saya tidak mengerti pertanyaan tersebut. Coba gunakan kata kunci lain seperti <em>keahlian</em>, <em>proyek</em>, <em>sertifikasi</em>, <em>pengalaman</em>, <em>kontak</em>, atau gunakan tombol pintas yang tersedia di atas input chat!"
-      }
-    },
-    en: {
-      botName: "RenBot",
-      botStatus: "Online",
-      inputPlaceholder: "Ask something about Renaldy...",
-      welcome: "Hi! I am <strong>RenBot</strong>, Renaldy Imran Hermawan's virtual assistant. How can I help you learn about his skills, projects, certifications, or contact details?",
-      quickReplies: [
-        { label: "Core Skills", query: "skills" },
-        { label: "Main Projects", query: "projects" },
-        { label: "Certifications", query: "certifications" },
-        { label: "Career Path", query: "experience" },
-        { label: "Contact Info", query: "contact" }
-      ],
-      responses: {
-        greeting: "Hello! Nice to meet you. Feel free to ask about Renaldy's qualifications, such as 'What are Renaldy's projects?' or 'How to contact him?'",
-        skills: "Renaldy specializes in:<br>☁️ <strong>Cloud Computing</strong>: Google Cloud Platform (GCP) & AWS<br>🐋 <strong>Containerization</strong>: Docker & Kubernetes<br>⚙️ <strong>DevOps & CI/CD</strong>: GitLab CI, GitHub Actions, Terraform (IaC)<br>🔌 <strong>Networking</strong>: MikroTik (Certified MTCNA), TCP/IP, DNS, Routing & Switching<br>🐧 <strong>Linux</strong>: OS Administration & Bash Scripting.",
-        projects: "Renaldy has 2 main projects using storytelling:<br>🚀 <strong>1. Secure CI/CD Pipeline Automation</strong>: Built a GitLab CI pipeline integrated with Trivy & SonarQube, reducing release cycles from 2 hours to 8 minutes.<br>📊 <strong>2. High-Performance Observability Stack</strong>: Deployed Grafana & VictoriaMetrics monitoring, reducing incident MTTD by 95%.",
-        certifications: "Renaldy holds several verified certifications:<br>🏆 <strong>MikroTik Certified Network Associate (MTCNA)</strong> (2024)<br>🛡️ <strong>Junior Network Administrator (BNSP)</strong> (2023)<br>💻 <strong>Junior Web Developer (BNSP)</strong> (2022)<br>☁️ <strong>AWS re/Start Cloud Computing Program</strong> (2025)<br>🚀 <strong>Bootcamp Cloud Engineer - Digital Skola</strong> (2023).",
-        experience: experienceEnText,
-        contact: "You can connect with Renaldy via:<br>📧 Email: <strong>renaldyimran@gmail.com</strong><br>🔗 LinkedIn: <a href='https://linkedin.com/in/renaldyimran' target='_blank' rel='noopener noreferrer' style='color: var(--accent); font-weight:700;'>linkedin.com/in/renaldyimran</a><br>🐙 GitHub: <a href='https://github.com/renmher' target='_blank' rel='noopener noreferrer' style='color: var(--accent); font-weight:700;'>github.com/renmher</a><br>🟢 WhatsApp: <a href='https://wa.me/6287872481308' target='_blank' rel='noopener noreferrer' style='color: var(--accent); font-weight:700;'>wa.me/6287872481308</a>",
-        cv: "Sure! You can download Renaldy's latest CV by clicking the link: <a href='/cv-renaldy.pdf' download class='project-link' style='color: var(--accent); font-weight:700;'>[Download CV - Renaldy.pdf]</a>",
-        fallback: "I'm sorry, I didn't quite catch that. Try using key phrases like <em>skills</em>, <em>projects</em>, <em>certifications</em>, <em>experience</em>, <em>contact</em>, or simply click the quick-reply shortcut buttons!"
-      }
-    }
-  };
-
-  const currentData = chatbotData[lang];
+  const currentData = CHATBOT_STATIC_DATA[lang] || CHATBOT_STATIC_DATA.en;
 
   useEffect(() => {
     // Set initial greeting
@@ -108,7 +109,7 @@ const Chatbot = ({ lang }) => {
       const response = generateBotResponse(trimmed);
       setMessages(prev => [...prev, { sender: 'bot', text: response }]);
       setIsTyping(false);
-    }, 800);
+    }, 600);
   };
 
   const generateBotResponse = (query) => {

@@ -93,9 +93,6 @@ body {
   background: var(--bg-visuals-grad);
 }
 
-.orb {
-  display: none; /* Menghapus orbs neon yang tidak realistis */
-}
 
 .grid-overlay {
   position: fixed;
@@ -1348,6 +1345,40 @@ section {
   height: 200px;
   background: #111827;
   position: relative;
+}
+
+.cert-placeholder-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text-main);
+  width: 100%;
+  height: 100%;
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 12px;
+  border-radius: 12px;
+  transition: border-color var(--transition);
+}
+
+.cert-placeholder-box i {
+  font-size: 3.5rem;
+}
+
+.cert-placeholder-title {
+  font-weight: 700;
+  font-size: 1.25rem;
+  letter-spacing: 0.5px;
+  font-family: var(--font-heading);
+}
+
+.cert-placeholder-subtitle {
+  font-size: 0.75rem;
+  opacity: 0.7;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 
 .project-details {

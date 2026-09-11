@@ -122,6 +122,24 @@ export const translations = {
       "proj3-role": "DevOps Engineer: Merancang centralized pipeline GitLab CI yang dapat digunakan kembali, menyusun struktur repositori GitOps menggunakan Kustomize (base & overlays), mengonfigurasi Ingress, dan menguji routing.",
       "proj3-solution": "Mengembangkan pipeline CI/CD terpusat di GitLab yang efisien. Menggunakan Kustomize untuk memisahkan konfigurasi dasar (base) dari variasi environment (overlays untuk alpha, beta, prod). Mengintegrasikan workflow GitOps untuk sinkronisasi otomatis status repositori Git ke cluster Kubernetes.",
       "proj3-impact": "Menyederhanakan pengelolaan rilis dari banyak repositori ke satu pipeline terpusat (mengurangi duplikasi kode hingga 100%). Manajemen konfigurasi multi-environment menjadi modular menggunakan overlay Kustomize, serta mempercepat proses deployment dan verifikasi routing.",
+      // CV Builder Fields
+      "cv-summary-title": "Ringkasan Profesional",
+      "cv-experience-title": "Pengalaman Kerja",
+      "cv-projects-title": "Proyek Terpilih",
+      "cv-certifications-title": "Sertifikasi",
+      "cv-skills-title": "Keahlian Teknis",
+      "cv-contact-title": "Kontak & Tautan",
+      "cv-default-role": "DevOps & Cloud Engineer",
+      "cv-default-summary": "Lulusan Sarjana Teknik Informatika dengan pengalaman di bidang IT Network Operation Center dan Cloud Engineering. Berpengalaman dalam pemantauan infrastruktur, pemecahan masalah jaringan dasar dan Linux, serta dukungan teknis berbasis cloud. Akrab dengan Google Cloud Platform, AWS, Docker, dan dasar-dasar jaringan, dengan kemampuan bekerja secara cepat, akurat, dan kolaboratif dalam menyelesaikan masalah teknis.",
+      "cv-proj1-desc": "Mengembangkan pipeline multi-stage menggunakan GitLab CI (Build, Test, Security-Scan, Push, Deploy). Mengintegrasikan Trivy untuk scanning image, SonarQube untuk analisis kode statis, dan registry Harbor privat. Meningkatkan efisiensi rilis hingga 93% (dari 2 jam menjadi 8 menit).",
+      "cv-proj2-desc": "Mendeploy VictoriaMetrics dan Prometheus Node Exporter di seluruh VM. Mengintegrasikan VictoriaLogs untuk pengumpulan log logis, dan mendesain dasbor komprehensif di Grafana dengan alerting otomatis ke Telegram. Menurunkan MTTD insiden dari 45 menit menjadi kurang dari 2 menit.",
+      "cv-proj3-desc": "Membangun sistem deployment berbasis GitOps untuk dua aplikasi web ke kluster Kubernetes menggunakan Kustomize. Mengintegrasikan workflow GitOps untuk sinkronisasi otomatis status repositori Git ke cluster Kubernetes.",
+      "cert-mtcna": "MikroTik Certified Network Associate (MTCNA) - MikroTik (2024)",
+      "cert-bnsp-net": "Junior Network Administrator - BNSP (2023)",
+      "cert-bnsp-web": "Junior Web Developer - BNSP (2022)",
+      "cert-aws": "AWS re/Start Cloud Computing - AWS & Orbit (2025)",
+      "cert-ds": "Bootcamp Cloud Engineer - Digital Skola (2023)",
+      "cert-rg": "Frontend Engineering - Kampus Merdeka Ruang Guru (2024)"
     },
     en: {
       "nav-home": "Home",
@@ -244,6 +262,24 @@ export const translations = {
       "proj3-role": "DevOps Engineer: Designed the centralized GitLab CI pipeline, structured the GitOps repository using Kustomize overlays (base & alpha/beta/prod), configured Kubernetes Ingress, and validated routing.",
       "proj3-solution": "Developed a centralized and reusable GitLab CI pipeline. Utilized Kustomize to decouple base manifests from environment-specific configurations (overlays for alpha, beta, and production). Implemented a GitOps workflow to reconcile Git state with the live Kubernetes cluster.",
       "proj3-impact": "Standardized application deployments under a single centralized pipeline (reducing pipeline script duplication by 100%). Achieved modular, declarative multi-environment configurations using Kustomize overlays, improving deployment velocity and routing verification.",
+      // CV Builder Fields
+      "cv-summary-title": "Professional Summary",
+      "cv-experience-title": "Work Experience",
+      "cv-projects-title": "Selected Projects",
+      "cv-certifications-title": "Certifications",
+      "cv-skills-title": "Technical Skills",
+      "cv-contact-title": "Contact & Links",
+      "cv-default-role": "DevOps & Cloud Engineer",
+      "cv-default-summary": "Highly dedicated DevOps & Cloud Engineer with a Bachelor of Computer Science (S.Kom) from Bani Saleh University. Possesses a strong background in network administration and IT infrastructure, focusing on continuous integration and deployment (CI/CD) pipeline automation, container orchestration (Docker & Kubernetes), and DevSecOps. Proven track record in designing secure GitLab CI pipelines, managing container registries, and configuring real-time observability using Grafana and VictoriaMetrics.",
+      "cv-proj1-desc": "Developed a multi-stage pipeline using GitLab CI (Build, Test, Security-Scan, Push, Deploy). Integrated Trivy for image vulnerability scanning, SonarQube for static code analysis, and Harbor registry. Reduced deployment cycle time from 2 hours to 8 minutes (93% efficiency).",
+      "cv-proj2-desc": "Deployed VictoriaMetrics and Prometheus Node Exporter across VMs. Integrated VictoriaLogs for centralized log aggregation and designed comprehensive dashboards in Grafana with alerting notifications to Telegram. Reduced incident MTTD from 45 minutes to under 2 minutes.",
+      "cv-proj3-desc": "Constructed a GitOps-based deployment workflow for web applications to a Kubernetes cluster using Kustomize. Configured GitOps pipelines to sync Git repository state to the Kubernetes cluster automatically.",
+      "cert-mtcna": "MikroTik Certified Network Associate (MTCNA) - MikroTik (2024)",
+      "cert-bnsp-net": "Junior Network Administrator - BNSP (2023)",
+      "cert-bnsp-web": "Junior Web Developer - BNSP (2022)",
+      "cert-aws": "AWS re/Start Cloud Computing - AWS & Orbit (2025)",
+      "cert-ds": "Bootcamp Cloud Engineer - Digital Skola (2023)",
+      "cert-rg": "Frontend Engineering - Kampus Merdeka Ruang Guru (2024)"
     }
   };
 
