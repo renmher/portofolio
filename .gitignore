@@ -1,4 +1,4 @@
-# Logs
+# Logs & Runtime
 logs
 *.log
 npm-debug.log*
@@ -7,16 +7,60 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Dependencies & Build Output
 node_modules
 dist
 dist-ssr
 *.local
+.vercel
+.turbo
 
-# Editor directories and files
+# Sensitive Credentials & Secrets (CRITICAL)
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.cert
+*.crt
+*.pfx
+*.p12
+*token*.json
+*secret*.json
+*auth*.json
+*credential*.json
+gitlab.json
+id_rsa*
+id_ed25519*
+
+# AI Coding Agents, Prompts, & Audit Reports
+anti-slop/
+*.audit.*
+DESIGN.md
+.agents/
+.pi/
+.cursor/
+.claude/
+.copilot/
+.codex/
+.windsurf/
+.orca/
+.orca-relay/
+.orca-wsl/
+
+# Personal Timesheets, Daily Tasks & Internal Logs
+public/daily-task/
+**/daily-task/**
+daily-task/
+timesheet*
+*.timesheet.*
+
+# Editor & OS directories
 .vscode/*
 !.vscode/extensions.json
 .idea
 .DS_Store
+Thumbs.db
 *.suo
 *.ntvs*
 *.njsproj
