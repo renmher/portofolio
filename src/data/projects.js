@@ -75,7 +75,15 @@ export const skillsList = [
       roleKey: "proj1-role",
       solutionKey: "proj1-solution",
       impactKey: "proj1-impact",
-      tools: ["GitLab CI", "Docker", "Harbor", "SonarQube", "Trivy", "Linux"]
+      tools: ["GitLab CI", "Docker", "Harbor", "SonarQube", "Trivy", "Linux"],
+      repoUrl: "https://github.com/renmher",
+      architectureFlow: [
+        { step: "01. Push", title: "Git Push Event", detail: "Developer push to GitLab repository branch", icon: "fa-brands fa-git-alt" },
+        { step: "02. Runner", title: "GitLab CI Runner", detail: "Docker-in-Docker isolated build environment", icon: "fa-solid fa-gears" },
+        { step: "03. Quality", title: "SonarQube & Trivy", detail: "SAST quality gate & Docker image CVE scan", icon: "fa-solid fa-shield-halved" },
+        { step: "04. Registry", title: "Harbor Private Registry", detail: "Secure multi-arch image push with signed digest", icon: "fa-solid fa-box-archive" },
+        { step: "05. Deploy", title: "Kubernetes Rolling Update", detail: "Automated zero-downtime deployment rollout", icon: "fa-solid fa-cloud" }
+      ]
     },
     {
       id: 2,
@@ -86,7 +94,15 @@ export const skillsList = [
       roleKey: "proj2-role",
       solutionKey: "proj2-solution",
       impactKey: "proj2-impact",
-      tools: ["Grafana", "VictoriaMetrics", "VictoriaLogs", "Node Exporter", "Telegram API"]
+      tools: ["Grafana", "VictoriaMetrics", "VictoriaLogs", "Node Exporter", "Telegram API"],
+      repoUrl: "https://github.com/renmher",
+      architectureFlow: [
+        { step: "01. Source", title: "Linux VMs & Pods", detail: "Production microservices & host server instances", icon: "fa-solid fa-server" },
+        { step: "02. Scrape", title: "Node Exporter & Scrapers", detail: "Real-time metrics scraping & log aggregation", icon: "fa-solid fa-network-wired" },
+        { step: "03. Storage", title: "VictoriaMetrics TSDB", detail: "High-throughput time-series database & storage engine", icon: "fa-solid fa-database" },
+        { step: "04. Visualize", title: "Grafana Dashboards", detail: "Unified panels for CPU, RAM, Disk I/O & network traffic", icon: "fa-solid fa-chart-line" },
+        { step: "05. Notify", title: "Telegram Instant Alert", detail: "Threshold breach alerts dispatched in under 2 minutes", icon: "fa-solid fa-bell" }
+      ]
     },
     {
       id: 3,
@@ -97,6 +113,14 @@ export const skillsList = [
       roleKey: "proj3-role",
       solutionKey: "proj3-solution",
       impactKey: "proj3-impact",
-      tools: ["GitLab CI", "Kubernetes", "Kustomize", "GitOps", "Docker", "Node.js", "Python", "NGINX Ingress"]
+      tools: ["GitLab CI", "Kubernetes", "Kustomize", "GitOps", "Docker", "Node.js", "Python", "NGINX Ingress"],
+      repoUrl: "https://github.com/renmher",
+      architectureFlow: [
+        { step: "01. Repos", title: "Microservices Repos", detail: "Application codebases for Node.js & Python services", icon: "fa-solid fa-code" },
+        { step: "02. Central CI", title: "Reusable Pipeline", detail: "Standardized CI workflow producing immutable tags", icon: "fa-solid fa-gears" },
+        { step: "03. GitOps", title: "Kustomize Manifests", detail: "Base manifests with Alpha, Beta, & Prod overlays", icon: "fa-solid fa-layer-group" },
+        { step: "04. Reconcile", title: "ArgoCD / Git Sync", detail: "Declarative cluster drift detection & auto-healing", icon: "fa-solid fa-arrows-rotate" },
+        { step: "05. Ingress", title: "NGINX Ingress Controller", detail: "Multi-tenant path routing to live Kubernetes pods", icon: "fa-solid fa-cubes" }
+      ]
     }
   ];

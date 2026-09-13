@@ -98,6 +98,8 @@ export const translations = {
       "proj-tab-problem": "Masalah",
       "proj-tab-solution": "Solusi & Proses",
       "proj-tab-impact": "Hasil & Dampak",
+      "proj-tab-arch": "Arsitektur Flow",
+      "btn-view-repo": "Lihat Manifests / Repo",
 
       // Project 1 Details
       "proj1-name": "Otomatisasi Pipeline CI/CD Aman (Secure CI/CD Pipeline Automation)",
@@ -238,6 +240,8 @@ export const translations = {
       "proj-tab-problem": "Problem",
       "proj-tab-solution": "Solution & Process",
       "proj-tab-impact": "Result & Impact",
+      "proj-tab-arch": "Architecture Flow",
+      "btn-view-repo": "View Manifests / Repo",
 
       // Project 1 Details
       "proj1-name": "Secure CI/CD Pipeline Automation",

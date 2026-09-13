@@ -160,6 +160,26 @@ const App = () => {
               <button id="lang-toggle" className="control-btn" title="Switch Language" onClick={toggleLanguage}>
                 {lang === 'id' ? 'EN' : 'ID'}
               </button>
+              <a 
+                href="https://github.com/renmher" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="control-btn nav-social-btn" 
+                title="GitHub Profile" 
+                aria-label="GitHub Profile"
+              >
+                <i className="fa-brands fa-github"></i>
+              </a>
+              <a 
+                href="https://linkedin.com/in/renaldyimran" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="control-btn nav-social-btn" 
+                title="LinkedIn Profile" 
+                aria-label="LinkedIn Profile"
+              >
+                <i className="fa-brands fa-linkedin"></i>
+              </a>
             </div>
             <a 
               href={lang === 'id' ? "/cv-renaldy-id.pdf" : "/cv-renaldy.pdf"} 
@@ -467,7 +487,7 @@ const App = () => {
                         <h3 className="project-showcase-title">{curr[project.nameKey]}</h3>
                         
                         <div className="project-story-tabs">
-                          {['overview', 'problem', 'solution', 'impact'].map((tab) => (
+                          {['overview', 'problem', 'solution', 'impact', 'architecture'].map((tab) => (
                             <button
                               key={tab}
                               className={`project-story-tab-btn ${activeTab === tab ? 'active' : ''}`}
@@ -477,6 +497,7 @@ const App = () => {
                               {tab === 'problem' && curr["proj-tab-problem"]}
                               {tab === 'solution' && curr["proj-tab-solution"]}
                               {tab === 'impact' && curr["proj-tab-impact"]}
+                              {tab === 'architecture' && curr["proj-tab-arch"]}
                             </button>
                           ))}
                         </div>
@@ -507,10 +528,29 @@ const App = () => {
                               <p>{curr[project.impactKey]}</p>
                             </div>
                           )}
+                          {activeTab === 'architecture' && (
+                            <div className="project-architecture-flow">
+                              <p className="project-story-heading arch">
+                                <i className="fa-solid fa-diagram-project"></i> System Architecture Flow:
+                              </p>
+                              <div className="arch-flow-grid">
+                                {project.architectureFlow?.map((node, i) => (
+                                  <div key={i} className="arch-node-card">
+                                    <div className="arch-node-header">
+                                      <span className="arch-step-badge">{node.step}</span>
+                                      <i className={`arch-node-icon ${node.icon}`}></i>
+                                    </div>
+                                    <h4 className="arch-node-title">{node.title}</h4>
+                                    <p className="arch-node-detail">{node.detail}</p>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          )}
                         </div>
 
-                        {project.id === 1 && (
-                          <div className="project-action-bar">
+                        <div className="project-action-bar">
+                          {project.id === 1 && (
                             <a 
                               href="#simulators" 
                               onClick={() => setActiveSimulatorTab('pipeline')}
@@ -518,10 +558,8 @@ const App = () => {
                             >
                               <i className="fa-solid fa-terminal"></i> {lang === 'id' ? 'Coba Simulator Pipeline' : 'Try Pipeline Simulator'}
                             </a>
-                          </div>
-                        )}
-                        {project.id === 2 && (
-                          <div className="project-action-bar">
+                          )}
+                          {project.id === 2 && (
                             <a 
                               href="#simulators" 
                               onClick={() => setActiveSimulatorTab('monitoring')}
@@ -529,27 +567,37 @@ const App = () => {
                             >
                               <i className="fa-solid fa-chart-line"></i> {lang === 'id' ? 'Coba Simulator Monitoring' : 'Try Monitoring Simulator'}
                             </a>
-                          </div>
-                        )}
-                        {project.id === 3 && (
-                          <div className="project-action-bar">
+                          )}
+                          {project.id === 3 && (
+                            <>
+                              <a 
+                                href="#simulators" 
+                                onClick={() => setActiveSimulatorTab('gitops')}
+                                className="project-action-link"
+                              >
+                                <i className="fa-solid fa-cloud"></i> {lang === 'id' ? 'Coba Simulator GitOps' : 'Try GitOps Simulator'}
+                              </a>
+                              <a 
+                                href="https://www.linkedin.com/posts/renaldyimran_deploy-web-apps-with-gitops-kustomize-ugcPost-7469681645827149824-cQCa/?utm_source=share&utm_medium=member_desktop&rcm=ACoAADLDcboB8Li8JAKNskoirQXMi6T90v8rVEY" 
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                                className="project-action-link linkedin"
+                              >
+                                <i className="fa-brands fa-linkedin"></i> {lang === 'id' ? 'Lihat Postingan LinkedIn' : 'View LinkedIn Post'}
+                              </a>
+                            </>
+                          )}
+                          {project.repoUrl && (
                             <a 
-                              href="#simulators" 
-                              onClick={() => setActiveSimulatorTab('gitops')}
-                              className="project-action-link"
-                            >
-                              <i className="fa-solid fa-cloud"></i> {lang === 'id' ? 'Coba Simulator GitOps' : 'Try GitOps Simulator'}
-                            </a>
-                            <a 
-                              href="https://www.linkedin.com/posts/renaldyimran_deploy-web-apps-with-gitops-kustomize-ugcPost-7469681645827149824-cQCa/?utm_source=share&utm_medium=member_desktop&rcm=ACoAADLDcboB8Li8JAKNskoirQXMi6T90v8rVEY" 
+                              href={project.repoUrl} 
                               target="_blank" 
                               rel="noopener noreferrer"
-                              className="project-action-link linkedin"
+                              className="project-action-link repo-link"
                             >
-                              <i className="fa-brands fa-linkedin"></i> {lang === 'id' ? 'Lihat Postingan LinkedIn' : 'View LinkedIn Post'}
+                              <i className="fa-brands fa-github"></i> {curr["btn-view-repo"]}
                             </a>
-                          </div>
-                        )}
+                          )}
+                        </div>
                       </div>
                     </div>
                   </div>

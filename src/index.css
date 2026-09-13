@@ -3241,3 +3241,99 @@ footer {
   margin-bottom: 40px;
   flex-wrap: wrap;
 }
+
+/* Header Social Buttons */
+.nav-social-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  transition: var(--transition);
+}
+
+.nav-social-btn:hover {
+  color: var(--primary);
+}
+
+/* Architecture Flow in Projects */
+.project-architecture-flow {
+  margin-top: 10px;
+}
+
+.project-story-heading.arch {
+  color: var(--primary);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.arch-flow-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 14px;
+}
+
+.arch-node-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  position: relative;
+  transition: var(--transition);
+}
+
+.arch-node-card:hover {
+  border-color: var(--primary);
+  transform: translateY(-2px);
+}
+
+.arch-node-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.arch-step-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--primary);
+  background: var(--primary-glow);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.arch-node-icon {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+}
+
+.arch-node-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-bottom: 4px;
+}
+
+.arch-node-detail {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+  margin: 0;
+}
+
+.project-action-link.repo-link {
+  background: rgba(31, 41, 55, 0.08);
+  color: var(--text-main);
+  border-color: var(--border-hover);
+}
+
+.project-action-link.repo-link:hover {
+  background: var(--text-main);
+  color: var(--bg-deep);
+}
