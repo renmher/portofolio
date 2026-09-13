@@ -27,20 +27,22 @@
 
 /* Dark Theme Variables */
 [data-theme="dark"] {
-  --primary: #6366F1; /* Neon Indigo */
+  --primary: #6366F1; /* Indigo */
   --primary-hover: #818CF8;
   --primary-glow: rgba(99, 102, 241, 0.15);
-  --accent: #22D3EE; /* Neon Cyan */
-  --accent-hover: #67E8F9;
-  --accent-glow: rgba(34, 211, 238, 0.1);
-  --bg-deep: #0B0F19; /* Deep Slate Blue */
-  --bg-surface: rgba(15, 23, 42, 0.85);
-  --bg-card: rgba(30, 41, 59, 0.7); /* Slate 800 with transparency */
+  --accent: #06B6D4; /* Cyan */
+  --accent-hover: #22D3EE;
+  --accent-glow: rgba(6, 182, 212, 0.1);
+  --emerald: #10B981; /* Cryptographic Emerald */
+  --emerald-glow: rgba(16, 185, 129, 0.15);
+  --bg-deep: #0A0D14; /* Deep Obsidian */
+  --bg-surface: rgba(16, 22, 36, 0.88);
+  --bg-card: rgba(17, 24, 39, 0.75);
   --text-main: #F8FAFC; /* Slate 50 */
   --text-muted: #94A3B8; /* Slate 400 */
   --border: rgba(255, 255, 255, 0.08);
   --border-hover: rgba(255, 255, 255, 0.16);
-  --bg-visuals-grad: linear-gradient(180deg, #070A13 0%, #0B0F19 100%);
+  --bg-visuals-grad: linear-gradient(180deg, #07090E 0%, #0A0D14 100%);
   --grid-dot: rgba(248, 250, 252, 0.02);
 }
 
@@ -3240,4 +3242,118 @@ footer {
   gap: 12px;
   margin-bottom: 40px;
   flex-wrap: wrap;
+}
+
+/* Web3 On-Chain Telemetry Banner */
+.web3-telemetry-banner {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 6px 14px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  margin-bottom: 16px;
+  max-width: 100%;
+  flex-wrap: wrap;
+}
+
+.telemetry-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.telemetry-dot.live {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--emerald, #10B981);
+  box-shadow: 0 0 6px var(--emerald, #10B981);
+  display: inline-block;
+}
+
+.telemetry-label {
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.telemetry-val {
+  color: var(--text-main);
+  font-weight: 600;
+}
+
+.telemetry-sub {
+  color: var(--accent);
+  font-size: 0.7rem;
+}
+
+.telemetry-divider {
+  color: var(--border-hover);
+  font-weight: 300;
+}
+
+/* Web3 Identity Pill (ENS & Address) */
+.web3-identity-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  margin: 12px 0 18px;
+}
+
+.pill-badge-icon {
+  color: var(--primary);
+  font-size: 0.95rem;
+}
+
+.pill-ens {
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.pill-address {
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  background: var(--bg-card);
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+}
+
+.pill-copy-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--primary-glow);
+  color: var(--primary);
+  border: 1px solid var(--border-hover);
+  padding: 4px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.75rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+  transition: var(--transition);
+}
+
+.pill-copy-btn:hover {
+  background: var(--primary);
+  color: #ffffff;
+}
+
+.pill-copy-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.text-emerald {
+  color: #10B981 !important;
 }

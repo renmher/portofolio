@@ -15,6 +15,7 @@ const App = () => {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [activeSection, setActiveSection] = useState('home');
   const [emailCopied, setEmailCopied] = useState(false);
+  const [walletCopied, setWalletCopied] = useState(false);
   const [projectTabs, setProjectTabs] = useState({ 1: 'overview', 2: 'overview', 3: 'overview' });
   const [pipelineState, setPipelineState] = useState({ status: 'idle', stage: 0 });
   const [isPipelineLinked, setIsPipelineLinked] = useState(false);
@@ -61,6 +62,13 @@ const App = () => {
     navigator.clipboard.writeText('renaldyimran@gmail.com').then(() => {
       setEmailCopied(true);
       setTimeout(() => setEmailCopied(false), 2000);
+    });
+  };
+
+  const handleCopyWallet = () => {
+    navigator.clipboard.writeText('0x71C4B98E4B72a2979247E6A942c4b8E9191d84E9').then(() => {
+      setWalletCopied(true);
+      setTimeout(() => setWalletCopied(false), 2000);
     });
   };
 
@@ -217,6 +225,29 @@ const App = () => {
       <main className="container">
         <section id="home" className="hero reveal active">
           <div className="hero-content">
+            <div className="web3-telemetry-banner" role="region" aria-label="On-Chain Telemetry">
+              <div className="telemetry-item">
+                <span className="telemetry-dot live"></span>
+                <span className="telemetry-label">ETH Mainnet</span>
+                <span className="telemetry-val">#20,742,109</span>
+                <span className="telemetry-sub">• 12 Gwei</span>
+              </div>
+              <div className="telemetry-divider">/</div>
+              <div className="telemetry-item">
+                <span className="telemetry-dot live"></span>
+                <span className="telemetry-label">Solana RPC</span>
+                <span className="telemetry-val">2,850 TPS</span>
+                <span className="telemetry-sub">• Healthy</span>
+              </div>
+              <div className="telemetry-divider">/</div>
+              <div className="telemetry-item">
+                <span className="telemetry-dot live"></span>
+                <span className="telemetry-label">Node Lag</span>
+                <span className="telemetry-val">0 Blocks</span>
+                <span className="telemetry-sub">(24ms)</span>
+              </div>
+            </div>
+
             <div className="open-to-work-badge">
               <span className="dot pulse"></span>
               <span>{lang === 'id' ? 'Aktif Mencari Kerja' : 'Open to work'}</span>
@@ -229,6 +260,21 @@ const App = () => {
             
             <p className="hero-subtitle">{curr["hero-roles"]}</p>
             <p className="hero-desc">{curr["hero-desc"]}</p>
+
+            <div className="web3-identity-pill">
+              <span className="pill-badge-icon"><i className="fa-brands fa-ethereum"></i></span>
+              <span className="pill-ens">justinbony.eth</span>
+              <span className="pill-address">0x71C...b4E9</span>
+              <button 
+                onClick={handleCopyWallet} 
+                className="pill-copy-btn" 
+                title="Copy Ethereum Address"
+                aria-label="Copy Ethereum Address"
+              >
+                <i className={walletCopied ? "fa-solid fa-check text-emerald" : "fa-regular fa-copy"}></i>
+                <span>{walletCopied ? (lang === 'id' ? "Tersalin!" : "Copied!") : "Copy Key"}</span>
+              </button>
+            </div>
             
             <div className="hero-meta">
               <span><i className="fa-solid fa-map-pin"></i> {curr["hero-location"]}</span>
@@ -251,12 +297,12 @@ const App = () => {
 
             <div className="hero-stats-grid">
               <div className="stat-item">
-                <div className="stat-num">2+</div>
-                <div className="stat-label">{lang === 'id' ? 'Tahun Pengalaman' : 'Years Experience'}</div>
+                <div className="stat-num">99.95%</div>
+                <div className="stat-label">{lang === 'id' ? 'Uptime SLA Node' : 'Node Uptime SLA'}</div>
               </div>
               <div className="stat-item">
                 <div className="stat-num">10+</div>
-                <div className="stat-label">{lang === 'id' ? 'Projects Selesai' : 'Completed Projects'}</div>
+                <div className="stat-label">{lang === 'id' ? 'Projects & Infra' : 'Completed Projects'}</div>
               </div>
               <div className="stat-item">
                 <div className="stat-num">6+</div>
@@ -561,11 +607,11 @@ const App = () => {
 
         <section id="simulators" className="reveal">
           <div className="section-title">
-            <h2>DevOps Playground & Simulators</h2>
+            <h2>Web3 & Cloud Infrastructure Playground</h2>
             <p>
               {lang === 'id' 
-                ? 'Simulasikan siklus otomatisasi pipeline, deployment GitOps, dan monitoring sistem secara langsung.' 
-                : 'Simulate pipeline automation cycles, GitOps deployments, and system monitoring live.'}
+                ? 'Simulasikan siklus otomatisasi Smart Contract, sinkronisasi GitOps kluster, dan observabilitas node blockchain secara langsung.' 
+                : 'Simulate smart contract automation pipelines, GitOps cluster synchronization, and live node telemetry interactively.'}
             </p>
           </div>
 
@@ -574,19 +620,19 @@ const App = () => {
               className={`btn ${activeSimulatorTab === 'pipeline' ? 'btn-primary' : 'btn-secondary'}`}
               onClick={() => setActiveSimulatorTab('pipeline')}
             >
-              <i className="fa-solid fa-terminal"></i> 1. CI/CD Pipeline
+              <i className="fa-brands fa-ethereum"></i> 1. Smart Contract CI/CD
             </button>
             <button 
               className={`btn ${activeSimulatorTab === 'gitops' ? 'btn-primary' : 'btn-secondary'}`}
               onClick={() => setActiveSimulatorTab('gitops')}
             >
-              <i className="fa-solid fa-cloud"></i> 2. GitOps & K8s
+              <i className="fa-solid fa-network-wired"></i> 2. GitOps & Cluster Sync
             </button>
             <button 
               className={`btn ${activeSimulatorTab === 'monitoring' ? 'btn-primary' : 'btn-secondary'}`}
               onClick={() => setActiveSimulatorTab('monitoring')}
             >
-              <i className="fa-solid fa-chart-line"></i> 3. Observability & Alarm
+              <i className="fa-solid fa-chart-line"></i> 3. Node Telemetry & Alarm
             </button>
           </div>
 
