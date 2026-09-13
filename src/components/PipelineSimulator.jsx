@@ -38,44 +38,44 @@ const PipelineSimulator = ({ lang, onStatusChange, onStageChange, onProceedToGit
 
   const translations = {
     id: {
-      title: "Simulator <span class='gradient-text'>Web3 & CI/CD Pipeline</span>",
-      subtitle: "Uji coba otomatisasi rilis Smart Contract & Infrastruktur buatan saya secara interaktif langsung dari browser.",
+      title: "Simulator <span class='gradient-text'>Pipeline CI/CD</span>",
+      subtitle: "Uji coba otomatisasi rilis buatan saya secara interaktif langsung dari browser.",
       btnStart: "Jalankan Pipeline",
       btnReset: "Reset",
       btnFix: "Perbaiki Code & Jalankan",
       toggleFailLabel: "Simulasikan Error Keamanan",
       terminalHeader: "Output Terminal Agen Runner",
       stages: {
-        1: { title: "Checkout & Lint", desc: "Klon repo & cek sintaks Solidity/TS" },
-        2: { title: "Security Audit", desc: "Slither & Trivy scan celah keamanan" },
-        3: { title: "Artifact & IPFS", desc: "Build image & pin metadata IPFS" },
-        4: { title: "Network Deploy", desc: "Broadcast Sepolia & update K8s" },
+        1: { title: "Checkout & Lint", desc: "Klon repositori & cek sintaks" },
+        2: { title: "Security Gate", desc: "SonarQube & Trivy scan" },
+        3: { title: "Docker Build", desc: "Build image & push ke Harbor" },
+        4: { title: "Cloud Deploy", desc: "Rolling update ke Kubernetes" },
       },
       statusText: {
         idle: "Menunggu eksekusi...",
         running: "Pipeline sedang berjalan...",
-        success: "PIPELINE SUKSES: Smart Contract & App LIVE di Jaringan!",
+        success: "PIPELINE SUKSES: Aplikasi LIVE di Produksi!",
         failed: "PIPELINE GAGAL: Terhenti karena celah keamanan kritis!",
       }
     },
     en: {
-      title: "Interactive <span class='gradient-text'>Web3 & CI/CD Pipeline Simulator</span>",
-      subtitle: "Test my automated smart contract delivery & infrastructure pipeline workflow interactively right from your browser.",
+      title: "Interactive <span class='gradient-text'>CI/CD Pipeline Simulator</span>",
+      subtitle: "Test my automated delivery pipeline workflow interactively right from your browser.",
       btnStart: "Start Pipeline",
       btnReset: "Reset Pipeline",
       btnFix: "Fix Vulnerability & Run",
       toggleFailLabel: "Simulate Security Vulnerability",
       terminalHeader: "Runner Agent Terminal Output",
       stages: {
-        1: { title: "Checkout & Lint", desc: "Clone repo & verify Solidity/TS syntax" },
-        2: { title: "Security Audit", desc: "Slither & Trivy vulnerability scan" },
-        3: { title: "Artifact & IPFS", desc: "Build container & pin IPFS metadata" },
-        4: { title: "Network Deploy", desc: "Broadcast Sepolia & update K8s" },
+        1: { title: "Checkout & Lint", desc: "Clone repo & verify syntax" },
+        2: { title: "Security Gate", desc: "SonarQube & Trivy scan" },
+        3: { title: "Docker Build", desc: "Build image & push to Harbor" },
+        4: { title: "Cloud Deploy", desc: "Rolling update to Kubernetes" },
       },
       statusText: {
         idle: "Waiting for trigger...",
         running: "Pipeline running...",
-        success: "PIPELINE SUCCESS: Smart Contract & App LIVE on Network!",
+        success: "PIPELINE SUCCESS: Application is LIVE in Production!",
         failed: "PIPELINE FAILED: Aborted due to critical security vulnerability!",
       }
     }

@@ -1,66 +1,66 @@
 export const skillsList = [
     {
-      name: "Ethereum & Solana RPC",
-      icon: "fa-brands fa-ethereum",
+      name: "GCP, AWS",
+      icon: "fa-solid fa-cloud",
       desc: {
-        id: "Manajemen node RPC eksekusi & konsensus (Geth, Nethermind, Prysm) dengan high-availability failover.",
-        en: "Managing execution & consensus RPC nodes (Geth, Nethermind, Prysm) with high-availability failover."
+        id: "Mendeploy VM, monitoring via CloudWatch, dan konfigurasi VPC jaringan cloud.",
+        en: "Deploying VM instances, monitoring via CloudWatch, and configuring cloud VPC networks."
       }
     },
     {
-      name: "Docker & Kubernetes",
+      name: "Docker, K8s",
       icon: "fa-brands fa-docker",
       desc: {
-        id: "Orkestrasi kontainer kluster validator blockchain dan microservices dApp terdesentralisasi.",
-        en: "Container orchestration for blockchain validator clusters and decentralized dApp microservices."
+        id: "Kontainerisasi aplikasi microservices dan mengelola replikasi deployment.",
+        en: "Containerizing microservices and managing replicas of application deployments."
       }
     },
     {
-      name: "Smart Contract CI/CD",
-      icon: "fa-solid fa-code-commit",
-      desc: {
-        id: "Otomatisasi build, fuzzing test (Foundry/Hardhat), audit statis (Slither), dan deploy testnet.",
-        en: "Automating build, fuzzing test (Foundry/Hardhat), static audit (Slither), and testnet deployments."
-      }
-    },
-    {
-      name: "IPFS & Decentralized Storage",
-      icon: "fa-solid fa-cubes",
-      desc: {
-        id: "Penyimpanan metadata terdesentralisasi via IPFS pinning cluster dan gateway terdistribusi.",
-        en: "Decentralized metadata storage via IPFS pinning clusters and distributed gateway routing."
-      }
-    },
-    {
-      name: "Terraform & Multi-Cloud",
-      icon: "fa-solid fa-server",
-      desc: {
-        id: "Penyediaan infrastruktur cloud (IaC) untuk node validator di Google Cloud & AWS.",
-        en: "Infrastructure as Code (IaC) provisioning for blockchain validator nodes across GCP and AWS."
-      }
-    },
-    {
-      name: "Grafana & VictoriaMetrics",
-      icon: "fa-solid fa-chart-line",
-      desc: {
-        id: "Observabilitas node real-time: peer count, sync block lag, gas telemetry, dan incident alerting.",
-        en: "Real-time node observability: peer counts, sync block lag, gas telemetry, and incident alerting."
-      }
-    },
-    {
-      name: "GitLab & GitHub Actions",
+      name: "GitLab, GitHub",
       icon: "fa-solid fa-code-merge",
       desc: {
-        id: "Perancangan pipeline GitOps otomatis untuk sinkronisasi state kluster dan smart contract.",
-        en: "Designing automated GitOps pipelines for cluster state synchronization and smart contracts."
+        id: "Membuat alur otomatisasi build/test CI/CD Pipeline dan manajemen repositori.",
+        en: "Building automated CI/CD build/test pipelines and repository management."
       }
     },
     {
-      name: "Security & DevSecOps",
+      name: "TCP/IP, DNS",
+      icon: "fa-solid fa-network-wired",
+      desc: {
+        id: "Diagnosis routing kartu jaringan Telkomsel dan penanganan record DNS di NOC.",
+        en: "Diagnosing Telkomsel card routing and managing DNS record resolutions at NOC."
+      }
+    },
+    {
+      name: "Terraform",
+      icon: "fa-solid fa-server",
+      desc: {
+        id: "Menulis kode arsitektur (IaC) untuk penyediaan server VPC otomatis.",
+        en: "Writing Infrastructure as Code (IaC) to provision VPC servers automatically."
+      }
+    },
+    {
+      name: "Linux",
+      icon: "fa-brands fa-linux",
+      desc: {
+        id: "Bash scripting untuk backup otomatis, setup environment, dan administrasi OS.",
+        en: "Bash scripting for backups, environment setups, and OS server administration."
+      }
+    },
+    {
+      name: "Grafana, VictoriaMetrics",
+      icon: "fa-solid fa-chart-line",
+      desc: {
+        id: "Mengelola log, metrik, sistem alerting, serta analisis performa infrastruktur secara real-time.",
+        en: "Managing logs, metrics, alerting systems, and real-time infrastructure performance analysis."
+      }
+    },
+    {
+      name: "SonarQube, Harbor, Trivy",
       icon: "fa-solid fa-shield-halved",
       desc: {
-        id: "Scanning keamanan bytecode, Slither static analysis, Trivy image scan, dan pengelolaan private key aman.",
-        en: "Bytecode security scans, Slither static analysis, Trivy image scans, and secure private key management."
+        id: "Mendukung keamanan pipeline CI/CD, scanning vulnerability image, dan secure container registry.",
+        en: "Supporting CI/CD pipeline security, image vulnerability scanning, and secure container registries."
       }
     }
   ];
@@ -75,7 +75,7 @@ export const skillsList = [
       roleKey: "proj1-role",
       solutionKey: "proj1-solution",
       impactKey: "proj1-impact",
-      tools: ["GitLab CI", "Foundry", "Slither", "Solidity", "IPFS", "Docker", "Sepolia"]
+      tools: ["GitLab CI", "Docker", "Harbor", "SonarQube", "Trivy", "Linux"]
     },
     {
       id: 2,
@@ -86,7 +86,7 @@ export const skillsList = [
       roleKey: "proj2-role",
       solutionKey: "proj2-solution",
       impactKey: "proj2-impact",
-      tools: ["VictoriaMetrics", "Grafana", "Ethereum Geth", "Solana RPC", "Prometheus", "Telegram Alert"]
+      tools: ["Grafana", "VictoriaMetrics", "VictoriaLogs", "Node Exporter", "Telegram API"]
     },
     {
       id: 3,
@@ -97,6 +97,6 @@ export const skillsList = [
       roleKey: "proj3-role",
       solutionKey: "proj3-solution",
       impactKey: "proj3-impact",
-      tools: ["Kubernetes", "ArgoCD", "Kustomize", "GitOps", "Docker", "Node.js", "NGINX Ingress"]
+      tools: ["GitLab CI", "Kubernetes", "Kustomize", "GitOps", "Docker", "Node.js", "Python", "NGINX Ingress"]
     }
   ];
