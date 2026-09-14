@@ -279,7 +279,7 @@ const App = () => {
                 <div className="stat-label">{lang === 'id' ? 'Projects Selesai' : 'Completed Projects'}</div>
               </div>
               <div className="stat-item">
-                <div className="stat-num">6+</div>
+                <div className="stat-num">7+</div>
                 <div className="stat-label">{lang === 'id' ? 'Sertifikasi' : 'Certifications'}</div>
               </div>
               <div className="stat-item">
