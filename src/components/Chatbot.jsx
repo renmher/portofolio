@@ -95,6 +95,17 @@ const Chatbot = ({ lang }) => {
     }
   }, [messages, isTyping]);
 
+  // Keyboard accessibility: Close chatbot on Escape key
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape' && isOpen) {
+        setIsOpen(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen]);
+
   const handleSend = (text) => {
     const trimmed = text.trim();
     if (!trimmed) return;
@@ -162,7 +173,13 @@ const Chatbot = ({ lang }) => {
               <span className="status">{currentData.botStatus}</span>
             </div>
           </div>
-          <button className="chatbot-close" onClick={() => setIsOpen(false)}>&times;</button>
+          <button 
+            className="chatbot-close" 
+            onClick={() => setIsOpen(false)}
+            aria-label={lang === 'id' ? "Tutup chat" : "Close chat"}
+          >
+            &times;
+          </button>
         </div>
 
         <div className="chatbot-messages">
@@ -207,7 +224,11 @@ const Chatbot = ({ lang }) => {
               if (e.key === 'Enter') handleSend(inputVal);
             }}
           />
-          <button className="chatbot-send" onClick={() => handleSend(inputVal)}>
+          <button 
+            className="chatbot-send" 
+            onClick={() => handleSend(inputVal)}
+            aria-label={lang === 'id' ? "Kirim pesan" : "Send message"}
+          >
             <i className="fa-solid fa-paper-plane"></i>
           </button>
         </div>
