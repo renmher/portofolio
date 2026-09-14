@@ -22,7 +22,9 @@ const certTranslations = {
     project5Title: "Bootcamp Cloud Engineer",
     project5Desc: "Program bootcamp intensif Digital Skola fokus pada infrastruktur cloud & devops (2023).",
     project6Title: "Frontend Engineering",
-    project6Desc: "Program Kampus Merdeka Ruang Guru untuk pengembangan aplikasi web frontend (2024)."
+    project6Desc: "Program Kampus Merdeka Ruang Guru untuk pengembangan aplikasi web frontend (2024).",
+    project7Title: "DevOps Engineer Bootcamp",
+    project7Desc: "Program bootcamp intensif dibimbing.id (2024)."
   },
   en: {
     title: "Verified <span class='gradient-text'>Certifications</span>",
@@ -44,7 +46,9 @@ const certTranslations = {
     project5Title: "Bootcamp Cloud Engineer",
     project5Desc: "Intensive Digital Skola bootcamp focused on cloud infrastructure & devops (2023).",
     project6Title: "Frontend Engineering",
-    project6Desc: "Kampus Merdeka Ruang Guru program for frontend web development (2024)."
+    project6Desc: "Kampus Merdeka Ruang Guru program for frontend web development (2024).",
+    project7Title: "DevOps Engineer Bootcamp",
+    project7Desc: "Intensive dibimbing.id bootcamp program (2024)."
   }
 };
 
@@ -126,6 +130,16 @@ const certs = [
       title: "Ruang Guru Frontend",
       subtitle: "Credential Verified"
     }
+  },
+  {
+    titleId: "project7Title",
+    descId: "project7Desc",
+    category: "bootcamp",
+    badge: "dibimbing.id",
+    image: "/sertif-dibimbing.png",
+    verifyUrl: "https://dibimbing.id/certificate-validation?cn=201029DO01082316",
+    downloadUrl: "/sertif-dibimbing.pdf",
+    hasImage: true
   }
 ];
 
