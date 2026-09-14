@@ -24,7 +24,7 @@ const certTranslations = {
     project6Title: "Frontend Engineering",
     project6Desc: "Program Kampus Merdeka Ruang Guru untuk pengembangan aplikasi web frontend (2024).",
     project7Title: "DevOps Engineer Bootcamp",
-    project7Desc: "Program bootcamp intensif dibimbing.id (2024)."
+    project7Desc: "Program bootcamp intensif dibimbing.id (12 April - 16 Agustus 2026)."
   },
   en: {
     title: "Verified <span class='gradient-text'>Certifications</span>",
@@ -48,7 +48,7 @@ const certTranslations = {
     project6Title: "Frontend Engineering",
     project6Desc: "Kampus Merdeka Ruang Guru program for frontend web development (2024).",
     project7Title: "DevOps Engineer Bootcamp",
-    project7Desc: "Intensive dibimbing.id bootcamp program (2024)."
+    project7Desc: "Intensive dibimbing.id bootcamp program (April 12 - August 16, 2026)."
   }
 };
 
