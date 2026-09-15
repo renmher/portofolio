@@ -578,12 +578,12 @@ const App = () => {
                                 <i className="fa-solid fa-cloud"></i> {lang === 'id' ? 'Coba Simulator GitOps' : 'Try GitOps Simulator'}
                               </a>
                               <a 
-                                href="https://www.linkedin.com/posts/renaldyimran_deploy-web-apps-with-gitops-kustomize-ugcPost-7469681645827149824-cQCa/?utm_source=share&utm_medium=member_desktop&rcm=ACoAADLDcboB8Li8JAKNskoirQXMi6T90v8rVEY" 
+                                href="/projects/cbs-presentation.pdf" 
                                 target="_blank" 
                                 rel="noopener noreferrer"
-                                className="project-action-link linkedin"
+                                className="project-action-link"
                               >
-                                <i className="fa-brands fa-linkedin"></i> {lang === 'id' ? 'Lihat Postingan LinkedIn' : 'View LinkedIn Post'}
+                                <i className="fa-solid fa-file-pdf"></i> {lang === 'id' ? 'Lihat Slide Presentasi (PDF)' : 'View Slide Presentation (PDF)'}
                               </a>
                             </>
                           )}
