@@ -106,21 +106,21 @@ export const skillsList = [
     },
     {
       id: 3,
-      image: "/projects/gitops-project.png",
+      image: "/projects/cbs-project.png",
       nameKey: "proj3-name",
       overviewKey: "proj3-overview",
       problemKey: "proj3-problem",
       roleKey: "proj3-role",
       solutionKey: "proj3-solution",
       impactKey: "proj3-impact",
-      tools: ["GitLab CI", "Kubernetes", "Kustomize", "GitOps", "Docker", "Node.js", "Python", "NGINX Ingress"],
-      repoUrl: "https://github.com/renmher",
+      tools: ["GitLab CI", "Kubernetes (K3s)", "Kustomize", "GitOps", "Docker", "Trivy", "SonarQube", "NGINX Ingress"],
+      repoUrl: "https://gitlab.com/tutorial-ci-dibimbing/renaldy-imran-cbs-final-projek/general-pipeline",
       architectureFlow: [
-        { step: "01. Repos", title: "Microservices Repos", detail: "Application codebases for Node.js & Python services", icon: "fa-solid fa-code" },
-        { step: "02. Central CI", title: "Reusable Pipeline", detail: "Standardized CI workflow producing immutable tags", icon: "fa-solid fa-gears" },
-        { step: "03. GitOps", title: "Kustomize Manifests", detail: "Base manifests with Alpha, Beta, & Prod overlays", icon: "fa-solid fa-layer-group" },
-        { step: "04. Reconcile", title: "ArgoCD / Git Sync", detail: "Declarative cluster drift detection & auto-healing", icon: "fa-solid fa-arrows-rotate" },
-        { step: "05. Ingress", title: "NGINX Ingress Controller", detail: "Multi-tenant path routing to live Kubernetes pods", icon: "fa-solid fa-cubes" }
+        { step: "01. Push", title: "Git Push Event", detail: "Developer push to dev, uat, or prod branch", icon: "fa-brands fa-git-alt" },
+        { step: "02. Central CI", title: "Shared Pipeline", detail: "Centralized GitLab CI include (backend & frontend templates)", icon: "fa-solid fa-gears" },
+        { step: "03. Security", title: "SonarQube & Trivy", detail: "Automated SAST code quality & image CVE security scanning", icon: "fa-solid fa-shield-halved" },
+        { step: "04. GitOps", title: "Kustomize Overlay", detail: "Automated deploy.sh mutates image tags per environment", icon: "fa-solid fa-layer-group" },
+        { step: "05. Ingress", title: "K3s Ingress Rollout", detail: "Live production access at portal-admin-prod-renaldy-imran-cbs", icon: "fa-solid fa-cloud" }
       ]
     }
   ];

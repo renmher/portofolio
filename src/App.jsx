@@ -594,7 +594,7 @@ const App = () => {
                               rel="noopener noreferrer"
                               className="project-action-link repo-link"
                             >
-                              <i className="fa-brands fa-github"></i> {curr["btn-view-repo"]}
+                              <i className={project.repoUrl.includes('gitlab') ? "fa-brands fa-gitlab" : "fa-brands fa-github"}></i> {curr["btn-view-repo"]}
                             </a>
                           )}
                         </div>
