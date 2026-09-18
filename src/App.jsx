@@ -124,11 +124,11 @@ const App = () => {
           entry.target.classList.add('active');
         }
       });
-    }, { threshold: 0.1 });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
 
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    document.querySelectorAll('.reveal, .card, .timeline-item, .project-showcase-card, .arch-node-card').forEach(el => observer.observe(el));
     return () => observer.disconnect();
-  }, []);
+  }, [lang]);
 
   const urlParams = new URLSearchParams(window.location.search);
   if (urlParams.get('mode') === 'cv-builder') {
