@@ -247,21 +247,29 @@ const App = () => {
           <div className="hero-content">
             <div className="open-to-work-badge">
               <span className="dot pulse"></span>
-              <span>{lang === 'id' ? 'Aktif Mencari Kerja' : 'Open to work'}</span>
+              <span>renmher@k8s-prod:~$ cluster status --healthy (14ms)</span>
             </div>
             
             <h1 className="hero-title">
-              {lang === 'id' ? 'Halo, Saya' : "Hi, I'm"}<br />
-              <span className="text-highlight">Renaldy Imran Hermawan, S.Kom</span>
+              {lang === 'id' ? (
+                <>Membangun Keandalan <span className="text-highlight">Cloud & Otomatisasi CI/CD</span> Skala Produksi.</>
+              ) : (
+                <>Architecting <span className="text-highlight">Cloud Resilience</span> & Automated CI/CD Pipelines.</>
+              )}
             </h1>
             
-            <p className="hero-subtitle">{curr["hero-roles"]}</p>
+            <div className="hero-identity-tag">
+              <span className="identity-name">Renaldy Imran Hermawan, S.Kom</span>
+              <span className="separator">•</span>
+              <span className="identity-role">{curr["hero-roles"]}</span>
+            </div>
+            
             <p className="hero-desc">{curr["hero-desc"]}</p>
             
             <div className="hero-meta">
               <span><i className="fa-solid fa-map-pin"></i> {curr["hero-location"]}</span>
               <span className="separator">•</span>
-              <span><i className="fa-solid fa-cake-candles"></i> {curr["hero-age"]}</span>
+              <span><i className="fa-solid fa-briefcase"></i> {lang === 'id' ? 'Tersedia untuk DevOps Role' : 'Available for DevOps Roles'}</span>
             </div>
             
             <div className="hero-buttons">
@@ -298,15 +306,58 @@ const App = () => {
           </div>
 
           <div className="hero-image-wrapper">
-            <div className="relative-glow-container">
-              <div className="hero-ambient-glow"></div>
-              <div className="glow-inner-circle"></div>
+            <div className="profile-architectural-frame">
+              <div className="frame-meta-tag">06°14'S 106°59'E // BEKASI, ID</div>
               <div className="profile-img-circle">
                 <img src="/profile.png" alt="Renaldy Imran Hermawan" className="hero-profile-img" />
+              </div>
+              <div className="frame-status-tag">
+                <span className="dot pulse"></span>
+                <span>SYSTEM STATUS: 100% OPERATIONAL</span>
               </div>
             </div>
           </div>
         </section>
+
+        {/* Infinite Studio Tech Marquee */}
+        <div className="studio-marquee-wrapper" aria-hidden="true">
+          <div className="studio-marquee-track">
+            <div className="marquee-content">
+              <span>KUBERNETES</span><span className="marquee-dot">/</span>
+              <span>GITLAB CI</span><span className="marquee-dot">/</span>
+              <span>TERRAFORM (IaC)</span><span className="marquee-dot">/</span>
+              <span>DOCKER</span><span className="marquee-dot">/</span>
+              <span>VICTORIAMETRICS</span><span className="marquee-dot">/</span>
+              <span>TRIVY CVE SCAN</span><span className="marquee-dot">/</span>
+              <span>SONARQUBE SAST</span><span className="marquee-dot">/</span>
+              <span>HARBOR REGISTRY</span><span className="marquee-dot">/</span>
+              <span>GITOPS KUSTOMIZE</span><span className="marquee-dot">/</span>
+              <span>HASHICORP VAULT</span><span className="marquee-dot">/</span>
+              <span>NGINX INGRESS</span><span className="marquee-dot">/</span>
+              <span>LINUX BASH</span><span className="marquee-dot">/</span>
+              <span>GOOGLE CLOUD (GCP)</span><span className="marquee-dot">/</span>
+              <span>AWS CLOUD</span><span className="marquee-dot">/</span>
+              <span>MIKROTIK MTCNA</span><span className="marquee-dot">/</span>
+            </div>
+            <div className="marquee-content" aria-hidden="true">
+              <span>KUBERNETES</span><span className="marquee-dot">/</span>
+              <span>GITLAB CI</span><span className="marquee-dot">/</span>
+              <span>TERRAFORM (IaC)</span><span className="marquee-dot">/</span>
+              <span>DOCKER</span><span className="marquee-dot">/</span>
+              <span>VICTORIAMETRICS</span><span className="marquee-dot">/</span>
+              <span>TRIVY CVE SCAN</span><span className="marquee-dot">/</span>
+              <span>SONARQUBE SAST</span><span className="marquee-dot">/</span>
+              <span>HARBOR REGISTRY</span><span className="marquee-dot">/</span>
+              <span>GITOPS KUSTOMIZE</span><span className="marquee-dot">/</span>
+              <span>HASHICORP VAULT</span><span className="marquee-dot">/</span>
+              <span>NGINX INGRESS</span><span className="marquee-dot">/</span>
+              <span>LINUX BASH</span><span className="marquee-dot">/</span>
+              <span>GOOGLE CLOUD (GCP)</span><span className="marquee-dot">/</span>
+              <span>AWS CLOUD</span><span className="marquee-dot">/</span>
+              <span>MIKROTIK MTCNA</span><span className="marquee-dot">/</span>
+            </div>
+          </div>
+        </div>
 
         <section id="about" className="reveal">
           <div className="section-title">
@@ -443,7 +494,7 @@ const App = () => {
                   <div className="flagship-info-col">
                     <h3 className="flagship-title">{curr[flagship.nameKey]}</h3>
                     <div className="project-story-tabs">
-                      {['overview', 'problem', 'solution', 'impact', 'architecture'].map((tab) => (
+                      {['overview', 'problem', 'solution', 'impact', 'architecture', 'code'].map((tab) => (
                         <button
                           key={tab}
                           className={`project-story-tab-btn ${activeTab === tab ? 'active' : ''}`}
@@ -454,6 +505,7 @@ const App = () => {
                           {tab === 'solution' && curr["proj-tab-solution"]}
                           {tab === 'impact' && curr["proj-tab-impact"]}
                           {tab === 'architecture' && curr["proj-tab-arch"]}
+                          {tab === 'code' && (lang === 'id' ? 'Script Otomasi' : 'deploy.sh Script')}
                         </button>
                       ))}
                     </div>
@@ -501,6 +553,36 @@ const App = () => {
                               </div>
                             ))}
                           </div>
+                        </div>
+                      )}
+                      {activeTab === 'code' && (
+                        <div className="project-code-viewer">
+                          <div className="code-viewer-header">
+                            <span className="code-viewer-file"><i className="fa-solid fa-terminal"></i> scripts/deploy.sh (GitOps Kustomize Automation)</span>
+                            <a href={flagship.repoUrl} target="_blank" rel="noopener noreferrer" className="code-viewer-link">
+                              <i className="fa-brands fa-gitlab"></i> Full Repo
+                            </a>
+                          </div>
+                          <pre className="code-viewer-body">
+                            <code>{`# 1. Target Multi-Environment Namespace
+NAMESPACE="renaldy-imran-cbs-\${ENV}"
+kubectl create namespace "\${NAMESPACE}" --dry-run=client -o yaml | kubectl apply -f -
+
+# 2. Vault DB Credential Injection (Production)
+if [ "$ENV" = "prod" ] && [ -n "$VAULT_ADDR" ]; then
+    VAULT_RESP=$(curl -s --header "X-Vault-Token: \${CURRENT_VAULT_TOKEN}" "\${VAULT_ADDR}/v1/\${VAULT_SECRET_PATH}")
+    DB_USER=$(echo "$VAULT_RESP" | jq -r '.data.data.DB_USER')
+    DB_PASSWORD=$(echo "$VAULT_RESP" | jq -r '.data.data.DB_PASSWORD')
+fi
+
+# 3. Kustomize Image Tag Mutation
+cd "$OVERLAY_PATH"
+kustomize edit set image "\${APP_NAME}=\${REGISTRY_IMAGE}:\${IMAGE_TAG}"
+
+# 4. Declarative Rollout & Auto Restart
+kubectl apply -k "$OVERLAY_PATH"
+kubectl rollout restart deployment/"\${APP_NAME}" -n "\${NAMESPACE}"`}</code>
+                          </pre>
                         </div>
                       )}
                     </div>
