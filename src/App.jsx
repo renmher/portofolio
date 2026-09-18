@@ -20,8 +20,33 @@ const App = () => {
   const [isPipelineLinked, setIsPipelineLinked] = useState(false);
   const [gitopsDeployedVersion, setGitopsDeployedVersion] = useState(null);
   const [activeSimulatorTab, setActiveSimulatorTab] = useState('pipeline');
+  const [transitionState, setTransitionState] = useState('idle'); // 'idle' | 'entering' | 'exiting'
+  const [transitionTarget, setTransitionTarget] = useState('');
 
   const curr = translations[lang] || translations.id;
+
+  const triggerPageTransition = useCallback((targetId, label) => {
+    if (transitionState !== 'idle') return;
+    setTransitionTarget(label ? label.toUpperCase() : targetId.toUpperCase());
+    setTransitionState('entering');
+
+    setTimeout(() => {
+      const el = document.getElementById(targetId);
+      if (el) {
+        el.scrollIntoView({ behavior: 'auto' });
+      }
+      setTransitionState('exiting');
+
+      setTimeout(() => {
+        setTransitionState('idle');
+      }, 350);
+    }, 320);
+  }, [transitionState]);
+
+  const handleNavClick = (e, targetId, label) => {
+    e.preventDefault();
+    triggerPageTransition(targetId, label);
+  };
 
   const handleProjectTabChange = (projectId, tab) => {
     setProjectTabs(prev => ({ ...prev, [projectId]: tab }));
@@ -129,6 +154,20 @@ const App = () => {
 
   return (
     <>
+      {/* Editorial Page Transition Curtain (Ala indevelopment.studio) */}
+      <div 
+        className={`page-wipe-curtain ${transitionState !== 'idle' ? transitionState : ''}`}
+        aria-hidden={transitionState === 'idle'}
+      >
+        <div className="page-wipe-content">
+          <span className="page-wipe-sub">// IN-DEVELOPMENT • ARCHITECTURE</span>
+          <h2 className="page-wipe-title">{transitionTarget}</h2>
+          <div className="page-wipe-loader">
+            <span className="page-wipe-bar"></span>
+          </div>
+        </div>
+      </div>
+
       <div className="scroll-progress" style={{ width: `${scrollProgress}%` }} />
 
       <div className="bg-visuals">
@@ -136,19 +175,19 @@ const App = () => {
 
       <header className="site-header">
         <div className="header-container">
-          <a href="#home" className="nav-logo">
+          <a href="#home" className="nav-logo" onClick={(e) => handleNavClick(e, 'home', 'HOME')}>
             <i className="fa-solid fa-terminal logo-icon"></i>
             <span className="logo-text">Renaldy.dev</span>
           </a>
 
           <nav className="desktop-nav">
             <ul>
-              <li><a href="#home" className={activeSection === 'home' ? 'active' : ''}>{curr["nav-home"]}</a></li>
-              <li><a href="#about" className={activeSection === 'about' ? 'active' : ''}>{curr["nav-about"]}</a></li>
-              <li><a href="#projects" className={activeSection === 'projects' ? 'active' : ''}>{curr["nav-projects"]}</a></li>
-              <li><a href="#simulators" className={activeSection === 'simulators' ? 'active' : ''}>{curr["nav-playground"]}</a></li>
-              <li><a href="#certifications" className={activeSection === 'certifications' ? 'active' : ''}>{curr["nav-certs"]}</a></li>
-              <li><a href="#experience" className={activeSection === 'experience' ? 'active' : ''}>{curr["nav-experience"]}</a></li>
+              <li><a href="#home" onClick={(e) => handleNavClick(e, 'home', curr["nav-home"])} className={activeSection === 'home' ? 'active' : ''}>{curr["nav-home"]}</a></li>
+              <li><a href="#about" onClick={(e) => handleNavClick(e, 'about', curr["nav-about"])} className={activeSection === 'about' ? 'active' : ''}>{curr["nav-about"]}</a></li>
+              <li><a href="#projects" onClick={(e) => handleNavClick(e, 'projects', curr["nav-projects"])} className={activeSection === 'projects' ? 'active' : ''}>{curr["nav-projects"]}</a></li>
+              <li><a href="#simulators" onClick={(e) => handleNavClick(e, 'simulators', curr["nav-playground"])} className={activeSection === 'simulators' ? 'active' : ''}>{curr["nav-playground"]}</a></li>
+              <li><a href="#certifications" onClick={(e) => handleNavClick(e, 'certifications', curr["nav-certs"])} className={activeSection === 'certifications' ? 'active' : ''}>{curr["nav-certs"]}</a></li>
+              <li><a href="#experience" onClick={(e) => handleNavClick(e, 'experience', curr["nav-experience"])} className={activeSection === 'experience' ? 'active' : ''}>{curr["nav-experience"]}</a></li>
             </ul>
           </nav>
 
@@ -188,7 +227,7 @@ const App = () => {
             >
               <i className="fa-solid fa-file-arrow-down"></i> CV
             </a>
-            <a href="#contact" className="nav-cta">{curr["nav-contact"]}</a>
+            <a href="#contact" onClick={(e) => handleNavClick(e, 'contact', curr["nav-contact"])} className="nav-cta">{curr["nav-contact"]}</a>
           </div>
         </div>
       </header>
@@ -196,37 +235,37 @@ const App = () => {
       <nav className="mobile-nav">
         <ul>
           <li>
-            <a href="#home" className={activeSection === 'home' ? 'active' : ''}>
+            <a href="#home" onClick={(e) => handleNavClick(e, 'home', curr["nav-home"])} className={activeSection === 'home' ? 'active' : ''}>
               <i className="fa-solid fa-house"></i>
               <span>{curr["nav-home"]}</span>
             </a>
           </li>
           <li>
-            <a href="#about" className={activeSection === 'about' ? 'active' : ''}>
+            <a href="#about" onClick={(e) => handleNavClick(e, 'about', curr["nav-about"])} className={activeSection === 'about' ? 'active' : ''}>
               <i className="fa-solid fa-user"></i>
               <span>{curr["nav-about"]}</span>
             </a>
           </li>
           <li>
-            <a href="#projects" className={activeSection === 'projects' ? 'active' : ''}>
+            <a href="#projects" onClick={(e) => handleNavClick(e, 'projects', lang === 'id' ? 'Proyek' : 'Projects')} className={activeSection === 'projects' ? 'active' : ''}>
               <i className="fa-solid fa-diagram-project"></i>
               <span>{lang === 'id' ? 'Proyek' : 'Proj'}</span>
             </a>
           </li>
           <li>
-            <a href="#simulators" className={activeSection === 'simulators' ? 'active' : ''}>
+            <a href="#simulators" onClick={(e) => handleNavClick(e, 'simulators', 'Playground')} className={activeSection === 'simulators' ? 'active' : ''}>
               <i className="fa-solid fa-gamepad"></i>
               <span>Playground</span>
             </a>
           </li>
           <li>
-            <a href="#certifications" className={activeSection === 'certifications' ? 'active' : ''}>
+            <a href="#certifications" onClick={(e) => handleNavClick(e, 'certifications', curr["nav-certs"])} className={activeSection === 'certifications' ? 'active' : ''}>
               <i className="fa-solid fa-certificate"></i>
               <span>{lang === 'id' ? 'Sertif' : 'Certs'}</span>
             </a>
           </li>
           <li>
-            <a href="#experience" className={activeSection === 'experience' ? 'active' : ''}>
+            <a href="#experience" onClick={(e) => handleNavClick(e, 'experience', curr["nav-experience"])} className={activeSection === 'experience' ? 'active' : ''}>
               <i className="fa-solid fa-briefcase"></i>
               <span>{lang === 'id' ? 'Karir' : 'Exp'}</span>
             </a>
@@ -257,7 +296,7 @@ const App = () => {
             </div>
             
             <div className="hero-buttons">
-              <a href="#projects" className="btn btn-primary">
+              <a href="#projects" onClick={(e) => handleNavClick(e, 'projects', curr["nav-projects"])} className="btn btn-primary">
                 {curr["btn-projects"]}
               </a>
               <a 
