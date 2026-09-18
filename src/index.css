@@ -89,14 +89,20 @@ body {
 /* Reveal System */
 .reveal {
   opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(28px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .reveal.active {
   opacity: 1;
   transform: translateY(0);
 }
+
+/* Staggered Child Entry in Hero Stats */
+.reveal.active .stat-item:nth-child(1) { transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.1s, opacity 0.6s ease 0.1s; }
+.reveal.active .stat-item:nth-child(2) { transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.18s, opacity 0.6s ease 0.18s; }
+.reveal.active .stat-item:nth-child(3) { transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.26s, opacity 0.6s ease 0.26s; }
+.reveal.active .stat-item:nth-child(4) { transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.34s, opacity 0.6s ease 0.34s; }
 
 /* Background Visuals */
 .bg-visuals {
@@ -900,6 +906,14 @@ header.site-header {
   filter: none;
 }
 
+.btn i {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn:hover i {
+  transform: translateX(3px);
+}
+
 .btn-linkedin {
   transition: var(--transition);
 }
@@ -1063,7 +1077,23 @@ section {
 .section-title {
   margin-bottom: 48px;
   padding-bottom: 20px;
+  position: relative;
   border-bottom: 1px solid var(--border);
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--text-main);
+  transition: width 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
+}
+
+.reveal.active .section-title::after {
+  width: 100%;
 }
 
 .section-title h2 {
@@ -3104,6 +3134,11 @@ footer {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.project-showcase-card:hover .project-showcase-img-wrapper img {
+  transform: scale(1.04);
 }
 
 .project-showcase-tools {
