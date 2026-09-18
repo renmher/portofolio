@@ -91,11 +91,34 @@ body {
 /* Reveal System */
 .reveal {
   opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(48px) scale(0.985);
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
 }
 
 .reveal.active {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.reveal .section-title h2 {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.1s, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.1s;
+}
+
+.reveal.active .section-title h2 {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal .section-title p {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.18s, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.18s;
+}
+
+.reveal.active .section-title p {
   opacity: 1;
   transform: translateY(0);
 }
@@ -3553,7 +3576,15 @@ footer {
   background: var(--bg-card);
   padding: 32px;
   position: relative;
-  transition: border-color var(--transition);
+  opacity: 0;
+  transform: translateY(40px) scale(0.98);
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.12s, transform 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.12s, border-color var(--transition);
+}
+
+.reveal.active .flagship-case-study,
+.flagship-case-study.active {
+  opacity: 1;
+  transform: translateY(0) scale(1);
 }
 
 .flagship-case-study:hover {
@@ -3669,8 +3700,23 @@ footer {
   gap: 36px;
   padding: 32px 0;
   border-bottom: 1px solid var(--border);
-  transition: background-color var(--transition);
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1), background-color var(--transition);
 }
+
+.reveal.active .ledger-entry,
+.ledger-entry.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal.active .ledger-entry:nth-child(1), .ledger-entry:nth-child(1).active { transition-delay: 0.06s; }
+.reveal.active .ledger-entry:nth-child(2), .ledger-entry:nth-child(2).active { transition-delay: 0.14s; }
+.reveal.active .ledger-entry:nth-child(3), .ledger-entry:nth-child(3).active { transition-delay: 0.22s; }
+.reveal.active .ledger-entry:nth-child(4), .ledger-entry:nth-child(4).active { transition-delay: 0.30s; }
+.reveal.active .ledger-entry:nth-child(5), .ledger-entry:nth-child(5).active { transition-delay: 0.38s; }
+.reveal.active .ledger-entry:nth-child(6), .ledger-entry:nth-child(6).active { transition-delay: 0.46s; }
 
 .ledger-entry:hover {
   background: var(--bg-surface);

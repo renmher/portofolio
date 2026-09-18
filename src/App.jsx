@@ -126,9 +126,9 @@ const App = () => {
           entry.target.classList.add('active');
         }
       });
-    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
 
-    document.querySelectorAll('.reveal, .card, .timeline-item, .project-showcase-card, .arch-node-card').forEach(el => observer.observe(el));
+    document.querySelectorAll('.reveal, .card, .ledger-entry, .project-showcase-card, .flagship-case-study, .workbench-shell, .cert-card').forEach(el => observer.observe(el));
     return () => observer.disconnect();
   }, [lang]);
 
