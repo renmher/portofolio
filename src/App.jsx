@@ -314,154 +314,71 @@ const App = () => {
             <p>{curr["about-subtitle"]}</p>
           </div>
 
-          <div className="about-narrative-card card mb-8">
-            <div className="narrative-content">
-              <p className="mb-4">{curr["about-narrative-p1"]}</p>
-              <p>{curr["about-narrative-p2"]}</p>
+          <div className="editorial-about-split mb-12">
+            <div className="editorial-narrative-main">
+              <span className="section-category-tag mb-4 d-inline-block">// EXECUTIVE PROFILE</span>
+              <p className="narrative-lead mb-4">{curr["about-narrative-p1"]}</p>
             </div>
-          </div>
-
-          <div className="brand-mapping-section mb-12">
-            <h3 className="mb-4 text-center" dangerouslySetInnerHTML={{ __html: curr["brand-title"] }} />
-            <p className="text-muted text-center mb-8">{curr["brand-subtitle"]}</p>
-            <div className="brand-mapping-grid grid mb-8">
-              <div className="card brand-map-card brand-map-featured">
-                <div className="brand-map-icon"><i className="fa-solid fa-crosshairs"></i></div>
-                <h4>{curr["brand-role-label"]}</h4>
-                <p className="text-muted">{curr["brand-role-val"]}</p>
-              </div>
-              <div className="card brand-map-card">
-                <div className="brand-map-icon"><i className="fa-solid fa-code"></i></div>
-                <h4>{curr["brand-skills-label"]}</h4>
-                <p className="text-muted">{curr["brand-skills-val"]}</p>
-              </div>
-              <div className="card brand-map-card">
-                <div className="brand-map-icon"><i className="fa-solid fa-gauge-high"></i></div>
-                <h4>{curr["brand-strength-label"]}</h4>
-                <p className="text-muted">{curr["brand-strength-val"]}</p>
-              </div>
-              <div className="card brand-map-card">
-                <div className="brand-map-icon"><i className="fa-solid fa-compass"></i></div>
-                <h4>{curr["brand-interest-label"]}</h4>
-                <p className="text-muted">{curr["brand-interest-val"]}</p>
+            <div className="editorial-narrative-side">
+              <p className="narrative-sub mb-6">{curr["about-narrative-p2"]}</p>
+              <div className="editorial-meta-list">
+                <div className="editorial-meta-row">
+                  <span className="meta-label">DEGREE</span>
+                  <span className="meta-val">S.Kom — Universitas Bani Saleh</span>
+                </div>
+                <div className="editorial-meta-row">
+                  <span className="meta-label">TARGET ROLE</span>
+                  <span className="meta-val">DevOps & Cloud Engineer</span>
+                </div>
+                <div className="editorial-meta-row">
+                  <span className="meta-label">LOCATION</span>
+                  <span className="meta-val">Bekasi, ID (Ready for Hybrid/Remote)</span>
+                </div>
               </div>
             </div>
           </div>
 
-          <div className="skills-categories-section mb-12">
-            <div className="section-title">
-              <h3 dangerouslySetInnerHTML={{ __html: curr["skills-title"] }} />
-              <p>{curr["skills-subtitle"]}</p>
+          <div className="competency-ledger mb-12">
+            <div className="competency-col">
+              <span className="competency-num">01</span>
+              <h4>{curr["skills-cat-hard"]}</h4>
+              <p>{curr["skills-val-hard"]}</p>
             </div>
-            <div className="skills-categories-grid grid">
-              <div className="card skills-cat-card">
-                <h4 className="skills-cat-title"><i className="fa-solid fa-server"></i> {curr["skills-cat-hard"]}</h4>
-                <p className="skills-cat-text">{curr["skills-val-hard"]}</p>
-              </div>
-              <div className="card skills-cat-card">
-                <h4 className="skills-cat-title"><i className="fa-solid fa-toolbox"></i> {curr["skills-cat-tools"]}</h4>
-                <p className="skills-cat-text">{curr["skills-val-tools"]}</p>
-              </div>
-              <div className="card skills-cat-card">
-                <h4 className="skills-cat-title"><i className="fa-solid fa-layer-group"></i> {curr["skills-cat-stack"]}</h4>
-                <p className="skills-cat-text">{curr["skills-val-stack"]}</p>
-              </div>
-              <div className="card skills-cat-card">
-                <h4 className="skills-cat-title"><i className="fa-solid fa-users"></i> {curr["skills-cat-soft"]}</h4>
-                <p className="skills-cat-text">{curr["skills-val-soft"]}</p>
-              </div>
+            <div className="competency-col">
+              <span className="competency-num">02</span>
+              <h4>{curr["skills-cat-tools"]}</h4>
+              <p>{curr["skills-val-tools"]}</p>
+            </div>
+            <div className="competency-col">
+              <span className="competency-num">03</span>
+              <h4>{curr["about-pillars-title"]}</h4>
+              <p>GCP, AWS, Docker, K8s, GitLab CI, Terraform, Grafana, VictoriaMetrics</p>
+            </div>
+            <div className="competency-col">
+              <span className="competency-num">04</span>
+              <h4>{curr["skills-cat-soft"]}</h4>
+              <p>{curr["skills-val-soft"]}</p>
             </div>
           </div>
 
-          <div className="grid">
-            <article className="card skills-card">
-              <h3 className="mb-4">{curr["about-card2-title"]}</h3>
-              <div className="skills-container">
-                {skillsList.map((skill, idx) => (
-                  <div key={idx} className="skill-tag-wrapper">
-                    <span className="skill-tag">
-                      <i className={skill.icon}></i> {skill.name}
-                    </span>
-                    <div className="skill-tooltip">
-                      <div className="tooltip-header">
-                        <i className={skill.icon}></i>
-                        <strong>{skill.name}</strong>
-                      </div>
-                      <p className="tooltip-desc">{skill.desc[lang]}</p>
+          <div className="skills-tape-container">
+            <h4 className="font-mono text-sm uppercase tracking-wider text-muted mb-4">// VERIFIED TECH STACK</h4>
+            <div className="skills-container">
+              {skillsList.map((skill, idx) => (
+                <div key={idx} className="skill-tag-wrapper">
+                  <span className="skill-tag">
+                    <i className={skill.icon}></i> {skill.name}
+                  </span>
+                  <div className="skill-tooltip">
+                    <div className="tooltip-header">
+                      <i className={skill.icon}></i>
+                      <strong>{skill.name}</strong>
                     </div>
+                    <p className="tooltip-desc">{skill.desc[lang]}</p>
                   </div>
-                ))}
-              </div>
-            </article>
-
-            <article className="card">
-              <h3>{curr["about-pillars-title"]}</h3>
-              <p className="text-muted mb-3">{curr["about-pillars-desc"]}</p>
-              <div className="about-info-list">
-                <div className="about-info-item">
-                  <i className="fa-solid fa-code"></i>
-                  <span><strong>IaC:</strong> Terraform, Ansible</span>
                 </div>
-                <div className="about-info-item">
-                  <i className="fa-solid fa-repeat"></i>
-                  <span><strong>CI/CD:</strong> GitLab CI, GitHub Actions</span>
-                </div>
-                <div className="about-info-item">
-                  <i className="fa-solid fa-cubes"></i>
-                  <span><strong>Cloud:</strong> GCP, AWS, Docker, K8s</span>
-                </div>
-                <div className="about-info-item">
-                  <i className="fa-solid fa-chart-line"></i>
-                  <span><strong>Observability:</strong> Grafana, VictoriaMetrics</span>
-                </div>
-              </div>
-            </article>
-
-            <article className="card">
-              <h3>{curr["about-methods-title"]}</h3>
-              <p className="text-muted mb-3">{curr["about-methods-desc"]}</p>
-              <div className="about-info-list">
-                <div className="about-info-item">
-                  <i className="fa-solid fa-shield-halved"></i>
-                  <span>{lang === 'id' ? 'Keamanan: Security scanning di pipeline' : 'Security-First: Scanning in pipeline'}</span>
-                </div>
-                <div className="about-info-item">
-                  <i className="fa-solid fa-sliders"></i>
-                  <span>{lang === 'id' ? 'Otomatisasi: Mengurangi error manual' : 'Automation: Minimizing manual errors'}</span>
-                </div>
-                <div className="about-info-item">
-                  <i className="fa-solid fa-magnifying-glass-chart"></i>
-                  <span>{lang === 'id' ? 'Observability: Monitoring proaktif 24/7' : 'Observability: Proactive 24/7 monitoring'}</span>
-                </div>
-                <div className="about-info-item">
-                  <i className="fa-solid fa-network-wired"></i>
-                  <span>{lang === 'id' ? 'Skalabilitas: Desain sistem handal' : 'Scalability: Resilient architecture'}</span>
-                </div>
-              </div>
-            </article>
-
-            <article className="card">
-              <h3>{curr["about-edu-title"]}</h3>
-              <p className="text-muted mb-3">{curr["about-edu-desc"]}</p>
-              <div className="about-info-list">
-                <div className="about-info-item">
-                  <i className="fa-solid fa-graduation-cap"></i>
-                  <span><strong>S.Kom:</strong> Universitas Bani Saleh</span>
-                </div>
-                <div className="about-info-item">
-                  <i className="fa-solid fa-bullseye"></i>
-                  <span>{lang === 'id' ? 'Fokus: Infrastruktur & Jaringan' : 'Focus: Infrastructure & Network'}</span>
-                </div>
-                <div className="about-info-item">
-                  <i className="fa-solid fa-house-laptop"></i>
-                  <span>{lang === 'id' ? 'Siap Kerja: On-site / Hybrid / Remote' : 'Work Mode: On-site / Hybrid / Remote'}</span>
-                </div>
-                <div className="about-info-item">
-                  <i className="fa-solid fa-location-dot"></i>
-                  <span>{lang === 'id' ? 'Domisili: Bekasi, Indonesia' : 'Location: Bekasi, Indonesia'}</span>
-                </div>
-              </div>
-            </article>
+              ))}
+            </div>
           </div>
         </section>
 
@@ -471,8 +388,135 @@ const App = () => {
             <p>{curr["proj-section-subtitle"]}</p>
           </div>
 
-          <div className="projects-list-container">
-            {projectsList.map((project) => {
+          {/* FLAGSHIP CASE STUDY: CORE BANKING SYARIAH */}
+          {(() => {
+            const flagship = projectsList.find(p => p.id === 3);
+            if (!flagship) return null;
+            const activeTab = projectTabs[flagship.id] || 'overview';
+            return (
+              <div className="flagship-case-study mb-16">
+                <div className="flagship-badge-bar">
+                  <span className="flagship-live-badge">
+                    <span className="dot pulse"></span>
+                    <span>LIVE INGRESS: portal-admin-prod-renaldy-imran-cbs.apps.k3s.cbu</span>
+                  </span>
+                  <span className="flagship-tag-pill">FLAGSHIP CASE STUDY</span>
+                </div>
+
+                <div className="flagship-grid">
+                  <div className="flagship-visual-col">
+                    <div className="flagship-img-frame">
+                      <img src={flagship.image} alt={curr[flagship.nameKey]} />
+                    </div>
+                    <div className="flagship-tools-list">
+                      {flagship.tools.map((t, idx) => (
+                        <span key={idx} className="project-tool-tag">{t}</span>
+                      ))}
+                    </div>
+                    <div className="flagship-action-bar">
+                      <a 
+                        href="/projects/cbs-presentation.pdf" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="btn btn-primary"
+                      >
+                        <i className="fa-solid fa-file-pdf"></i> <span>{lang === 'id' ? 'Buka Slide Presentasi (PDF)' : 'View Slide Deck (PDF)'}</span>
+                      </a>
+                      <a 
+                        href={flagship.repoUrl} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="btn btn-secondary"
+                      >
+                        <i className="fa-brands fa-gitlab"></i> <span>{lang === 'id' ? 'GitLab Shared Pipeline' : 'GitLab Shared Templates'}</span>
+                      </a>
+                      <a 
+                        href="#simulators" 
+                        onClick={(e) => { e.preventDefault(); setActiveSimulatorTab('gitops'); document.getElementById('simulators')?.scrollIntoView({ behavior: 'smooth' }); }}
+                        className="btn btn-secondary"
+                      >
+                        <i className="fa-solid fa-cloud"></i> <span>{lang === 'id' ? 'Coba Simulator GitOps' : 'Try GitOps Sim'}</span>
+                      </a>
+                    </div>
+                  </div>
+
+                  <div className="flagship-info-col">
+                    <h3 className="flagship-title">{curr[flagship.nameKey]}</h3>
+                    <div className="project-story-tabs">
+                      {['overview', 'problem', 'solution', 'impact', 'architecture'].map((tab) => (
+                        <button
+                          key={tab}
+                          className={`project-story-tab-btn ${activeTab === tab ? 'active' : ''}`}
+                          onClick={() => handleProjectTabChange(flagship.id, tab)}
+                        >
+                          {tab === 'overview' && curr["proj-tab-overview"]}
+                          {tab === 'problem' && curr["proj-tab-problem"]}
+                          {tab === 'solution' && curr["proj-tab-solution"]}
+                          {tab === 'impact' && curr["proj-tab-impact"]}
+                          {tab === 'architecture' && curr["proj-tab-arch"]}
+                        </button>
+                      ))}
+                    </div>
+
+                    <div className="project-story-content">
+                      {activeTab === 'overview' && (
+                        <div>
+                          <p className="project-story-heading">{curr["proj-tab-overview"]}:</p>
+                          <p>{curr[flagship.overviewKey]}</p>
+                        </div>
+                      )}
+                      {activeTab === 'problem' && (
+                        <div>
+                          <p className="project-story-heading problem">Challenge / Problem:</p>
+                          <p>{curr[flagship.problemKey]}</p>
+                        </div>
+                      )}
+                      {activeTab === 'solution' && (
+                        <div>
+                          <p className="project-story-heading solution">Solution & Process:</p>
+                          <p className="mb-2"><strong>Role:</strong> {curr[flagship.roleKey]}</p>
+                          <p>{curr[flagship.solutionKey]}</p>
+                        </div>
+                      )}
+                      {activeTab === 'impact' && (
+                        <div>
+                          <p className="project-story-heading impact">Result & Impact:</p>
+                          <p>{curr[flagship.impactKey]}</p>
+                        </div>
+                      )}
+                      {activeTab === 'architecture' && (
+                        <div className="project-architecture-flow">
+                          <p className="project-story-heading arch">
+                            <i className="fa-solid fa-diagram-project"></i> Multi-Namespace Delivery Flow:
+                          </p>
+                          <div className="arch-flow-grid">
+                            {flagship.architectureFlow?.map((node, i) => (
+                              <div key={i} className="arch-node-card">
+                                <div className="arch-node-header">
+                                  <span className="arch-step-badge">{node.step}</span>
+                                  <i className={`arch-node-icon ${node.icon}`}></i>
+                                </div>
+                                <h4 className="arch-node-title">{node.title}</h4>
+                                <p className="arch-node-detail">{node.detail}</p>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          })()}
+
+          {/* SECONDARY SYSTEMS: PROJECT 1 & 2 */}
+          <div className="section-subheading-bar mb-6">
+            <h4 className="font-mono text-sm uppercase tracking-wider text-muted">// 02. CORE INFRASTRUCTURE & OBSERVABILITY</h4>
+          </div>
+
+          <div className="supporting-systems-grid">
+            {projectsList.filter(p => p.id !== 3).map((project) => {
               const activeTab = projectTabs[project.id] || 'overview';
               return (
                 <article key={project.id} className="card project-showcase-card">
@@ -483,9 +527,7 @@ const App = () => {
                       </div>
                       <div className="project-showcase-tools">
                         {project.tools.map((tool, index) => (
-                          <span key={index} className="project-tool-tag">
-                            {tool}
-                          </span>
+                          <span key={index} className="project-tool-tag">{tool}</span>
                         ))}
                       </div>
                     </div>
@@ -493,7 +535,6 @@ const App = () => {
                     <div className="project-showcase-details">
                       <div>
                         <h3 className="project-showcase-title">{curr[project.nameKey]}</h3>
-                        
                         <div className="project-story-tabs">
                           {['overview', 'problem', 'solution', 'impact', 'architecture'].map((tab) => (
                             <button
@@ -525,8 +566,8 @@ const App = () => {
                           )}
                           {activeTab === 'solution' && (
                             <div>
-                              <p className="project-story-heading solution">Solution & Process (Contribution):</p>
-                              <p className="mb-3"><strong>Role:</strong> {curr[project.roleKey]}</p>
+                              <p className="project-story-heading solution">Solution & Process:</p>
+                              <p className="mb-2"><strong>Role:</strong> {curr[project.roleKey]}</p>
                               <p>{curr[project.solutionKey]}</p>
                             </div>
                           )}
@@ -561,7 +602,7 @@ const App = () => {
                           {project.id === 1 && (
                             <a 
                               href="#simulators" 
-                              onClick={() => setActiveSimulatorTab('pipeline')}
+                              onClick={(e) => { e.preventDefault(); setActiveSimulatorTab('pipeline'); document.getElementById('simulators')?.scrollIntoView({ behavior: 'smooth' }); }}
                               className="project-action-link"
                             >
                               <i className="fa-solid fa-terminal"></i> {lang === 'id' ? 'Coba Simulator Pipeline' : 'Try Pipeline Simulator'}
@@ -570,30 +611,11 @@ const App = () => {
                           {project.id === 2 && (
                             <a 
                               href="#simulators" 
-                              onClick={() => setActiveSimulatorTab('monitoring')}
+                              onClick={(e) => { e.preventDefault(); setActiveSimulatorTab('monitoring'); document.getElementById('simulators')?.scrollIntoView({ behavior: 'smooth' }); }}
                               className="project-action-link"
                             >
                               <i className="fa-solid fa-chart-line"></i> {lang === 'id' ? 'Coba Simulator Monitoring' : 'Try Monitoring Simulator'}
                             </a>
-                          )}
-                          {project.id === 3 && (
-                            <>
-                              <a 
-                                href="#simulators" 
-                                onClick={() => setActiveSimulatorTab('gitops')}
-                                className="project-action-link"
-                              >
-                                <i className="fa-solid fa-cloud"></i> {lang === 'id' ? 'Coba Simulator GitOps' : 'Try GitOps Simulator'}
-                              </a>
-                              <a 
-                                href="/projects/cbs-presentation.pdf" 
-                                target="_blank" 
-                                rel="noopener noreferrer"
-                                className="project-action-link"
-                              >
-                                <i className="fa-solid fa-file-pdf"></i> {lang === 'id' ? 'Lihat Slide Presentasi (PDF)' : 'View Slide Presentation (PDF)'}
-                              </a>
-                            </>
                           )}
                           {project.repoUrl && (
                             <a 
@@ -681,18 +703,20 @@ const App = () => {
             <p>{curr["exp-subtitle"]}</p>
           </div>
 
-          <div className="timeline-container">
-            <div className="timeline-line"></div>
-
+          <div className="career-ledger">
             {experiencesData.map((exp) => (
-              <article key={exp.id} className="card timeline-item">
-                <div className="timeline-badge"><i className={exp.icon}></i></div>
-                <div className="timeline-date">
-                  {exp.dateText[lang]} ({getDurationText(exp, lang)})
+              <article key={exp.id} className="ledger-entry">
+                <div className="ledger-meta-col">
+                  <span className="ledger-period">{exp.dateText[lang]}</span>
+                  <span className="ledger-duration">{getDurationText(exp, lang)}</span>
+                  {exp.type && <span className="ledger-type-pill">{exp.type[lang]}</span>}
                 </div>
-                <div className="timeline-content">
-                  <h3>{curr[exp.titleKey]}</h3>
-                  <div className="timeline-desc" dangerouslySetInnerHTML={{ __html: curr[exp.descKey] }} />
+                <div className="ledger-body-col">
+                  <div className="ledger-title-bar">
+                    <i className={`ledger-icon ${exp.icon}`}></i>
+                    <h3 className="ledger-role-title">{curr[exp.titleKey]}</h3>
+                  </div>
+                  <div className="ledger-details" dangerouslySetInnerHTML={{ __html: curr[exp.descKey] }} />
                 </div>
               </article>
             ))}
