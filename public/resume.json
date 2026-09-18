@@ -1,0 +1,66 @@
+{
+  "name": "Renaldy Imran Hermawan, S.Kom",
+  "title": "Junior DevOps & Cloud Engineer",
+  "location": "Bekasi, Indonesia",
+  "status": "Available for DevOps / Cloud / SRE Roles",
+  "contact": {
+    "email": "renaldyimran@gmail.com",
+    "whatsapp": "+62 878-7248-1308",
+    "linkedin": "https://linkedin.com/in/renaldyimran",
+    "github": "https://github.com/renmher",
+    "portfolio": "https://justinbony.my.id"
+  },
+  "core_competencies": [
+    "Continuous Integration & Delivery (GitLab CI, GitHub Actions)",
+    "Container Orchestration (Kubernetes K3s, Docker, Kustomize GitOps)",
+    "DevSecOps (SonarQube SAST, Trivy CVE Scanning, Harbor Registry)",
+    "Observability & SRE (VictoriaMetrics, Grafana, Prometheus, Telegram Alerts)",
+    "Cloud Platforms (Google Cloud Platform, AWS, Linux OS Administration)",
+    "Network Infrastructure (MikroTik MTCNA, TCP/IP, DNS routing)"
+  ],
+  "flagship_projects": [
+    {
+      "name": "Core Banking Syariah (CBS) GitOps & Centralized CI/CD",
+      "architecture": "GitLab CI shared templates, Kustomize overlays, K3s Kubernetes rollout",
+      "impact": "100% pipeline duplication eliminated, verified production ingress delivery",
+      "gitlab_repo": "https://gitlab.com/tutorial-ci-dibimbing/renaldy-imran-cbs-final-projek/general-pipeline",
+      "live_ingress": "http://portal-admin-prod-renaldy-imran-cbs.apps.k3s.cbu"
+    },
+    {
+      "name": "Secure CI/CD Pipeline Automation",
+      "stack": "GitLab CI, Docker, Harbor, SonarQube, Trivy",
+      "impact": "Release cycle reduced from 2 hours to 8 minutes (93% efficiency)"
+    },
+    {
+      "name": "High-Performance Observability Stack",
+      "stack": "VictoriaMetrics, VictoriaLogs, Node Exporter, Grafana, Telegram API",
+      "impact": "Incident MTTD reduced from 45 minutes to <2 minutes (95% detection speedup)"
+    }
+  ],
+  "certifications": [
+    "MikroTik Certified Network Associate (MTCNA) - 2024",
+    "Junior Network Administrator (BNSP) - 2023",
+    "Junior Web Developer (BNSP) - 2022",
+    "AWS re/Start Cloud Computing - 2025",
+    "Bootcamp Cloud Engineer (Digital Skola) - 2023",
+    "Frontend Engineering (Kampus Merdeka Ruang Guru) - 2024",
+    "DevOps Engineer Bootcamp (dibimbing.id) - 2026"
+  ],
+  "experience": [
+    {
+      "company": "PT. Indostorage Solusi Teknologi",
+      "role": "DevOps Engineer",
+      "period": "Feb 2026 - Present"
+    },
+    {
+      "company": "PT. Data Labs Analytics",
+      "role": "L1 Cloud Engineer Support (GCP)",
+      "period": "Jan 2025 - Jan 2026"
+    },
+    {
+      "company": "PT. Adyatma Cendekia Sinergi Abadi (ACSA)",
+      "role": "IT Network Operation Center Staff",
+      "period": "Oct 2023 - Sep 2024"
+    }
+  ]
+}

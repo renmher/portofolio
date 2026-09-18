@@ -20,6 +20,8 @@ const App = () => {
   const [isPipelineLinked, setIsPipelineLinked] = useState(false);
   const [gitopsDeployedVersion, setGitopsDeployedVersion] = useState(null);
   const [activeSimulatorTab, setActiveSimulatorTab] = useState('pipeline');
+  const [curlCopied, setCurlCopied] = useState(false);
+  const [activeTechFilter, setActiveTechFilter] = useState(null);
 
   const curr = translations[lang] || translations.id;
 
@@ -413,22 +415,39 @@ const App = () => {
           </div>
 
           <div className="skills-tape-container">
-            <h4 className="font-mono text-sm uppercase tracking-wider text-muted mb-4">// VERIFIED TECH STACK</h4>
+            <div className="skills-tape-header mb-4">
+              <h4 className="font-mono text-sm uppercase tracking-wider text-muted">// VERIFIED TECH STACK (CLICK TO FILTER PROJECTS)</h4>
+              {activeTechFilter && (
+                <button 
+                  className="btn-clear-filter" 
+                  onClick={() => setActiveTechFilter(null)}
+                >
+                  <i className="fa-solid fa-xmark"></i> {lang === 'id' ? `Hapus Filter (${activeTechFilter})` : `Clear Filter (${activeTechFilter})`}
+                </button>
+              )}
+            </div>
             <div className="skills-container">
-              {skillsList.map((skill, idx) => (
-                <div key={idx} className="skill-tag-wrapper">
-                  <span className="skill-tag">
-                    <i className={skill.icon}></i> {skill.name}
-                  </span>
-                  <div className="skill-tooltip">
-                    <div className="tooltip-header">
-                      <i className={skill.icon}></i>
-                      <strong>{skill.name}</strong>
+              {skillsList.map((skill, idx) => {
+                const isSelected = activeTechFilter === skill.name;
+                return (
+                  <div key={idx} className="skill-tag-wrapper">
+                    <button 
+                      className={`skill-tag filterable ${isSelected ? 'active-filter' : ''}`}
+                      onClick={() => setActiveTechFilter(prev => prev === skill.name ? null : skill.name)}
+                      title={`Filter projects by ${skill.name}`}
+                    >
+                      <i className={skill.icon}></i> {skill.name}
+                    </button>
+                    <div className="skill-tooltip">
+                      <div className="tooltip-header">
+                        <i className={skill.icon}></i>
+                        <strong>{skill.name}</strong>
+                      </div>
+                      <p className="tooltip-desc">{skill.desc[lang]}</p>
                     </div>
-                    <p className="tooltip-desc">{skill.desc[lang]}</p>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </section>
@@ -618,7 +637,7 @@ kubectl rollout restart deployment/"\${APP_NAME}" -n "\${NAMESPACE}"`}</code>
                       <div>
                         <h3 className="project-showcase-title">{curr[project.nameKey]}</h3>
                         <div className="project-story-tabs">
-                          {['overview', 'problem', 'solution', 'impact', 'architecture'].map((tab) => (
+                          {['overview', 'problem', 'solution', 'impact', 'architecture', ...(project.id === 1 ? ['code'] : [])].map((tab) => (
                             <button
                               key={tab}
                               className={`project-story-tab-btn ${activeTab === tab ? 'active' : ''}`}
@@ -629,6 +648,7 @@ kubectl rollout restart deployment/"\${APP_NAME}" -n "\${NAMESPACE}"`}</code>
                               {tab === 'solution' && curr["proj-tab-solution"]}
                               {tab === 'impact' && curr["proj-tab-impact"]}
                               {tab === 'architecture' && curr["proj-tab-arch"]}
+                              {tab === 'code' && (lang === 'id' ? 'Pipeline CI' : '.gitlab-ci.yml')}
                             </button>
                           ))}
                         </div>
@@ -676,6 +696,44 @@ kubectl rollout restart deployment/"\${APP_NAME}" -n "\${NAMESPACE}"`}</code>
                                   </div>
                                 ))}
                               </div>
+                            </div>
+                          )}
+                          {activeTab === 'code' && project.id === 1 && (
+                            <div className="project-code-viewer">
+                              <div className="code-viewer-header">
+                                <span className="code-viewer-file"><i className="fa-solid fa-code"></i> .gitlab-ci.yml (Multi-Stage DevSecOps Pipeline)</span>
+                                <span className="code-viewer-lang font-mono text-muted text-xs">YAML</span>
+                              </div>
+                              <pre className="code-viewer-body">
+                                <code>{`stages:
+  - test
+  - security-scan
+  - build-push
+  - deploy
+
+# 1. SAST Quality Gate
+sonarqube-check:
+  stage: security-scan
+  image: sonarsource/sonar-scanner-cli:latest
+  script:
+    - sonar-scanner -Dsonar.projectKey=\${CI_PROJECT_NAME} -Dsonar.qualitygate.wait=true
+
+# 2. Container Image CVE Scan
+trivy-scan:
+  stage: security-scan
+  image: docker:stable
+  services: [docker:dind]
+  script:
+    - docker build -t \${CI_REGISTRY_IMAGE}:\${CI_COMMIT_SHORT_SHA} .
+    - trivy image --exit-code 1 --severity CRITICAL \${CI_REGISTRY_IMAGE}:\${CI_COMMIT_SHORT_SHA}
+
+# 3. Secure Push to Harbor
+push-image:
+  stage: build-push
+  script:
+    - docker login -u \${HARBOR_USER} -p \${HARBOR_PASSWORD} \${HARBOR_HOST}
+    - docker push \${HARBOR_HOST}/cbs/\${APP_NAME}:\${CI_COMMIT_SHORT_SHA}`}</code>
+                              </pre>
                             </div>
                           )}
                         </div>
@@ -808,7 +866,31 @@ kubectl rollout restart deployment/"\${APP_NAME}" -n "\${NAMESPACE}"`}</code>
         <section id="contact" className="reveal">
           <div className="contact-banner">
             <h2>{curr["contact-title"]}</h2>
-            <p className="mb-4">{curr["contact-desc"]}</p>
+            <p className="mb-6">{curr["contact-desc"]}</p>
+
+            {/* Terminal CLI Resume Box */}
+            <div className="terminal-cli-resume-box mb-8">
+              <div className="cli-box-header">
+                <span className="dot pulse"></span>
+                <span className="cli-box-title">CLI RESUME ENDPOINT (CURL RAW JSON)</span>
+              </div>
+              <div className="cli-box-body">
+                <code>$ curl -s https://justinbony.my.id/resume.json</code>
+                <button 
+                  className="btn-cli-copy" 
+                  onClick={() => {
+                    navigator.clipboard.writeText('curl -s https://justinbony.my.id/resume.json');
+                    setCurlCopied(true);
+                    setTimeout(() => setCurlCopied(false), 2000);
+                  }}
+                  title="Copy curl command"
+                >
+                  <i className={`fa-solid ${curlCopied ? 'fa-check' : 'fa-copy'}`}></i>
+                  <span>{curlCopied ? (lang === 'id' ? 'Tersalin!' : 'Copied!') : (lang === 'id' ? 'Salin Perintah' : 'Copy Command')}</span>
+                </button>
+              </div>
+            </div>
+
             <div className="contact-grid">
               <button id="copy-email" className="btn btn-primary" onClick={handleCopyEmail}>
                 {emailCopied ? (
@@ -837,6 +919,10 @@ kubectl rollout restart deployment/"\${APP_NAME}" -n "\${NAMESPACE}"`}</code>
 
       <footer>
         <div className="container footer-content">
+          <div className="footer-status-bar mb-4">
+            <span className="dot pulse"></span>
+            <span className="font-mono text-xs">GITHUB STATUS: <a href="https://github.com/renmher" target="_blank" rel="noopener noreferrer">@renmher</a> • ACTIVE PUSHES RECORDED</span>
+          </div>
           <p>&copy; {new Date().getFullYear()} Renaldy Imran Hermawan. {curr["footer-rights"]}</p>
         </div>
       </footer>
