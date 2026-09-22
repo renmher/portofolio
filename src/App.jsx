@@ -637,7 +637,7 @@ kubectl rollout restart deployment/"\${APP_NAME}" -n "\${NAMESPACE}"`}</code>
                       <div>
                         <h3 className="project-showcase-title">{curr[project.nameKey]}</h3>
                         <div className="project-story-tabs">
-                          {['overview', 'problem', 'solution', 'impact', 'architecture', ...(project.id === 1 ? ['code'] : [])].map((tab) => (
+                          {['overview', 'problem', 'solution', 'impact', 'architecture', 'code'].map((tab) => (
                             <button
                               key={tab}
                               className={`project-story-tab-btn ${activeTab === tab ? 'active' : ''}`}
@@ -648,7 +648,7 @@ kubectl rollout restart deployment/"\${APP_NAME}" -n "\${NAMESPACE}"`}</code>
                               {tab === 'solution' && curr["proj-tab-solution"]}
                               {tab === 'impact' && curr["proj-tab-impact"]}
                               {tab === 'architecture' && curr["proj-tab-arch"]}
-                              {tab === 'code' && (lang === 'id' ? 'Pipeline CI' : '.gitlab-ci.yml')}
+                              {tab === 'code' && (project.id === 1 ? (lang === 'id' ? 'Pipeline CI' : '.gitlab-ci.yml') : (lang === 'id' ? 'Alert Rules' : 'alerts.yml'))}
                             </button>
                           ))}
                         </div>
@@ -733,6 +733,49 @@ push-image:
   script:
     - docker login -u \${HARBOR_USER} -p \${HARBOR_PASSWORD} \${HARBOR_HOST}
     - docker push \${HARBOR_HOST}/cbs/\${APP_NAME}:\${CI_COMMIT_SHORT_SHA}`}</code>
+                              </pre>
+                            </div>
+                          )}
+                          {activeTab === 'code' && project.id === 2 && (
+                            <div className="project-code-viewer">
+                              <div className="code-viewer-header">
+                                <span className="code-viewer-file"><i className="fa-solid fa-bell"></i> alert-rules.yml (VictoriaMetrics & Telegram Alerting)</span>
+                                <span className="code-viewer-lang font-mono text-muted text-xs">PromQL / YAML</span>
+                              </div>
+                              <pre className="code-viewer-body">
+                                <code>{`groups:
+  - name: production-infrastructure-alerts
+    rules:
+      # 1. High CPU Utilization Threshold
+      - alert: HostHighCpuLoad
+        expr: 100 - (avg by(instance) (rate(node_cpu_seconds_total{mode="idle"}[2m])) * 100) > 85
+        for: 2m
+        labels:
+          severity: critical
+          cluster: production-k3s
+        annotations:
+          summary: "Host CPU load exceeds 85% on {{ $labels.instance }}"
+          description: "CPU load is {{ $value | printf '%.1f' }}% for 2m. SRE Auto-mitigation triggered."
+
+      # 2. Host Memory Saturation
+      - alert: HostOutOfMemory
+        expr: (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes) * 100 < 15
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Host out of memory on {{ $labels.instance }}"
+
+      # 3. Microservice Pod CrashLoopBackOff
+      - alert: K8sPodCrashLooping
+        expr: rate(kube_pod_container_status_restarts_total[5m]) * 60 > 2
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Pod {{ $labels.pod }} is in CrashLoopBackOff"
+
+# Dispatch channel: Telegram Bot Webhook -> SRE On-Call Incident Channel`}</code>
                               </pre>
                             </div>
                           )}
