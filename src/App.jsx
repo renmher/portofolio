@@ -332,7 +332,7 @@ const App = () => {
 
           <div className="hero-image-wrapper">
             <div className="profile-architectural-frame">
-              <div className="frame-meta-tag">{"06°14'S 106°59'E // BEKASI, ID"}</div>
+              <div className="frame-meta-tag">BEKASI, INDONESIA</div>
               <div className="profile-img-circle">
                 <img src="/profile.png" alt="Renaldy Imran Hermawan" className="hero-profile-img" />
               </div>
