@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import Certifications from './components/Certifications';
 import PipelineSimulator from './components/PipelineSimulator';
 import GitOpsSimulator from './components/GitOpsSimulator';
@@ -332,7 +332,7 @@ const App = () => {
 
           <div className="hero-image-wrapper">
             <div className="profile-architectural-frame">
-              <div className="frame-meta-tag">06°14'S 106°59'E // BEKASI, ID</div>
+              <div className="frame-meta-tag">{"06°14'S 106°59'E // BEKASI, ID"}</div>
               <div className="profile-img-circle">
                 <img src="/profile.png" alt="Renaldy Imran Hermawan" className="hero-profile-img" />
               </div>
@@ -392,7 +392,7 @@ const App = () => {
 
           <div className="editorial-about-split mb-12">
             <div className="editorial-narrative-main">
-              <span className="section-category-tag mb-4 d-inline-block">// EXECUTIVE PROFILE</span>
+              <span className="section-category-tag mb-4 d-inline-block">{"// EXECUTIVE PROFILE"}</span>
               <p className="narrative-lead mb-4">{curr["about-narrative-p1"]}</p>
             </div>
             <div className="editorial-narrative-side">
@@ -439,7 +439,7 @@ const App = () => {
 
           <div className="skills-tape-container">
             <div className="skills-tape-header mb-4">
-              <h4 className="font-mono text-sm uppercase tracking-wider text-muted">// VERIFIED TECH STACK (CLICK TO FILTER PROJECTS)</h4>
+              <h4 className="font-mono text-sm uppercase tracking-wider text-muted">{"// VERIFIED TECH STACK (CLICK TO FILTER PROJECTS)"}</h4>
               {activeTechFilter && (
                 <button 
                   className="btn-clear-filter" 
