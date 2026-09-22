@@ -9,6 +9,14 @@ import { experiencesData, getDurationText } from './data/experiences';
 import { translations } from './data/translations';
 import { projectsList } from './data/projects';
 
+// Typing effect ala Tomasz Gajda / modern portfolio
+const typingTexts = [
+  'Junior DevOps Engineer',
+  'Cloud Infrastructure Specialist',
+  'Kubernetes & GitOps Practitioner',
+  'Observability & SRE Lead'
+];
+
 const App = () => {
   const [lang, setLang] = useState(() => localStorage.getItem('lang') || 'id');
   const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'light');
@@ -23,6 +31,38 @@ const App = () => {
   const [isPipelineLinked, setIsPipelineLinked] = useState(false);
   const [gitopsDeployedVersion, setGitopsDeployedVersion] = useState(null);
   const [activeSimulatorTab, setActiveSimulatorTab] = useState('pipeline');
+
+  // Typing animation
+  const [textIndex, setTextIndex] = useState(0);
+  const [charIndex, setCharIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [displayText, setDisplayText] = useState('');
+
+  useEffect(() => {
+    const currentFullText = typingTexts[textIndex];
+    const typingSpeed = isDeleting ? 30 : 65;
+
+    const timeout = setTimeout(() => {
+      if (!isDeleting) {
+        setDisplayText(currentFullText.slice(0, charIndex + 1));
+        setCharIndex(prev => prev + 1);
+
+        if (charIndex + 1 === currentFullText.length) {
+          setTimeout(() => setIsDeleting(true), 2000);
+        }
+      } else {
+        setDisplayText(currentFullText.slice(0, charIndex - 1));
+        setCharIndex(prev => prev - 1);
+
+        if (charIndex - 1 === 0) {
+          setIsDeleting(false);
+          setTextIndex(prev => (prev + 1) % typingTexts.length);
+        }
+      }
+    }, typingSpeed);
+
+    return () => clearTimeout(timeout);
+  }, [charIndex, isDeleting, textIndex]);
 
   // Touch Swipe on Project Slider
   const projectTouchStartX = useRef(null);
@@ -102,7 +142,7 @@ const App = () => {
     document.body.setAttribute('data-theme', theme);
     const metaTheme = document.querySelector('meta[name="theme-color"]');
     if (metaTheme) {
-      metaTheme.setAttribute('content', theme === 'dark' ? '#101011' : '#ffffff');
+      metaTheme.setAttribute('content', theme === 'dark' ? '#0E0F12' : '#FBF9F5');
     }
     localStorage.setItem('theme', theme);
   }, [theme]);
@@ -121,7 +161,7 @@ const App = () => {
       let current = 'home';
       sections.forEach(section => {
         const sectionTop = section.offsetTop;
-        if (window.pageYOffset >= (sectionTop - 200)) {
+        if (window.pageYOffset >= (sectionTop - 180)) {
           current = section.getAttribute('id');
         }
       });
@@ -160,94 +200,41 @@ const App = () => {
   });
 
   return (
-    <div className="phipps-root">
-      {/* Scroll Progress Indicator */}
-      <div className="phipps-scroll-progress" style={{ width: `${scrollProgress}%` }} />
+    <div className="lux-root">
+      {/* Scroll Progress Bar */}
+      <div className="lux-scroll-progress" style={{ width: `${scrollProgress}%` }} />
 
       {/* ==============================================================
-          THIN TOP NAVIGATION (CHARLIE PHIPPS EDITORIAL SYSTEM)
+          NAVIGATION BAR (WARM LUXURY EDITORIAL + TOMASZ STRUCTURE)
           ============================================================== */}
-      <header className="phipps-header">
-        <div className="phipps-header-container">
-          <div className="phipps-header-brand">
-            <a href="#home" onClick={(e) => handleNavClick(e, 'home')} className="phipps-brand-link">
-              RENALDY IMRAN
-            </a>
-          </div>
+      <header className="lux-header">
+        <div className="lux-header-container">
+          <a href="#home" onClick={(e) => handleNavClick(e, 'home')} className="lux-brand">
+            <span className="lux-brand-badge">RI</span>
+            <span className="lux-brand-text">Renaldy Imran</span>
+          </a>
 
-          <nav className="phipps-header-nav" aria-label="Main Navigation">
-            <a 
-              href="#about" 
-              onClick={(e) => handleNavClick(e, 'about')} 
-              className={activeSection === 'about' ? 'active' : ''}
-            >
-              ABOUT
-            </a>
-            <a 
-              href="#skills" 
-              onClick={(e) => handleNavClick(e, 'skills')} 
-              className={activeSection === 'skills' ? 'active' : ''}
-            >
-              SKILLS
-            </a>
-            <a 
-              href="#portfolio" 
-              onClick={(e) => handleNavClick(e, 'portfolio')} 
-              className={activeSection === 'portfolio' ? 'active' : ''}
-            >
-              WORKS
-            </a>
-            <a 
-              href="#simulators" 
-              onClick={(e) => handleNavClick(e, 'simulators')} 
-              className={activeSection === 'simulators' ? 'active' : ''}
-            >
-              LAB
-            </a>
-            <a 
-              href="#certifications" 
-              onClick={(e) => handleNavClick(e, 'certifications')} 
-              className={activeSection === 'certifications' ? 'active' : ''}
-            >
-              {lang === 'id' ? 'SERTIFIKASI' : 'CERTS'}
-            </a>
-            <a 
-              href="#experience" 
-              onClick={(e) => handleNavClick(e, 'experience')} 
-              className={activeSection === 'experience' ? 'active' : ''}
-            >
-              {lang === 'id' ? 'KARIR' : 'CAREER'}
-            </a>
-            <a 
-              href="#contact" 
-              onClick={(e) => handleNavClick(e, 'contact')} 
-              className={activeSection === 'contact' ? 'active' : ''}
-            >
-              CONTACT
-            </a>
+          <nav className="lux-desktop-nav" aria-label="Main Navigation">
+            <a href="#about" onClick={(e) => handleNavClick(e, 'about')} className={activeSection === 'about' ? 'active' : ''}>About</a>
+            <a href="#skills" onClick={(e) => handleNavClick(e, 'skills')} className={activeSection === 'skills' ? 'active' : ''}>Skills</a>
+            <a href="#portfolio" onClick={(e) => handleNavClick(e, 'portfolio')} className={activeSection === 'portfolio' ? 'active' : ''}>Portfolio</a>
+            <a href="#simulators" onClick={(e) => handleNavClick(e, 'simulators')} className={activeSection === 'simulators' ? 'active' : ''}>Workbench</a>
+            <a href="#certifications" onClick={(e) => handleNavClick(e, 'certifications')} className={activeSection === 'certifications' ? 'active' : ''}>{lang === 'id' ? 'Sertifikasi' : 'Certs'}</a>
+            <a href="#experience" onClick={(e) => handleNavClick(e, 'experience')} className={activeSection === 'experience' ? 'active' : ''}>{lang === 'id' ? 'Karir' : 'Career'}</a>
+            <a href="#contact" onClick={(e) => handleNavClick(e, 'contact')} className="lux-nav-contact-link">Contact</a>
           </nav>
 
-          <div className="phipps-header-actions">
-            <button 
-              type="button" 
-              onClick={toggleLanguage} 
-              className="phipps-action-btn"
-              title="Switch Language"
-            >
+          <div className="lux-header-actions">
+            <button type="button" onClick={toggleLanguage} className="lux-action-btn" title="Ganti Bahasa">
               {lang === 'id' ? 'EN' : 'ID'}
             </button>
-            <button 
-              type="button" 
-              onClick={toggleTheme} 
-              className="phipps-action-btn"
-              title="Toggle Mode"
-            >
-              {theme === 'dark' ? 'LIGHT' : 'DARK'}
+            <button type="button" onClick={toggleTheme} className="lux-action-btn" title="Toggle Tema">
+              {theme === 'dark' ? <i className="fa-solid fa-sun"></i> : <i className="fa-solid fa-moon"></i>}
             </button>
             <a 
               href={lang === 'id' ? "/cv-renaldy-id.pdf" : "/cv-renaldy.pdf"} 
               download={lang === 'id' ? "CV-Renaldy-Imran-Hermawan-ID.pdf" : "CV-Renaldy-Imran-Hermawan.pdf"}
-              className="phipps-action-link"
+              className="lux-action-cta"
             >
               CV ↗
             </a>
@@ -255,116 +242,114 @@ const App = () => {
         </div>
       </header>
 
-      {/* Mobile Sticky Bar */}
-      <nav className="phipps-mobile-bar" aria-label="Mobile Navigation">
-        <a href="#home" onClick={(e) => handleNavClick(e, 'home')}>HOME</a>
-        <a href="#about" onClick={(e) => handleNavClick(e, 'about')}>ABOUT</a>
-        <a href="#skills" onClick={(e) => handleNavClick(e, 'skills')}>SKILLS</a>
-        <a href="#portfolio" onClick={(e) => handleNavClick(e, 'portfolio')}>WORKS</a>
-        <a href="#simulators" onClick={(e) => handleNavClick(e, 'simulators')}>LAB</a>
-        <a href="#contact" onClick={(e) => handleNavClick(e, 'contact')}>CONTACT</a>
+      {/* Mobile Bottom Bar */}
+      <nav className="lux-mobile-bar" aria-label="Mobile Navigation">
+        <a href="#home" onClick={(e) => handleNavClick(e, 'home')} className={activeSection === 'home' ? 'active' : ''}>
+          <i className="fa-solid fa-house"></i>
+          <span>Home</span>
+        </a>
+        <a href="#about" onClick={(e) => handleNavClick(e, 'about')} className={activeSection === 'about' ? 'active' : ''}>
+          <i className="fa-solid fa-user"></i>
+          <span>About</span>
+        </a>
+        <a href="#skills" onClick={(e) => handleNavClick(e, 'skills')} className={activeSection === 'skills' ? 'active' : ''}>
+          <i className="fa-solid fa-wrench"></i>
+          <span>Skills</span>
+        </a>
+        <a href="#portfolio" onClick={(e) => handleNavClick(e, 'portfolio')} className={activeSection === 'portfolio' ? 'active' : ''}>
+          <i className="fa-solid fa-diagram-project"></i>
+          <span>Works</span>
+        </a>
+        <a href="#simulators" onClick={(e) => handleNavClick(e, 'simulators')} className={activeSection === 'simulators' ? 'active' : ''}>
+          <i className="fa-solid fa-terminal"></i>
+          <span>Lab</span>
+        </a>
+        <a href="#contact" onClick={(e) => handleNavClick(e, 'contact')} className={activeSection === 'contact' ? 'active' : ''}>
+          <i className="fa-solid fa-envelope"></i>
+          <span>Contact</span>
+        </a>
       </nav>
 
       <main>
         {/* ==============================================================
-            FULL-BLEED HERO CANVAS (CHARLIE PHIPPS 162PX HELVETICA 400)
+            HERO SECTION: WARM LUXURY EDITORIAL + PROPORTIONAL HEADLINE
             ============================================================== */}
-        <section id="home" className="phipps-hero">
-          <div className="phipps-hero-canvas">
-            {/* Monumental display headline cropping the viewport */}
-            <div className="phipps-display-wrap">
-              <h1 className="phipps-display-headline">RENALDY IMRAN.</h1>
-            </div>
+        <section id="home" className="lux-hero">
+          <div className="lux-container lux-hero-grid">
+            <div className="lux-hero-left">
+              <span className="lux-eyebrow">HI, I AM</span>
+              <h1 className="lux-hero-name">Renaldy Imran</h1>
+              <h2 className="lux-hero-job">Junior DevOps & Cloud Engineer.</h2>
 
-            <div className="phipps-hero-body-grid">
-              <div className="phipps-hero-body-left">
-                <p className="phipps-hero-subheading">
-                  Junior DevOps & Cloud Engineer.
-                </p>
-                <p className="phipps-body-paragraph">
-                  {lang === 'id'
-                    ? "Merancang arsitektur cloud tangguh, otomatisasi siklus CI/CD pipeline dengan pemindaian keamanan statis, serta orkestrasi Kubernetes deklaratif untuk menjamin keandalan sistem skala produksi."
-                    : "Architecting resilient multi-environment cloud systems, automated CI/CD delivery pipelines with static security quality gates, and declarative Kubernetes orchestration for production reliability."}
-                </p>
-
-                <div className="phipps-status-row">
-                  <span className="phipps-status-indicator"></span>
-                  <span className="phipps-status-text">
-                    {lang === 'id' ? 'STATUS: SIAP KERJA (DEVOPS & SRE)' : 'STATUS: OPEN TO WORK (DEVOPS & SRE)'}
-                  </span>
-                </div>
-
-                <div className="phipps-hero-links">
-                  <a 
-                    href={lang === 'id' ? "/cv-renaldy-id.pdf" : "/cv-renaldy.pdf"} 
-                    download={lang === 'id' ? "CV-Renaldy-Imran-Hermawan-ID.pdf" : "CV-Renaldy-Imran-Hermawan.pdf"} 
-                    className="phipps-cta-text"
-                  >
-                    Download CV ↗
-                  </a>
-                  <a 
-                    href="#portfolio" 
-                    onClick={(e) => handleNavClick(e, 'portfolio')} 
-                    className="phipps-cta-text secondary"
-                  >
-                    Explore Works ↓
-                  </a>
-                </div>
+              {/* Typing Effect Badge */}
+              <div className="lux-typing-box">
+                <span className="typing-prompt">&gt; </span>
+                <span className="typing-content">{displayText}</span>
+                <span className="typing-cursor">|</span>
               </div>
 
-              <div className="phipps-hero-body-right">
-                <div className="phipps-photo-wrapper">
-                  <img 
-                    src="/profile.png" 
-                    alt="Renaldy Imran Hermawan" 
-                    className="phipps-hero-image"
-                  />
-                  <p className="phipps-photo-caption">
-                    Renaldy Imran Hermawan. Based in Bekasi, Indonesia. 2026.
-                  </p>
-                </div>
-              </div>
-            </div>
+              <p className="lux-hero-narrative">
+                {lang === 'id'
+                  ? "Merancang arsitektur cloud tangguh, otomatisasi siklus CI/CD pipeline dengan pemindaian keamanan statis, serta orkestrasi Kubernetes deklaratif untuk menjamin keandalan sistem skala produksi."
+                  : "Architecting resilient multi-environment cloud systems, automated CI/CD delivery pipelines with static security quality gates, and declarative Kubernetes orchestration for production reliability."}
+              </p>
 
-            {/* Hero Bottom Footer Row */}
-            <div className="phipps-hero-footer-row">
-              <div className="phipps-hero-footer-left">
-                <a href="#about" onClick={(e) => handleNavClick(e, 'about')} className="phipps-scroll-glyph" aria-label="Scroll to about">
-                  ↓
+              <div className="lux-hero-actions">
+                <a 
+                  href={lang === 'id' ? "/cv-renaldy-id.pdf" : "/cv-renaldy.pdf"} 
+                  download={lang === 'id' ? "CV-Renaldy-Imran-Hermawan-ID.pdf" : "CV-Renaldy-Imran-Hermawan.pdf"} 
+                  className="lux-btn-primary"
+                >
+                  <span>Download CV ↗</span>
+                </a>
+                <a href="#portfolio" onClick={(e) => handleNavClick(e, 'portfolio')} className="lux-btn-secondary">
+                  <span>Explore Works ↓</span>
                 </a>
               </div>
 
-              <div className="phipps-hero-footer-center">
-                <a href="https://github.com/renmher" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
-                <a href="https://linkedin.com/in/renaldyimran" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
-                <a href="https://www.threads.net/@renmher" target="_blank" rel="noopener noreferrer">Threads ↗</a>
-                <a href="https://wa.me/6287872481308" target="_blank" rel="noopener noreferrer">WhatsApp ↗</a>
+              {/* Social Links Row */}
+              <div className="lux-social-links">
+                <a href="https://github.com/renmher" target="_blank" rel="noopener noreferrer" title="GitHub">
+                  <i className="fa-brands fa-github"></i> <span>GitHub</span>
+                </a>
+                <a href="https://linkedin.com/in/renaldyimran" target="_blank" rel="noopener noreferrer" title="LinkedIn">
+                  <i className="fa-brands fa-linkedin"></i> <span>LinkedIn</span>
+                </a>
+                <a href="https://www.threads.net/@renmher" target="_blank" rel="noopener noreferrer" title="Threads">
+                  <i className="fa-brands fa-threads"></i> <span>Threads</span>
+                </a>
+                <a href="https://wa.me/6287872481308" target="_blank" rel="noopener noreferrer" title="WhatsApp">
+                  <i className="fa-brands fa-whatsapp"></i> <span>WhatsApp</span>
+                </a>
               </div>
+            </div>
 
-              <div className="phipps-hero-footer-right">
-                <button type="button" onClick={handleCopyEmail} className="phipps-email-btn" title="Copy Email">
-                  {emailCopied ? (curr["email-success"] || "COPIED ↗") : "renaldyimran@gmail.com ↗"}
-                </button>
+            <div className="lux-hero-right">
+              <div className="lux-photo-frame">
+                <img src="/profile.png" alt="Renaldy Imran Hermawan" className="lux-profile-img" />
+                <div className="lux-photo-chip">
+                  <span className="lux-status-dot"></span>
+                  <span className="lux-status-text">
+                    {lang === 'id' ? 'SIAP KERJA: DEVOPS & SRE' : 'OPEN TO WORK: DEVOPS & SRE'}
+                  </span>
+                </div>
+                <p className="lux-photo-caption">
+                  Renaldy Imran Hermawan. Based in Bekasi, Indonesia. 2026.
+                </p>
               </div>
             </div>
           </div>
         </section>
 
         {/* ==============================================================
-            EDITORIAL STATEMENT BANNER (PAPER SURFACE)
+            STATEMENT BANNER (EDITORIAL STATEMENT)
             ============================================================== */}
-        <section className="phipps-statement-section">
-          <div className="phipps-container phipps-editorial-grid">
-            <div className="phipps-stacked-label">
-              <span>PHILOSOPHY</span>
-              <span>(00)</span>
-              <span>SRE & Reliability</span>
-            </div>
-            <div className="phipps-editorial-content">
-              <h2 className="phipps-editorial-headline">
-                Cloud Reliability & Production Uptime.
-              </h2>
-              <p className="phipps-body-large">
+        <section className="lux-statement-banner">
+          <div className="lux-container">
+            <div className="lux-statement-inner">
+              <span className="lux-statement-tag">PHILOSOPHY • SRE & RELIABILITY</span>
+              <h2 className="lux-statement-heading">Cloud Reliability & Production Uptime.</h2>
+              <p className="lux-statement-desc">
                 {lang === 'id'
                   ? "Fokus pada arsitektur cloud multi-environment yang tangguh, otomatisasi siklus CI/CD pipeline dengan pemindaian keamanan statis, serta orkestrasi Kubernetes deklaratif. Menjamin stabilitas infrastruktur skala produksi dan resolusi insiden secara real-time."
                   : "Dedicated to architecting resilient multi-environment cloud systems, automated CI/CD delivery pipelines with static security quality gates, and declarative Kubernetes orchestration. Ensuring production uptime and rapid incident resolution."}
@@ -374,241 +359,226 @@ const App = () => {
         </section>
 
         {/* ==============================================================
-            SECTION: ABOUT ME & CORE PILLARS
+            SECTION: ABOUT ME (3 PILLARS ARCHITECTURE)
             ============================================================== */}
-        <section id="about" className="phipps-section">
-          <div className="phipps-container phipps-editorial-grid">
-            <div className="phipps-stacked-label">
-              <span>EXPLORE</span>
-              <span>(01)</span>
-              <span>About & Architecture</span>
+        <section id="about" className="lux-section">
+          <div className="lux-container">
+            <div className="lux-section-header">
+              <span className="lux-section-tag">EXPLORE • (01)</span>
+              <h2 className="lux-section-title">Architecting Resilient Cloud Systems.</h2>
+              <div className="lux-separator">
+                <span className="lux-separator-diamond"></span>
+              </div>
             </div>
 
-            <div className="phipps-editorial-content">
-              <h2 className="phipps-editorial-headline">
-                Architecting Resilient Cloud Systems.
-              </h2>
+            <div className="lux-narrative-block">
+              <p className="lux-narrative-p">{curr["about-narrative-p1"]}</p>
+              <p className="lux-narrative-p">{curr["about-narrative-p2"]}</p>
+            </div>
 
-              <div className="phipps-narrative-block">
-                <p className="phipps-body-large mb-6">{curr["about-narrative-p1"]}</p>
-                <p className="phipps-body-large mb-10">{curr["about-narrative-p2"]}</p>
+            {/* 3 Pillars */}
+            <div className="lux-pillars-grid">
+              <div className="lux-pillar-card">
+                <div className="lux-pillar-header">
+                  <span className="lux-pillar-num">01</span>
+                  <div className="lux-pillar-icon"><i className="fa-solid fa-cloud"></i></div>
+                </div>
+                <h3 className="lux-pillar-title">Cloud & Architecture.</h3>
+                <p className="lux-pillar-desc">
+                  {lang === 'id'
+                    ? 'Merancang arsitektur cloud VPC di GCP & AWS, penyediaan server deklaratif menggunakan Terraform (IaC), dan isolasi jaringan multi-tier.'
+                    : 'Architecting VPC cloud networks in GCP & AWS, declarative infrastructure provisioning using Terraform (IaC), and secure multi-tier networking.'}
+                </p>
               </div>
 
-              {/* 3 Pillars */}
-              <div className="phipps-pillars-grid">
-                <div className="phipps-pillar-card">
-                  <span className="phipps-pillar-num">01</span>
-                  <h3 className="phipps-pillar-title">Cloud & Architecture.</h3>
-                  <p className="phipps-pillar-desc">
-                    {lang === 'id'
-                      ? 'Merancang arsitektur cloud VPC di GCP & AWS, penyediaan server deklaratif menggunakan Terraform (IaC), dan isolasi jaringan multi-tier.'
-                      : 'Architecting VPC cloud networks in GCP & AWS, declarative infrastructure provisioning using Terraform (IaC), and secure multi-tier networking.'}
-                  </p>
+              <div className="lux-pillar-card">
+                <div className="lux-pillar-header">
+                  <span className="lux-pillar-num">02</span>
+                  <div className="lux-pillar-icon"><i className="fa-solid fa-gears"></i></div>
                 </div>
+                <h3 className="lux-pillar-title">CI/CD & Automation.</h3>
+                <p className="lux-pillar-desc">
+                  {lang === 'id'
+                    ? 'Membangun pipeline GitLab CI / GitHub Actions terotomatisasi, kontainerisasi Docker, scanning Trivy & SonarQube, dan GitOps Kustomize.'
+                    : 'Building automated GitLab CI / GitHub Actions workflows, Docker containers, Trivy CVE scanning, SonarQube quality gates, and GitOps.'}
+                </p>
+              </div>
 
-                <div className="phipps-pillar-card">
-                  <span className="phipps-pillar-num">02</span>
-                  <h3 className="phipps-pillar-title">CI/CD & Automation.</h3>
-                  <p className="phipps-pillar-desc">
-                    {lang === 'id'
-                      ? 'Membangun pipeline GitLab CI / GitHub Actions terotomatisasi, kontainerisasi Docker, scanning Trivy & SonarQube, dan GitOps Kustomize.'
-                      : 'Building automated GitLab CI / GitHub Actions workflows, Docker containers, Trivy CVE scanning, SonarQube quality gates, and GitOps.'}
-                  </p>
+              <div className="lux-pillar-card">
+                <div className="lux-pillar-header">
+                  <span className="lux-pillar-num">03</span>
+                  <div className="lux-pillar-icon"><i className="fa-solid fa-chart-line"></i></div>
                 </div>
-
-                <div className="phipps-pillar-card">
-                  <span className="phipps-pillar-num">03</span>
-                  <h3 className="phipps-pillar-title">SRE & Observability.</h3>
-                  <p className="phipps-pillar-desc">
-                    {lang === 'id'
-                      ? 'Pemantauan real-time 24/7 menggunakan VictoriaMetrics, Grafana, VictoriaLogs, penanganan crash loop, dan sistem alarm otomatis ke Telegram.'
-                      : '24/7 real-time telemetry using VictoriaMetrics, Grafana, VictoriaLogs, crash resolution, and instant Telegram alert notifications.'}
-                  </p>
-                </div>
+                <h3 className="lux-pillar-title">SRE & Observability.</h3>
+                <p className="lux-pillar-desc">
+                  {lang === 'id'
+                    ? 'Pemantauan real-time 24/7 menggunakan VictoriaMetrics, Grafana, VictoriaLogs, penanganan crash loop, dan sistem alarm otomatis ke Telegram.'
+                    : '24/7 real-time telemetry using VictoriaMetrics, Grafana, VictoriaLogs, crash resolution, and instant Telegram alert notifications.'}
+                </p>
               </div>
             </div>
           </div>
         </section>
 
         {/* ==============================================================
-            SECTION: TECHNICAL SKILLS & STACK
+            SECTION: TECHNICAL SKILLS
             ============================================================== */}
-        <section id="skills" className="phipps-section">
-          <div className="phipps-container phipps-editorial-grid">
-            <div className="phipps-stacked-label">
-              <span>CAPABILITIES</span>
-              <span>(02)</span>
-              <span>Technical Stack</span>
-            </div>
-
-            <div className="phipps-editorial-content">
-              <h2 className="phipps-editorial-headline">
-                Engineering Stack & Infrastructure.
-              </h2>
-              <p className="phipps-body-large mb-8">
-                {lang === 'id'
-                  ? "Peralatan produksi dan keahlian infrastruktur yang digunakan dalam implementasi nyata."
-                  : "Production tooling and infrastructure capabilities verified in real-world implementations."}
-              </p>
-
-              <div className="phipps-skills-group">
-                <span className="phipps-group-tag">PRIMARY PRODUCTION STACK</span>
-                <div className="phipps-skills-grid">
-                  {[
-                    { name: 'KUBERNETES', category: 'Orchestration' },
-                    { name: 'DOCKER', category: 'Containerization' },
-                    { name: 'GITLAB CI', category: 'Automation' },
-                    { name: 'TERRAFORM', category: 'IaC' },
-                    { name: 'GOOGLE CLOUD', category: 'Cloud Platform' },
-                    { name: 'AWS', category: 'Cloud Platform' },
-                    { name: 'GRAFANA', category: 'Observability' },
-                    { name: 'VICTORIAMETRICS', category: 'Time Series' },
-                    { name: 'TRIVY', category: 'Security' },
-                    { name: 'LINUX OS', category: 'Operating System' }
-                  ].map((skill, idx) => (
-                    <div key={idx} className="phipps-skill-card">
-                      <span className="phipps-skill-name">{skill.name}</span>
-                      <span className="phipps-skill-category">{skill.category}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="phipps-skills-group mt-10">
-                <span className="phipps-group-tag">NETWORKING & TOOLING</span>
-                <div className="phipps-skills-grid">
-                  {[
-                    { name: 'MIKROTIK MTCNA', category: 'Routing' },
-                    { name: 'TCP/IP & DNS', category: 'Network Protocols' },
-                    { name: 'BASH SCRIPTING', category: 'Automation' },
-                    { name: 'SONARQUBE', category: 'Code Quality' },
-                    { name: 'HARBOR REGISTRY', category: 'Artifacts' },
-                    { name: 'TELEGRAM ALERTS', category: 'Incident Dispatch' }
-                  ].map((skill, idx) => (
-                    <div key={idx} className="phipps-skill-card">
-                      <span className="phipps-skill-name">{skill.name}</span>
-                      <span className="phipps-skill-category">{skill.category}</span>
-                    </div>
-                  ))}
-                </div>
+        <section id="skills" className="lux-section">
+          <div className="lux-container">
+            <div className="lux-section-header">
+              <span className="lux-section-tag">CAPABILITIES • (02)</span>
+              <h2 className="lux-section-title">Engineering Stack & Infrastructure.</h2>
+              <div className="lux-separator">
+                <span className="lux-separator-diamond"></span>
               </div>
             </div>
-          </div>
-        </section>
 
-        {/* ==============================================================
-            SECTION: PORTFOLIO & CASE STUDIES (EDITORIAL GALLERY WALL)
-            ============================================================== */}
-        <section id="portfolio" className="phipps-section">
-          <div className="phipps-container phipps-editorial-grid">
-            <div className="phipps-stacked-label">
-              <span>WORKS</span>
-              <span>(03)</span>
-              <span>Case Studies</span>
-            </div>
-
-            <div className="phipps-editorial-content">
-              <h2 className="phipps-editorial-headline">
-                Selected Works & Deployments.
-              </h2>
-              <p className="phipps-body-large mb-6">
-                {lang === 'id'
-                  ? "Studi kasus arsitektur skala produksi dengan dokumentasi, diagram alur, dan kode sumber terbuka."
-                  : "Production architecture case studies with detailed workflows, code samples, and simulators."}
-              </p>
-
-              {/* Filter Tabs */}
-              <div className="phipps-tabs-row">
+            <div className="lux-skills-group mb-10">
+              <h3 className="lux-group-title">PRIMARY PRODUCTION STACK:</h3>
+              <div className="lux-skills-grid">
                 {[
-                  { key: 'all', label: 'ALL (03)' },
-                  { key: 'gitops', label: 'GITOPS & K8S' },
-                  { key: 'cicd', label: 'CI/CD & SECURITY' },
-                  { key: 'observability', label: 'OBSERVABILITY' }
-                ].map(tab => (
-                  <button
-                    key={tab.key}
-                    type="button"
-                    className={`phipps-tab-btn ${activePortfolioFilter === tab.key ? 'active' : ''}`}
-                    onClick={() => setActivePortfolioFilter(tab.key)}
-                  >
-                    {tab.label}
-                  </button>
+                  { name: 'KUBERNETES', icon: 'fa-solid fa-cubes', cat: 'Orchestration' },
+                  { name: 'DOCKER', icon: 'fa-brands fa-docker', cat: 'Containers' },
+                  { name: 'GITLAB CI', icon: 'fa-brands fa-gitlab', cat: 'Pipelines' },
+                  { name: 'TERRAFORM', icon: 'fa-solid fa-server', cat: 'IaC' },
+                  { name: 'GOOGLE CLOUD', icon: 'fa-brands fa-google', cat: 'Cloud Platform' },
+                  { name: 'AWS', icon: 'fa-brands fa-aws', cat: 'Cloud Platform' },
+                  { name: 'GRAFANA', icon: 'fa-solid fa-chart-line', cat: 'Observability' },
+                  { name: 'VICTORIAMETRICS', icon: 'fa-solid fa-database', cat: 'Time Series' },
+                  { name: 'TRIVY', icon: 'fa-solid fa-shield-halved', cat: 'Security' },
+                  { name: 'LINUX OS', icon: 'fa-brands fa-linux', cat: 'Operating System' }
+                ].map((s, idx) => (
+                  <div key={idx} className="lux-skill-card">
+                    <i className={s.icon}></i>
+                    <span className="lux-skill-name">{s.name}</span>
+                    <span className="lux-skill-cat">{s.cat}</span>
+                  </div>
                 ))}
               </div>
+            </div>
 
-              {/* Slider Header */}
-              <div className="phipps-slider-header">
-                <span className="phipps-slider-counter">
-                  0{activeProjectSlide + 1} / 0{filteredProjects.length}
-                </span>
-                <div className="phipps-slider-nav">
-                  <button 
-                    type="button" 
-                    className="phipps-slider-arrow" 
-                    onClick={() => setActiveProjectSlide(prev => prev > 0 ? prev - 1 : filteredProjects.length - 1)}
-                    title="Previous case study"
-                  >
-                    ← PREV
-                  </button>
-                  <button 
-                    type="button" 
-                    className="phipps-slider-arrow" 
-                    onClick={() => setActiveProjectSlide(prev => prev < filteredProjects.length - 1 ? prev + 1 : 0)}
-                    title="Next case study"
-                  >
-                    NEXT →
-                  </button>
-                </div>
+            <div className="lux-skills-group">
+              <h3 className="lux-group-title">NETWORKING & TOOLING:</h3>
+              <div className="lux-skills-grid">
+                {[
+                  { name: 'MIKROTIK MTCNA', icon: 'fa-solid fa-network-wired', cat: 'Routing' },
+                  { name: 'TCP/IP & DNS', icon: 'fa-solid fa-route', cat: 'Networking' },
+                  { name: 'BASH SCRIPTING', icon: 'fa-solid fa-terminal', cat: 'Scripting' },
+                  { name: 'SONARQUBE', icon: 'fa-solid fa-magnifying-glass-chart', cat: 'Quality Gate' },
+                  { name: 'HARBOR REGISTRY', icon: 'fa-solid fa-box-archive', cat: 'Registry' },
+                  { name: 'TELEGRAM ALERTS', icon: 'fa-solid fa-bell', cat: 'Incident Dispatch' }
+                ].map((s, idx) => (
+                  <div key={idx} className="lux-skill-card">
+                    <i className={s.icon}></i>
+                    <span className="lux-skill-name">{s.name}</span>
+                    <span className="lux-skill-cat">{s.cat}</span>
+                  </div>
+                ))}
               </div>
+            </div>
+          </div>
+        </section>
 
-              {/* Slider Stage */}
-              <div 
-                className="phipps-slider-stage"
-                onTouchStart={onProjectTouchStart}
-                onTouchMove={onProjectTouchMove}
-                onTouchEnd={onProjectTouchEnd}
-              >
-                <div 
-                  className="phipps-slider-track"
-                  style={{ transform: `translateX(-${activeProjectSlide * 100}%)` }}
+        {/* ==============================================================
+            SECTION: PORTFOLIO & CASE STUDIES
+            ============================================================== */}
+        <section id="portfolio" className="lux-section">
+          <div className="lux-container">
+            <div className="lux-section-header">
+              <span className="lux-section-tag">WORKS • (03)</span>
+              <h2 className="lux-section-title">Selected Case Studies & Deployments.</h2>
+              <div className="lux-separator">
+                <span className="lux-separator-diamond"></span>
+              </div>
+            </div>
+
+            {/* Filter Tabs */}
+            <div className="lux-filter-tabs">
+              {[
+                { key: 'all', label: 'ALL (03)' },
+                { key: 'gitops', label: 'GITOPS & K8S' },
+                { key: 'cicd', label: 'CI/CD & SECURITY' },
+                { key: 'observability', label: 'OBSERVABILITY' }
+              ].map(tab => (
+                <button
+                  key={tab.key}
+                  type="button"
+                  className={`lux-tab-btn ${activePortfolioFilter === tab.key ? 'active' : ''}`}
+                  onClick={() => setActivePortfolioFilter(tab.key)}
                 >
-                  {filteredProjects.map((project) => {
-                    const activeTab = projectTabs[project.id] || 'overview';
-                    const isFlagship = project.id === 3;
-                    return (
-                      <article key={project.id} className="phipps-project-slide">
-                        {/* Image-First Work Sample */}
-                        <div className="phipps-project-photo-wrapper">
-                          <img 
-                            src={project.image} 
-                            alt={curr[project.nameKey]} 
-                            className="phipps-project-photo"
-                          />
-                          <p className="phipps-photo-caption">
+                  {tab.label}
+                </button>
+              ))}
+            </div>
+
+            {/* Slider Controls */}
+            <div className="lux-slider-controls">
+              <span className="lux-slider-counter">
+                0{activeProjectSlide + 1} / 0{filteredProjects.length}
+              </span>
+              <div className="lux-slider-buttons">
+                <button 
+                  type="button"
+                  className="lux-slider-arrow" 
+                  onClick={() => setActiveProjectSlide(prev => prev > 0 ? prev - 1 : filteredProjects.length - 1)}
+                  title="Previous Case Study"
+                >
+                  <i className="fa-solid fa-arrow-left"></i> <span>PREV</span>
+                </button>
+                <button 
+                  type="button"
+                  className="lux-slider-arrow" 
+                  onClick={() => setActiveProjectSlide(prev => prev < filteredProjects.length - 1 ? prev + 1 : 0)}
+                  title="Next Case Study"
+                >
+                  <span>NEXT</span> <i className="fa-solid fa-arrow-right"></i>
+                </button>
+              </div>
+            </div>
+
+            {/* Slider Stage */}
+            <div 
+              className="lux-slider-stage"
+              onTouchStart={onProjectTouchStart}
+              onTouchMove={onProjectTouchMove}
+              onTouchEnd={onProjectTouchEnd}
+            >
+              <div 
+                className="lux-slider-track"
+                style={{ transform: `translateX(-${activeProjectSlide * 100}%)` }}
+              >
+                {filteredProjects.map((project) => {
+                  const activeTab = projectTabs[project.id] || 'overview';
+                  const isFlagship = project.id === 3;
+                  return (
+                    <div key={project.id} className="lux-project-slide">
+                      <div className="lux-project-grid">
+                        <div className="lux-project-visual">
+                          <div className="lux-project-img-wrap">
+                            <img src={project.image} alt={curr[project.nameKey]} />
+                          </div>
+                          <p className="lux-project-caption">
                             {curr[project.nameKey]}. Production environment deployment.
                           </p>
-                        </div>
-
-                        <div className="phipps-project-meta-row">
-                          <div className="phipps-project-tools">
-                            {project.tools.map((tool, idx) => (
-                              <span key={idx} className="phipps-tool-tag">{tool}</span>
+                          <div className="lux-project-tags">
+                            {project.tools.map((t, idx) => (
+                              <span key={idx} className="lux-tool-tag">{t}</span>
                             ))}
                           </div>
-                          <div className="phipps-project-external-links">
+                          <div className="lux-project-actions">
                             {project.id === 3 && (
                               <>
-                                <a href="/projects/cbs-presentation.pdf" target="_blank" rel="noopener noreferrer" className="phipps-link-underline">
-                                  Slide PDF ↗
+                                <a href="/projects/cbs-presentation.pdf" target="_blank" rel="noopener noreferrer" className="lux-btn-action">
+                                  <i className="fa-solid fa-file-pdf"></i> <span>Slide PDF ↗</span>
                                 </a>
-                                <a href={project.repoUrl} target="_blank" rel="noopener noreferrer" className="phipps-link-underline">
-                                  GitLab Repo ↗
+                                <a href={project.repoUrl} target="_blank" rel="noopener noreferrer" className="lux-btn-action">
+                                  <i className="fa-brands fa-gitlab"></i> <span>GitLab Repo ↗</span>
                                 </a>
                               </>
                             )}
                             {project.id !== 3 && project.repoUrl && (
-                              <a href={project.repoUrl} target="_blank" rel="noopener noreferrer" className="phipps-link-underline">
-                                GitHub Repo ↗
+                              <a href={project.repoUrl} target="_blank" rel="noopener noreferrer" className="lux-btn-action">
+                                <i className="fa-brands fa-github"></i> <span>GitHub Repo ↗</span>
                               </a>
                             )}
                             <a 
@@ -618,31 +588,28 @@ const App = () => {
                                 setActiveSimulatorTab(project.id === 3 ? 'gitops' : project.id === 1 ? 'pipeline' : 'monitoring'); 
                                 document.getElementById('simulators')?.scrollIntoView({ behavior: 'smooth' }); 
                               }} 
-                              className="phipps-link-underline"
+                              className="lux-btn-action primary"
                             >
-                              Open Simulator ↗
+                              <i className="fa-solid fa-play"></i> <span>Live Simulator ↗</span>
                             </a>
                           </div>
                         </div>
 
-                        {/* Story Content & Tabs */}
-                        <div className="phipps-project-body">
+                        <div className="lux-project-details">
                           {isFlagship && (
-                            <div className="phipps-meta-badge">
-                              STATUS: KUBERNETES K3S LIVE CLUSTER
+                            <div className="lux-flagship-badge">
+                              <span className="dot pulse"></span>
+                              <span>STATUS: KUBERNETES K3S LIVE CLUSTER</span>
                             </div>
                           )}
-                          <h3 className="phipps-project-headline">
-                            {curr[project.nameKey]}.
-                          </h3>
+                          <h3 className="lux-project-title">{curr[project.nameKey]}.</h3>
 
-                          {/* Story Tabs */}
-                          <div className="phipps-story-tabs">
+                          <div className="lux-story-tabs">
                             {['overview', 'problem', 'solution', 'impact', 'architecture', 'code'].map((tab) => (
                               <button
                                 key={tab}
                                 type="button"
-                                className={`phipps-story-tab-btn ${activeTab === tab ? 'active' : ''}`}
+                                className={`lux-story-tab-btn ${activeTab === tab ? 'active' : ''}`}
                                 onClick={() => handleProjectTabChange(project.id, tab)}
                               >
                                 {tab === 'overview' && curr["proj-tab-overview"]}
@@ -655,33 +622,33 @@ const App = () => {
                             ))}
                           </div>
 
-                          <div className="phipps-story-content">
-                            {activeTab === 'overview' && <p className="phipps-story-p">{curr[project.overviewKey]}</p>}
-                            {activeTab === 'problem' && <p className="phipps-story-p">{curr[project.problemKey]}</p>}
+                          <div className="lux-story-content">
+                            {activeTab === 'overview' && <p className="lux-story-p">{curr[project.overviewKey]}</p>}
+                            {activeTab === 'problem' && <p className="lux-story-p">{curr[project.problemKey]}</p>}
                             {activeTab === 'solution' && (
                               <div>
-                                <p className="phipps-story-role"><strong>Role:</strong> {curr[project.roleKey]}</p>
-                                <p className="phipps-story-p">{curr[project.solutionKey]}</p>
+                                <p className="lux-story-role"><strong>Role:</strong> {curr[project.roleKey]}</p>
+                                <p className="lux-story-p">{curr[project.solutionKey]}</p>
                               </div>
                             )}
-                            {activeTab === 'impact' && <p className="phipps-story-p">{curr[project.impactKey]}</p>}
+                            {activeTab === 'impact' && <p className="lux-story-p">{curr[project.impactKey]}</p>}
                             {activeTab === 'architecture' && (
-                              <div className="phipps-arch-grid">
+                              <div className="lux-arch-grid">
                                 {project.architectureFlow?.map((node, i) => (
-                                  <div key={i} className="phipps-arch-card">
-                                    <div className="phipps-arch-step">STEP {node.step}</div>
-                                    <h4 className="phipps-arch-title">{node.title}</h4>
-                                    <p className="phipps-arch-detail">{node.detail}</p>
+                                  <div key={i} className="lux-arch-node">
+                                    <div className="lux-arch-step">STEP {node.step}</div>
+                                    <h4 className="lux-arch-title">{node.title}</h4>
+                                    <p className="lux-arch-detail">{node.detail}</p>
                                   </div>
                                 ))}
                               </div>
                             )}
                             {activeTab === 'code' && project.id === 3 && (
-                              <div className="phipps-code-box">
-                                <div className="phipps-code-header">
-                                  <span>scripts/deploy.sh (Vault & Kustomize)</span>
+                              <div className="lux-code-viewer">
+                                <div className="lux-code-header">
+                                  <span><i className="fa-solid fa-terminal"></i> scripts/deploy.sh (Vault & Kustomize)</span>
                                 </div>
-                                <pre className="phipps-code-pre">
+                                <pre className="lux-code-body">
                                   <code>{`# 1. Target Namespace
 NAMESPACE="renaldy-imran-cbs-\${ENV}"
 kubectl create namespace "\${NAMESPACE}" --dry-run=client -o yaml | kubectl apply -f -
@@ -701,11 +668,11 @@ kubectl rollout restart deployment/"\${APP_NAME}" -n "\${NAMESPACE}"`}</code>
                               </div>
                             )}
                             {activeTab === 'code' && project.id === 1 && (
-                              <div className="phipps-code-box">
-                                <div className="phipps-code-header">
-                                  <span>.gitlab-ci.yml (Trivy & SonarQube)</span>
+                              <div className="lux-code-viewer">
+                                <div className="lux-code-header">
+                                  <span><i className="fa-solid fa-code"></i> .gitlab-ci.yml (Trivy & SonarQube)</span>
                                 </div>
-                                <pre className="phipps-code-pre">
+                                <pre className="lux-code-body">
                                   <code>{`stages: [test, security-scan, build-push, deploy]
 
 sonarqube-check:
@@ -723,11 +690,11 @@ push-image:
                               </div>
                             )}
                             {activeTab === 'code' && project.id === 2 && (
-                              <div className="phipps-code-box">
-                                <div className="phipps-code-header">
-                                  <span>alert-rules.yml (PromQL & Telegram)</span>
+                              <div className="lux-code-viewer">
+                                <div className="lux-code-header">
+                                  <span><i className="fa-solid fa-bell"></i> alert-rules.yml (PromQL & Telegram)</span>
                                 </div>
-                                <pre className="phipps-code-pre">
+                                <pre className="lux-code-body">
                                   <code>{`- alert: HostHighCpuLoad
   expr: 100 - (avg by(instance) (rate(node_cpu_seconds_total{mode="idle"}[2m])) * 100) > 85
   for: 2m
@@ -739,86 +706,77 @@ push-image:
                             )}
                           </div>
                         </div>
-                      </article>
-                    );
-                  })}
-                </div>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           </div>
         </section>
 
         {/* ==============================================================
-            SECTION: INTERACTIVE SIMULATOR (DEVOPS WORKBENCH)
+            SECTION: DEVOPS WORKBENCH (INTERACTIVE SIMULATORS)
             ============================================================== */}
-        <section id="simulators" className="phipps-section">
-          <div className="phipps-container phipps-editorial-grid">
-            <div className="phipps-stacked-label">
-              <span>LAB</span>
-              <span>(04)</span>
-              <span>DevOps Simulator</span>
+        <section id="simulators" className="lux-section">
+          <div className="lux-container">
+            <div className="lux-section-header">
+              <span className="lux-section-tag">LAB • (04)</span>
+              <h2 className="lux-section-title">Interactive Engineering Workbench.</h2>
+              <div className="lux-separator">
+                <span className="lux-separator-diamond"></span>
+              </div>
             </div>
 
-            <div className="phipps-editorial-content">
-              <h2 className="phipps-editorial-headline">
-                Interactive Engineering Workbench.
-              </h2>
-              <p className="phipps-body-large mb-6">
-                {lang === 'id'
-                  ? "Simulasikan proses deployment pipeline, drift detection k8s, dan respon alarm monitoring secara langsung."
-                  : "Test release automation, drift detection, and incident telemetry responses directly in your browser."}
-              </p>
+            <div className="lux-workbench-shell">
+              <div className="lux-workbench-tabs">
+                <button 
+                  type="button"
+                  className={`lux-wb-tab ${activeSimulatorTab === 'pipeline' ? 'active' : ''}`}
+                  onClick={() => setActiveSimulatorTab('pipeline')}
+                >
+                  <i className="fa-solid fa-terminal"></i> 1. CI/CD Pipeline
+                </button>
+                <button 
+                  type="button"
+                  className={`lux-wb-tab ${activeSimulatorTab === 'gitops' ? 'active' : ''}`}
+                  onClick={() => setActiveSimulatorTab('gitops')}
+                >
+                  <i className="fa-solid fa-cloud"></i> 2. GitOps & K8s
+                </button>
+                <button 
+                  type="button"
+                  className={`lux-wb-tab ${activeSimulatorTab === 'monitoring' ? 'active' : ''}`}
+                  onClick={() => setActiveSimulatorTab('monitoring')}
+                >
+                  <i className="fa-solid fa-chart-line"></i> 3. Observability & Alarm
+                </button>
+              </div>
 
-              <div className="phipps-workbench-shell">
-                <div className="phipps-tabs-row">
-                  <button 
-                    type="button"
-                    className={`phipps-tab-btn ${activeSimulatorTab === 'pipeline' ? 'active' : ''}`} 
-                    onClick={() => setActiveSimulatorTab('pipeline')}
-                  >
-                    1. CI/CD PIPELINE
-                  </button>
-                  <button 
-                    type="button"
-                    className={`phipps-tab-btn ${activeSimulatorTab === 'gitops' ? 'active' : ''}`} 
-                    onClick={() => setActiveSimulatorTab('gitops')}
-                  >
-                    2. GITOPS & K8S
-                  </button>
-                  <button 
-                    type="button"
-                    className={`phipps-tab-btn ${activeSimulatorTab === 'monitoring' ? 'active' : ''}`} 
-                    onClick={() => setActiveSimulatorTab('monitoring')}
-                  >
-                    3. OBSERVABILITY & ALARM
-                  </button>
-                </div>
-
-                <div className="phipps-simulator-body mt-6">
-                  {activeSimulatorTab === 'pipeline' && (
-                    <PipelineSimulator 
-                      lang={lang} 
-                      onStatusChange={handlePipelineStatusChange} 
-                      onStageChange={handlePipelineStageChange} 
-                      onProceedToGitOps={handleProceedToGitOps} 
-                    />
-                  )}
-                  {activeSimulatorTab === 'gitops' && (
-                    <GitOpsSimulator 
-                      lang={lang} 
-                      pipelineLinked={isPipelineLinked} 
-                      onSyncComplete={handleGitOpsSyncComplete} 
-                      onResetLink={handleResetAllSimulators} 
-                    />
-                  )}
-                  {activeSimulatorTab === 'monitoring' && (
-                    <ObservabilitySimulator 
-                      lang={lang} 
-                      pipelineState={pipelineState} 
-                      gitopsDeployedVersion={gitopsDeployedVersion} 
-                    />
-                  )}
-                </div>
+              <div className="lux-workbench-content">
+                {activeSimulatorTab === 'pipeline' && (
+                  <PipelineSimulator 
+                    lang={lang} 
+                    onStatusChange={handlePipelineStatusChange} 
+                    onStageChange={handlePipelineStageChange} 
+                    onProceedToGitOps={handleProceedToGitOps} 
+                  />
+                )}
+                {activeSimulatorTab === 'gitops' && (
+                  <GitOpsSimulator 
+                    lang={lang} 
+                    pipelineLinked={isPipelineLinked} 
+                    onSyncComplete={handleGitOpsSyncComplete} 
+                    onResetLink={handleResetAllSimulators} 
+                  />
+                )}
+                {activeSimulatorTab === 'monitoring' && (
+                  <ObservabilitySimulator 
+                    lang={lang} 
+                    pipelineState={pipelineState} 
+                    gitopsDeployedVersion={gitopsDeployedVersion} 
+                  />
+                )}
               </div>
             </div>
           </div>
@@ -827,149 +785,148 @@ push-image:
         {/* ==============================================================
             SECTION: CERTIFICATIONS & EDUCATION
             ============================================================== */}
-        <section id="certifications" className="phipps-section">
-          <div className="phipps-container phipps-editorial-grid">
-            <div className="phipps-stacked-label">
-              <span>CREDENTIALS</span>
-              <span>(05)</span>
-              <span>Verified Qualifications</span>
+        <section id="certifications" className="lux-section">
+          <div className="lux-container">
+            <div className="lux-section-header">
+              <span className="lux-section-tag">CREDENTIALS • (05)</span>
+              <h2 className="lux-section-title">Verified Certifications & Education.</h2>
+              <div className="lux-separator">
+                <span className="lux-separator-diamond"></span>
+              </div>
             </div>
 
-            <div className="phipps-editorial-content">
-              <h2 className="phipps-editorial-headline">
-                Certifications & Academic Record.
-              </h2>
-              <p className="phipps-body-large mb-8">
-                {lang === 'id'
-                  ? "Kualifikasi profesional terverifikasi dalam administrasi jaringan, infrastruktur cloud, dan rekayasa devops."
-                  : "Verified professional qualifications across network engineering, cloud architecture, and DevOps practices."}
-              </p>
-
-              {/* Education Block */}
-              <div className="phipps-edu-card mb-10">
-                <div className="phipps-edu-meta">
-                  <span className="phipps-edu-degree">SARJANA KOMPUTER (S.KOM)</span>
-                  <span className="phipps-edu-year">2020 - 2024 • BEKASI, INDONESIA</span>
-                </div>
-                <h3 className="phipps-edu-school">Universitas Bani Saleh : Teknik Informatika</h3>
-                <p className="phipps-edu-desc">
+            {/* Academic Record Card */}
+            <div className="lux-edu-card mb-10">
+              <div className="lux-edu-icon">
+                <i className="fa-solid fa-graduation-cap"></i>
+              </div>
+              <div className="lux-edu-details">
+                <span className="lux-edu-badge">SARJANA KOMPUTER (S.KOM)</span>
+                <h3 className="lux-edu-school">Universitas Bani Saleh : Teknik Informatika</h3>
+                <p className="lux-edu-desc">
                   Fokus pada Administrasi Jaringan Komputer, Arsitektur Sistem Cloud, dan Keandalan Infrastruktur. Lulus tahun 2024.
                 </p>
+                <span className="lux-edu-year"><i className="fa-solid fa-calendar"></i> 2020 - 2024 • Bekasi, Indonesia</span>
               </div>
+            </div>
 
-              {/* 7 Verified Certifications */}
-              <Certifications lang={lang} />
+            {/* 7 Verified Certifications Component */}
+            <Certifications lang={lang} />
+          </div>
+        </section>
+
+        {/* ==============================================================
+            SECTION: CAREER PATH (EXECUTIVE LEDGER)
+            ============================================================== */}
+        <section id="experience" className="lux-section">
+          <div className="lux-container">
+            <div className="lux-section-header">
+              <span className="lux-section-tag">RECORD • (06)</span>
+              <h2 className="lux-section-title">Professional Career Ledger.</h2>
+              <div className="lux-separator">
+                <span className="lux-separator-diamond"></span>
+              </div>
+            </div>
+
+            <div className="lux-career-ledger">
+              {experiencesData.map((exp) => (
+                <article key={exp.id} className="lux-ledger-row">
+                  <div className="lux-ledger-left">
+                    <span className="lux-ledger-date">{exp.dateText[lang]}</span>
+                    <span className="lux-ledger-dur">{getDurationText(exp, lang)}</span>
+                    {exp.type && <span className="lux-ledger-badge">{exp.type[lang]}</span>}
+                  </div>
+                  <div className="lux-ledger-right">
+                    <h3 className="lux-ledger-title">
+                      <i className={`fa-solid ${exp.icon}`}></i> {curr[exp.titleKey]}
+                    </h3>
+                    <div 
+                      className="lux-ledger-desc" 
+                      dangerouslySetInnerHTML={{ __html: curr[exp.descKey] }} 
+                    />
+                  </div>
+                </article>
+              ))}
             </div>
           </div>
         </section>
 
         {/* ==============================================================
-            SECTION: CAREER TRAJECTORY (EXECUTIVE LEDGER)
+            SECTION: CONTACT (BALANCED 2X2 GRID + CLI ENDPOINT)
             ============================================================== */}
-        <section id="experience" className="phipps-section">
-          <div className="phipps-container phipps-editorial-grid">
-            <div className="phipps-stacked-label">
-              <span>RECORD</span>
-              <span>(06)</span>
-              <span>Career Ledger</span>
-            </div>
-
-            <div className="phipps-editorial-content">
-              <h2 className="phipps-editorial-headline">
-                Professional Trajectory.
-              </h2>
-              <p className="phipps-body-large mb-8">
-                {lang === 'id'
-                  ? "Rekam jejak pengalaman kerja dan implementasi sistem secara historis."
-                  : "Chronological professional track record in system engineering and technical execution."}
-              </p>
-
-              <div className="phipps-ledger">
-                {experiencesData.map((exp) => (
-                  <article key={exp.id} className="phipps-ledger-row">
-                    <div className="phipps-ledger-col-left">
-                      <span className="phipps-ledger-date">{exp.dateText[lang]}</span>
-                      <span className="phipps-ledger-duration">{getDurationText(exp, lang)}</span>
-                      {exp.type && <span className="phipps-ledger-badge">{exp.type[lang]}</span>}
-                    </div>
-                    <div className="phipps-ledger-col-right">
-                      <h3 className="phipps-ledger-role">{curr[exp.titleKey]}</h3>
-                      <div 
-                        className="phipps-ledger-detail" 
-                        dangerouslySetInnerHTML={{ __html: curr[exp.descKey] }} 
-                      />
-                    </div>
-                  </article>
-                ))}
+        <section id="contact" className="lux-section lux-contact-section">
+          <div className="lux-container">
+            <div className="lux-section-header">
+              <span className="lux-section-tag">CONNECT • (07)</span>
+              <h2 className="lux-section-title">Direct Inquiries & Communication.</h2>
+              <div className="lux-separator">
+                <span className="lux-separator-diamond"></span>
               </div>
             </div>
-          </div>
-        </section>
 
-        {/* ==============================================================
-            SECTION: CONTACT & DIRECT INQUIRIES
-            ============================================================== */}
-        <section id="contact" className="phipps-section phipps-contact-section">
-          <div className="phipps-container phipps-editorial-grid">
-            <div className="phipps-stacked-label">
-              <span>CONNECT</span>
-              <span>(07)</span>
-              <span>Direct Inquiries</span>
-            </div>
+            <p className="lux-contact-intro">
+              {lang === 'id' 
+                ? "Tertarik berdiskusi seputar peluang kerja DevOps, Cloud Infrastructure, atau kolaborasi teknik? Hubungi saya langsung melalui tautan di bawah."
+                : "Interested in discussing DevOps opportunities, cloud infrastructure, or technical collaboration? Reach out directly through the links below."}
+            </p>
 
-            <div className="phipps-editorial-content">
-              <h2 className="phipps-editorial-headline">
-                Direct Inquiries & Communication.
-              </h2>
-              <p className="phipps-body-large mb-8">
-                {lang === 'id' 
-                  ? "Tertarik berdiskusi seputar peluang kerja DevOps, Cloud Infrastructure, atau kolaborasi teknik? Hubungi saya langsung melalui tautan di bawah."
-                  : "Interested in discussing DevOps opportunities, cloud infrastructure, or technical collaboration? Reach out directly through the links below."}
-              </p>
-
-              {/* CLI Endpoint */}
-              <div className="phipps-cli-box mb-8">
-                <div className="phipps-cli-header">
-                  <span>CLI RESUME ENDPOINT (RAW JSON)</span>
-                </div>
-                <div className="phipps-cli-body">
-                  <code>$ curl -s https://justinbony.my.id/resume.json</code>
-                  <button 
-                    type="button"
-                    className="phipps-cli-copy-btn" 
-                    onClick={() => {
-                      navigator.clipboard.writeText('curl -s https://justinbony.my.id/resume.json');
-                      setCurlCopied(true);
-                      setTimeout(() => setCurlCopied(false), 2000);
-                    }}
-                    title="Copy command"
-                  >
-                    {curlCopied ? (lang === 'id' ? 'TERSALIN' : 'COPIED') : (lang === 'id' ? 'SALIN' : 'COPY')}
-                  </button>
-                </div>
+            {/* CLI Resume Box */}
+            <div className="lux-cli-box mb-8">
+              <div className="lux-cli-header">
+                <span className="dot pulse"></span>
+                <span>CLI RESUME ENDPOINT (RAW JSON)</span>
               </div>
-
-              {/* Text Link List */}
-              <div className="phipps-contact-links">
-                <button type="button" onClick={handleCopyEmail} className="phipps-contact-row-btn">
-                  <span className="phipps-contact-label">Email:</span>
-                  <span className="phipps-contact-val">
-                    {emailCopied ? (curr["email-success"] || "COPIED TO CLIPBOARD") : "renaldyimran@gmail.com ↗"}
-                  </span>
+              <div className="lux-cli-body">
+                <code>$ curl -s https://justinbony.my.id/resume.json</code>
+                <button 
+                  type="button" 
+                  className="lux-cli-copy-btn" 
+                  onClick={() => {
+                    navigator.clipboard.writeText('curl -s https://justinbony.my.id/resume.json');
+                    setCurlCopied(true);
+                    setTimeout(() => setCurlCopied(false), 2000);
+                  }}
+                  title="Copy Command"
+                >
+                  <i className={`fa-solid ${curlCopied ? 'fa-check' : 'fa-copy'}`}></i>
+                  <span>{curlCopied ? (lang === 'id' ? 'Tersalin!' : 'Copied!') : (lang === 'id' ? 'Salin Perintah' : 'Copy Command')}</span>
                 </button>
-                <a href="https://wa.me/6287872481308" target="_blank" rel="noopener noreferrer" className="phipps-contact-row">
-                  <span className="phipps-contact-label">WhatsApp:</span>
-                  <span className="phipps-contact-val">+62 878-7248-1308 ↗</span>
-                </a>
-                <a href="https://linkedin.com/in/renaldyimran" target="_blank" rel="noopener noreferrer" className="phipps-contact-row">
-                  <span className="phipps-contact-label">LinkedIn:</span>
-                  <span className="phipps-contact-val">linkedin.com/in/renaldyimran ↗</span>
-                </a>
-                <a href="https://github.com/renmher" target="_blank" rel="noopener noreferrer" className="phipps-contact-row">
-                  <span className="phipps-contact-label">GitHub:</span>
-                  <span className="phipps-contact-val">github.com/renmher ↗</span>
-                </a>
               </div>
+            </div>
+
+            {/* Symmetrical 2x2 Contact Grid */}
+            <div className="lux-contact-grid">
+              <button type="button" className="lux-contact-card" onClick={handleCopyEmail}>
+                <i className="fa-solid fa-envelope"></i>
+                <div className="lux-card-text">
+                  <span className="lux-card-label">Email:</span>
+                  <span className="lux-card-val">{emailCopied ? (curr["email-success"] || "Tersalin ke Clipboard!") : "renaldyimran@gmail.com ↗"}</span>
+                </div>
+              </button>
+
+              <a href="https://wa.me/6287872481308" target="_blank" rel="noopener noreferrer" className="lux-contact-card">
+                <i className="fa-brands fa-whatsapp"></i>
+                <div className="lux-card-text">
+                  <span className="lux-card-label">WhatsApp:</span>
+                  <span className="lux-card-val">+62 878-7248-1308 ↗</span>
+                </div>
+              </a>
+
+              <a href="https://linkedin.com/in/renaldyimran" target="_blank" rel="noopener noreferrer" className="lux-contact-card">
+                <i className="fa-brands fa-linkedin"></i>
+                <div className="lux-card-text">
+                  <span className="lux-card-label">LinkedIn:</span>
+                  <span className="lux-card-val">linkedin.com/in/renaldyimran ↗</span>
+                </div>
+              </a>
+
+              <a href="https://github.com/renmher" target="_blank" rel="noopener noreferrer" className="lux-contact-card">
+                <i className="fa-brands fa-github"></i>
+                <div className="lux-card-text">
+                  <span className="lux-card-label">GitHub:</span>
+                  <span className="lux-card-val">github.com/renmher ↗</span>
+                </div>
+              </a>
             </div>
           </div>
         </section>
@@ -978,28 +935,28 @@ push-image:
       {/* ==============================================================
           EDITORIAL FOOTER
           ============================================================== */}
-      <footer className="phipps-footer">
-        <div className="phipps-container phipps-footer-grid">
-          <div className="phipps-footer-left">
-            <a href="#home" onClick={(e) => handleNavClick(e, 'home')} className="phipps-back-top">
-              ↑ BACK TO TOP
+      <footer className="lux-footer">
+        <div className="lux-container lux-footer-content">
+          <div className="lux-footer-top">
+            <a href="#home" onClick={(e) => handleNavClick(e, 'home')} className="lux-back-top">
+              <i className="fa-solid fa-arrow-up"></i> <span>BACK TO TOP</span>
             </a>
           </div>
 
-          <div className="phipps-footer-center">
-            <a href="https://github.com/renmher" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
-            <a href="https://linkedin.com/in/renaldyimran" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
-            <a href="https://www.threads.net/@renmher" target="_blank" rel="noopener noreferrer">Threads ↗</a>
-            <a href="https://wa.me/6287872481308" target="_blank" rel="noopener noreferrer">WhatsApp ↗</a>
+          <div className="lux-footer-socials">
+            <a href="https://github.com/renmher" target="_blank" rel="noopener noreferrer" title="GitHub"><i className="fa-brands fa-github"></i></a>
+            <a href="https://linkedin.com/in/renaldyimran" target="_blank" rel="noopener noreferrer" title="LinkedIn"><i className="fa-brands fa-linkedin"></i></a>
+            <a href="https://www.threads.net/@renmher" target="_blank" rel="noopener noreferrer" title="Threads"><i className="fa-brands fa-threads"></i></a>
+            <a href="https://wa.me/6287872481308" target="_blank" rel="noopener noreferrer" title="WhatsApp"><i className="fa-brands fa-whatsapp"></i></a>
           </div>
 
-          <div className="phipps-footer-right">
-            <span>©2026 Renaldy Imran Hermawan. All rights reserved.</span>
-          </div>
+          <p className="lux-copyright">
+            <strong>©2026 Renaldy Imran Hermawan.</strong> All Rights Reserved.
+          </p>
         </div>
       </footer>
 
-      {/* Floating Chatbot Assistant */}
+      {/* Floating Chatbot Assistant (Closed by default, click to open) */}
       <Chatbot lang={lang} />
     </div>
   );
