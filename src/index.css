@@ -4563,10 +4563,12 @@ body::before {
 }
 
 .tomasz-hero-greeting {
-  font-family: var(--font-heading);
-  font-size: 1.3rem;
-  font-weight: 600;
-  color: var(--text-main);
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
   margin-bottom: 8px;
 }
 
@@ -4581,11 +4583,12 @@ body::before {
 }
 
 .tomasz-hero-job {
-  font-family: var(--font-heading);
-  font-size: 1.15rem;
+  font-family: var(--font-mono);
+  font-size: 1.05rem;
   font-weight: 600;
   color: var(--text-muted);
   margin-bottom: 24px;
+  letter-spacing: 0.04em;
 }
 
 .tomasz-typing-badge {
@@ -4625,10 +4628,24 @@ body::before {
 }
 
 .tomasz-social-row a:hover {
-  background: var(--text-main);
-  color: var(--bg-deep);
+  transform: translateY(-3px);
   border-color: var(--text-main);
-  transform: translateY(-2px);
+}
+
+.tomasz-social-row a:hover .fa-whatsapp {
+  color: #25D366;
+}
+
+.tomasz-social-row a:hover .fa-linkedin {
+  color: #0A66C2;
+}
+
+.tomasz-social-row a:hover .fa-at {
+  color: #EA4335;
+}
+
+.tomasz-social-row a:hover .fa-threads {
+  color: var(--accent);
 }
 
 .tomasz-hero-actions {

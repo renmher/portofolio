@@ -280,9 +280,10 @@ const App = () => {
 
               <div className="tomasz-social-row">
                 <a href="mailto:renaldyimran@gmail.com" title="Email"><i className="fa-solid fa-at"></i></a>
-                <a href="https://github.com/renmher" target="_blank" rel="noopener noreferrer" title="GitHub"><i className="fa-brands fa-github"></i></a>
-                <a href="https://linkedin.com/in/renaldyimran" target="_blank" rel="noopener noreferrer" title="LinkedIn"><i className="fa-brands fa-linkedin"></i></a>
-                <a href="https://wa.me/6287872481308" target="_blank" rel="noopener noreferrer" title="WhatsApp"><i className="fa-brands fa-whatsapp"></i></a>
+                <a href="https://github.com/renmher" target="_blank" rel="noopener noreferrer" title="GitHub" aria-label="GitHub"><i className="fa-brands fa-github"></i></a>
+                <a href="https://linkedin.com/in/renaldyimran" target="_blank" rel="noopener noreferrer" title="LinkedIn" aria-label="LinkedIn"><i className="fa-brands fa-linkedin"></i></a>
+                <a href="https://www.threads.net/@renmher" target="_blank" rel="noopener noreferrer" title="Threads" aria-label="Threads"><i className="fa-brands fa-threads"></i></a>
+                <a href="https://wa.me/6287872481308" target="_blank" rel="noopener noreferrer" title="WhatsApp" aria-label="WhatsApp"><i className="fa-brands fa-whatsapp"></i></a>
               </div>
 
               <div className="tomasz-hero-actions">
@@ -870,9 +871,10 @@ push-image:
 
           <div className="tomasz-footer-socials">
             <a href="mailto:renaldyimran@gmail.com" title="Email"><i className="fa-solid fa-at"></i></a>
-            <a href="https://github.com/renmher" target="_blank" rel="noopener noreferrer" title="GitHub"><i className="fa-brands fa-github"></i></a>
-            <a href="https://linkedin.com/in/renaldyimran" target="_blank" rel="noopener noreferrer" title="LinkedIn"><i className="fa-brands fa-linkedin"></i></a>
-            <a href="https://wa.me/6287872481308" target="_blank" rel="noopener noreferrer" title="WhatsApp"><i className="fa-brands fa-whatsapp"></i></a>
+            <a href="https://github.com/renmher" target="_blank" rel="noopener noreferrer" title="GitHub" aria-label="GitHub"><i className="fa-brands fa-github"></i></a>
+            <a href="https://linkedin.com/in/renaldyimran" target="_blank" rel="noopener noreferrer" title="LinkedIn" aria-label="LinkedIn"><i className="fa-brands fa-linkedin"></i></a>
+            <a href="https://www.threads.net/@renmher" target="_blank" rel="noopener noreferrer" title="Threads" aria-label="Threads"><i className="fa-brands fa-threads"></i></a>
+            <a href="https://wa.me/6287872481308" target="_blank" rel="noopener noreferrer" title="WhatsApp" aria-label="WhatsApp"><i className="fa-brands fa-whatsapp"></i></a>
           </div>
 
           <p className="footer-copyright">
