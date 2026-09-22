@@ -9,6 +9,14 @@ import { experiencesData, getDurationText } from './data/experiences';
 import { translations } from './data/translations';
 import { skillsList, projectsList } from './data/projects';
 
+// Typing effect ala mfaqih590.github.io / typed.js
+const typingTexts = [
+  'Junior DevOps Engineer',
+  'Cloud Infrastructure Specialist',
+  'Kubernetes & GitOps Practitioner',
+  'Observability & SRE Lead'
+];
+
 const App = () => {
   const [lang, setLang] = useState(() => localStorage.getItem('lang') || 'id');
   const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'light');
@@ -23,6 +31,37 @@ const App = () => {
   const [curlCopied, setCurlCopied] = useState(false);
   const [activeTechFilter, setActiveTechFilter] = useState(null);
   const [activeProjectSlide, setActiveProjectSlide] = useState(0);
+
+  const [textIndex, setTextIndex] = useState(0);
+  const [charIndex, setCharIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [displayText, setDisplayText] = useState('');
+
+  useEffect(() => {
+    const currentFullText = typingTexts[textIndex];
+    const typingSpeed = isDeleting ? 35 : 75;
+
+    const timeout = setTimeout(() => {
+      if (!isDeleting) {
+        setDisplayText(currentFullText.slice(0, charIndex + 1));
+        setCharIndex(prev => prev + 1);
+
+        if (charIndex + 1 === currentFullText.length) {
+          setTimeout(() => setIsDeleting(true), 1800);
+        }
+      } else {
+        setDisplayText(currentFullText.slice(0, charIndex - 1));
+        setCharIndex(prev => prev - 1);
+
+        if (charIndex - 1 === 0) {
+          setIsDeleting(false);
+          setTextIndex(prev => (prev + 1) % typingTexts.length);
+        }
+      }
+    }, typingSpeed);
+
+    return () => clearTimeout(timeout);
+  }, [charIndex, isDeleting, textIndex]);
 
   const projectTouchStartX = useRef(null);
   const projectTouchEndX = useRef(null);
@@ -101,7 +140,7 @@ const App = () => {
     document.body.setAttribute('data-theme', theme);
     const metaTheme = document.querySelector('meta[name="theme-color"]');
     if (metaTheme) {
-      metaTheme.setAttribute('content', theme === 'dark' ? '#030712' : '#f8fafc');
+      metaTheme.setAttribute('content', theme === 'dark' ? '#09090b' : '#ffffff');
     }
     localStorage.setItem('theme', theme);
   }, [theme]);
@@ -160,28 +199,66 @@ const App = () => {
     return <CVBuilder />;
   }
 
+  const orderedProjects = [
+    projectsList.find(p => p.id === 3),
+    projectsList.find(p => p.id === 1),
+    projectsList.find(p => p.id === 2)
+  ].filter(Boolean);
+
   return (
     <>
       <div className="scroll-progress" style={{ width: `${scrollProgress}%` }} />
 
-      <div className="bg-visuals">
+      {/* Top Utility Contact Bar ala mfaqih590.github.io */}
+      <div className="top-utility-bar">
+        <div className="container top-utility-container">
+          <div className="top-utility-left">
+            <a href="https://wa.me/6287872481308" target="_blank" rel="noopener noreferrer" className="utility-item">
+              <i className="fa-solid fa-phone"></i>
+              <span>+62 878-7248-1308</span>
+            </a>
+            <a href="mailto:renaldyimran@gmail.com" className="utility-item">
+              <i className="fa-solid fa-envelope"></i>
+              <span>renaldyimran@gmail.com</span>
+            </a>
+            <span className="utility-item location">
+              <i className="fa-solid fa-location-dot"></i>
+              <span>Bekasi, Indonesia</span>
+            </span>
+          </div>
+
+          <div className="top-utility-right">
+            <div className="utility-socials">
+              <a href="https://linkedin.com/in/renaldyimran" target="_blank" rel="noopener noreferrer" title="LinkedIn" aria-label="LinkedIn">
+                <i className="fa-brands fa-linkedin"></i>
+              </a>
+              <a href="https://github.com/renmher" target="_blank" rel="noopener noreferrer" title="GitHub" aria-label="GitHub">
+                <i className="fa-brands fa-github"></i>
+              </a>
+              <a href="https://wa.me/6287872481308" target="_blank" rel="noopener noreferrer" title="WhatsApp" aria-label="WhatsApp">
+                <i className="fa-brands fa-whatsapp"></i>
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
 
+      {/* Sticky Main Navbar */}
       <header className="site-header">
         <div className="header-container">
           <a href="#home" className="nav-logo" onClick={(e) => handleNavClick(e, 'home')}>
             <i className="fa-solid fa-terminal logo-icon"></i>
-            <span className="logo-text">Renaldy.dev</span>
+            <span className="logo-text">Renaldy Imran</span>
           </a>
 
           <nav className="desktop-nav">
             <ul>
-              <li><a href="#home" onClick={(e) => handleNavClick(e, 'home')} className={activeSection === 'home' ? 'active' : ''}>{curr["nav-home"]}</a></li>
-              <li><a href="#about" onClick={(e) => handleNavClick(e, 'about')} className={activeSection === 'about' ? 'active' : ''}>{curr["nav-about"]}</a></li>
-              <li><a href="#projects" onClick={(e) => handleNavClick(e, 'projects')} className={activeSection === 'projects' ? 'active' : ''}>{curr["nav-projects"]}</a></li>
-              <li><a href="#simulators" onClick={(e) => handleNavClick(e, 'simulators')} className={activeSection === 'simulators' ? 'active' : ''}>{curr["nav-playground"]}</a></li>
-              <li><a href="#certifications" onClick={(e) => handleNavClick(e, 'certifications')} className={activeSection === 'certifications' ? 'active' : ''}>{curr["nav-certs"]}</a></li>
-              <li><a href="#experience" onClick={(e) => handleNavClick(e, 'experience')} className={activeSection === 'experience' ? 'active' : ''}>{curr["nav-experience"]}</a></li>
+              <li><a href="#home" onClick={(e) => handleNavClick(e, 'home')} className={activeSection === 'home' ? 'active' : ''}>{lang === 'id' ? 'BERANDA' : 'HOME'}</a></li>
+              <li><a href="#experience" onClick={(e) => handleNavClick(e, 'experience')} className={activeSection === 'experience' ? 'active' : ''}>{lang === 'id' ? 'PENGALAMAN' : 'EXPERIENCE'}</a></li>
+              <li><a href="#skills" onClick={(e) => handleNavClick(e, 'skills')} className={activeSection === 'skills' ? 'active' : ''}>{lang === 'id' ? 'KEMAMPUAN' : 'SKILLS'}</a></li>
+              <li><a href="#projects" onClick={(e) => handleNavClick(e, 'projects')} className={activeSection === 'projects' ? 'active' : ''}>{lang === 'id' ? 'PROJECT' : 'PROJECTS'}</a></li>
+              <li><a href="#certifications" onClick={(e) => handleNavClick(e, 'certifications')} className={activeSection === 'certifications' ? 'active' : ''}>{lang === 'id' ? 'PENDIDIKAN & SERTIFIKAT' : 'EDUCATION & CERTS'}</a></li>
+              <li><a href="#contact" onClick={(e) => handleNavClick(e, 'contact')} className={activeSection === 'contact' ? 'active' : ''}>{lang === 'id' ? 'KONTAK' : 'CONTACT'}</a></li>
             </ul>
           </nav>
 
@@ -193,26 +270,6 @@ const App = () => {
               <button id="lang-toggle" className="control-btn" title="Switch Language" onClick={toggleLanguage}>
                 {lang === 'id' ? 'EN' : 'ID'}
               </button>
-              <a 
-                href="https://github.com/renmher" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="control-btn nav-social-btn" 
-                title="GitHub Profile" 
-                aria-label="GitHub Profile"
-              >
-                <i className="fa-brands fa-github"></i>
-              </a>
-              <a 
-                href="https://linkedin.com/in/renaldyimran" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="control-btn nav-social-btn" 
-                title="LinkedIn Profile" 
-                aria-label="LinkedIn Profile"
-              >
-                <i className="fa-brands fa-linkedin"></i>
-              </a>
             </div>
             <a 
               href={lang === 'id' ? "/cv-renaldy-id.pdf" : "/cv-renaldy.pdf"} 
@@ -221,23 +278,29 @@ const App = () => {
             >
               <i className="fa-solid fa-file-arrow-down"></i> CV
             </a>
-            <a href="#contact" onClick={(e) => handleNavClick(e, 'contact')} className="nav-cta">{curr["nav-contact"]}</a>
           </div>
         </div>
       </header>
 
+      {/* Mobile Navigation Bar */}
       <nav className="mobile-nav">
         <ul>
           <li>
             <a href="#home" onClick={(e) => handleNavClick(e, 'home')} className={activeSection === 'home' ? 'active' : ''}>
               <i className="fa-solid fa-house"></i>
-              <span>{curr["nav-home"]}</span>
+              <span>{lang === 'id' ? 'Beranda' : 'Home'}</span>
             </a>
           </li>
           <li>
-            <a href="#about" onClick={(e) => handleNavClick(e, 'about')} className={activeSection === 'about' ? 'active' : ''}>
-              <i className="fa-solid fa-user"></i>
-              <span>{curr["nav-about"]}</span>
+            <a href="#experience" onClick={(e) => handleNavClick(e, 'experience')} className={activeSection === 'experience' ? 'active' : ''}>
+              <i className="fa-solid fa-briefcase"></i>
+              <span>{lang === 'id' ? 'Karir' : 'Exp'}</span>
+            </a>
+          </li>
+          <li>
+            <a href="#skills" onClick={(e) => handleNavClick(e, 'skills')} className={activeSection === 'skills' ? 'active' : ''}>
+              <i className="fa-solid fa-wrench"></i>
+              <span>{lang === 'id' ? 'Skill' : 'Skills'}</span>
             </a>
           </li>
           <li>
@@ -247,27 +310,24 @@ const App = () => {
             </a>
           </li>
           <li>
-            <a href="#simulators" onClick={(e) => handleNavClick(e, 'simulators')} className={activeSection === 'simulators' ? 'active' : ''}>
-              <i className="fa-solid fa-gamepad"></i>
-              <span>Playground</span>
-            </a>
-          </li>
-          <li>
             <a href="#certifications" onClick={(e) => handleNavClick(e, 'certifications')} className={activeSection === 'certifications' ? 'active' : ''}>
               <i className="fa-solid fa-certificate"></i>
               <span>{lang === 'id' ? 'Sertif' : 'Certs'}</span>
             </a>
           </li>
           <li>
-            <a href="#experience" onClick={(e) => handleNavClick(e, 'experience')} className={activeSection === 'experience' ? 'active' : ''}>
-              <i className="fa-solid fa-briefcase"></i>
-              <span>{lang === 'id' ? 'Karir' : 'Exp'}</span>
+            <a href="#contact" onClick={(e) => handleNavClick(e, 'contact')} className={activeSection === 'contact' ? 'active' : ''}>
+              <i className="fa-solid fa-envelope"></i>
+              <span>{lang === 'id' ? 'Kontak' : 'Contact'}</span>
             </a>
           </li>
         </ul>
       </nav>
 
       <main className="container">
+        {/* ==============================================================
+            SECTION 1: BERANDA / HOME (HERO DENGAN TYPING EFFECT)
+            ============================================================== */}
         <section id="home" className="hero reveal active">
           <div className="hero-content">
             <div className="open-to-work-badge">
@@ -276,17 +336,14 @@ const App = () => {
             </div>
             
             <h1 className="hero-title">
-              {lang === 'id' ? (
-                <>Membangun Keandalan <span className="text-highlight">Cloud & Otomatisasi CI/CD</span> Skala Produksi.</>
-              ) : (
-                <>Architecting <span className="text-highlight">Cloud Resilience</span> & Automated CI/CD Pipelines.</>
-              )}
+              RENALDY IMRAN <span className="text-highlight">HERMAWAN</span>, S.Kom
             </h1>
-            
-            <div className="hero-identity-tag">
-              <span className="identity-name">Renaldy Imran Hermawan, S.Kom</span>
-              <span className="separator">•</span>
-              <span className="identity-role">{curr["hero-roles"]}</span>
+
+            {/* Typing text animation ala typed.js di mfaqih590 */}
+            <div className="typing-text-wrapper">
+              <span className="typing-prompt">&gt; </span>
+              <span className="typing-content">{displayText}</span>
+              <span className="typing-cursor">|</span>
             </div>
             
             <p className="hero-desc">{curr["hero-desc"]}</p>
@@ -294,19 +351,19 @@ const App = () => {
             <div className="hero-meta">
               <span><i className="fa-solid fa-map-pin"></i> {curr["hero-location"]}</span>
               <span className="separator">•</span>
-              <span><i className="fa-solid fa-briefcase"></i> {lang === 'id' ? 'Tersedia untuk DevOps Role' : 'Available for DevOps Roles'}</span>
+              <span><i className="fa-solid fa-briefcase"></i> {lang === 'id' ? 'Tersedia untuk DevOps / Cloud Roles' : 'Available for DevOps / Cloud Roles'}</span>
             </div>
             
             <div className="hero-buttons">
-              <a href="#projects" onClick={(e) => handleNavClick(e, 'projects')} className="btn btn-primary">
-                {curr["btn-projects"]}
-              </a>
               <a 
                 href={lang === 'id' ? "/cv-renaldy-id.pdf" : "/cv-renaldy.pdf"} 
                 download={lang === 'id' ? "CV-Renaldy-Imran-Hermawan-ID.pdf" : "CV-Renaldy-Imran-Hermawan.pdf"} 
-                className="btn btn-secondary"
+                className="btn btn-primary"
               >
-                {curr["btn-cv"]}
+                <i className="fa-solid fa-file-arrow-down"></i> <span>DOWNLOAD CV</span>
+              </a>
+              <a href="#contact" onClick={(e) => handleNavClick(e, 'contact')} className="btn btn-secondary">
+                <i className="fa-solid fa-paper-plane"></i> <span>{lang === 'id' ? 'HUBUNGI SAYA' : 'CONTACT ME'}</span>
               </a>
             </div>
 
@@ -384,34 +441,44 @@ const App = () => {
           </div>
         </div>
 
-        <section id="about" className="reveal">
+        {/* ==============================================================
+            SECTION 2: PENGALAMAN KERJA / WORK EXPERIENCE
+            ============================================================== */}
+        <section id="experience" className="reveal">
           <div className="section-title">
-            <h2 dangerouslySetInnerHTML={{ __html: curr["about-title"] }} />
-            <p>{curr["about-subtitle"]}</p>
+            <span className="section-category-tag">{"// RIWAYAT KARIR PROFESIONAL"}</span>
+            <h2 dangerouslySetInnerHTML={{ __html: curr["exp-title"] }} />
+            <p>{curr["exp-subtitle"]}</p>
           </div>
 
-          <div className="editorial-about-split mb-12">
-            <div className="editorial-narrative-main">
-              <span className="section-category-tag mb-4 d-inline-block">{"// EXECUTIVE PROFILE"}</span>
-              <p className="narrative-lead mb-4">{curr["about-narrative-p1"]}</p>
-            </div>
-            <div className="editorial-narrative-side">
-              <p className="narrative-sub mb-6">{curr["about-narrative-p2"]}</p>
-              <div className="editorial-meta-list">
-                <div className="editorial-meta-row">
-                  <span className="meta-label">DEGREE</span>
-                  <span className="meta-val">S.Kom — Universitas Bani Saleh</span>
+          <div className="career-ledger mb-8">
+            {experiencesData.map((exp) => (
+              <article key={exp.id} className="ledger-entry">
+                <div className="ledger-meta-col">
+                  <span className="ledger-period">{exp.dateText[lang]}</span>
+                  <span className="ledger-duration">{getDurationText(exp, lang)}</span>
+                  {exp.type && <span className="ledger-type-pill">{exp.type[lang]}</span>}
                 </div>
-                <div className="editorial-meta-row">
-                  <span className="meta-label">TARGET ROLE</span>
-                  <span className="meta-val">DevOps & Cloud Engineer</span>
+                <div className="ledger-body-col">
+                  <div className="ledger-title-bar">
+                    <i className={`ledger-icon ${exp.icon}`}></i>
+                    <h3 className="ledger-role-title">{curr[exp.titleKey]}</h3>
+                  </div>
+                  <div className="ledger-details" dangerouslySetInnerHTML={{ __html: curr[exp.descKey] }} />
                 </div>
-                <div className="editorial-meta-row">
-                  <span className="meta-label">LOCATION</span>
-                  <span className="meta-val">Bekasi, ID (Ready for Hybrid/Remote)</span>
-                </div>
-              </div>
-            </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        {/* ==============================================================
+            SECTION 3: KEMAMPUAN / TECHNICAL SKILLS
+            ============================================================== */}
+        <section id="skills" className="reveal">
+          <div className="section-title">
+            <span className="section-category-tag">{"// KOMPETENSI TEKNIS & TOOLS"}</span>
+            <h2 dangerouslySetInnerHTML={{ __html: curr["skills-title"] }} />
+            <p>{curr["skills-subtitle"]}</p>
           </div>
 
           <div className="competency-ledger mb-12">
@@ -437,9 +504,10 @@ const App = () => {
             </div>
           </div>
 
-          <div className="skills-tape-container">
+          {/* Interactive Verified Tech Stack Filter */}
+          <div className="skills-tape-container mb-8">
             <div className="skills-tape-header mb-4">
-              <h4 className="font-mono text-sm uppercase tracking-wider text-muted">{"// VERIFIED TECH STACK (CLICK TO FILTER PROJECTS)"}</h4>
+              <h4 className="font-mono text-sm uppercase tracking-wider text-muted">{"// VERIFIED TECH STACK (KLIK UNTUK FILTER)"}</h4>
               {activeTechFilter && (
                 <button 
                   className="btn-clear-filter" 
@@ -475,257 +543,253 @@ const App = () => {
           </div>
         </section>
 
+        {/* ==============================================================
+            SECTION 4: PENGALAMAN PROJECT / PROJECTS SHOWCASE
+            ============================================================== */}
         <section id="projects" className="reveal">
           <div className="section-title">
+            <span className="section-category-tag">{"// PORTOFOLIO PROYEK REKAYASA SISTEM"}</span>
             <h2 dangerouslySetInnerHTML={{ __html: curr["proj-section-title"] }} />
             <p>{curr["proj-section-subtitle"]}</p>
           </div>
 
           {/* INTERACTIVE PROJECT SHOWCASE SLIDER */}
-          {(() => {
-            const orderedProjects = [
-              projectsList.find(p => p.id === 3),
-              projectsList.find(p => p.id === 1),
-              projectsList.find(p => p.id === 2)
-            ].filter(Boolean);
+          <div className="project-slider-wrapper mb-16">
+            {/* Slider Header Controls */}
+            <div className="project-slider-nav-bar mb-6">
+              <div className="slider-nav-left">
+                <span className="slider-counter-badge">
+                  <span className="slider-counter-current">0{activeProjectSlide + 1}</span>
+                  <span className="slider-counter-divider">/</span>
+                  <span className="slider-counter-total">0{orderedProjects.length}</span>
+                </span>
+                <span className="slider-project-category">
+                  {activeProjectSlide === 0 && (lang === 'id' ? '// 01. KARYA UNGGULAN GITOPS (BANK CBS)' : '// 01. FLAGSHIP GITOPS (BANK CBS)')}
+                  {activeProjectSlide === 1 && (lang === 'id' ? '// 02. PIPELINE CI & DEVSECOPS' : '// 02. SECURE CI/CD & DEVSECOPS')}
+                  {activeProjectSlide === 2 && (lang === 'id' ? '// 03. SRE OBSERVABILITY & ALARM' : '// 03. SRE OBSERVABILITY & ALERTS')}
+                </span>
+              </div>
 
-            return (
-              <div className="project-slider-wrapper">
-                {/* Slider Header Controls */}
-                <div className="project-slider-nav-bar mb-6">
-                  <div className="slider-nav-left">
-                    <span className="slider-counter-badge">
-                      <span className="slider-counter-current">0{activeProjectSlide + 1}</span>
-                      <span className="slider-counter-divider">/</span>
-                      <span className="slider-counter-total">0{orderedProjects.length}</span>
-                    </span>
-                    <span className="slider-project-category">
-                      {activeProjectSlide === 0 && (lang === 'id' ? '// 01. KARYA UNGGULAN GITOPS (BANK CBS)' : '// 01. FLAGSHIP GITOPS (BANK CBS)')}
-                      {activeProjectSlide === 1 && (lang === 'id' ? '// 02. PIPELINE CI & DEVSECOPS' : '// 02. SECURE CI/CD & DEVSECOPS')}
-                      {activeProjectSlide === 2 && (lang === 'id' ? '// 03. SRE OBSERVABILITY & ALARM' : '// 03. SRE OBSERVABILITY & ALERTS')}
-                    </span>
-                  </div>
-
-                  <div className="slider-nav-controls">
-                    <div className="slider-pagination-pills">
-                      {orderedProjects.map((p, idx) => (
-                        <button
-                          key={p.id}
-                          className={`slider-pill-dot ${activeProjectSlide === idx ? 'active' : ''}`}
-                          onClick={() => setActiveProjectSlide(idx)}
-                          title={`Slide to ${curr[p.nameKey]}`}
-                        >
-                          <span>0{idx + 1}</span>
-                        </button>
-                      ))}
-                    </div>
-
-                    <div className="slider-arrow-btns">
-                      <button
-                        className="btn-slider-arrow"
-                        onClick={() => setActiveProjectSlide(prev => prev > 0 ? prev - 1 : orderedProjects.length - 1)}
-                        title="Previous Project (Slide Left)"
-                        aria-label="Previous Project"
-                      >
-                        <i className="fa-solid fa-arrow-left"></i>
-                      </button>
-                      <button
-                        className="btn-slider-arrow"
-                        onClick={() => setActiveProjectSlide(prev => prev < orderedProjects.length - 1 ? prev + 1 : 0)}
-                        title="Next Project (Slide Right)"
-                        aria-label="Next Project"
-                      >
-                        <i className="fa-solid fa-arrow-right"></i>
-                      </button>
-                    </div>
-                  </div>
+              <div className="slider-nav-controls">
+                <div className="slider-pagination-pills">
+                  {orderedProjects.map((p, idx) => (
+                    <button
+                      key={p.id}
+                      className={`slider-pill-dot ${activeProjectSlide === idx ? 'active' : ''}`}
+                      onClick={() => setActiveProjectSlide(idx)}
+                      title={`Slide to ${curr[p.nameKey]}`}
+                    >
+                      <span>0{idx + 1}</span>
+                    </button>
+                  ))}
                 </div>
 
-                {/* Slider Stage & Moving Track */}
-                <div 
-                  className="project-slider-stage"
-                  onTouchStart={onProjectTouchStart}
-                  onTouchMove={onProjectTouchMove}
-                  onTouchEnd={onProjectTouchEnd}
-                >
-                  <div 
-                    className="project-slider-track"
-                    style={{ transform: `translateX(-${activeProjectSlide * 100}%)` }}
+                <div className="slider-arrow-btns">
+                  <button
+                    className="btn-slider-arrow"
+                    onClick={() => setActiveProjectSlide(prev => prev > 0 ? prev - 1 : orderedProjects.length - 1)}
+                    title="Previous Project (Slide Left)"
+                    aria-label="Previous Project"
                   >
-                    {orderedProjects.map((project) => {
-                      const activeTab = projectTabs[project.id] || 'overview';
-                      const isFlagship = project.id === 3;
-                      return (
-                        <div key={project.id} className="project-slide-item">
-                          <article className="card project-showcase-card flagship-slider-card">
-                            {isFlagship && (
-                              <div className="flagship-badge-bar">
-                                <span className="flagship-live-badge">
-                                  <span className="dot pulse"></span>
-                                  <span>LIVE INGRESS: portal-admin-prod-renaldy-imran-cbs.apps.k3s.cbu</span>
-                                </span>
-                                <span className="flagship-tag-pill">FLAGSHIP CASE STUDY</span>
-                              </div>
-                            )}
+                    <i className="fa-solid fa-arrow-left"></i>
+                  </button>
+                  <button
+                    className="btn-slider-arrow"
+                    onClick={() => setActiveProjectSlide(prev => prev < orderedProjects.length - 1 ? prev + 1 : 0)}
+                    title="Next Project (Slide Right)"
+                    aria-label="Next Project"
+                  >
+                    <i className="fa-solid fa-arrow-right"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
 
-                            <div className="project-grid-inner">
-                              <div className="project-showcase-visual">
-                                <div className="project-showcase-img-wrapper">
-                                  <img src={project.image} alt={curr[project.nameKey]} />
-                                </div>
-                                <div className="project-showcase-tools">
-                                  {project.tools.map((tool, index) => (
-                                    <span key={index} className="project-tool-tag">{tool}</span>
-                                  ))}
-                                </div>
-                                <div className="project-action-bar">
-                                  {project.id === 3 && (
-                                    <>
-                                      <a 
-                                        href="/projects/cbs-presentation.pdf" 
-                                        target="_blank" 
-                                        rel="noopener noreferrer"
-                                        className="btn btn-primary"
-                                      >
-                                        <i className="fa-solid fa-file-pdf"></i> <span>{lang === 'id' ? 'Buka Slide Presentasi (PDF)' : 'View Slide Deck (PDF)'}</span>
-                                      </a>
-                                      <a 
-                                        href={project.repoUrl} 
-                                        target="_blank" 
-                                        rel="noopener noreferrer"
-                                        className="btn btn-secondary"
-                                      >
-                                        <i className="fa-brands fa-gitlab"></i> <span>{lang === 'id' ? 'GitLab Shared Pipeline' : 'GitLab Shared Templates'}</span>
-                                      </a>
-                                      <a 
-                                        href="#simulators" 
-                                        onClick={(e) => { e.preventDefault(); setActiveSimulatorTab('gitops'); document.getElementById('simulators')?.scrollIntoView({ behavior: 'smooth' }); }}
-                                        className="btn btn-secondary"
-                                      >
-                                        <i className="fa-solid fa-cloud"></i> <span>{lang === 'id' ? 'Coba Simulator GitOps' : 'Try GitOps Sim'}</span>
-                                      </a>
-                                    </>
+            {/* Slider Stage & Moving Track */}
+            <div 
+              className="project-slider-stage"
+              onTouchStart={onProjectTouchStart}
+              onTouchMove={onProjectTouchMove}
+              onTouchEnd={onProjectTouchEnd}
+            >
+              <div 
+                className="project-slider-track"
+                style={{ transform: `translateX(-${activeProjectSlide * 100}%)` }}
+              >
+                {orderedProjects.map((project) => {
+                  const activeTab = projectTabs[project.id] || 'overview';
+                  const isFlagship = project.id === 3;
+                  return (
+                    <div key={project.id} className="project-slide-item">
+                      <article className="card project-showcase-card flagship-slider-card">
+                        {isFlagship && (
+                          <div className="flagship-badge-bar">
+                            <span className="flagship-live-badge">
+                              <span className="dot pulse"></span>
+                              <span>LIVE INGRESS: portal-admin-prod-renaldy-imran-cbs.apps.k3s.cbu</span>
+                            </span>
+                            <span className="flagship-tag-pill">FLAGSHIP CASE STUDY</span>
+                          </div>
+                        )}
+
+                        <div className="project-grid-inner">
+                          <div className="project-showcase-visual">
+                            <div className="project-showcase-img-wrapper">
+                              <img src={project.image} alt={curr[project.nameKey]} />
+                            </div>
+                            <div className="project-showcase-tools">
+                              {project.tools.map((tool, index) => (
+                                <span key={index} className="project-tool-tag">{tool}</span>
+                              ))}
+                            </div>
+                            <div className="project-action-bar">
+                              {project.id === 3 && (
+                                <>
+                                  <a 
+                                    href="/projects/cbs-presentation.pdf" 
+                                    target="_blank" 
+                                    rel="noopener noreferrer"
+                                    className="btn btn-primary"
+                                  >
+                                    <i className="fa-solid fa-file-pdf"></i> <span>{lang === 'id' ? 'Buka Slide Presentasi (PDF)' : 'View Slide Deck (PDF)'}</span>
+                                  </a>
+                                  <a 
+                                    href={project.repoUrl} 
+                                    target="_blank" 
+                                    rel="noopener noreferrer"
+                                    className="btn btn-secondary"
+                                  >
+                                    <i className="fa-brands fa-gitlab"></i> <span>{lang === 'id' ? 'GitLab Shared Pipeline' : 'GitLab Shared Templates'}</span>
+                                  </a>
+                                  <a 
+                                    href="#simulators" 
+                                    onClick={(e) => { e.preventDefault(); setActiveSimulatorTab('gitops'); document.getElementById('simulators')?.scrollIntoView({ behavior: 'smooth' }); }}
+                                    className="btn btn-secondary"
+                                  >
+                                    <i className="fa-solid fa-cloud"></i> <span>{lang === 'id' ? 'Coba Simulator GitOps' : 'Try GitOps Sim'}</span>
+                                  </a>
+                                </>
+                              )}
+                              {project.id === 1 && (
+                                <>
+                                  <a 
+                                    href="#simulators" 
+                                    onClick={(e) => { e.preventDefault(); setActiveSimulatorTab('pipeline'); document.getElementById('simulators')?.scrollIntoView({ behavior: 'smooth' }); }}
+                                    className="btn btn-secondary"
+                                  >
+                                    <i className="fa-solid fa-terminal"></i> {lang === 'id' ? 'Coba Simulator Pipeline' : 'Try Pipeline Simulator'}
+                                  </a>
+                                  {project.repoUrl && (
+                                    <a 
+                                      href={project.repoUrl} 
+                                      target="_blank" 
+                                      rel="noopener noreferrer"
+                                      className="btn btn-secondary repo-link"
+                                    >
+                                      <i className="fa-brands fa-github"></i> {curr["btn-view-repo"]}
+                                    </a>
                                   )}
-                                  {project.id === 1 && (
-                                    <>
-                                      <a 
-                                        href="#simulators" 
-                                        onClick={(e) => { e.preventDefault(); setActiveSimulatorTab('pipeline'); document.getElementById('simulators')?.scrollIntoView({ behavior: 'smooth' }); }}
-                                        className="btn btn-secondary"
-                                      >
-                                        <i className="fa-solid fa-terminal"></i> {lang === 'id' ? 'Coba Simulator Pipeline' : 'Try Pipeline Simulator'}
-                                      </a>
-                                      {project.repoUrl && (
-                                        <a 
-                                          href={project.repoUrl} 
-                                          target="_blank" 
-                                          rel="noopener noreferrer"
-                                          className="btn btn-secondary repo-link"
-                                        >
-                                          <i className="fa-brands fa-github"></i> {curr["btn-view-repo"]}
-                                        </a>
-                                      )}
-                                    </>
+                                </>
+                              )}
+                              {project.id === 2 && (
+                                <>
+                                  <a 
+                                    href="#simulators" 
+                                    onClick={(e) => { e.preventDefault(); setActiveSimulatorTab('monitoring'); document.getElementById('simulators')?.scrollIntoView({ behavior: 'smooth' }); }}
+                                    className="btn btn-secondary"
+                                  >
+                                    <i className="fa-solid fa-chart-line"></i> {lang === 'id' ? 'Coba Simulator Monitoring' : 'Try Monitoring Simulator'}
+                                  </a>
+                                  {project.repoUrl && (
+                                    <a 
+                                      href={project.repoUrl} 
+                                      target="_blank" 
+                                      rel="noopener noreferrer"
+                                      className="btn btn-secondary repo-link"
+                                    >
+                                      <i className="fa-brands fa-github"></i> {curr["btn-view-repo"]}
+                                    </a>
                                   )}
-                                  {project.id === 2 && (
-                                    <>
-                                      <a 
-                                        href="#simulators" 
-                                        onClick={(e) => { e.preventDefault(); setActiveSimulatorTab('monitoring'); document.getElementById('simulators')?.scrollIntoView({ behavior: 'smooth' }); }}
-                                        className="btn btn-secondary"
-                                      >
-                                        <i className="fa-solid fa-chart-line"></i> {lang === 'id' ? 'Coba Simulator Monitoring' : 'Try Monitoring Simulator'}
-                                      </a>
-                                      {project.repoUrl && (
-                                        <a 
-                                          href={project.repoUrl} 
-                                          target="_blank" 
-                                          rel="noopener noreferrer"
-                                          className="btn btn-secondary repo-link"
-                                        >
-                                          <i className="fa-brands fa-github"></i> {curr["btn-view-repo"]}
-                                        </a>
-                                      )}
-                                    </>
-                                  )}
-                                </div>
+                                </>
+                              )}
+                            </div>
+                          </div>
+
+                          <div className="project-showcase-details">
+                            <div>
+                              <h3 className="project-showcase-title">{curr[project.nameKey]}</h3>
+                              <div className="project-story-tabs">
+                                {['overview', 'problem', 'solution', 'impact', 'architecture', 'code'].map((tab) => (
+                                  <button
+                                    key={tab}
+                                    className={`project-story-tab-btn ${activeTab === tab ? 'active' : ''}`}
+                                    onClick={() => handleProjectTabChange(project.id, tab)}
+                                  >
+                                    {tab === 'overview' && curr["proj-tab-overview"]}
+                                    {tab === 'problem' && curr["proj-tab-problem"]}
+                                    {tab === 'solution' && curr["proj-tab-solution"]}
+                                    {tab === 'impact' && curr["proj-tab-impact"]}
+                                    {tab === 'architecture' && curr["proj-tab-arch"]}
+                                    {tab === 'code' && (project.id === 3 ? (lang === 'id' ? 'Script Otomasi' : 'deploy.sh Script') : project.id === 1 ? (lang === 'id' ? 'Pipeline CI' : '.gitlab-ci.yml') : (lang === 'id' ? 'Alert Rules' : 'alerts.yml'))}
+                                  </button>
+                                ))}
                               </div>
 
-                              <div className="project-showcase-details">
-                                <div>
-                                  <h3 className="project-showcase-title">{curr[project.nameKey]}</h3>
-                                  <div className="project-story-tabs">
-                                    {['overview', 'problem', 'solution', 'impact', 'architecture', 'code'].map((tab) => (
-                                      <button
-                                        key={tab}
-                                        className={`project-story-tab-btn ${activeTab === tab ? 'active' : ''}`}
-                                        onClick={() => handleProjectTabChange(project.id, tab)}
-                                      >
-                                        {tab === 'overview' && curr["proj-tab-overview"]}
-                                        {tab === 'problem' && curr["proj-tab-problem"]}
-                                        {tab === 'solution' && curr["proj-tab-solution"]}
-                                        {tab === 'impact' && curr["proj-tab-impact"]}
-                                        {tab === 'architecture' && curr["proj-tab-arch"]}
-                                        {tab === 'code' && (project.id === 3 ? (lang === 'id' ? 'Script Otomasi' : 'deploy.sh Script') : project.id === 1 ? (lang === 'id' ? 'Pipeline CI' : '.gitlab-ci.yml') : (lang === 'id' ? 'Alert Rules' : 'alerts.yml'))}
-                                      </button>
-                                    ))}
+                              <div className="project-story-content">
+                                {activeTab === 'overview' && (
+                                  <div>
+                                    <p className="project-story-heading">{curr["proj-tab-overview"]}:</p>
+                                    <p>{curr[project.overviewKey]}</p>
                                   </div>
-
-                                  <div className="project-story-content">
-                                    {activeTab === 'overview' && (
-                                      <div>
-                                        <p className="project-story-heading">{curr["proj-tab-overview"]}:</p>
-                                        <p>{curr[project.overviewKey]}</p>
-                                      </div>
-                                    )}
-                                    {activeTab === 'problem' && (
-                                      <div>
-                                        <p className="project-story-heading problem">Challenge / Problem:</p>
-                                        <p>{curr[project.problemKey]}</p>
-                                      </div>
-                                    )}
-                                    {activeTab === 'solution' && (
-                                      <div>
-                                        <p className="project-story-heading solution">Solution & Process:</p>
-                                        <p className="mb-2"><strong>Role:</strong> {curr[project.roleKey]}</p>
-                                        <p>{curr[project.solutionKey]}</p>
-                                      </div>
-                                    )}
-                                    {activeTab === 'impact' && (
-                                      <div>
-                                        <p className="project-story-heading impact">Result & Impact:</p>
-                                        <p>{curr[project.impactKey]}</p>
-                                      </div>
-                                    )}
-                                    {activeTab === 'architecture' && (
-                                      <div className="project-architecture-flow">
-                                        <p className="project-story-heading arch">
-                                          <i className="fa-solid fa-diagram-project"></i> System Architecture Flow:
-                                        </p>
-                                        <div className="arch-flow-grid">
-                                          {project.architectureFlow?.map((node, i) => (
-                                            <div key={i} className="arch-node-card">
-                                              <div className="arch-node-header">
-                                                <span className="arch-step-badge">{node.step}</span>
-                                                <i className={`arch-node-icon ${node.icon}`}></i>
-                                              </div>
-                                              <h4 className="arch-node-title">{node.title}</h4>
-                                              <p className="arch-node-detail">{node.detail}</p>
-                                            </div>
-                                          ))}
+                                )}
+                                {activeTab === 'problem' && (
+                                  <div>
+                                    <p className="project-story-heading problem">Challenge / Problem:</p>
+                                    <p>{curr[project.problemKey]}</p>
+                                  </div>
+                                )}
+                                {activeTab === 'solution' && (
+                                  <div>
+                                    <p className="project-story-heading solution">Solution & Process:</p>
+                                    <p className="mb-2"><strong>Role:</strong> {curr[project.roleKey]}</p>
+                                    <p>{curr[project.solutionKey]}</p>
+                                  </div>
+                                )}
+                                {activeTab === 'impact' && (
+                                  <div>
+                                    <p className="project-story-heading impact">Result & Impact:</p>
+                                    <p>{curr[project.impactKey]}</p>
+                                  </div>
+                                )}
+                                {activeTab === 'architecture' && (
+                                  <div className="project-architecture-flow">
+                                    <p className="project-story-heading arch">
+                                      <i className="fa-solid fa-diagram-project"></i> Multi-Namespace Delivery Flow:
+                                    </p>
+                                    <div className="arch-flow-grid">
+                                      {project.architectureFlow?.map((node, i) => (
+                                        <div key={i} className="arch-node-card">
+                                          <div className="arch-node-header">
+                                            <span className="arch-step-badge">{node.step}</span>
+                                            <i className={`arch-node-icon ${node.icon}`}></i>
+                                          </div>
+                                          <h4 className="arch-node-title">{node.title}</h4>
+                                          <p className="arch-node-detail">{node.detail}</p>
                                         </div>
-                                      </div>
-                                    )}
-                                    {activeTab === 'code' && project.id === 3 && (
-                                      <div className="project-code-viewer">
-                                        <div className="code-viewer-header">
-                                          <span className="code-viewer-file"><i className="fa-solid fa-terminal"></i> scripts/deploy.sh (GitOps Kustomize Automation)</span>
-                                          <a href={project.repoUrl} target="_blank" rel="noopener noreferrer" className="code-viewer-link">
-                                            <i className="fa-brands fa-gitlab"></i> Full Repo
-                                          </a>
-                                        </div>
-                                        <pre className="code-viewer-body">
-                                          <code>{`# 1. Target Multi-Environment Namespace
+                                      ))}
+                                    </div>
+                                  </div>
+                                )}
+                                {activeTab === 'code' && project.id === 3 && (
+                                  <div className="project-code-viewer">
+                                    <div className="code-viewer-header">
+                                      <span className="code-viewer-file"><i className="fa-solid fa-terminal"></i> scripts/deploy.sh (GitOps Kustomize Automation)</span>
+                                      <a href={project.repoUrl} target="_blank" rel="noopener noreferrer" className="code-viewer-link">
+                                        <i className="fa-brands fa-gitlab"></i> Full Repo
+                                      </a>
+                                    </div>
+                                    <pre className="code-viewer-body">
+                                      <code>{`# 1. Target Multi-Environment Namespace
 NAMESPACE="renaldy-imran-cbs-\${ENV}"
 kubectl create namespace "\${NAMESPACE}" --dry-run=client -o yaml | kubectl apply -f -
 
@@ -743,17 +807,17 @@ kustomize edit set image "\${APP_NAME}=\${REGISTRY_IMAGE}:\${IMAGE_TAG}"
 # 4. Declarative Rollout & Auto Restart
 kubectl apply -k "$OVERLAY_PATH"
 kubectl rollout restart deployment/"\${APP_NAME}" -n "\${NAMESPACE}"`}</code>
-                                        </pre>
-                                      </div>
-                                    )}
-                                    {activeTab === 'code' && project.id === 1 && (
-                                      <div className="project-code-viewer">
-                                        <div className="code-viewer-header">
-                                          <span className="code-viewer-file"><i className="fa-solid fa-code"></i> .gitlab-ci.yml (Multi-Stage DevSecOps Pipeline)</span>
-                                          <span className="code-viewer-lang font-mono text-muted text-xs">YAML</span>
-                                        </div>
-                                        <pre className="code-viewer-body">
-                                          <code>{`stages:
+                                    </pre>
+                                  </div>
+                                )}
+                                {activeTab === 'code' && project.id === 1 && (
+                                  <div className="project-code-viewer">
+                                    <div className="code-viewer-header">
+                                      <span className="code-viewer-file"><i className="fa-solid fa-code"></i> .gitlab-ci.yml (Multi-Stage DevSecOps Pipeline)</span>
+                                      <span className="code-viewer-lang font-mono text-muted text-xs">YAML</span>
+                                    </div>
+                                    <pre className="code-viewer-body">
+                                      <code>{`stages:
   - test
   - security-scan
   - build-push
@@ -781,17 +845,17 @@ push-image:
   script:
     - docker login -u \${HARBOR_USER} -p \${HARBOR_PASSWORD} \${HARBOR_HOST}
     - docker push \${HARBOR_HOST}/cbs/\${APP_NAME}:\${CI_COMMIT_SHORT_SHA}`}</code>
-                                        </pre>
-                                      </div>
-                                    )}
-                                    {activeTab === 'code' && project.id === 2 && (
-                                      <div className="project-code-viewer">
-                                        <div className="code-viewer-header">
-                                          <span className="code-viewer-file"><i className="fa-solid fa-bell"></i> alert-rules.yml (VictoriaMetrics & Telegram Alerting)</span>
-                                          <span className="code-viewer-lang font-mono text-muted text-xs">PromQL / YAML</span>
-                                        </div>
-                                        <pre className="code-viewer-body">
-                                          <code>{`groups:
+                                    </pre>
+                                  </div>
+                                )}
+                                {activeTab === 'code' && project.id === 2 && (
+                                  <div className="project-code-viewer">
+                                    <div className="code-viewer-header">
+                                      <span className="code-viewer-file"><i className="fa-solid fa-bell"></i> alert-rules.yml (VictoriaMetrics & Telegram Alerting)</span>
+                                      <span className="code-viewer-lang font-mono text-muted text-xs">PromQL / YAML</span>
+                                    </div>
+                                    <pre className="code-viewer-body">
+                                      <code>{`groups:
   - name: production-infrastructure-alerts
     rules:
       # 1. High CPU Utilization Threshold
@@ -824,112 +888,124 @@ push-image:
           summary: "Pod {{ $labels.pod }} is in CrashLoopBackOff"
 
 # Dispatch channel: Telegram Bot Webhook -> SRE On-Call Incident Channel`}</code>
-                                        </pre>
-                                      </div>
-                                    )}
+                                    </pre>
                                   </div>
-                                </div>
+                                )}
                               </div>
                             </div>
-                          </article>
+                          </div>
                         </div>
-                      );
-                    })}
-                  </div>
+                      </article>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+
+          {/* Interactive Cloud Workbench Simulators */}
+          <div id="simulators" className="workbench-section mb-12">
+            <div className="section-title">
+              <span className="section-category-tag">{"// SIMULATOR LAB K8S & CLUSTER"}</span>
+              <h2>DevOps Playground & Simulators</h2>
+              <p>
+                {lang === 'id' 
+                  ? 'Simulasikan siklus otomatisasi pipeline, deployment GitOps, dan monitoring sistem secara langsung.' 
+                  : 'Simulate pipeline automation cycles, GitOps deployments, and system monitoring live.'}
+              </p>
+            </div>
+
+            <div className="simulator-tabs">
+              <button 
+                className={`btn ${activeSimulatorTab === 'pipeline' ? 'btn-primary' : 'btn-secondary'}`}
+                onClick={() => setActiveSimulatorTab('pipeline')}
+              >
+                <i className="fa-solid fa-terminal"></i> 1. CI/CD Pipeline
+              </button>
+              <button 
+                className={`btn ${activeSimulatorTab === 'gitops' ? 'btn-primary' : 'btn-secondary'}`}
+                onClick={() => setActiveSimulatorTab('gitops')}
+              >
+                <i className="fa-solid fa-cloud"></i> 2. GitOps & K8s
+              </button>
+              <button 
+                className={`btn ${activeSimulatorTab === 'monitoring' ? 'btn-primary' : 'btn-secondary'}`}
+                onClick={() => setActiveSimulatorTab('monitoring')}
+              >
+                <i className="fa-solid fa-chart-line"></i> 3. Observability & Alarm
+              </button>
+            </div>
+
+            <div className="simulator-active-content">
+              {activeSimulatorTab === 'pipeline' && (
+                <PipelineSimulator 
+                  lang={lang} 
+                  onStatusChange={handlePipelineStatusChange}
+                  onStageChange={handlePipelineStageChange}
+                  onProceedToGitOps={handleProceedToGitOps}
+                />
+              )}
+              {activeSimulatorTab === 'gitops' && (
+                <GitOpsSimulator 
+                  lang={lang} 
+                  pipelineLinked={isPipelineLinked}
+                  onSyncComplete={handleGitOpsSyncComplete}
+                  onResetLink={handleResetAllSimulators}
+                />
+              )}
+              {activeSimulatorTab === 'monitoring' && (
+                <ObservabilitySimulator 
+                  lang={lang} 
+                  pipelineState={pipelineState} 
+                  gitopsDeployedVersion={gitopsDeployedVersion}
+                />
+              )}
+            </div>
+          </div>
+        </section>
+
+        {/* ==============================================================
+            SECTION 5: PENDIDIKAN & SERTIFIKASI
+            ============================================================== */}
+        <section id="certifications" className="reveal">
+          <div className="section-title">
+            <span className="section-category-tag">{"// AKADEMIS & SERTIFIKASI PROFESIONAL"}</span>
+            <h2 dangerouslySetInnerHTML={{ __html: curr["about-edu-title"] }} />
+            <p>{curr["about-edu-desc"]}</p>
+          </div>
+
+          {/* Education Card */}
+          <div className="card education-card mb-12">
+            <div className="education-card-inner">
+              <div className="edu-icon-col">
+                <i className="fa-solid fa-graduation-cap"></i>
+              </div>
+              <div className="edu-info-col">
+                <span className="edu-badge">SARJANA KOMPUTER (S.KOM)</span>
+                <h3 className="edu-title">Universitas Bani Saleh — Teknik Informatika</h3>
+                <p className="edu-desc text-muted">
+                  {lang === 'id' 
+                    ? 'Fokus pada Arsitektur Jaringan, Infrastruktur Cloud, dan Rekayasa Sistem Perangkat Lunak. Lulus tahun 2024.'
+                    : 'Specialized in Network Architecture, Cloud Infrastructure, and Software Engineering. Graduated in 2024.'}
+                </p>
+                <div className="edu-meta-tags">
+                  <span><i className="fa-solid fa-calendar"></i> 2020 - 2024</span>
+                  <span><i className="fa-solid fa-location-dot"></i> Bekasi, Indonesia</span>
                 </div>
               </div>
-            );
-          })()}
+            </div>
+          </div>
+
+          {/* 7 Verified Certifications Component */}
+          <Certifications lang={lang} />
         </section>
 
-        <section id="simulators" className="reveal">
-          <div className="section-title">
-            <h2>DevOps Playground & Simulators</h2>
-            <p>
-              {lang === 'id' 
-                ? 'Simulasikan siklus otomatisasi pipeline, deployment GitOps, dan monitoring sistem secara langsung.' 
-                : 'Simulate pipeline automation cycles, GitOps deployments, and system monitoring live.'}
-            </p>
-          </div>
-
-          <div className="simulator-tabs">
-            <button 
-              className={`btn ${activeSimulatorTab === 'pipeline' ? 'btn-primary' : 'btn-secondary'}`}
-              onClick={() => setActiveSimulatorTab('pipeline')}
-            >
-              <i className="fa-solid fa-terminal"></i> 1. CI/CD Pipeline
-            </button>
-            <button 
-              className={`btn ${activeSimulatorTab === 'gitops' ? 'btn-primary' : 'btn-secondary'}`}
-              onClick={() => setActiveSimulatorTab('gitops')}
-            >
-              <i className="fa-solid fa-cloud"></i> 2. GitOps & K8s
-            </button>
-            <button 
-              className={`btn ${activeSimulatorTab === 'monitoring' ? 'btn-primary' : 'btn-secondary'}`}
-              onClick={() => setActiveSimulatorTab('monitoring')}
-            >
-              <i className="fa-solid fa-chart-line"></i> 3. Observability & Alarm
-            </button>
-          </div>
-
-          <div className="simulator-active-content">
-            {activeSimulatorTab === 'pipeline' && (
-              <PipelineSimulator 
-                lang={lang} 
-                onStatusChange={handlePipelineStatusChange}
-                onStageChange={handlePipelineStageChange}
-                onProceedToGitOps={handleProceedToGitOps}
-              />
-            )}
-            {activeSimulatorTab === 'gitops' && (
-              <GitOpsSimulator 
-                lang={lang} 
-                pipelineLinked={isPipelineLinked}
-                onSyncComplete={handleGitOpsSyncComplete}
-                onResetLink={handleResetAllSimulators}
-              />
-            )}
-            {activeSimulatorTab === 'monitoring' && (
-              <ObservabilitySimulator 
-                lang={lang} 
-                pipelineState={pipelineState} 
-                gitopsDeployedVersion={gitopsDeployedVersion}
-              />
-            )}
-          </div>
-        </section>
-
-        <Certifications lang={lang} />
-
-        <section id="experience" className="reveal">
-          <div className="section-title">
-            <h2 dangerouslySetInnerHTML={{ __html: curr["exp-title"] }} />
-            <p>{curr["exp-subtitle"]}</p>
-          </div>
-
-          <div className="career-ledger">
-            {experiencesData.map((exp) => (
-              <article key={exp.id} className="ledger-entry">
-                <div className="ledger-meta-col">
-                  <span className="ledger-period">{exp.dateText[lang]}</span>
-                  <span className="ledger-duration">{getDurationText(exp, lang)}</span>
-                  {exp.type && <span className="ledger-type-pill">{exp.type[lang]}</span>}
-                </div>
-                <div className="ledger-body-col">
-                  <div className="ledger-title-bar">
-                    <i className={`ledger-icon ${exp.icon}`}></i>
-                    <h3 className="ledger-role-title">{curr[exp.titleKey]}</h3>
-                  </div>
-                  <div className="ledger-details" dangerouslySetInnerHTML={{ __html: curr[exp.descKey] }} />
-                </div>
-              </article>
-            ))}
-          </div>
-        </section>
-
+        {/* ==============================================================
+            SECTION 6: KONTAK / CONTACT
+            ============================================================== */}
         <section id="contact" className="reveal">
           <div className="contact-banner">
+            <span className="section-category-tag mb-3 d-inline-block">{"// TERHUBUNG DENGAN SAYA"}</span>
             <h2>{curr["contact-title"]}</h2>
             <p className="mb-6">{curr["contact-desc"]}</p>
 
@@ -982,6 +1058,7 @@ push-image:
         </section>
       </main>
 
+      {/* Footer */}
       <footer>
         <div className="container footer-content">
           <div className="footer-status-bar mb-4">
@@ -992,6 +1069,7 @@ push-image:
         </div>
       </footer>
 
+      {/* Floating Chatbot RenBot */}
       <Chatbot lang={lang} />
     </>
   );

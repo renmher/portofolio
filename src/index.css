@@ -164,9 +164,73 @@ h1, h2, h3, h4 {
   font-weight: 400;
 }
 
+/* Top Utility Bar ala mfaqih590.github.io */
+.top-utility-bar {
+  background: var(--bg-surface);
+  border-bottom: 1px solid var(--border);
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  color: var(--text-muted);
+  position: relative;
+  z-index: 101;
+}
+
+.top-utility-container {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 8px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.top-utility-left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.utility-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.utility-item i {
+  color: var(--accent);
+  font-size: 0.8rem;
+}
+
+.utility-item:hover {
+  color: var(--text-main);
+}
+
+.top-utility-right .utility-socials {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.utility-socials a {
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  transition: var(--transition);
+}
+
+.utility-socials a:hover {
+  color: var(--accent);
+  transform: translateY(-1px);
+}
+
 /* Header & Nav */
 header.site-header {
-  position: fixed;
+  position: sticky;
   top: 0;
   left: 0;
   right: 0;
@@ -681,8 +745,8 @@ header.site-header {
 
 /* Hero Section */
 .hero {
-  padding-top: 130px;
-  padding-bottom: 70px;
+  padding-top: 60px;
+  padding-bottom: 60px;
   display: grid;
   grid-template-columns: 1.25fr 0.75fr;
   gap: 48px;
@@ -741,6 +805,41 @@ header.site-header {
   text-decoration: underline;
   text-decoration-thickness: 2px;
   text-underline-offset: 6px;
+}
+
+/* Typing Text Animation (ala typed.js di mfaqih590) */
+.typing-text-wrapper {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: clamp(1rem, 2.2vw, 1.35rem);
+  font-weight: 700;
+  color: var(--accent);
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  padding: 6px 14px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 20px;
+  min-height: 42px;
+  letter-spacing: 0.02em;
+}
+
+.typing-prompt {
+  color: var(--text-muted);
+  margin-right: 6px;
+  font-weight: 800;
+}
+
+.typing-cursor {
+  font-weight: 400;
+  color: var(--accent);
+  animation: blink-cursor 0.75s step-end infinite;
+  margin-left: 2px;
+}
+
+@keyframes blink-cursor {
+  from, to { opacity: 1; }
+  50% { opacity: 0; }
 }
 
 .hero-subtitle {
@@ -4239,4 +4338,85 @@ body::before {
   color: var(--text-main);
   text-decoration: underline;
   font-weight: 700;
+}
+
+/* Education Card ala mfaqih590.github.io */
+.education-card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg-card);
+  padding: 28px;
+}
+
+.education-card-inner {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+.edu-icon-col {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-sm);
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.edu-info-col {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.edu-badge {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 0.08em;
+}
+
+.edu-title {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--text-main);
+  letter-spacing: -0.02em;
+}
+
+.edu-desc {
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+.edu-meta-tags {
+  display: flex;
+  gap: 16px;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+  flex-wrap: wrap;
+}
+
+.edu-meta-tags span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+@media (max-width: 768px) {
+  .top-utility-bar {
+    display: none;
+  }
+  .education-card-inner {
+    flex-direction: column;
+    gap: 16px;
+  }
 }
