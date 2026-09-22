@@ -185,12 +185,7 @@ const Certifications = ({ lang }) => {
 
   return (
     <>
-      <section id="certifications" className="reveal">
-        <div className="section-title">
-          <h2 dangerouslySetInnerHTML={{ __html: currentTranslations.title }} />
-          <p>{currentTranslations.subtitle}</p>
-        </div>
-
+      <div className="certifications-block">
         <div className="cert-tabs">
           <button
             className={`tab-btn ${activeTab === 'all' ? 'active' : ''}`}
@@ -262,7 +257,7 @@ const Certifications = ({ lang }) => {
             ))}
           </div>
         )}
-      </section>
+      </div>
 
       {/* Lightbox Modal */}
       {selectedCert && (

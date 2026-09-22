@@ -4263,8 +4263,8 @@ body::before {
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   overflow: hidden;
-  max-width: 620px;
-  margin: 0 auto;
+  max-width: 760px;
+  margin: 0 auto 20px;
 }
 
 .cli-box-header {
@@ -4933,8 +4933,8 @@ body::before {
 
 .tomasz-skills-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 16px;
 }
 
 .skill-tile {
@@ -5237,6 +5237,10 @@ body::before {
   padding: 28px;
 }
 
+.tomasz-workbench-box .simulator-tabs {
+  margin-bottom: 20px;
+}
+
 .workbench-title-bar {
   margin-bottom: 20px;
   border-bottom: 1px solid var(--border);
@@ -5399,9 +5403,9 @@ body::before {
 
 .tomasz-contact-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
   gap: 16px;
-  max-width: 880px;
+  max-width: 760px;
   margin: 0 auto;
 }
 
@@ -5552,5 +5556,19 @@ body::before {
   .tomasz-edu-banner {
     flex-direction: column;
     gap: 16px;
+  }
+  .chatbot-trigger {
+    bottom: 84px !important;
+    right: 16px !important;
+  }
+  .chatbot-window {
+    bottom: 150px !important;
+    right: 16px !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .tomasz-contact-grid {
+    grid-template-columns: 1fr;
   }
 }
