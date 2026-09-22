@@ -4147,3 +4147,260 @@ body::before {
   text-decoration: underline;
   font-weight: 700;
 }
+
+/* =========================================================
+   FULLSCREEN PRESENTATION SLIDE DECK ARCHITECTURE
+   ========================================================= */
+
+.slide-deck-app {
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-deep);
+}
+
+.slide-header {
+  position: relative !important;
+  z-index: 100;
+  flex-shrink: 0;
+  height: 60px;
+  background: var(--bg-deep);
+  border-bottom: 1px solid var(--border);
+}
+
+.slide-tab-btn {
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--text-muted);
+  font-family: var(--font-heading);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.slide-tab-btn:hover {
+  color: var(--text-main);
+  background: var(--bg-surface);
+}
+
+.slide-tab-btn.active {
+  color: var(--text-main);
+  background: var(--bg-surface);
+  border-color: var(--border);
+}
+
+.slide-stage {
+  flex: 1;
+  width: 100vw;
+  overflow: hidden;
+  position: relative;
+}
+
+.slide-track {
+  display: flex;
+  width: 600%;
+  height: 100%;
+  transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+.slide-pane {
+  width: 100vw;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 32px 0 110px; /* space for bottom floating dock */
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Custom scrollbar for slide panes */
+.slide-pane::-webkit-scrollbar {
+  width: 4px;
+}
+.slide-pane::-webkit-scrollbar-track {
+  background: transparent;
+}
+.slide-pane::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+.slide-pane::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+.hero-slide-section {
+  padding: 20px 0 40px;
+  display: grid;
+  grid-template-columns: 1.25fr 0.75fr;
+  gap: 48px;
+  align-items: center;
+  text-align: left;
+}
+
+.slide-pane-header {
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 16px;
+}
+
+.slide-pane-heading {
+  font-family: var(--font-heading);
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  color: var(--text-main);
+  margin: 8px 0;
+  line-height: 1.15;
+}
+
+.slide-pane-sub {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  max-width: 680px;
+  line-height: 1.6;
+}
+
+/* Floating Bottom Slide Controller Dock */
+.slide-dock {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 8px 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  max-width: calc(100vw - 32px);
+}
+
+.dock-nav-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-main);
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-heading);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.dock-nav-btn:hover:not(:disabled) {
+  background: var(--text-main);
+  color: var(--bg-deep);
+  border-color: var(--text-main);
+}
+
+.dock-nav-btn.primary {
+  background: var(--text-main);
+  color: var(--bg-deep);
+  border-color: var(--text-main);
+}
+
+.dock-nav-btn.primary:hover:not(:disabled) {
+  background: var(--accent);
+  color: #000;
+  border-color: var(--accent);
+}
+
+.dock-nav-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.dock-progress-indicators {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.dock-segment {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 6px;
+}
+
+.dock-seg-bar {
+  width: 24px;
+  height: 3px;
+  background: var(--border);
+  border-radius: 2px;
+  transition: var(--transition);
+}
+
+.dock-seg-num {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  transition: var(--transition);
+}
+
+.dock-segment.active .dock-seg-bar {
+  background: var(--accent);
+  width: 32px;
+}
+
+.dock-segment.active .dock-seg-num {
+  color: var(--accent);
+  font-weight: 800;
+}
+
+.dock-segment.completed .dock-seg-bar {
+  background: var(--text-main);
+}
+
+@media (max-width: 900px) {
+  .hero-slide-section {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}
+
+@media (max-width: 768px) {
+  .slide-nav {
+    display: none;
+  }
+  .dock-btn-text {
+    display: none;
+  }
+  .dock-nav-btn {
+    padding: 8px 12px;
+  }
+  .dock-seg-bar {
+    width: 14px;
+  }
+  .dock-segment.active .dock-seg-bar {
+    width: 20px;
+  }
+  .slide-pane {
+    padding: 20px 0 100px;
+  }
+}
