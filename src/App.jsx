@@ -302,6 +302,10 @@ const App = () => {
             <div className="tomasz-hero-right">
               <div className="tomasz-image-frame">
                 <img src="/profile.png" alt="Renaldy Imran Hermawan" className="tomasz-profile-img" />
+                <div className="tomasz-frame-chip">
+                  <span className="dot pulse"></span>
+                  <span>{lang === 'id' ? 'SIAP KERJA: DEVOPS & SRE' : 'OPEN TO WORK: DEVOPS & SRE'}</span>
+                </div>
               </div>
             </div>
           </div>
