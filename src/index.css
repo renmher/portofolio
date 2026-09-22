@@ -4420,3 +4420,1079 @@ body::before {
     gap: 16px;
   }
 }
+
+/* =========================================================
+   TOMASZ GAJDA FIGMA COMMUNITY DESIGN STYLES
+   ========================================================= */
+
+/* Header */
+.tomasz-header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: var(--bg-deep);
+  border-bottom: 2px solid var(--text-main);
+  transition: var(--transition);
+}
+
+.tomasz-header-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 16px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.tomasz-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--text-main);
+}
+
+.logo-badge {
+  background: var(--text-main);
+  color: var(--bg-deep);
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 1rem;
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  letter-spacing: 0.05em;
+}
+
+.logo-title {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 1.15rem;
+  letter-spacing: -0.02em;
+}
+
+.tomasz-desktop-nav ul {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.tomasz-desktop-nav a {
+  text-decoration: none;
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-main);
+  transition: var(--transition);
+}
+
+.tomasz-desktop-nav a:hover,
+.tomasz-desktop-nav a.active {
+  color: var(--accent);
+}
+
+.btn-contact-pill {
+  border: 2px solid var(--text-main) !important;
+  padding: 8px 18px !important;
+  border-radius: 100px !important;
+  font-size: 0.82rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.05em !important;
+  background: transparent !important;
+  color: var(--text-main) !important;
+  transition: var(--transition) !important;
+}
+
+.btn-contact-pill:hover {
+  background: var(--text-main) !important;
+  color: var(--bg-deep) !important;
+}
+
+.tomasz-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tomasz-ctrl-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-main);
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  transition: var(--transition);
+}
+
+.tomasz-ctrl-btn:hover {
+  background: var(--text-main);
+  color: var(--bg-deep);
+  border-color: var(--text-main);
+}
+
+/* Hero Section */
+.tomasz-hero {
+  padding: 80px 0 100px;
+  background: var(--bg-deep);
+  position: relative;
+}
+
+.tomasz-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.tomasz-hero-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.tomasz-hero-greeting {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-bottom: 8px;
+}
+
+.tomasz-hero-name {
+  font-family: var(--font-heading);
+  font-size: clamp(2.5rem, 6vw, 4.2rem);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  color: var(--text-main);
+  line-height: 1.05;
+  margin-bottom: 12px;
+}
+
+.tomasz-hero-job {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+}
+
+.tomasz-typing-badge {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--accent);
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  padding: 6px 14px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 28px;
+}
+
+.tomasz-social-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 36px;
+}
+
+.tomasz-social-row a {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-sm);
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.tomasz-social-row a:hover {
+  background: var(--text-main);
+  color: var(--bg-deep);
+  border-color: var(--text-main);
+  transform: translateY(-2px);
+}
+
+.tomasz-hero-actions {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.btn-tomasz-primary {
+  background: var(--text-main);
+  color: var(--bg-deep) !important;
+  border: 2px solid var(--text-main);
+  padding: 12px 28px;
+  font-family: var(--font-heading);
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: var(--transition);
+}
+
+.btn-tomasz-primary:hover {
+  background: transparent;
+  color: var(--text-main) !important;
+}
+
+.btn-tomasz-secondary {
+  background: transparent;
+  color: var(--text-main);
+  border: 2px solid var(--text-main);
+  padding: 12px 28px;
+  font-family: var(--font-heading);
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: var(--transition);
+}
+
+.btn-tomasz-secondary:hover {
+  background: var(--text-main);
+  color: var(--bg-deep);
+}
+
+.tomasz-image-frame {
+  position: relative;
+  max-width: 380px;
+  margin: 0 auto;
+  border: 4px solid var(--text-main);
+  box-shadow: 16px 16px 0px var(--text-main);
+  background: var(--bg-card);
+  overflow: hidden;
+}
+
+.tomasz-profile-img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Statement Banner */
+.tomasz-statement-banner {
+  background: #000000;
+  color: #ffffff;
+  padding: 70px 0;
+  text-align: center;
+  border-top: 2px solid var(--border);
+  border-bottom: 2px solid var(--border);
+}
+
+[data-theme="dark"] .tomasz-statement-banner {
+  background: #141416;
+}
+
+.statement-heading {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  margin-bottom: 16px;
+  color: #ffffff;
+}
+
+.statement-text {
+  max-width: 820px;
+  margin: 0 auto 28px;
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: #a1a1aa;
+}
+
+.btn-statement-explore {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: #10b981;
+  text-decoration: none;
+  border: 1px solid #10b981;
+  padding: 8px 20px;
+  border-radius: var(--radius-sm);
+  transition: var(--transition);
+}
+
+.btn-statement-explore:hover {
+  background: #10b981;
+  color: #000000;
+}
+
+/* Section styling with Tomasz Geometric Separator */
+.tomasz-section {
+  padding: 90px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.tomasz-section-title {
+  text-align: center;
+  font-family: var(--font-heading);
+  font-size: 2.2rem;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  color: var(--text-main);
+  text-transform: uppercase;
+  margin-bottom: 0;
+}
+
+.tomasz-separator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin: 16px auto 44px;
+  width: 100%;
+  max-width: 240px;
+}
+
+.tomasz-separator::before,
+.tomasz-separator::after {
+  content: '';
+  flex: 1;
+  height: 2px;
+  background: var(--text-main);
+}
+
+.tomasz-separator-diamond {
+  width: 10px;
+  height: 10px;
+  background: var(--text-main);
+  transform: rotate(45deg);
+}
+
+.tomasz-separator.mini {
+  max-width: 160px;
+  margin: 28px auto;
+}
+
+.tomasz-about-narrative {
+  max-width: 840px;
+  margin: 0 auto;
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: var(--text-main);
+  text-align: center;
+}
+
+.tomasz-explore-tag {
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: var(--text-muted);
+  margin-top: 36px;
+}
+
+/* 3 Pillars */
+.tomasz-three-pillars {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.pillar-box {
+  border: 2px solid var(--border);
+  padding: 32px 24px;
+  text-align: center;
+  background: var(--bg-card);
+  transition: var(--transition);
+}
+
+.pillar-box:hover {
+  border-color: var(--text-main);
+  transform: translateY(-4px);
+  box-shadow: 8px 8px 0px var(--text-main);
+}
+
+.pillar-icon {
+  font-size: 2rem;
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+
+.pillar-title {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: var(--text-main);
+  margin-bottom: 12px;
+}
+
+.pillar-desc {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+/* Skills Groups */
+.tomasz-skills-group {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.skills-group-title {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  color: var(--text-main);
+  margin-bottom: 24px;
+  text-transform: uppercase;
+  border-left: 4px solid var(--text-main);
+  padding-left: 12px;
+}
+
+.tomasz-skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 20px;
+}
+
+.skill-tile {
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  padding: 24px 16px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  transition: var(--transition);
+}
+
+.skill-tile i {
+  font-size: 2.2rem;
+  color: var(--accent);
+}
+
+.skill-tile p {
+  font-family: var(--font-heading);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--text-main);
+}
+
+.skill-tile:hover {
+  border-color: var(--text-main);
+  transform: translateY(-3px);
+  box-shadow: 4px 4px 0px var(--text-main);
+}
+
+/* Portfolio Tabs & Slider */
+.tomasz-portfolio-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 36px;
+  flex-wrap: wrap;
+}
+
+.tomasz-tab-btn {
+  background: transparent;
+  border: 2px solid var(--border);
+  color: var(--text-muted);
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 8px 24px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.tomasz-tab-btn:hover {
+  border-color: var(--text-main);
+  color: var(--text-main);
+}
+
+.tomasz-tab-btn.active {
+  background: var(--text-main);
+  color: var(--bg-deep);
+  border-color: var(--text-main);
+}
+
+.tomasz-slider-container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.tomasz-slider-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.slider-counter {
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--accent);
+}
+
+.slider-btns {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-tomasz-arrow {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  color: var(--text-main);
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: var(--transition);
+}
+
+.btn-tomasz-arrow:hover {
+  background: var(--text-main);
+  color: var(--bg-deep);
+}
+
+.tomasz-slider-stage {
+  overflow: hidden;
+  width: 100%;
+}
+
+.tomasz-slider-track {
+  display: flex;
+  width: 100%;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.tomasz-slide-card {
+  flex: 0 0 100%;
+  width: 100%;
+  min-width: 100%;
+  border: 2px solid var(--border);
+  background: var(--bg-card);
+  padding: 32px;
+}
+
+.tomasz-project-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 36px;
+  align-items: start;
+}
+
+.tomasz-proj-img-wrap {
+  border: 1px solid var(--border);
+  overflow: hidden;
+  height: 280px;
+  background: #000000;
+}
+
+.tomasz-proj-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.tomasz-slide-card:hover .tomasz-proj-img-wrap img {
+  transform: scale(1.03);
+}
+
+.tomasz-proj-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.tomasz-tag {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border: 1px solid var(--border);
+  background: var(--bg-surface);
+  color: var(--text-main);
+}
+
+.tomasz-proj-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.btn-tomasz-solid-sm {
+  background: var(--text-main);
+  color: var(--bg-deep) !important;
+  border: 1px solid var(--text-main);
+  padding: 8px 16px;
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: var(--transition);
+}
+
+.btn-tomasz-solid-sm:hover {
+  background: transparent;
+  color: var(--text-main) !important;
+}
+
+.btn-tomasz-outline-sm {
+  background: transparent;
+  color: var(--text-main);
+  border: 1px solid var(--border);
+  padding: 8px 16px;
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: var(--transition);
+}
+
+.btn-tomasz-outline-sm:hover {
+  background: var(--text-main);
+  color: var(--bg-deep);
+  border-color: var(--text-main);
+}
+
+.tomasz-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border: 1px solid var(--border);
+  background: var(--bg-surface);
+  color: var(--text-main);
+  margin-bottom: 12px;
+}
+
+.tomasz-status-badge .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.tomasz-proj-title {
+  font-family: var(--font-heading);
+  font-size: 1.45rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: var(--text-main);
+  margin-bottom: 16px;
+}
+
+.tomasz-story-tabs {
+  display: flex;
+  gap: 4px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 16px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.tomasz-story-tab {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 6px 12px;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: var(--transition);
+}
+
+.tomasz-story-tab:hover {
+  color: var(--text-main);
+}
+
+.tomasz-story-tab.active {
+  color: var(--text-main);
+  border-bottom-color: var(--text-main);
+}
+
+.tomasz-story-body {
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: var(--text-muted);
+  min-height: 140px;
+}
+
+/* Workbench box */
+.tomasz-workbench-box {
+  margin-top: 40px;
+  border: 2px solid var(--border);
+  background: var(--bg-card);
+  padding: 28px;
+}
+
+.workbench-title-bar {
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 12px;
+}
+
+.workbench-title-bar h3 {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: var(--text-main);
+  margin-bottom: 4px;
+}
+
+/* Education Banner */
+.tomasz-edu-banner {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+  border: 2px solid var(--border);
+  background: var(--bg-card);
+  padding: 32px;
+  max-width: 900px;
+  margin: 0 auto 40px;
+}
+
+.edu-icon-wrap {
+  width: 56px;
+  height: 56px;
+  background: var(--text-main);
+  color: var(--bg-deep);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  flex-shrink: 0;
+}
+
+.edu-details {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.edu-degree {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 0.08em;
+}
+
+.edu-school {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--text-main);
+  letter-spacing: -0.02em;
+}
+
+.edu-year {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+/* Career Ledger */
+.tomasz-career-ledger {
+  max-width: 960px;
+  margin: 0 auto;
+  border-top: 2px solid var(--text-main);
+}
+
+.tomasz-ledger-row {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 32px;
+  padding: 28px 0;
+  border-bottom: 1px solid var(--border);
+  transition: background-color var(--transition);
+}
+
+.tomasz-ledger-row:hover {
+  background: var(--bg-surface);
+}
+
+.ledger-left {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.ledger-date {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.ledger-dur {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.ledger-pill {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 2px 6px;
+  border: 1px solid var(--border);
+  color: var(--accent);
+  width: fit-content;
+  margin-top: 4px;
+}
+
+.ledger-right {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ledger-job-title {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.ledger-job-title i {
+  color: var(--accent);
+  margin-right: 6px;
+}
+
+.ledger-job-desc {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+.ledger-job-desc ul {
+  padding-left: 20px;
+}
+
+/* Contact */
+.tomasz-contact-section {
+  text-align: center;
+}
+
+.tomasz-contact-sub {
+  max-width: 680px;
+  margin: 0 auto 36px;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--text-muted);
+}
+
+.tomasz-contact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+  max-width: 880px;
+  margin: 0 auto;
+}
+
+.btn-tomasz-contact {
+  border: 2px solid var(--border);
+  background: var(--bg-card);
+  color: var(--text-main);
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-family: var(--font-heading);
+  font-size: 0.88rem;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-tomasz-contact i {
+  font-size: 1.2rem;
+  color: var(--accent);
+}
+
+.btn-tomasz-contact:hover {
+  border-color: var(--text-main);
+  background: var(--text-main);
+  color: var(--bg-deep);
+  transform: translateY(-2px);
+  box-shadow: 4px 4px 0px var(--accent);
+}
+
+.btn-tomasz-contact:hover i {
+  color: var(--bg-deep);
+}
+
+/* Footer ala Tomasz Gajda */
+.tomasz-footer {
+  background: #000000;
+  color: #ffffff;
+  padding: 60px 0 40px;
+  border-top: 2px solid var(--border);
+  text-align: center;
+}
+
+[data-theme="dark"] .tomasz-footer {
+  background: #09090b;
+}
+
+.tomasz-footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+}
+
+.btn-back-top {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  color: #ffffff;
+  text-decoration: none;
+  font-family: var(--font-heading);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  transition: var(--transition);
+}
+
+.btn-back-top i {
+  font-size: 1.3rem;
+  transition: transform 0.25s ease;
+}
+
+.btn-back-top:hover i {
+  transform: translateY(-4px);
+}
+
+.btn-back-top:hover {
+  color: #10b981;
+}
+
+.tomasz-footer-socials {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.tomasz-footer-socials a {
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.tomasz-footer-socials a:hover {
+  background: #10b981;
+  color: #000000;
+  border-color: #10b981;
+}
+
+.footer-copyright {
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: #71717a;
+}
+
+.footer-copyright strong {
+  color: #ffffff;
+}
+
+@media (max-width: 900px) {
+  .tomasz-hero-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    text-align: center;
+  }
+  .tomasz-social-row {
+    justify-content: center;
+  }
+  .tomasz-hero-actions {
+    justify-content: center;
+  }
+  .tomasz-three-pillars {
+    grid-template-columns: 1fr;
+  }
+  .tomasz-project-grid {
+    grid-template-columns: 1fr;
+  }
+  .tomasz-ledger-row {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .tomasz-desktop-nav {
+    display: none;
+  }
+  .tomasz-edu-banner {
+    flex-direction: column;
+    gap: 16px;
+  }
+}

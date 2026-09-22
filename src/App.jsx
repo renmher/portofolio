@@ -7,9 +7,9 @@ import Chatbot from './components/Chatbot';
 import CVBuilder from './components/CVBuilder';
 import { experiencesData, getDurationText } from './data/experiences';
 import { translations } from './data/translations';
-import { skillsList, projectsList } from './data/projects';
+import { projectsList } from './data/projects';
 
-// Typing effect ala mfaqih590.github.io / typed.js
+// Typing effect ala Tomasz Gajda / modern portfolio
 const typingTexts = [
   'Junior DevOps Engineer',
   'Cloud Infrastructure Specialist',
@@ -23,15 +23,16 @@ const App = () => {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [activeSection, setActiveSection] = useState('home');
   const [emailCopied, setEmailCopied] = useState(false);
+  const [curlCopied, setCurlCopied] = useState(false);
+  const [activePortfolioFilter, setActivePortfolioFilter] = useState('all');
+  const [activeProjectSlide, setActiveProjectSlide] = useState(0);
   const [projectTabs, setProjectTabs] = useState({ 1: 'overview', 2: 'overview', 3: 'overview' });
   const [pipelineState, setPipelineState] = useState({ status: 'idle', stage: 0 });
   const [isPipelineLinked, setIsPipelineLinked] = useState(false);
   const [gitopsDeployedVersion, setGitopsDeployedVersion] = useState(null);
   const [activeSimulatorTab, setActiveSimulatorTab] = useState('pipeline');
-  const [curlCopied, setCurlCopied] = useState(false);
-  const [activeTechFilter, setActiveTechFilter] = useState(null);
-  const [activeProjectSlide, setActiveProjectSlide] = useState(0);
 
+  // Typing animation
   const [textIndex, setTextIndex] = useState(0);
   const [charIndex, setCharIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -63,6 +64,7 @@ const App = () => {
     return () => clearTimeout(timeout);
   }, [charIndex, isDeleting, textIndex]);
 
+  // Touch Swipe on Project Slider
   const projectTouchStartX = useRef(null);
   const projectTouchEndX = useRef(null);
 
@@ -205,811 +207,609 @@ const App = () => {
     projectsList.find(p => p.id === 2)
   ].filter(Boolean);
 
+  const filteredProjects = orderedProjects.filter(project => {
+    if (activePortfolioFilter === 'all') return true;
+    if (activePortfolioFilter === 'gitops') return project.id === 3;
+    if (activePortfolioFilter === 'cicd') return project.id === 1;
+    if (activePortfolioFilter === 'observability') return project.id === 2;
+    return true;
+  });
+
   return (
     <>
       <div className="scroll-progress" style={{ width: `${scrollProgress}%` }} />
 
-      {/* Top Utility Contact Bar ala mfaqih590.github.io */}
-      <div className="top-utility-bar">
-        <div className="container top-utility-container">
-          <div className="top-utility-left">
-            <a href="https://wa.me/6287872481308" target="_blank" rel="noopener noreferrer" className="utility-item">
-              <i className="fa-solid fa-phone"></i>
-              <span>+62 878-7248-1308</span>
-            </a>
-            <a href="mailto:renaldyimran@gmail.com" className="utility-item">
-              <i className="fa-solid fa-envelope"></i>
-              <span>renaldyimran@gmail.com</span>
-            </a>
-            <span className="utility-item location">
-              <i className="fa-solid fa-location-dot"></i>
-              <span>Bekasi, Indonesia</span>
-            </span>
-          </div>
-
-          <div className="top-utility-right">
-            <div className="utility-socials">
-              <a href="https://linkedin.com/in/renaldyimran" target="_blank" rel="noopener noreferrer" title="LinkedIn" aria-label="LinkedIn">
-                <i className="fa-brands fa-linkedin"></i>
-              </a>
-              <a href="https://github.com/renmher" target="_blank" rel="noopener noreferrer" title="GitHub" aria-label="GitHub">
-                <i className="fa-brands fa-github"></i>
-              </a>
-              <a href="https://wa.me/6287872481308" target="_blank" rel="noopener noreferrer" title="WhatsApp" aria-label="WhatsApp">
-                <i className="fa-brands fa-whatsapp"></i>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Sticky Main Navbar */}
-      <header className="site-header">
-        <div className="header-container">
-          <a href="#home" className="nav-logo" onClick={(e) => handleNavClick(e, 'home')}>
-            <i className="fa-solid fa-terminal logo-icon"></i>
-            <span className="logo-text">Renaldy Imran</span>
+      {/* Header ala Tomasz Gajda Figma */}
+      <header className="tomasz-header">
+        <div className="tomasz-header-container">
+          <a href="#home" className="tomasz-logo" onClick={(e) => handleNavClick(e, 'home')}>
+            <span className="logo-badge">RI</span>
+            <span className="logo-title">Renaldy.dev</span>
           </a>
 
-          <nav className="desktop-nav">
+          <nav className="tomasz-desktop-nav">
             <ul>
-              <li><a href="#home" onClick={(e) => handleNavClick(e, 'home')} className={activeSection === 'home' ? 'active' : ''}>{lang === 'id' ? 'BERANDA' : 'HOME'}</a></li>
-              <li><a href="#experience" onClick={(e) => handleNavClick(e, 'experience')} className={activeSection === 'experience' ? 'active' : ''}>{lang === 'id' ? 'PENGALAMAN' : 'EXPERIENCE'}</a></li>
-              <li><a href="#skills" onClick={(e) => handleNavClick(e, 'skills')} className={activeSection === 'skills' ? 'active' : ''}>{lang === 'id' ? 'KEMAMPUAN' : 'SKILLS'}</a></li>
-              <li><a href="#projects" onClick={(e) => handleNavClick(e, 'projects')} className={activeSection === 'projects' ? 'active' : ''}>{lang === 'id' ? 'PROJECT' : 'PROJECTS'}</a></li>
-              <li><a href="#certifications" onClick={(e) => handleNavClick(e, 'certifications')} className={activeSection === 'certifications' ? 'active' : ''}>{lang === 'id' ? 'PENDIDIKAN & SERTIFIKAT' : 'EDUCATION & CERTS'}</a></li>
-              <li><a href="#contact" onClick={(e) => handleNavClick(e, 'contact')} className={activeSection === 'contact' ? 'active' : ''}>{lang === 'id' ? 'KONTAK' : 'CONTACT'}</a></li>
+              <li><a href="#about" onClick={(e) => handleNavClick(e, 'about')} className={activeSection === 'about' ? 'active' : ''}>About me</a></li>
+              <li><a href="#skills" onClick={(e) => handleNavClick(e, 'skills')} className={activeSection === 'skills' ? 'active' : ''}>Skills</a></li>
+              <li><a href="#portfolio" onClick={(e) => handleNavClick(e, 'portfolio')} className={activeSection === 'portfolio' ? 'active' : ''}>Portfolio</a></li>
+              <li><a href="#certifications" onClick={(e) => handleNavClick(e, 'certifications')} className={activeSection === 'certifications' ? 'active' : ''}>{lang === 'id' ? 'Sertifikasi' : 'Certs'}</a></li>
+              <li><a href="#experience" onClick={(e) => handleNavClick(e, 'experience')} className={activeSection === 'experience' ? 'active' : ''}>{lang === 'id' ? 'Karir' : 'Career'}</a></li>
+              <li><a href="#contact" onClick={(e) => handleNavClick(e, 'contact')} className="btn-contact-pill">CONTACT ME</a></li>
             </ul>
           </nav>
 
-          <div className="header-controls">
-            <div className="controls">
-              <button id="theme-toggle" className="control-btn" title="Toggle Theme" onClick={toggleTheme}>
-                {theme === 'dark' ? <i className="fa-solid fa-sun"></i> : <i className="fa-solid fa-moon"></i>}
-              </button>
-              <button id="lang-toggle" className="control-btn" title="Switch Language" onClick={toggleLanguage}>
-                {lang === 'id' ? 'EN' : 'ID'}
-              </button>
-            </div>
-            <a 
-              href={lang === 'id' ? "/cv-renaldy-id.pdf" : "/cv-renaldy.pdf"} 
-              download={lang === 'id' ? "CV-Renaldy-Imran-Hermawan-ID.pdf" : "CV-Renaldy-Imran-Hermawan.pdf"} 
-              className="nav-cv-btn"
-            >
-              <i className="fa-solid fa-file-arrow-down"></i> CV
-            </a>
+          <div className="tomasz-controls">
+            <button id="theme-toggle" className="tomasz-ctrl-btn" title="Toggle Theme" onClick={toggleTheme}>
+              {theme === 'dark' ? <i className="fa-solid fa-sun"></i> : <i className="fa-solid fa-moon"></i>}
+            </button>
+            <button id="lang-toggle" className="tomasz-ctrl-btn" title="Switch Language" onClick={toggleLanguage}>
+              {lang === 'id' ? 'EN' : 'ID'}
+            </button>
           </div>
         </div>
       </header>
 
-      {/* Mobile Navigation Bar */}
+      {/* Mobile Navigation */}
       <nav className="mobile-nav">
         <ul>
-          <li>
-            <a href="#home" onClick={(e) => handleNavClick(e, 'home')} className={activeSection === 'home' ? 'active' : ''}>
-              <i className="fa-solid fa-house"></i>
-              <span>{lang === 'id' ? 'Beranda' : 'Home'}</span>
-            </a>
-          </li>
-          <li>
-            <a href="#experience" onClick={(e) => handleNavClick(e, 'experience')} className={activeSection === 'experience' ? 'active' : ''}>
-              <i className="fa-solid fa-briefcase"></i>
-              <span>{lang === 'id' ? 'Karir' : 'Exp'}</span>
-            </a>
-          </li>
-          <li>
-            <a href="#skills" onClick={(e) => handleNavClick(e, 'skills')} className={activeSection === 'skills' ? 'active' : ''}>
-              <i className="fa-solid fa-wrench"></i>
-              <span>{lang === 'id' ? 'Skill' : 'Skills'}</span>
-            </a>
-          </li>
-          <li>
-            <a href="#projects" onClick={(e) => handleNavClick(e, 'projects')} className={activeSection === 'projects' ? 'active' : ''}>
-              <i className="fa-solid fa-diagram-project"></i>
-              <span>{lang === 'id' ? 'Proyek' : 'Proj'}</span>
-            </a>
-          </li>
-          <li>
-            <a href="#certifications" onClick={(e) => handleNavClick(e, 'certifications')} className={activeSection === 'certifications' ? 'active' : ''}>
-              <i className="fa-solid fa-certificate"></i>
-              <span>{lang === 'id' ? 'Sertif' : 'Certs'}</span>
-            </a>
-          </li>
-          <li>
-            <a href="#contact" onClick={(e) => handleNavClick(e, 'contact')} className={activeSection === 'contact' ? 'active' : ''}>
-              <i className="fa-solid fa-envelope"></i>
-              <span>{lang === 'id' ? 'Kontak' : 'Contact'}</span>
-            </a>
-          </li>
+          <li><a href="#home" onClick={(e) => handleNavClick(e, 'home')} className={activeSection === 'home' ? 'active' : ''}><i className="fa-solid fa-house"></i><span>Home</span></a></li>
+          <li><a href="#about" onClick={(e) => handleNavClick(e, 'about')} className={activeSection === 'about' ? 'active' : ''}><i className="fa-solid fa-user"></i><span>About</span></a></li>
+          <li><a href="#skills" onClick={(e) => handleNavClick(e, 'skills')} className={activeSection === 'skills' ? 'active' : ''}><i className="fa-solid fa-wrench"></i><span>Skills</span></a></li>
+          <li><a href="#portfolio" onClick={(e) => handleNavClick(e, 'portfolio')} className={activeSection === 'portfolio' ? 'active' : ''}><i className="fa-solid fa-diagram-project"></i><span>Works</span></a></li>
+          <li><a href="#contact" onClick={(e) => handleNavClick(e, 'contact')} className={activeSection === 'contact' ? 'active' : ''}><i className="fa-solid fa-envelope"></i><span>Contact</span></a></li>
         </ul>
       </nav>
 
-      <main className="container">
+      <main>
         {/* ==============================================================
-            SECTION 1: BERANDA / HOME (HERO DENGAN TYPING EFFECT)
+            HERO SECTION (ALA TOMASZ GAJDA FIGMA)
             ============================================================== */}
-        <section id="home" className="hero reveal active">
-          <div className="hero-content">
-            <div className="open-to-work-badge">
-              <span className="dot pulse"></span>
-              <span>renmher@k8s-prod:~$ cluster status --healthy (14ms)</span>
-            </div>
-            
-            <h1 className="hero-title">
-              RENALDY IMRAN <span className="text-highlight">HERMAWAN</span>, S.Kom
-            </h1>
+        <section id="home" className="tomasz-hero">
+          <div className="tomasz-container tomasz-hero-grid">
+            <div className="tomasz-hero-left">
+              <p className="tomasz-hero-greeting">Hi, I am</p>
+              <h1 className="tomasz-hero-name">Renaldy Imran</h1>
+              <h2 className="tomasz-hero-job">Junior DevOps & Cloud Engineer</h2>
 
-            {/* Typing text animation ala typed.js di mfaqih590 */}
-            <div className="typing-text-wrapper">
-              <span className="typing-prompt">&gt; </span>
-              <span className="typing-content">{displayText}</span>
-              <span className="typing-cursor">|</span>
-            </div>
-            
-            <p className="hero-desc">{curr["hero-desc"]}</p>
-            
-            <div className="hero-meta">
-              <span><i className="fa-solid fa-map-pin"></i> {curr["hero-location"]}</span>
-              <span className="separator">•</span>
-              <span><i className="fa-solid fa-briefcase"></i> {lang === 'id' ? 'Tersedia untuk DevOps / Cloud Roles' : 'Available for DevOps / Cloud Roles'}</span>
-            </div>
-            
-            <div className="hero-buttons">
-              <a 
-                href={lang === 'id' ? "/cv-renaldy-id.pdf" : "/cv-renaldy.pdf"} 
-                download={lang === 'id' ? "CV-Renaldy-Imran-Hermawan-ID.pdf" : "CV-Renaldy-Imran-Hermawan.pdf"} 
-                className="btn btn-primary"
-              >
-                <i className="fa-solid fa-file-arrow-down"></i> <span>DOWNLOAD CV</span>
-              </a>
-              <a href="#contact" onClick={(e) => handleNavClick(e, 'contact')} className="btn btn-secondary">
-                <i className="fa-solid fa-paper-plane"></i> <span>{lang === 'id' ? 'HUBUNGI SAYA' : 'CONTACT ME'}</span>
-              </a>
-            </div>
-
-            <div className="hero-stats-grid">
-              <div className="stat-item">
-                <div className="stat-num">2+</div>
-                <div className="stat-label">{lang === 'id' ? 'Tahun Pengalaman' : 'Years Experience'}</div>
+              {/* Typing effect */}
+              <div className="tomasz-typing-badge">
+                <span className="typing-prompt">&gt; </span>
+                <span className="typing-content">{displayText}</span>
+                <span className="typing-cursor">|</span>
               </div>
-              <div className="stat-item">
-                <div className="stat-num">10+</div>
-                <div className="stat-label">{lang === 'id' ? 'Projects Selesai' : 'Completed Projects'}</div>
+
+              <div className="tomasz-social-row">
+                <a href="mailto:renaldyimran@gmail.com" title="Email"><i className="fa-solid fa-at"></i></a>
+                <a href="https://github.com/renmher" target="_blank" rel="noopener noreferrer" title="GitHub"><i className="fa-brands fa-github"></i></a>
+                <a href="https://linkedin.com/in/renaldyimran" target="_blank" rel="noopener noreferrer" title="LinkedIn"><i className="fa-brands fa-linkedin"></i></a>
+                <a href="https://wa.me/6287872481308" target="_blank" rel="noopener noreferrer" title="WhatsApp"><i className="fa-brands fa-whatsapp"></i></a>
               </div>
-              <div className="stat-item">
-                <div className="stat-num">7+</div>
-                <div className="stat-label">{lang === 'id' ? 'Sertifikasi' : 'Certifications'}</div>
-              </div>
-              <div className="stat-item">
-                <div className="stat-num">2024</div>
-                <div className="stat-label">{lang === 'id' ? 'Tahun Kelulusan' : 'Graduation Year'}</div>
-              </div>
-            </div>
-          </div>
 
-          <div className="hero-image-wrapper">
-            <div className="profile-architectural-frame">
-              <div className="frame-meta-tag">BEKASI, INDONESIA</div>
-              <div className="profile-img-circle">
-                <img src="/profile.png" alt="Renaldy Imran Hermawan" className="hero-profile-img" />
-              </div>
-              <div className="frame-status-tag">
-                <span className="dot pulse"></span>
-                <span>SYSTEM STATUS: 100% OPERATIONAL</span>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Infinite Studio Tech Marquee */}
-        <div className="studio-marquee-wrapper" aria-hidden="true">
-          <div className="studio-marquee-track">
-            <div className="marquee-content">
-              <span>KUBERNETES</span><span className="marquee-dot">/</span>
-              <span>GITLAB CI</span><span className="marquee-dot">/</span>
-              <span>TERRAFORM (IaC)</span><span className="marquee-dot">/</span>
-              <span>DOCKER</span><span className="marquee-dot">/</span>
-              <span>VICTORIAMETRICS</span><span className="marquee-dot">/</span>
-              <span>TRIVY CVE SCAN</span><span className="marquee-dot">/</span>
-              <span>SONARQUBE SAST</span><span className="marquee-dot">/</span>
-              <span>HARBOR REGISTRY</span><span className="marquee-dot">/</span>
-              <span>GITOPS KUSTOMIZE</span><span className="marquee-dot">/</span>
-              <span>HASHICORP VAULT</span><span className="marquee-dot">/</span>
-              <span>NGINX INGRESS</span><span className="marquee-dot">/</span>
-              <span>LINUX BASH</span><span className="marquee-dot">/</span>
-              <span>GOOGLE CLOUD (GCP)</span><span className="marquee-dot">/</span>
-              <span>AWS CLOUD</span><span className="marquee-dot">/</span>
-              <span>MIKROTIK MTCNA</span><span className="marquee-dot">/</span>
-            </div>
-            <div className="marquee-content" aria-hidden="true">
-              <span>KUBERNETES</span><span className="marquee-dot">/</span>
-              <span>GITLAB CI</span><span className="marquee-dot">/</span>
-              <span>TERRAFORM (IaC)</span><span className="marquee-dot">/</span>
-              <span>DOCKER</span><span className="marquee-dot">/</span>
-              <span>VICTORIAMETRICS</span><span className="marquee-dot">/</span>
-              <span>TRIVY CVE SCAN</span><span className="marquee-dot">/</span>
-              <span>SONARQUBE SAST</span><span className="marquee-dot">/</span>
-              <span>HARBOR REGISTRY</span><span className="marquee-dot">/</span>
-              <span>GITOPS KUSTOMIZE</span><span className="marquee-dot">/</span>
-              <span>HASHICORP VAULT</span><span className="marquee-dot">/</span>
-              <span>NGINX INGRESS</span><span className="marquee-dot">/</span>
-              <span>LINUX BASH</span><span className="marquee-dot">/</span>
-              <span>GOOGLE CLOUD (GCP)</span><span className="marquee-dot">/</span>
-              <span>AWS CLOUD</span><span className="marquee-dot">/</span>
-              <span>MIKROTIK MTCNA</span><span className="marquee-dot">/</span>
-            </div>
-          </div>
-        </div>
-
-        {/* ==============================================================
-            SECTION 2: PENGALAMAN KERJA / WORK EXPERIENCE
-            ============================================================== */}
-        <section id="experience" className="reveal">
-          <div className="section-title">
-            <span className="section-category-tag">{"// RIWAYAT KARIR PROFESIONAL"}</span>
-            <h2 dangerouslySetInnerHTML={{ __html: curr["exp-title"] }} />
-            <p>{curr["exp-subtitle"]}</p>
-          </div>
-
-          <div className="career-ledger mb-8">
-            {experiencesData.map((exp) => (
-              <article key={exp.id} className="ledger-entry">
-                <div className="ledger-meta-col">
-                  <span className="ledger-period">{exp.dateText[lang]}</span>
-                  <span className="ledger-duration">{getDurationText(exp, lang)}</span>
-                  {exp.type && <span className="ledger-type-pill">{exp.type[lang]}</span>}
-                </div>
-                <div className="ledger-body-col">
-                  <div className="ledger-title-bar">
-                    <i className={`ledger-icon ${exp.icon}`}></i>
-                    <h3 className="ledger-role-title">{curr[exp.titleKey]}</h3>
-                  </div>
-                  <div className="ledger-details" dangerouslySetInnerHTML={{ __html: curr[exp.descKey] }} />
-                </div>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        {/* ==============================================================
-            SECTION 3: KEMAMPUAN / TECHNICAL SKILLS
-            ============================================================== */}
-        <section id="skills" className="reveal">
-          <div className="section-title">
-            <span className="section-category-tag">{"// KOMPETENSI TEKNIS & TOOLS"}</span>
-            <h2 dangerouslySetInnerHTML={{ __html: curr["skills-title"] }} />
-            <p>{curr["skills-subtitle"]}</p>
-          </div>
-
-          <div className="competency-ledger mb-12">
-            <div className="competency-col">
-              <span className="competency-num">01</span>
-              <h4>{curr["skills-cat-hard"]}</h4>
-              <p>{curr["skills-val-hard"]}</p>
-            </div>
-            <div className="competency-col">
-              <span className="competency-num">02</span>
-              <h4>{curr["skills-cat-tools"]}</h4>
-              <p>{curr["skills-val-tools"]}</p>
-            </div>
-            <div className="competency-col">
-              <span className="competency-num">03</span>
-              <h4>{curr["about-pillars-title"]}</h4>
-              <p>GCP, AWS, Docker, K8s, GitLab CI, Terraform, Grafana, VictoriaMetrics</p>
-            </div>
-            <div className="competency-col">
-              <span className="competency-num">04</span>
-              <h4>{curr["skills-cat-soft"]}</h4>
-              <p>{curr["skills-val-soft"]}</p>
-            </div>
-          </div>
-
-          {/* Interactive Verified Tech Stack Filter */}
-          <div className="skills-tape-container mb-8">
-            <div className="skills-tape-header mb-4">
-              <h4 className="font-mono text-sm uppercase tracking-wider text-muted">{"// VERIFIED TECH STACK (KLIK UNTUK FILTER)"}</h4>
-              {activeTechFilter && (
-                <button 
-                  className="btn-clear-filter" 
-                  onClick={() => setActiveTechFilter(null)}
+              <div className="tomasz-hero-actions">
+                <a 
+                  href={lang === 'id' ? "/cv-renaldy-id.pdf" : "/cv-renaldy.pdf"} 
+                  download={lang === 'id' ? "CV-Renaldy-Imran-Hermawan-ID.pdf" : "CV-Renaldy-Imran-Hermawan.pdf"} 
+                  className="btn-tomasz-primary"
                 >
-                  <i className="fa-solid fa-xmark"></i> {lang === 'id' ? `Hapus Filter (${activeTechFilter})` : `Clear Filter (${activeTechFilter})`}
-                </button>
-              )}
+                  <i className="fa-solid fa-file-arrow-down"></i> <span>DOWNLOAD CV</span>
+                </a>
+                <a href="#about" onClick={(e) => handleNavClick(e, 'about')} className="btn-tomasz-secondary">
+                  <span>ABOUT ME</span> <i className="fa-solid fa-arrow-down"></i>
+                </a>
+              </div>
             </div>
-            <div className="skills-container">
-              {skillsList.map((skill, idx) => {
-                const isSelected = activeTechFilter === skill.name;
-                return (
-                  <div key={idx} className="skill-tag-wrapper">
-                    <button 
-                      className={`skill-tag filterable ${isSelected ? 'active-filter' : ''}`}
-                      onClick={() => setActiveTechFilter(prev => prev === skill.name ? null : skill.name)}
-                      title={`Filter projects by ${skill.name}`}
-                    >
-                      <i className={skill.icon}></i> {skill.name}
-                    </button>
-                    <div className="skill-tooltip">
-                      <div className="tooltip-header">
-                        <i className={skill.icon}></i>
-                        <strong>{skill.name}</strong>
-                      </div>
-                      <p className="tooltip-desc">{skill.desc[lang]}</p>
-                    </div>
-                  </div>
-                );
-              })}
+
+            <div className="tomasz-hero-right">
+              <div className="tomasz-image-frame">
+                <img src="/profile.png" alt="Renaldy Imran Hermawan" className="tomasz-profile-img" />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* STATEMENT BANNER (ALA "IT BERRIES" DI TOMASZ GAJDA TEMPLATE) */}
+        <section className="tomasz-statement-banner">
+          <div className="tomasz-container">
+            <h2 className="statement-heading">CLOUD RELIABILITY & SRE</h2>
+            <p className="statement-text">
+              {lang === 'id'
+                ? "Fokus pada arsitektur cloud multi-environment yang tangguh, otomatisasi siklus CI/CD pipeline dengan pemindaian keamanan statis, serta orkestrasi Kubernetes declaratif. Menjamin stabilitas infrastruktur skala produksi dan resolusi insiden secara real-time."
+                : "Dedicated to architecting resilient multi-environment cloud systems, automated CI/CD delivery pipelines with static security quality gates, and declarative Kubernetes orchestration. Ensuring production uptime and rapid incident resolution."}
+            </p>
+            <a href="#portfolio" onClick={(e) => handleNavClick(e, 'portfolio')} className="btn-statement-explore">
+              | EXPLORE WORKS |
+            </a>
+          </div>
+        </section>
+
+        {/* ==============================================================
+            SECTION: ABOUT ME (DENGAN TOMASZ SEPARATOR & 3 PILAR)
+            ============================================================== */}
+        <section id="about" className="tomasz-section">
+          <div className="tomasz-container">
+            <h2 className="tomasz-section-title">ABOUT ME</h2>
+            
+            {/* Iconic Tomasz Geometric Separator */}
+            <div className="tomasz-separator">
+              <span className="tomasz-separator-diamond"></span>
+            </div>
+
+            <div className="tomasz-about-narrative">
+              <p className="mb-4">{curr["about-narrative-p1"]}</p>
+              <p>{curr["about-narrative-p2"]}</p>
+            </div>
+
+            <div className="tomasz-explore-tag">| EXPLORE |</div>
+
+            {/* Sub-Separator */}
+            <div className="tomasz-separator mini">
+              <span className="tomasz-separator-diamond"></span>
+            </div>
+
+            {/* 3 Pillars: DESIGN, DEVELOPMENT, MAINTENANCE ala Tomasz Gajda */}
+            <div className="tomasz-three-pillars">
+              <div className="pillar-box">
+                <div className="pillar-icon"><i className="fa-solid fa-cloud"></i></div>
+                <h3 className="pillar-title">{lang === 'id' ? 'CLOUD & ARCHITECTURE' : 'CLOUD & ARCHITECTURE'}</h3>
+                <p className="pillar-desc">
+                  {lang === 'id'
+                    ? 'Merancang arsitektur cloud VPC di GCP & AWS, penyediaan server deklaratif menggunakan Terraform (IaC), dan isolasi jaringan multi-tier.'
+                    : 'Architecting VPC cloud networks in GCP & AWS, declarative infrastructure provisioning using Terraform (IaC), and secure multi-tier networking.'}
+                </p>
+              </div>
+
+              <div className="pillar-box">
+                <div className="pillar-icon"><i className="fa-solid fa-gears"></i></div>
+                <h3 className="pillar-title">{lang === 'id' ? 'CI/CD & AUTOMATION' : 'CI/CD & AUTOMATION'}</h3>
+                <p className="pillar-desc">
+                  {lang === 'id'
+                    ? 'Membangun pipeline GitLab CI / GitHub Actions terotomatisasi, kontainerisasi Docker, scanning Trivy & SonarQube, dan GitOps Kustomize.'
+                    : 'Building automated GitLab CI / GitHub Actions workflows, Docker containers, Trivy CVE scanning, SonarQube quality gates, and GitOps.'}
+                </p>
+              </div>
+
+              <div className="pillar-box">
+                <div className="pillar-icon"><i className="fa-solid fa-chart-line"></i></div>
+                <h3 className="pillar-title">{lang === 'id' ? 'SRE & OBSERVABILITY' : 'SRE & OBSERVABILITY'}</h3>
+                <p className="pillar-desc">
+                  {lang === 'id'
+                    ? 'Pemantauan real-time 24/7 menggunakan VictoriaMetrics, Grafana, VictoriaLogs, penanganan crash loop, dan sistem alarm otomatis ke Telegram.'
+                    : '24/7 real-time telemetry using VictoriaMetrics, Grafana, VictoriaLogs, crash resolution, and instant Telegram alert notifications.'}
+                </p>
+              </div>
+            </div>
+
+            {/* Bottom Separator */}
+            <div className="tomasz-separator mini">
+              <span className="tomasz-separator-diamond"></span>
             </div>
           </div>
         </section>
 
         {/* ==============================================================
-            SECTION 4: PENGALAMAN PROJECT / PROJECTS SHOWCASE
+            SECTION: SKILLS (ALA TOMASZ GAJDA: USING NOW & OTHER SKILLS)
             ============================================================== */}
-        <section id="projects" className="reveal">
-          <div className="section-title">
-            <span className="section-category-tag">{"// PORTOFOLIO PROYEK REKAYASA SISTEM"}</span>
-            <h2 dangerouslySetInnerHTML={{ __html: curr["proj-section-title"] }} />
-            <p>{curr["proj-section-subtitle"]}</p>
-          </div>
+        <section id="skills" className="tomasz-section">
+          <div className="tomasz-container">
+            <h2 className="tomasz-section-title">SKILLS</h2>
+            
+            <div className="tomasz-separator">
+              <span className="tomasz-separator-diamond"></span>
+            </div>
 
-          {/* INTERACTIVE PROJECT SHOWCASE SLIDER */}
-          <div className="project-slider-wrapper mb-16">
-            {/* Slider Header Controls */}
-            <div className="project-slider-nav-bar mb-6">
-              <div className="slider-nav-left">
-                <span className="slider-counter-badge">
-                  <span className="slider-counter-current">0{activeProjectSlide + 1}</span>
-                  <span className="slider-counter-divider">/</span>
-                  <span className="slider-counter-total">0{orderedProjects.length}</span>
-                </span>
-                <span className="slider-project-category">
-                  {activeProjectSlide === 0 && (lang === 'id' ? '// 01. KARYA UNGGULAN GITOPS (BANK CBS)' : '// 01. FLAGSHIP GITOPS (BANK CBS)')}
-                  {activeProjectSlide === 1 && (lang === 'id' ? '// 02. PIPELINE CI & DEVSECOPS' : '// 02. SECURE CI/CD & DEVSECOPS')}
-                  {activeProjectSlide === 2 && (lang === 'id' ? '// 03. SRE OBSERVABILITY & ALARM' : '// 03. SRE OBSERVABILITY & ALERTS')}
-                </span>
-              </div>
-
-              <div className="slider-nav-controls">
-                <div className="slider-pagination-pills">
-                  {orderedProjects.map((p, idx) => (
-                    <button
-                      key={p.id}
-                      className={`slider-pill-dot ${activeProjectSlide === idx ? 'active' : ''}`}
-                      onClick={() => setActiveProjectSlide(idx)}
-                      title={`Slide to ${curr[p.nameKey]}`}
-                    >
-                      <span>0{idx + 1}</span>
-                    </button>
-                  ))}
+            {/* USING NOW */}
+            <div className="tomasz-skills-group">
+              <h3 className="skills-group-title">USING NOW:</h3>
+              <div className="tomasz-skills-grid">
+                <div className="skill-tile">
+                  <i className="fa-solid fa-cubes"></i>
+                  <p>KUBERNETES</p>
                 </div>
+                <div className="skill-tile">
+                  <i className="fa-brands fa-docker"></i>
+                  <p>DOCKER</p>
+                </div>
+                <div className="skill-tile">
+                  <i className="fa-brands fa-gitlab"></i>
+                  <p>GITLAB CI</p>
+                </div>
+                <div className="skill-tile">
+                  <i className="fa-solid fa-server"></i>
+                  <p>TERRAFORM</p>
+                </div>
+                <div className="skill-tile">
+                  <i className="fa-brands fa-google"></i>
+                  <p>GOOGLE CLOUD</p>
+                </div>
+                <div className="skill-tile">
+                  <i className="fa-brands fa-aws"></i>
+                  <p>AWS</p>
+                </div>
+                <div className="skill-tile">
+                  <i className="fa-solid fa-chart-line"></i>
+                  <p>GRAFANA</p>
+                </div>
+                <div className="skill-tile">
+                  <i className="fa-solid fa-database"></i>
+                  <p>VICTORIAMETRICS</p>
+                </div>
+                <div className="skill-tile">
+                  <i className="fa-solid fa-shield-halved"></i>
+                  <p>TRIVY</p>
+                </div>
+                <div className="skill-tile">
+                  <i className="fa-brands fa-linux"></i>
+                  <p>LINUX OS</p>
+                </div>
+              </div>
+            </div>
 
-                <div className="slider-arrow-btns">
-                  <button
-                    className="btn-slider-arrow"
-                    onClick={() => setActiveProjectSlide(prev => prev > 0 ? prev - 1 : orderedProjects.length - 1)}
-                    title="Previous Project (Slide Left)"
-                    aria-label="Previous Project"
+            {/* OTHER SKILLS & COMPETENCIES */}
+            <div className="tomasz-skills-group mt-12">
+              <h3 className="skills-group-title">OTHER SKILLS & NETWORKING:</h3>
+              <div className="tomasz-skills-grid">
+                <div className="skill-tile">
+                  <i className="fa-solid fa-network-wired"></i>
+                  <p>MIKROTIK MTCNA</p>
+                </div>
+                <div className="skill-tile">
+                  <i className="fa-solid fa-route"></i>
+                  <p>TCP/IP & DNS</p>
+                </div>
+                <div className="skill-tile">
+                  <i className="fa-solid fa-terminal"></i>
+                  <p>BASH SCRIPTING</p>
+                </div>
+                <div className="skill-tile">
+                  <i className="fa-solid fa-magnifying-glass-chart"></i>
+                  <p>SONARQUBE</p>
+                </div>
+                <div className="skill-tile">
+                  <i className="fa-solid fa-box-archive"></i>
+                  <p>HARBOR REGISTRY</p>
+                </div>
+                <div className="skill-tile">
+                  <i className="fa-solid fa-bell"></i>
+                  <p>TELEGRAM ALERTS</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ==============================================================
+            SECTION: PORTFOLIO (PROJECT SHOWCASE + SLIDER & SIMULATORS)
+            ============================================================== */}
+        <section id="portfolio" className="tomasz-section">
+          <div className="tomasz-container">
+            <h2 className="tomasz-section-title">PORTFOLIO</h2>
+            
+            <div className="tomasz-separator">
+              <span className="tomasz-separator-diamond"></span>
+            </div>
+
+            {/* Category Tabs ala Tomasz Gajda: ALL, GITOPS, CI/CD, OBSERVABILITY */}
+            <div className="tomasz-portfolio-tabs">
+              <button 
+                className={`tomasz-tab-btn ${activePortfolioFilter === 'all' ? 'active' : ''}`}
+                onClick={() => setActivePortfolioFilter('all')}
+              >
+                ALL
+              </button>
+              <button 
+                className={`tomasz-tab-btn ${activePortfolioFilter === 'gitops' ? 'active' : ''}`}
+                onClick={() => setActivePortfolioFilter('gitops')}
+              >
+                GITOPS & K8S
+              </button>
+              <button 
+                className={`tomasz-tab-btn ${activePortfolioFilter === 'cicd' ? 'active' : ''}`}
+                onClick={() => setActivePortfolioFilter('cicd')}
+              >
+                CI/CD & SECURITY
+              </button>
+              <button 
+                className={`tomasz-tab-btn ${activePortfolioFilter === 'observability' ? 'active' : ''}`}
+                onClick={() => setActivePortfolioFilter('observability')}
+              >
+                OBSERVABILITY
+              </button>
+            </div>
+
+            {/* Projects Slider Showcase */}
+            <div className="tomasz-slider-container mb-12">
+              <div className="tomasz-slider-controls">
+                <span className="slider-counter">
+                  0{activeProjectSlide + 1} / 0{filteredProjects.length}
+                </span>
+                <div className="slider-btns">
+                  <button 
+                    className="btn-tomasz-arrow" 
+                    onClick={() => setActiveProjectSlide(prev => prev > 0 ? prev - 1 : filteredProjects.length - 1)}
+                    title="Previous"
                   >
                     <i className="fa-solid fa-arrow-left"></i>
                   </button>
-                  <button
-                    className="btn-slider-arrow"
-                    onClick={() => setActiveProjectSlide(prev => prev < orderedProjects.length - 1 ? prev + 1 : 0)}
-                    title="Next Project (Slide Right)"
-                    aria-label="Next Project"
+                  <button 
+                    className="btn-tomasz-arrow" 
+                    onClick={() => setActiveProjectSlide(prev => prev < filteredProjects.length - 1 ? prev + 1 : 0)}
+                    title="Next"
                   >
                     <i className="fa-solid fa-arrow-right"></i>
                   </button>
                 </div>
               </div>
-            </div>
 
-            {/* Slider Stage & Moving Track */}
-            <div 
-              className="project-slider-stage"
-              onTouchStart={onProjectTouchStart}
-              onTouchMove={onProjectTouchMove}
-              onTouchEnd={onProjectTouchEnd}
-            >
               <div 
-                className="project-slider-track"
-                style={{ transform: `translateX(-${activeProjectSlide * 100}%)` }}
+                className="tomasz-slider-stage"
+                onTouchStart={onProjectTouchStart}
+                onTouchMove={onProjectTouchMove}
+                onTouchEnd={onProjectTouchEnd}
               >
-                {orderedProjects.map((project) => {
-                  const activeTab = projectTabs[project.id] || 'overview';
-                  const isFlagship = project.id === 3;
-                  return (
-                    <div key={project.id} className="project-slide-item">
-                      <article className="card project-showcase-card flagship-slider-card">
-                        {isFlagship && (
-                          <div className="flagship-badge-bar">
-                            <span className="flagship-live-badge">
-                              <span className="dot pulse"></span>
-                              <span>STATUS: KUBERNETES K3S DEPLOYED</span>
-                            </span>
-                            <span className="flagship-tag-pill">FLAGSHIP CASE STUDY</span>
-                          </div>
-                        )}
-
-                        <div className="project-grid-inner">
-                          <div className="project-showcase-visual">
-                            <div className="project-showcase-img-wrapper">
+                <div 
+                  className="tomasz-slider-track"
+                  style={{ transform: `translateX(-${activeProjectSlide * 100}%)` }}
+                >
+                  {filteredProjects.map((project) => {
+                    const activeTab = projectTabs[project.id] || 'overview';
+                    const isFlagship = project.id === 3;
+                    return (
+                      <div key={project.id} className="tomasz-slide-card">
+                        <div className="tomasz-project-grid">
+                          <div className="tomasz-proj-visual">
+                            <div className="tomasz-proj-img-wrap">
                               <img src={project.image} alt={curr[project.nameKey]} />
                             </div>
-                            <div className="project-showcase-tools">
-                              {project.tools.map((tool, index) => (
-                                <span key={index} className="project-tool-tag">{tool}</span>
+                            <div className="tomasz-proj-tags">
+                              {project.tools.map((t, idx) => (
+                                <span key={idx} className="tomasz-tag">{t}</span>
                               ))}
                             </div>
-                            <div className="project-action-bar">
+                            <div className="tomasz-proj-actions">
                               {project.id === 3 && (
                                 <>
-                                  <a 
-                                    href="/projects/cbs-presentation.pdf" 
-                                    target="_blank" 
-                                    rel="noopener noreferrer"
-                                    className="btn btn-primary"
-                                  >
-                                    <i className="fa-solid fa-file-pdf"></i> <span>{lang === 'id' ? 'Buka Slide Presentasi (PDF)' : 'View Slide Deck (PDF)'}</span>
+                                  <a href="/projects/cbs-presentation.pdf" target="_blank" rel="noopener noreferrer" className="btn-tomasz-solid-sm">
+                                    <i className="fa-solid fa-file-pdf"></i> <span>SLIDE PDF</span>
                                   </a>
-                                  <a 
-                                    href={project.repoUrl} 
-                                    target="_blank" 
-                                    rel="noopener noreferrer"
-                                    className="btn btn-secondary"
-                                  >
-                                    <i className="fa-brands fa-gitlab"></i> <span>{lang === 'id' ? 'GitLab Shared Pipeline' : 'GitLab Shared Templates'}</span>
-                                  </a>
-                                  <a 
-                                    href="#simulators" 
-                                    onClick={(e) => { e.preventDefault(); setActiveSimulatorTab('gitops'); document.getElementById('simulators')?.scrollIntoView({ behavior: 'smooth' }); }}
-                                    className="btn btn-secondary"
-                                  >
-                                    <i className="fa-solid fa-cloud"></i> <span>{lang === 'id' ? 'Coba Simulator GitOps' : 'Try GitOps Sim'}</span>
+                                  <a href={project.repoUrl} target="_blank" rel="noopener noreferrer" className="btn-tomasz-outline-sm">
+                                    <i className="fa-brands fa-gitlab"></i> <span>GITLAB REPO</span>
                                   </a>
                                 </>
                               )}
-                              {project.id === 1 && (
-                                <>
-                                  <a 
-                                    href="#simulators" 
-                                    onClick={(e) => { e.preventDefault(); setActiveSimulatorTab('pipeline'); document.getElementById('simulators')?.scrollIntoView({ behavior: 'smooth' }); }}
-                                    className="btn btn-secondary"
-                                  >
-                                    <i className="fa-solid fa-terminal"></i> {lang === 'id' ? 'Coba Simulator Pipeline' : 'Try Pipeline Simulator'}
-                                  </a>
-                                  {project.repoUrl && (
-                                    <a 
-                                      href={project.repoUrl} 
-                                      target="_blank" 
-                                      rel="noopener noreferrer"
-                                      className="btn btn-secondary repo-link"
-                                    >
-                                      <i className="fa-brands fa-github"></i> {curr["btn-view-repo"]}
-                                    </a>
-                                  )}
-                                </>
+                              {project.id !== 3 && project.repoUrl && (
+                                <a href={project.repoUrl} target="_blank" rel="noopener noreferrer" className="btn-tomasz-outline-sm">
+                                  <i className="fa-brands fa-github"></i> <span>REPO</span>
+                                </a>
                               )}
-                              {project.id === 2 && (
-                                <>
-                                  <a 
-                                    href="#simulators" 
-                                    onClick={(e) => { e.preventDefault(); setActiveSimulatorTab('monitoring'); document.getElementById('simulators')?.scrollIntoView({ behavior: 'smooth' }); }}
-                                    className="btn btn-secondary"
-                                  >
-                                    <i className="fa-solid fa-chart-line"></i> {lang === 'id' ? 'Coba Simulator Monitoring' : 'Try Monitoring Simulator'}
-                                  </a>
-                                  {project.repoUrl && (
-                                    <a 
-                                      href={project.repoUrl} 
-                                      target="_blank" 
-                                      rel="noopener noreferrer"
-                                      className="btn btn-secondary repo-link"
-                                    >
-                                      <i className="fa-brands fa-github"></i> {curr["btn-view-repo"]}
-                                    </a>
-                                  )}
-                                </>
-                              )}
+                              <a href="#simulators" onClick={(e) => { e.preventDefault(); setActiveSimulatorTab(project.id === 3 ? 'gitops' : project.id === 1 ? 'pipeline' : 'monitoring'); document.getElementById('simulators')?.scrollIntoView({ behavior: 'smooth' }); }} className="btn-tomasz-outline-sm">
+                                <i className="fa-solid fa-play"></i> <span>SIMULATOR</span>
+                              </a>
                             </div>
                           </div>
 
-                          <div className="project-showcase-details">
-                            <div>
-                              <h3 className="project-showcase-title">{curr[project.nameKey]}</h3>
-                              <div className="project-story-tabs">
-                                {['overview', 'problem', 'solution', 'impact', 'architecture', 'code'].map((tab) => (
-                                  <button
-                                    key={tab}
-                                    className={`project-story-tab-btn ${activeTab === tab ? 'active' : ''}`}
-                                    onClick={() => handleProjectTabChange(project.id, tab)}
-                                  >
-                                    {tab === 'overview' && curr["proj-tab-overview"]}
-                                    {tab === 'problem' && curr["proj-tab-problem"]}
-                                    {tab === 'solution' && curr["proj-tab-solution"]}
-                                    {tab === 'impact' && curr["proj-tab-impact"]}
-                                    {tab === 'architecture' && curr["proj-tab-arch"]}
-                                    {tab === 'code' && (project.id === 3 ? (lang === 'id' ? 'Script Otomasi' : 'deploy.sh Script') : project.id === 1 ? (lang === 'id' ? 'Pipeline CI' : '.gitlab-ci.yml') : (lang === 'id' ? 'Alert Rules' : 'alerts.yml'))}
-                                  </button>
-                                ))}
+                          <div className="tomasz-proj-details">
+                            {isFlagship && (
+                              <div className="tomasz-status-badge">
+                                <span className="dot pulse"></span>
+                                <span>STATUS: KUBERNETES K3S DEPLOYED</span>
                               </div>
+                            )}
+                            <h3 className="tomasz-proj-title">{curr[project.nameKey]}</h3>
 
-                              <div className="project-story-content">
-                                {activeTab === 'overview' && (
-                                  <div>
-                                    <p className="project-story-heading">{curr["proj-tab-overview"]}:</p>
-                                    <p>{curr[project.overviewKey]}</p>
-                                  </div>
-                                )}
-                                {activeTab === 'problem' && (
-                                  <div>
-                                    <p className="project-story-heading problem">Challenge / Problem:</p>
-                                    <p>{curr[project.problemKey]}</p>
-                                  </div>
-                                )}
-                                {activeTab === 'solution' && (
-                                  <div>
-                                    <p className="project-story-heading solution">Solution & Process:</p>
-                                    <p className="mb-2"><strong>Role:</strong> {curr[project.roleKey]}</p>
-                                    <p>{curr[project.solutionKey]}</p>
-                                  </div>
-                                )}
-                                {activeTab === 'impact' && (
-                                  <div>
-                                    <p className="project-story-heading impact">Result & Impact:</p>
-                                    <p>{curr[project.impactKey]}</p>
-                                  </div>
-                                )}
-                                {activeTab === 'architecture' && (
-                                  <div className="project-architecture-flow">
-                                    <p className="project-story-heading arch">
-                                      <i className="fa-solid fa-diagram-project"></i> Multi-Namespace Delivery Flow:
-                                    </p>
-                                    <div className="arch-flow-grid">
-                                      {project.architectureFlow?.map((node, i) => (
-                                        <div key={i} className="arch-node-card">
-                                          <div className="arch-node-header">
-                                            <span className="arch-step-badge">{node.step}</span>
-                                            <i className={`arch-node-icon ${node.icon}`}></i>
-                                          </div>
-                                          <h4 className="arch-node-title">{node.title}</h4>
-                                          <p className="arch-node-detail">{node.detail}</p>
-                                        </div>
-                                      ))}
+                            <div className="tomasz-story-tabs">
+                              {['overview', 'problem', 'solution', 'impact', 'architecture', 'code'].map((tab) => (
+                                <button
+                                  key={tab}
+                                  className={`tomasz-story-tab ${activeTab === tab ? 'active' : ''}`}
+                                  onClick={() => handleProjectTabChange(project.id, tab)}
+                                >
+                                  {tab === 'overview' && curr["proj-tab-overview"]}
+                                  {tab === 'problem' && curr["proj-tab-problem"]}
+                                  {tab === 'solution' && curr["proj-tab-solution"]}
+                                  {tab === 'impact' && curr["proj-tab-impact"]}
+                                  {tab === 'architecture' && curr["proj-tab-arch"]}
+                                  {tab === 'code' && (project.id === 3 ? 'deploy.sh' : project.id === 1 ? '.gitlab-ci.yml' : 'alerts.yml')}
+                                </button>
+                              ))}
+                            </div>
+
+                            <div className="tomasz-story-body">
+                              {activeTab === 'overview' && <p>{curr[project.overviewKey]}</p>}
+                              {activeTab === 'problem' && <p>{curr[project.problemKey]}</p>}
+                              {activeTab === 'solution' && (
+                                <div>
+                                  <p className="mb-2"><strong>Role:</strong> {curr[project.roleKey]}</p>
+                                  <p>{curr[project.solutionKey]}</p>
+                                </div>
+                              )}
+                              {activeTab === 'impact' && <p>{curr[project.impactKey]}</p>}
+                              {activeTab === 'architecture' && (
+                                <div className="arch-flow-grid">
+                                  {project.architectureFlow?.map((node, i) => (
+                                    <div key={i} className="arch-node-card">
+                                      <div className="arch-node-header">
+                                        <span className="arch-step-badge">{node.step}</span>
+                                        <i className={`arch-node-icon ${node.icon}`}></i>
+                                      </div>
+                                      <h4 className="arch-node-title">{node.title}</h4>
+                                      <p className="arch-node-detail">{node.detail}</p>
                                     </div>
+                                  ))}
+                                </div>
+                              )}
+                              {activeTab === 'code' && project.id === 3 && (
+                                <div className="project-code-viewer">
+                                  <div className="code-viewer-header">
+                                    <span className="code-viewer-file"><i className="fa-solid fa-terminal"></i> scripts/deploy.sh (Vault & Kustomize)</span>
                                   </div>
-                                )}
-                                {activeTab === 'code' && project.id === 3 && (
-                                  <div className="project-code-viewer">
-                                    <div className="code-viewer-header">
-                                      <span className="code-viewer-file"><i className="fa-solid fa-terminal"></i> scripts/deploy.sh (GitOps Kustomize Automation)</span>
-                                      <a href={project.repoUrl} target="_blank" rel="noopener noreferrer" className="code-viewer-link">
-                                        <i className="fa-brands fa-gitlab"></i> Full Repo
-                                      </a>
-                                    </div>
-                                    <pre className="code-viewer-body">
-                                      <code>{`# 1. Target Multi-Environment Namespace
+                                  <pre className="code-viewer-body">
+                                    <code>{`# 1. Target Namespace
 NAMESPACE="renaldy-imran-cbs-\${ENV}"
 kubectl create namespace "\${NAMESPACE}" --dry-run=client -o yaml | kubectl apply -f -
 
-# 2. Vault DB Credential Injection (Production)
+# 2. Vault DB Credential Injection
 if [ "$ENV" = "prod" ] && [ -n "$VAULT_ADDR" ]; then
     VAULT_RESP=$(curl -s --header "X-Vault-Token: \${CURRENT_VAULT_TOKEN}" "\${VAULT_ADDR}/v1/\${VAULT_SECRET_PATH}")
     DB_USER=$(echo "$VAULT_RESP" | jq -r '.data.data.DB_USER')
     DB_PASSWORD=$(echo "$VAULT_RESP" | jq -r '.data.data.DB_PASSWORD')
 fi
 
-# 3. Kustomize Image Tag Mutation
-cd "$OVERLAY_PATH"
+# 3. Kustomize Image Tag Mutation & Rollout
 kustomize edit set image "\${APP_NAME}=\${REGISTRY_IMAGE}:\${IMAGE_TAG}"
-
-# 4. Declarative Rollout & Auto Restart
 kubectl apply -k "$OVERLAY_PATH"
 kubectl rollout restart deployment/"\${APP_NAME}" -n "\${NAMESPACE}"`}</code>
-                                    </pre>
+                                  </pre>
+                                </div>
+                              )}
+                              {activeTab === 'code' && project.id === 1 && (
+                                <div className="project-code-viewer">
+                                  <div className="code-viewer-header">
+                                    <span className="code-viewer-file"><i className="fa-solid fa-code"></i> .gitlab-ci.yml (Trivy & SonarQube)</span>
                                   </div>
-                                )}
-                                {activeTab === 'code' && project.id === 1 && (
-                                  <div className="project-code-viewer">
-                                    <div className="code-viewer-header">
-                                      <span className="code-viewer-file"><i className="fa-solid fa-code"></i> .gitlab-ci.yml (Multi-Stage DevSecOps Pipeline)</span>
-                                      <span className="code-viewer-lang font-mono text-muted text-xs">YAML</span>
-                                    </div>
-                                    <pre className="code-viewer-body">
-                                      <code>{`stages:
-  - test
-  - security-scan
-  - build-push
-  - deploy
+                                  <pre className="code-viewer-body">
+                                    <code>{`stages: [test, security-scan, build-push, deploy]
 
-# 1. SAST Quality Gate
 sonarqube-check:
   stage: security-scan
-  image: sonarsource/sonar-scanner-cli:latest
-  script:
-    - sonar-scanner -Dsonar.projectKey=\${CI_PROJECT_NAME} -Dsonar.qualitygate.wait=true
+  script: sonar-scanner -Dsonar.qualitygate.wait=true
 
-# 2. Container Image CVE Scan
 trivy-scan:
   stage: security-scan
-  image: docker:stable
-  services: [docker:dind]
-  script:
-    - docker build -t \${CI_REGISTRY_IMAGE}:\${CI_COMMIT_SHORT_SHA} .
-    - trivy image --exit-code 1 --severity CRITICAL \${CI_REGISTRY_IMAGE}:\${CI_COMMIT_SHORT_SHA}
+  script: trivy image --exit-code 1 --severity CRITICAL \${CI_REGISTRY_IMAGE}:\${CI_COMMIT_SHORT_SHA}
 
-# 3. Secure Push to Harbor
 push-image:
   stage: build-push
-  script:
-    - docker login -u \${HARBOR_USER} -p \${HARBOR_PASSWORD} \${HARBOR_HOST}
-    - docker push \${HARBOR_HOST}/cbs/\${APP_NAME}:\${CI_COMMIT_SHORT_SHA}`}</code>
-                                    </pre>
+  script: docker push \${HARBOR_HOST}/cbs/\${APP_NAME}:\${CI_COMMIT_SHORT_SHA}`}</code>
+                                  </pre>
+                                </div>
+                              )}
+                              {activeTab === 'code' && project.id === 2 && (
+                                <div className="project-code-viewer">
+                                  <div className="code-viewer-header">
+                                    <span className="code-viewer-file"><i className="fa-solid fa-bell"></i> alert-rules.yml (PromQL & Telegram)</span>
                                   </div>
-                                )}
-                                {activeTab === 'code' && project.id === 2 && (
-                                  <div className="project-code-viewer">
-                                    <div className="code-viewer-header">
-                                      <span className="code-viewer-file"><i className="fa-solid fa-bell"></i> alert-rules.yml (VictoriaMetrics & Telegram Alerting)</span>
-                                      <span className="code-viewer-lang font-mono text-muted text-xs">PromQL / YAML</span>
-                                    </div>
-                                    <pre className="code-viewer-body">
-                                      <code>{`groups:
-  - name: production-infrastructure-alerts
-    rules:
-      # 1. High CPU Utilization Threshold
-      - alert: HostHighCpuLoad
-        expr: 100 - (avg by(instance) (rate(node_cpu_seconds_total{mode="idle"}[2m])) * 100) > 85
-        for: 2m
-        labels:
-          severity: critical
-          cluster: production-k3s
-        annotations:
-          summary: "Host CPU load exceeds 85% on {{ $labels.instance }}"
-          description: "CPU load is {{ $value | printf '%.1f' }}% for 2m. SRE Auto-mitigation triggered."
+                                  <pre className="code-viewer-body">
+                                    <code>{`- alert: HostHighCpuLoad
+  expr: 100 - (avg by(instance) (rate(node_cpu_seconds_total{mode="idle"}[2m])) * 100) > 85
+  for: 2m
+  labels: { severity: critical }
 
-      # 2. Host Memory Saturation
-      - alert: HostOutOfMemory
-        expr: (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes) * 100 < 15
-        for: 2m
-        labels:
-          severity: warning
-        annotations:
-          summary: "Host out of memory on {{ $labels.instance }}"
-
-      # 3. Microservice Pod CrashLoopBackOff
-      - alert: K8sPodCrashLooping
-        expr: rate(kube_pod_container_status_restarts_total[5m]) * 60 > 2
-        for: 1m
-        labels:
-          severity: critical
-        annotations:
-          summary: "Pod {{ $labels.pod }} is in CrashLoopBackOff"
-
-# Dispatch channel: Telegram Bot Webhook -> SRE On-Call Incident Channel`}</code>
-                                    </pre>
-                                  </div>
-                                )}
-                              </div>
+# Dispatch channel: Telegram Bot Webhook -> SRE On-Call`}</code>
+                                  </pre>
+                                </div>
+                              )}
                             </div>
                           </div>
                         </div>
-                      </article>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-
-          {/* Interactive Cloud Workbench Simulators */}
-          <div id="simulators" className="workbench-section mb-12">
-            <div className="section-title">
-              <span className="section-category-tag">{"// SIMULATOR LAB K8S & CLUSTER"}</span>
-              <h2>DevOps Playground & Simulators</h2>
-              <p>
-                {lang === 'id' 
-                  ? 'Simulasikan siklus otomatisasi pipeline, deployment GitOps, dan monitoring sistem secara langsung.' 
-                  : 'Simulate pipeline automation cycles, GitOps deployments, and system monitoring live.'}
-              </p>
-            </div>
-
-            <div className="simulator-tabs">
-              <button 
-                className={`btn ${activeSimulatorTab === 'pipeline' ? 'btn-primary' : 'btn-secondary'}`}
-                onClick={() => setActiveSimulatorTab('pipeline')}
-              >
-                <i className="fa-solid fa-terminal"></i> 1. CI/CD Pipeline
-              </button>
-              <button 
-                className={`btn ${activeSimulatorTab === 'gitops' ? 'btn-primary' : 'btn-secondary'}`}
-                onClick={() => setActiveSimulatorTab('gitops')}
-              >
-                <i className="fa-solid fa-cloud"></i> 2. GitOps & K8s
-              </button>
-              <button 
-                className={`btn ${activeSimulatorTab === 'monitoring' ? 'btn-primary' : 'btn-secondary'}`}
-                onClick={() => setActiveSimulatorTab('monitoring')}
-              >
-                <i className="fa-solid fa-chart-line"></i> 3. Observability & Alarm
-              </button>
-            </div>
-
-            <div className="simulator-active-content">
-              {activeSimulatorTab === 'pipeline' && (
-                <PipelineSimulator 
-                  lang={lang} 
-                  onStatusChange={handlePipelineStatusChange}
-                  onStageChange={handlePipelineStageChange}
-                  onProceedToGitOps={handleProceedToGitOps}
-                />
-              )}
-              {activeSimulatorTab === 'gitops' && (
-                <GitOpsSimulator 
-                  lang={lang} 
-                  pipelineLinked={isPipelineLinked}
-                  onSyncComplete={handleGitOpsSyncComplete}
-                  onResetLink={handleResetAllSimulators}
-                />
-              )}
-              {activeSimulatorTab === 'monitoring' && (
-                <ObservabilitySimulator 
-                  lang={lang} 
-                  pipelineState={pipelineState} 
-                  gitopsDeployedVersion={gitopsDeployedVersion}
-                />
-              )}
-            </div>
-          </div>
-        </section>
-
-        {/* ==============================================================
-            SECTION 5: PENDIDIKAN & SERTIFIKASI
-            ============================================================== */}
-        <section id="certifications" className="reveal">
-          <div className="section-title">
-            <span className="section-category-tag">{"// AKADEMIS & SERTIFIKASI PROFESIONAL"}</span>
-            <h2 dangerouslySetInnerHTML={{ __html: curr["about-edu-title"] }} />
-            <p>{curr["about-edu-desc"]}</p>
-          </div>
-
-          {/* Education Card */}
-          <div className="card education-card mb-12">
-            <div className="education-card-inner">
-              <div className="edu-icon-col">
-                <i className="fa-solid fa-graduation-cap"></i>
-              </div>
-              <div className="edu-info-col">
-                <span className="edu-badge">SARJANA KOMPUTER (S.KOM)</span>
-                <h3 className="edu-title">Universitas Bani Saleh — Teknik Informatika</h3>
-                <p className="edu-desc text-muted">
-                  {lang === 'id' 
-                    ? 'Fokus pada Arsitektur Jaringan, Infrastruktur Cloud, dan Rekayasa Sistem Perangkat Lunak. Lulus tahun 2024.'
-                    : 'Specialized in Network Architecture, Cloud Infrastructure, and Software Engineering. Graduated in 2024.'}
-                </p>
-                <div className="edu-meta-tags">
-                  <span><i className="fa-solid fa-calendar"></i> 2020 - 2024</span>
-                  <span><i className="fa-solid fa-location-dot"></i> Bekasi, Indonesia</span>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             </div>
-          </div>
 
-          {/* 7 Verified Certifications Component */}
-          <Certifications lang={lang} />
+            {/* Interactive DevOps Workbench */}
+            <div id="simulators" className="tomasz-workbench-box">
+              <div className="workbench-title-bar">
+                <h3>DEVOPS INTERACTIVE SIMULATOR</h3>
+                <p className="text-muted text-sm">Simulasikan proses deployment, drift detection, dan response alarm monitoring.</p>
+              </div>
+
+              <div className="simulator-tabs">
+                <button className={`btn ${activeSimulatorTab === 'pipeline' ? 'btn-primary' : 'btn-secondary'}`} onClick={() => setActiveSimulatorTab('pipeline')}>
+                  <i className="fa-solid fa-terminal"></i> 1. CI/CD Pipeline
+                </button>
+                <button className={`btn ${activeSimulatorTab === 'gitops' ? 'btn-primary' : 'btn-secondary'}`} onClick={() => setActiveSimulatorTab('gitops')}>
+                  <i className="fa-solid fa-cloud"></i> 2. GitOps & K8s
+                </button>
+                <button className={`btn ${activeSimulatorTab === 'monitoring' ? 'btn-primary' : 'btn-secondary'}`} onClick={() => setActiveSimulatorTab('monitoring')}>
+                  <i className="fa-solid fa-chart-line"></i> 3. Observability & Alarm
+                </button>
+              </div>
+
+              <div className="simulator-active-content">
+                {activeSimulatorTab === 'pipeline' && <PipelineSimulator lang={lang} onStatusChange={handlePipelineStatusChange} onStageChange={handlePipelineStageChange} onProceedToGitOps={handleProceedToGitOps} />}
+                {activeSimulatorTab === 'gitops' && <GitOpsSimulator lang={lang} pipelineLinked={isPipelineLinked} onSyncComplete={handleGitOpsSyncComplete} onResetLink={handleResetAllSimulators} />}
+                {activeSimulatorTab === 'monitoring' && <ObservabilitySimulator lang={lang} pipelineState={pipelineState} gitopsDeployedVersion={gitopsDeployedVersion} />}
+              </div>
+            </div>
+          </div>
         </section>
 
         {/* ==============================================================
-            SECTION 6: KONTAK / CONTACT
+            SECTION: CERTIFICATIONS & EDUCATION
             ============================================================== */}
-        <section id="contact" className="reveal">
-          <div className="contact-banner">
-            <span className="section-category-tag mb-3 d-inline-block">{"// TERHUBUNG DENGAN SAYA"}</span>
-            <h2>{curr["contact-title"]}</h2>
-            <p className="mb-6">{curr["contact-desc"]}</p>
+        <section id="certifications" className="tomasz-section">
+          <div className="tomasz-container">
+            <h2 className="tomasz-section-title">CERTIFICATIONS & EDUCATION</h2>
+            
+            <div className="tomasz-separator">
+              <span className="tomasz-separator-diamond"></span>
+            </div>
 
-            {/* Terminal CLI Resume Box */}
+            {/* Education Box */}
+            <div className="tomasz-edu-banner mb-10">
+              <div className="edu-icon-wrap"><i className="fa-solid fa-graduation-cap"></i></div>
+              <div className="edu-details">
+                <span className="edu-degree">SARJANA KOMPUTER (S.KOM)</span>
+                <h3 className="edu-school">Universitas Bani Saleh — Teknik Informatika</h3>
+                <p className="edu-desc text-muted">Fokus pada Administrasi Jaringan, Infrastruktur Cloud, dan Rekayasa Sistem. Lulus tahun 2024.</p>
+                <span className="edu-year"><i className="fa-solid fa-calendar"></i> 2020 - 2024 • Bekasi, Indonesia</span>
+              </div>
+            </div>
+
+            {/* 7 Verified Certifications */}
+            <Certifications lang={lang} />
+          </div>
+        </section>
+
+        {/* ==============================================================
+            SECTION: CAREER PATH (EXECUTIVE LEDGER)
+            ============================================================== */}
+        <section id="experience" className="tomasz-section">
+          <div className="tomasz-container">
+            <h2 className="tomasz-section-title">CAREER PATH</h2>
+            
+            <div className="tomasz-separator">
+              <span className="tomasz-separator-diamond"></span>
+            </div>
+
+            <div className="tomasz-career-ledger">
+              {experiencesData.map((exp) => (
+                <article key={exp.id} className="tomasz-ledger-row">
+                  <div className="ledger-left">
+                    <span className="ledger-date">{exp.dateText[lang]}</span>
+                    <span className="ledger-dur">{getDurationText(exp, lang)}</span>
+                    {exp.type && <span className="ledger-pill">{exp.type[lang]}</span>}
+                  </div>
+                  <div className="ledger-right">
+                    <h3 className="ledger-job-title"><i className={`fa-solid ${exp.icon}`}></i> {curr[exp.titleKey]}</h3>
+                    <div className="ledger-job-desc" dangerouslySetInnerHTML={{ __html: curr[exp.descKey] }} />
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ==============================================================
+            SECTION: CONTACT ME (ALA TOMASZ GAJDA)
+            ============================================================== */}
+        <section id="contact" className="tomasz-section tomasz-contact-section">
+          <div className="tomasz-container">
+            <h2 className="tomasz-section-title">CONTACT</h2>
+            
+            <div className="tomasz-separator">
+              <span className="tomasz-separator-diamond"></span>
+            </div>
+
+            <p className="tomasz-contact-sub">
+              {lang === 'id' 
+                ? "Tertarik untuk berdiskusi seputar peluang kerja DevOps, Cloud Infrastructure, atau kolaborasi proyek? Hubungi saya langsung melalui tautan di bawah."
+                : "Interested in discussing DevOps opportunities, cloud infrastructure, or technical collaboration? Reach out directly through the links below."}
+            </p>
+
+            {/* CLI Resume Box */}
             <div className="terminal-cli-resume-box mb-8">
               <div className="cli-box-header">
                 <span className="dot pulse"></span>
@@ -1032,40 +832,49 @@ push-image:
               </div>
             </div>
 
-            <div className="contact-grid">
-              <button id="copy-email" className="btn btn-primary" onClick={handleCopyEmail}>
-                {emailCopied ? (
-                  <>
-                    <i className="fa-solid fa-check"></i> {curr["email-success"]}
-                  </>
-                ) : (
-                  <>
-                    <i className="fa-solid fa-copy"></i> {curr["copy-email"]}
-                  </>
-                )}
+            <div className="tomasz-contact-grid">
+              <button id="copy-email" className="btn-tomasz-contact" onClick={handleCopyEmail}>
+                <i className="fa-solid fa-envelope"></i>
+                <span>{emailCopied ? (curr["email-success"]) : "renaldyimran@gmail.com"}</span>
               </button>
-              <a href="https://linkedin.com/in/renaldyimran" target="_blank" rel="noopener noreferrer" className="btn btn-secondary btn-linkedin">
-                <i className="fa-brands fa-linkedin"></i> LinkedIn
+              <a href="https://wa.me/6287872481308" target="_blank" rel="noopener noreferrer" className="btn-tomasz-contact">
+                <i className="fa-brands fa-whatsapp"></i>
+                <span>+62 878-7248-1308</span>
               </a>
-              <a href="https://github.com/renmher" target="_blank" rel="noopener noreferrer" className="btn btn-secondary btn-github">
-                <i className="fa-brands fa-github"></i> GitHub
+              <a href="https://linkedin.com/in/renaldyimran" target="_blank" rel="noopener noreferrer" className="btn-tomasz-contact">
+                <i className="fa-brands fa-linkedin"></i>
+                <span>linkedin.com/in/renaldyimran</span>
               </a>
-              <a href="https://wa.me/6287872481308" target="_blank" rel="noopener noreferrer" className="btn btn-secondary btn-whatsapp">
-                <i className="fa-brands fa-whatsapp"></i> WhatsApp
+              <a href="https://github.com/renmher" target="_blank" rel="noopener noreferrer" className="btn-tomasz-contact">
+                <i className="fa-brands fa-github"></i>
+                <span>github.com/renmher</span>
               </a>
             </div>
           </div>
         </section>
       </main>
 
-      {/* Footer */}
-      <footer>
-        <div className="container footer-content">
-          <div className="footer-status-bar mb-4">
-            <span className="dot pulse"></span>
-            <span className="font-mono text-xs">GITHUB STATUS: <a href="https://github.com/renmher" target="_blank" rel="noopener noreferrer">@renmher</a> • ACTIVE PUSHES RECORDED</span>
+      {/* Footer ala Tomasz Gajda */}
+      <footer className="tomasz-footer">
+        <div className="tomasz-container tomasz-footer-content">
+          <div className="footer-back-to-top">
+            <a href="#home" onClick={(e) => handleNavClick(e, 'home')} className="btn-back-top">
+              <i className="fa-solid fa-angles-up"></i>
+              <span>BACK TO TOP</span>
+            </a>
           </div>
-          <p>&copy; {new Date().getFullYear()} Renaldy Imran Hermawan. {curr["footer-rights"]}</p>
+
+          <div className="tomasz-footer-socials">
+            <a href="mailto:renaldyimran@gmail.com" title="Email"><i className="fa-solid fa-at"></i></a>
+            <a href="https://github.com/renmher" target="_blank" rel="noopener noreferrer" title="GitHub"><i className="fa-brands fa-github"></i></a>
+            <a href="https://linkedin.com/in/renaldyimran" target="_blank" rel="noopener noreferrer" title="LinkedIn"><i className="fa-brands fa-linkedin"></i></a>
+            <a href="https://wa.me/6287872481308" target="_blank" rel="noopener noreferrer" title="WhatsApp"><i className="fa-brands fa-whatsapp"></i></a>
+          </div>
+
+          <p className="footer-copyright">
+            <strong>@2026 Renaldy Imran Hermawan</strong><br />
+            All Rights Reserved.
+          </p>
         </div>
       </footer>
 
