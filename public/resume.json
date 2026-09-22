@@ -24,7 +24,7 @@
       "architecture": "GitLab CI shared templates, Kustomize overlays, K3s Kubernetes rollout",
       "impact": "100% pipeline duplication eliminated, verified production ingress delivery",
       "gitlab_repo": "https://gitlab.com/tutorial-ci-dibimbing/renaldy-imran-cbs-final-projek/general-pipeline",
-      "live_ingress": "http://portal-admin-prod-renaldy-imran-cbs.apps.k3s.cbu"
+      "cluster_status": "Kubernetes K3s Multi-Namespace Deployed"
     },
     {
       "name": "Secure CI/CD Pipeline Automation",

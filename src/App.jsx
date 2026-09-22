@@ -626,7 +626,7 @@ const App = () => {
                           <div className="flagship-badge-bar">
                             <span className="flagship-live-badge">
                               <span className="dot pulse"></span>
-                              <span>LIVE INGRESS: portal-admin-prod-renaldy-imran-cbs.apps.k3s.cbu</span>
+                              <span>STATUS: KUBERNETES K3S DEPLOYED</span>
                             </span>
                             <span className="flagship-tag-pill">FLAGSHIP CASE STUDY</span>
                           </div>

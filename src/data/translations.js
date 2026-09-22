@@ -123,7 +123,7 @@ export const translations = {
       "proj3-problem": "Setiap repositori microservices backend dan frontend perbankan syariah memiliki konfigurasi CI/CD terpisah tanpa standarisasi dan rawan human-error. Manajemen isolasi namespace multi-environment (dev, uat, prod) belum terotomatisasi secara deklaratif.",
       "proj3-role": "DevOps Engineer: Merancang centralized pipeline template di GitLab CI, menyusun manifes GitOps menggunakan Kustomize overlays, mengonfigurasi Ingress per namespace, dan menguji verifikasi live routing.",
       "proj3-solution": "Merancang repositori shared pipeline di GitLab CI (general-pipeline) untuk microservices backend (Go/Node/Java) dan frontend (Vue/React). Mengintegrasikan Trivy scanning, SonarQube quality gate, dan skrip deploy Kustomize otomatis (deploy.sh) untuk mutasi tag image dan deployment ke namespace terisolasi kluster Kubernetes (K3s) dengan Ingress.",
-      "proj3-impact": "Mengeliminasi duplikasi konfigurasi pipeline hingga 100% pada repositori microservices. Rilis perbankan syariah berhasil berjalan otomatis lintas namespace (dev, uat, prod) dan terverifikasi live pada production Ingress portal-admin-prod-renaldy-imran-cbs.apps.k3s.cbu.",
+      "proj3-impact": "Mengeliminasi duplikasi konfigurasi pipeline hingga 100% pada repositori microservices. Rilis perbankan syariah berhasil berjalan otomatis lintas namespace (dev, uat, prod) dan terverifikasi live pada cluster Kubernetes.",
       // CV Builder Fields
       "cv-summary-title": "Ringkasan Profesional",
       "cv-experience-title": "Pengalaman Kerja",
@@ -265,7 +265,7 @@ export const translations = {
       "proj3-problem": "Each banking microservice (frontend & backend) maintained fragmented, duplicate CI/CD configurations lacking standard security gates. Multi-environment namespace isolation (dev, uat, prod) was vulnerable to manual drift.",
       "proj3-role": "DevOps Engineer: Designed centralized GitLab CI pipeline templates, structured GitOps manifests using Kustomize overlays, configured per-environment Ingress rules, and verified live routing.",
       "proj3-solution": "Engineered a centralized GitLab CI shared template repository (general-pipeline) for frontend (Vue/React) and backend (Go/Node/Java) services. Integrated Trivy CVE scanning, SonarQube quality gates, and automated Kustomize mutation scripts (deploy.sh) to deploy declarative manifests into isolated Kubernetes (K3s) namespaces with live Ingress.",
-      "proj3-impact": "Eliminated 100% of pipeline duplication across services. Successfully automated multi-environment releases (dev, uat, prod) with verified zero-downtime routing live on production Ingress portal-admin-prod-renaldy-imran-cbs.apps.k3s.cbu.",
+      "proj3-impact": "Eliminated 100% of pipeline duplication across services. Successfully automated multi-environment releases (dev, uat, prod) with verified zero-downtime routing live on Kubernetes cluster.",
       // CV Builder Fields
       "cv-summary-title": "Professional Summary",
       "cv-experience-title": "Work Experience",
