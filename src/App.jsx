@@ -142,7 +142,7 @@ const App = () => {
     document.body.setAttribute('data-theme', theme);
     const metaTheme = document.querySelector('meta[name="theme-color"]');
     if (metaTheme) {
-      metaTheme.setAttribute('content', theme === 'dark' ? '#0E0F12' : '#FBF9F5');
+      metaTheme.setAttribute('content', theme === 'dark' ? '#0B0D11' : '#FBF9F5');
     }
     localStorage.setItem('theme', theme);
   }, [theme]);
@@ -333,9 +333,6 @@ const App = () => {
                     {lang === 'id' ? 'SIAP KERJA: DEVOPS & SRE' : 'OPEN TO WORK: DEVOPS & SRE'}
                   </span>
                 </div>
-                <p className="lux-photo-caption">
-                  Renaldy Imran Hermawan. Based in Bekasi, Indonesia. 2026.
-                </p>
               </div>
             </div>
           </div>

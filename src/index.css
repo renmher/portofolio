@@ -18,11 +18,11 @@
 
   --border: #E6E2D8;
   --border-hover: #161618;
-  --border-focus: #C26D48;
+  --border-focus: #0284C7;
 
-  --accent: #C26D48;
-  --accent-hover: #A85A39;
-  --accent-glow: rgba(194, 109, 72, 0.12);
+  --accent: #0284C7;
+  --accent-hover: #0369A1;
+  --accent-glow: rgba(2, 132, 199, 0.12);
   --emerald: #10B981;
 
   --radius-sm: 4px;
@@ -43,23 +43,23 @@
 }
 
 [data-theme="dark"] {
-  /* Deep Obsidian Dark Palette */
-  --bg-page: #0E0F12;
-  --bg-surface: #15161A;
-  --bg-tinted: #1E1F26;
-  --bg-card: #15161A;
+  /* SRE Console Dark Palette (Datadog & Linear Style) */
+  --bg-page: #0B0D11;
+  --bg-surface: #12151B;
+  --bg-tinted: #181D26;
+  --bg-card: #12151B;
 
-  --text-main: #F5F5F7;
-  --text-secondary: #C4C6CE;
-  --text-muted: #868A96;
+  --text-main: #F1F4F9;
+  --text-secondary: #9DA6B8;
+  --text-muted: #647087;
 
-  --border: #252730;
-  --border-hover: #F5F5F7;
-  --border-focus: #E07D54;
+  --border: #1F2533;
+  --border-hover: #374259;
+  --border-focus: #00E5FF;
 
-  --accent: #E07D54;
-  --accent-hover: #F0916A;
-  --accent-glow: rgba(224, 125, 84, 0.18);
+  --accent: #00E5FF;
+  --accent-hover: #33EBFF;
+  --accent-glow: rgba(0, 229, 255, 0.16);
   --emerald: #10B981;
 
   --primary: var(--text-main);
@@ -168,8 +168,9 @@ button, input, textarea, select {
 }
 
 .lux-brand-badge {
-  background: var(--text-main);
-  color: var(--bg-page);
+  background: rgba(0, 229, 255, 0.1);
+  color: var(--accent);
+  border: 1px solid rgba(0, 229, 255, 0.25);
   font-size: 12px;
   font-weight: 700;
   padding: 4px 8px;
@@ -244,15 +245,16 @@ button, input, textarea, select {
   font-size: 12.5px;
   font-weight: 600;
   padding: 6px 14px;
-  background: var(--text-main);
-  color: var(--bg-page);
+  background: #17202E;
+  color: var(--accent);
+  border: 1px solid rgba(0, 229, 255, 0.35);
   border-radius: var(--radius-sm);
   transition: var(--transition);
 }
 
 .lux-action-cta:hover {
   background: var(--accent);
-  color: #FFFFFF;
+  color: #0B0D11;
 }
 
 /* Mobile Bottom Bar */
@@ -375,8 +377,9 @@ button, input, textarea, select {
   align-items: center;
   gap: 8px;
   padding: 12px 24px;
-  background: var(--text-main);
-  color: var(--bg-page);
+  background: #16202E;
+  color: var(--accent);
+  border: 1px solid rgba(0, 229, 255, 0.4);
   font-size: 13.5px;
   font-weight: 600;
   border-radius: var(--radius-sm);
@@ -385,7 +388,20 @@ button, input, textarea, select {
 
 .lux-btn-primary:hover {
   background: var(--accent);
+  color: #0B0D11;
+  border-color: var(--accent);
+  box-shadow: 0 0 16px rgba(0, 229, 255, 0.35) !important;
+}
+
+[data-theme="light"] .lux-btn-primary {
+  background: var(--text-main);
   color: #FFFFFF;
+  border: 1px solid var(--text-main);
+}
+
+[data-theme="light"] .lux-btn-primary:hover {
+  background: var(--accent);
+  border-color: var(--accent);
 }
 
 .lux-btn-secondary {
@@ -403,7 +419,8 @@ button, input, textarea, select {
 }
 
 .lux-btn-secondary:hover {
-  border-color: var(--text-main);
+  border-color: var(--accent);
+  color: var(--accent);
 }
 
 .lux-social-links {
@@ -430,35 +447,41 @@ button, input, textarea, select {
 /* Photo Frame */
 .lux-photo-frame {
   position: relative;
-  max-width: 400px;
+  max-width: 380px;
   margin-left: auto;
   border: 1px solid var(--border);
   background: var(--bg-surface);
-  padding: 12px;
+  padding: 0;
+  overflow: hidden;
   border-radius: var(--radius-md);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4) !important;
 }
 
 .lux-profile-img {
   width: 100%;
   aspect-ratio: 4 / 4.8;
   object-fit: cover;
-  border-radius: var(--radius-sm);
   display: block;
+  transition: transform 0.4s ease;
+}
+
+.lux-photo-frame:hover .lux-profile-img {
+  transform: scale(1.03);
 }
 
 .lux-photo-chip {
   position: absolute;
-  bottom: 42px;
-  left: 24px;
+  bottom: 16px;
+  left: 16px;
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 6px 12px;
-  background: rgba(14, 15, 18, 0.88);
-  backdrop-filter: blur(8px);
+  padding: 6px 14px;
+  background: rgba(11, 13, 17, 0.88);
+  backdrop-filter: blur(10px);
   color: #FFFFFF;
   border-radius: var(--radius-sm);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(0, 229, 255, 0.3);
 }
 
 .lux-status-dot {
