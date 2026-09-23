@@ -43,27 +43,27 @@
 }
 
 [data-theme="dark"] {
-  /* SRE Console Dark Palette (Datadog & Linear Style) */
-  --bg-page: #0B0D11;
-  --bg-surface: #12151B;
-  --bg-tinted: #181D26;
-  --bg-card: #12151B;
+  /* Cloud Slate + Sky Blue Palette (Linear & K8s Cloud Console) */
+  --bg-page: #0B0F17;
+  --bg-surface: #111827;
+  --bg-tinted: #172236;
+  --bg-card: #111827;
 
-  --text-main: #F1F4F9;
-  --text-secondary: #9DA6B8;
-  --text-muted: #647087;
+  --text-main: #F1F5F9;
+  --text-secondary: #94A3B8;
+  --text-muted: #64748B;
 
-  --border: #1F2533;
-  --border-hover: #374259;
-  --border-focus: #00E5FF;
+  --border: #1E293B;
+  --border-hover: #334155;
+  --border-focus: #38BDF8;
 
-  --accent: #00E5FF;
-  --accent-hover: #33EBFF;
-  --accent-glow: rgba(0, 229, 255, 0.16);
+  --accent: #38BDF8;
+  --accent-hover: #60A5FA;
+  --accent-glow: rgba(56, 189, 248, 0.16);
   --emerald: #10B981;
 
   --primary: var(--text-main);
-  --primary-hover: #E5E5EA;
+  --primary-hover: #E2E8F0;
   --bg-deep: var(--bg-surface);
 }
 
@@ -168,9 +168,9 @@ button, input, textarea, select {
 }
 
 .lux-brand-badge {
-  background: rgba(0, 229, 255, 0.1);
+  background: rgba(56, 189, 248, 0.12);
   color: var(--accent);
-  border: 1px solid rgba(0, 229, 255, 0.25);
+  border: 1px solid rgba(56, 189, 248, 0.25);
   font-size: 12px;
   font-weight: 700;
   padding: 4px 8px;
@@ -245,16 +245,16 @@ button, input, textarea, select {
   font-size: 12.5px;
   font-weight: 600;
   padding: 6px 14px;
-  background: #17202E;
+  background: #172236;
   color: var(--accent);
-  border: 1px solid rgba(0, 229, 255, 0.35);
+  border: 1px solid rgba(56, 189, 248, 0.35);
   border-radius: var(--radius-sm);
   transition: var(--transition);
 }
 
 .lux-action-cta:hover {
   background: var(--accent);
-  color: #0B0D11;
+  color: #0B0F17;
 }
 
 /* Mobile Bottom Bar */
@@ -377,9 +377,9 @@ button, input, textarea, select {
   align-items: center;
   gap: 8px;
   padding: 12px 24px;
-  background: #16202E;
+  background: #172236;
   color: var(--accent);
-  border: 1px solid rgba(0, 229, 255, 0.4);
+  border: 1px solid rgba(56, 189, 248, 0.4);
   font-size: 13.5px;
   font-weight: 600;
   border-radius: var(--radius-sm);
@@ -388,9 +388,9 @@ button, input, textarea, select {
 
 .lux-btn-primary:hover {
   background: var(--accent);
-  color: #0B0D11;
+  color: #0B0F17;
   border-color: var(--accent);
-  box-shadow: 0 0 16px rgba(0, 229, 255, 0.35) !important;
+  box-shadow: 0 0 16px rgba(56, 189, 248, 0.35) !important;
 }
 
 [data-theme="light"] .lux-btn-primary {
@@ -477,11 +477,11 @@ button, input, textarea, select {
   align-items: center;
   gap: 8px;
   padding: 6px 14px;
-  background: rgba(11, 13, 17, 0.88);
+  background: rgba(11, 15, 23, 0.88);
   backdrop-filter: blur(10px);
   color: #FFFFFF;
   border-radius: var(--radius-sm);
-  border: 1px solid rgba(0, 229, 255, 0.3);
+  border: 1px solid rgba(56, 189, 248, 0.3);
 }
 
 .lux-status-dot {
