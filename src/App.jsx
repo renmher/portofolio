@@ -31,6 +31,8 @@ const App = () => {
   const [isPipelineLinked, setIsPipelineLinked] = useState(false);
   const [gitopsDeployedVersion, setGitopsDeployedVersion] = useState(null);
   const [activeSimulatorTab, setActiveSimulatorTab] = useState('pipeline');
+  const [isCvDropdownOpen, setIsCvDropdownOpen] = useState(false);
+  const cvDropdownRef = useRef(null);
 
   // Typing animation
   const [textIndex, setTextIndex] = useState(0);
@@ -174,6 +176,25 @@ const App = () => {
   }, []);
 
   useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (cvDropdownRef.current && !cvDropdownRef.current.contains(e.target)) {
+        setIsCvDropdownOpen(false);
+      }
+    };
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        setIsCvDropdownOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
+
+  useEffect(() => {
     if (window.history.scrollRestoration) {
       window.history.scrollRestoration = 'manual';
     }
@@ -295,13 +316,60 @@ const App = () => {
               </p>
 
               <div className="lux-hero-actions">
-                <a 
-                  href={lang === 'id' ? "/cv-renaldy-id.pdf" : "/cv-renaldy.pdf"} 
-                  download={lang === 'id' ? "CV-Renaldy-Imran-Hermawan-ID.pdf" : "CV-Renaldy-Imran-Hermawan.pdf"} 
-                  className="lux-btn-primary"
-                >
-                  <span>Download CV ↗</span>
-                </a>
+                <div className="lux-cv-dropdown-wrap" ref={cvDropdownRef}>
+                  <button 
+                    type="button"
+                    onClick={() => setIsCvDropdownOpen(!isCvDropdownOpen)} 
+                    className="lux-btn-primary lux-btn-cv"
+                    aria-expanded={isCvDropdownOpen}
+                  >
+                    <span>Download CV</span>
+                    <i className={`fa-solid fa-chevron-${isCvDropdownOpen ? 'up' : 'down'}`}></i>
+                  </button>
+                  
+                  {isCvDropdownOpen && (
+                    <div className="lux-cv-dropdown-menu">
+                      <a 
+                        href="/cv-renaldy-id.pdf" 
+                        download="CV-Renaldy-Imran-Hermawan-ID.pdf"
+                        onClick={() => setIsCvDropdownOpen(false)}
+                        className="lux-cv-dropdown-item"
+                      >
+                        <i className="fa-solid fa-file-pdf"></i>
+                        <div className="lux-cv-item-text">
+                          <span className="lux-cv-item-title">Versi Bahasa Indonesia</span>
+                          <span className="lux-cv-item-sub">Standar ATS Nasional (PDF)</span>
+                        </div>
+                      </a>
+
+                      <a 
+                        href="/cv-renaldy.pdf" 
+                        download="CV-Renaldy-Imran-Hermawan.pdf"
+                        onClick={() => setIsCvDropdownOpen(false)}
+                        className="lux-cv-dropdown-item"
+                      >
+                        <i className="fa-solid fa-file-pdf"></i>
+                        <div className="lux-cv-item-text">
+                          <span className="lux-cv-item-title">International English</span>
+                          <span className="lux-cv-item-sub">Global Tech Standard (PDF)</span>
+                        </div>
+                      </a>
+
+                      <a 
+                        href="/?mode=cv-builder" 
+                        onClick={() => setIsCvDropdownOpen(false)}
+                        className="lux-cv-dropdown-item lux-cv-builder-item"
+                      >
+                        <i className="fa-solid fa-sliders"></i>
+                        <div className="lux-cv-item-text">
+                          <span className="lux-cv-item-title">Interactive CV Builder</span>
+                          <span className="lux-cv-item-sub">Custom A4 Live Generator ↗</span>
+                        </div>
+                      </a>
+                    </div>
+                  )}
+                </div>
+
                 <a href="#portfolio" onClick={(e) => handleNavClick(e, 'portfolio')} className="lux-btn-secondary">
                   <span>Explore Works ↓</span>
                 </a>

@@ -418,6 +418,89 @@ button, input, textarea, select {
   transition: var(--transition);
 }
 
+/* CV Dropdown Menu */
+.lux-cv-dropdown-wrap {
+  position: relative;
+  display: inline-block;
+}
+
+.lux-btn-cv {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.lux-btn-cv i {
+  font-size: 11px;
+  transition: transform 0.2s ease;
+}
+
+.lux-cv-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  min-width: 270px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 6px;
+  z-index: 100;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4) !important;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  animation: luxMenuFade 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes luxMenuFade {
+  from { opacity: 0; transform: translateY(-6px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.lux-cv-dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  color: var(--text-main);
+  transition: var(--transition);
+  text-align: left;
+}
+
+.lux-cv-dropdown-item:hover {
+  background: var(--bg-tinted);
+  color: var(--accent);
+}
+
+.lux-cv-dropdown-item i {
+  font-size: 16px;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.lux-cv-item-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.lux-cv-item-title {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.lux-cv-item-sub {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.lux-cv-builder-item {
+  border-top: 1px solid var(--border);
+  margin-top: 2px;
+  padding-top: 10px;
+}
+
 .lux-btn-secondary:hover {
   border-color: var(--accent);
   color: var(--accent);
