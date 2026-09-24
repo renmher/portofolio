@@ -96,7 +96,7 @@ const App = () => {
       });
     }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
 
-    document.querySelectorAll('.apple-reveal, .apple-card, .apple-slide-card, .apple-ledger-item').forEach(el => {
+    document.querySelectorAll('.apple-reveal, .apple-card, .apple-slide-card, .apple-ledger-item, .apple-img-zoom').forEach(el => {
       observer.observe(el);
     });
 
@@ -253,13 +253,13 @@ const App = () => {
           </a>
 
           <nav className="apple-desktop-nav" aria-label="Main Navigation">
-            <a href="#about" onClick={(e) => handleNavClick(e, 'about')} className={activeSection === 'about' ? 'active' : ''}>Overview</a>
-            <a href="#skills" onClick={(e) => handleNavClick(e, 'skills')} className={activeSection === 'skills' ? 'active' : ''}>Tech Specs</a>
-            <a href="#portfolio" onClick={(e) => handleNavClick(e, 'portfolio')} className={activeSection === 'portfolio' ? 'active' : ''}>Deployments</a>
-            <a href="#simulators" onClick={(e) => handleNavClick(e, 'simulators')} className={activeSection === 'simulators' ? 'active' : ''}>Lab Workbench</a>
-            <a href="#certifications" onClick={(e) => handleNavClick(e, 'certifications')} className={activeSection === 'certifications' ? 'active' : ''}>Credentials</a>
-            <a href="#experience" onClick={(e) => handleNavClick(e, 'experience')} className={activeSection === 'experience' ? 'active' : ''}>Trajectory</a>
-            <a href="#contact" onClick={(e) => handleNavClick(e, 'contact')} className="apple-nav-link-blue">Contact</a>
+            <a href="#about" onClick={(e) => handleNavClick(e, 'about')} className={activeSection === 'about' ? 'active' : ''}>{lang === 'id' ? 'Tentang' : 'Overview'}</a>
+            <a href="#skills" onClick={(e) => handleNavClick(e, 'skills')} className={activeSection === 'skills' ? 'active' : ''}>{lang === 'id' ? 'Keahlian' : 'Tech Specs'}</a>
+            <a href="#portfolio" onClick={(e) => handleNavClick(e, 'portfolio')} className={activeSection === 'portfolio' ? 'active' : ''}>{lang === 'id' ? 'Portofolio' : 'Deployments'}</a>
+            <a href="#simulators" onClick={(e) => handleNavClick(e, 'simulators')} className={activeSection === 'simulators' ? 'active' : ''}>{lang === 'id' ? 'Lab Simulator' : 'Lab Workbench'}</a>
+            <a href="#certifications" onClick={(e) => handleNavClick(e, 'certifications')} className={activeSection === 'certifications' ? 'active' : ''}>{lang === 'id' ? 'Sertifikasi' : 'Credentials'}</a>
+            <a href="#experience" onClick={(e) => handleNavClick(e, 'experience')} className={activeSection === 'experience' ? 'active' : ''}>{lang === 'id' ? 'Karir' : 'Trajectory'}</a>
+            <a href="#contact" onClick={(e) => handleNavClick(e, 'contact')} className="apple-nav-link-blue">{lang === 'id' ? 'Kontak' : 'Contact'}</a>
           </nav>
 
           <div className="apple-nav-controls">
@@ -283,22 +283,22 @@ const App = () => {
       {/* Mobile Floating Local Navigation */}
       <nav className="apple-mobile-nav" aria-label="Mobile Navigation">
         <a href="#home" onClick={(e) => handleNavClick(e, 'home')} className={activeSection === 'home' ? 'active' : ''}>
-          <span>Home</span>
+          <span>{lang === 'id' ? 'Beranda' : 'Home'}</span>
         </a>
         <a href="#about" onClick={(e) => handleNavClick(e, 'about')} className={activeSection === 'about' ? 'active' : ''}>
-          <span>About</span>
+          <span>{lang === 'id' ? 'Tentang' : 'About'}</span>
         </a>
         <a href="#skills" onClick={(e) => handleNavClick(e, 'skills')} className={activeSection === 'skills' ? 'active' : ''}>
-          <span>Specs</span>
+          <span>{lang === 'id' ? 'Keahlian' : 'Specs'}</span>
         </a>
         <a href="#portfolio" onClick={(e) => handleNavClick(e, 'portfolio')} className={activeSection === 'portfolio' ? 'active' : ''}>
-          <span>Works</span>
+          <span>{lang === 'id' ? 'Karya' : 'Works'}</span>
         </a>
         <a href="#simulators" onClick={(e) => handleNavClick(e, 'simulators')} className={activeSection === 'simulators' ? 'active' : ''}>
-          <span>Lab</span>
+          <span>{lang === 'id' ? 'Lab' : 'Lab'}</span>
         </a>
         <a href="#contact" onClick={(e) => handleNavClick(e, 'contact')} className={activeSection === 'contact' ? 'active' : ''}>
-          <span>Contact</span>
+          <span>{lang === 'id' ? 'Kontak' : 'Contact'}</span>
         </a>
       </nav>
 
@@ -321,7 +321,7 @@ const App = () => {
 
               {/* Sub-headline Statement */}
               <p className="apple-hero-subhead apple-reveal apple-stagger-3">
-                Engineering Cloud Reliability at Production Scale.
+                {lang === 'id' ? 'Rekayasa Keandalan Cloud Skala Produksi.' : 'Engineering Cloud Reliability at Production Scale.'}
               </p>
 
               {/* Typing Terminal Badge */}
@@ -395,7 +395,7 @@ const App = () => {
                 </div>
 
                 <a href="#portfolio" onClick={(e) => handleNavClick(e, 'portfolio')} className="apple-explore-pill">
-                  <span>Explore Deployments ↓</span>
+                  <span>{lang === 'id' ? 'Jelajahi Proyek ↓' : 'Explore Deployments ↓'}</span>
                 </a>
               </div>
 
@@ -419,7 +419,7 @@ const App = () => {
             <div className="apple-hero-right">
               {/* Center Product Media Render & Floating Status Capsule */}
               <div className="apple-hero-media-wrapper apple-reveal apple-stagger-2">
-                <div className="apple-device-frame">
+                <div className="apple-device-frame apple-img-zoom">
                   <img src="/profile.png" alt="Renaldy Imran Hermawan" className="apple-hero-photo" />
                   
                   {/* Floating 28px Status Capsule */}
@@ -445,11 +445,15 @@ const App = () => {
           <div className="apple-container">
             <div className="apple-band-header apple-reveal">
               <div>
-                <span className="apple-section-kicker">SRE & RELIABILITY</span>
-                <h2 className="apple-band-title">Cloud Reliability & Production Uptime.</h2>
+                <span className="apple-section-kicker">
+                  {lang === 'id' ? 'KEANDALAN CLOUD & SRE' : 'SRE & RELIABILITY'}
+                </span>
+                <h2 className="apple-band-title">
+                  {lang === 'id' ? 'Stabilitas Sistem & Waktu Aktif Produksi.' : 'Cloud Reliability & Production Uptime.'}
+                </h2>
               </div>
               <a href="#portfolio" onClick={(e) => handleNavClick(e, 'portfolio')} className="apple-blue-link">
-                Explore works ↗
+                {lang === 'id' ? 'Lihat proyek ↗' : 'Explore works ↗'}
               </a>
             </div>
 
@@ -467,8 +471,12 @@ const App = () => {
         <section id="about" className="apple-section-band gallery-white">
           <div className="apple-container">
             <div className="apple-section-headline-block apple-reveal">
-              <span className="apple-section-kicker">OVERVIEW • (01)</span>
-              <h2 className="apple-section-title">Architecting Resilient Cloud Systems.</h2>
+              <span className="apple-section-kicker">
+                {lang === 'id' ? 'TENTANG SAYA • (01)' : 'OVERVIEW • (01)'}
+              </span>
+              <h2 className="apple-section-title">
+                {lang === 'id' ? 'Merancang Arsitektur Cloud yang Tangguh.' : 'Architecting Resilient Cloud Systems.'}
+              </h2>
             </div>
 
             <div className="apple-story-paragraphs apple-reveal">
@@ -480,7 +488,9 @@ const App = () => {
             <div className="apple-cards-grid">
               <div className="apple-card apple-reveal">
                 <span className="apple-card-kicker">PILLAR 01</span>
-                <h3 className="apple-card-heading">Cloud & Architecture.</h3>
+                <h3 className="apple-card-heading">
+                  {lang === 'id' ? 'Cloud & Arsitektur.' : 'Cloud & Architecture.'}
+                </h3>
                 <p className="apple-card-copy">
                   {lang === 'id'
                     ? 'Merancang arsitektur cloud VPC di GCP & AWS, penyediaan server deklaratif menggunakan Terraform (IaC), dan isolasi jaringan multi-tier.'
@@ -490,7 +500,9 @@ const App = () => {
 
               <div className="apple-card apple-reveal">
                 <span className="apple-card-kicker">PILLAR 02</span>
-                <h3 className="apple-card-heading">CI/CD & Automation.</h3>
+                <h3 className="apple-card-heading">
+                  {lang === 'id' ? 'CI/CD & Otomatisasi.' : 'CI/CD & Automation.'}
+                </h3>
                 <p className="apple-card-copy">
                   {lang === 'id'
                     ? 'Membangun pipeline GitLab CI / GitHub Actions terotomatisasi, kontainerisasi Docker, scanning Trivy & SonarQube, dan GitOps Kustomize.'
@@ -500,7 +512,9 @@ const App = () => {
 
               <div className="apple-card apple-reveal">
                 <span className="apple-card-kicker">PILLAR 03</span>
-                <h3 className="apple-card-heading">SRE & Observability.</h3>
+                <h3 className="apple-card-heading">
+                  {lang === 'id' ? 'SRE & Observabilitas.' : 'SRE & Observability.'}
+                </h3>
                 <p className="apple-card-copy">
                   {lang === 'id'
                     ? 'Pemantauan real-time 24/7 menggunakan VictoriaMetrics, Grafana, VictoriaLogs, penanganan crash loop, dan sistem alarm otomatis ke Telegram.'
@@ -517,12 +531,18 @@ const App = () => {
         <section id="skills" className="apple-section-band studio-mist">
           <div className="apple-container">
             <div className="apple-section-headline-block apple-reveal">
-              <span className="apple-section-kicker">TECH SPECS • (02)</span>
-              <h2 className="apple-section-title">Engineering Stack & Toolchain.</h2>
+              <span className="apple-section-kicker">
+                {lang === 'id' ? 'SPESIFIKASI TEKNIS • (02)' : 'TECH SPECS • (02)'}
+              </span>
+              <h2 className="apple-section-title">
+                {lang === 'id' ? 'Stack Rekayasa & Alat Produksi.' : 'Engineering Stack & Toolchain.'}
+              </h2>
             </div>
 
             <div className="apple-specs-block mb-10 apple-reveal">
-              <span className="apple-specs-label">PRIMARY PRODUCTION STACK</span>
+              <span className="apple-specs-label">
+                {lang === 'id' ? 'STACK PRODUKSI UTAMA' : 'PRIMARY PRODUCTION STACK'}
+              </span>
               <div className="apple-specs-grid">
                 {[
                   { name: 'KUBERNETES', cat: 'Orchestration' },
@@ -545,7 +565,9 @@ const App = () => {
             </div>
 
             <div className="apple-specs-block apple-reveal">
-              <span className="apple-specs-label">NETWORKING & TOOLING</span>
+              <span className="apple-specs-label">
+                {lang === 'id' ? 'JARINGAN & ALAT PENDUKUNG' : 'NETWORKING & TOOLING'}
+              </span>
               <div className="apple-specs-grid">
                 {[
                   { name: 'MIKROTIK MTCNA', cat: 'Routing' },
@@ -571,14 +593,18 @@ const App = () => {
         <section id="portfolio" className="apple-section-band gallery-white">
           <div className="apple-container">
             <div className="apple-section-headline-block apple-reveal">
-              <span className="apple-section-kicker">DEPLOYMENTS • (03)</span>
-              <h2 className="apple-section-title">Selected Case Studies & Highlights.</h2>
+              <span className="apple-section-kicker">
+                {lang === 'id' ? 'STUDI KASUS • (03)' : 'DEPLOYMENTS • (03)'}
+              </span>
+              <h2 className="apple-section-title">
+                {lang === 'id' ? 'Studi Kasus & Implementasi Pilihan.' : 'Selected Case Studies & Highlights.'}
+              </h2>
             </div>
 
             {/* Filter Tabs in Apple Rounded Style */}
             <div className="apple-filter-row apple-reveal">
               {[
-                { key: 'all', label: 'All Case Studies (03)' },
+                { key: 'all', label: lang === 'id' ? 'Semua Proyek (03)' : 'All Case Studies (03)' },
                 { key: 'gitops', label: 'GitOps & K8s' },
                 { key: 'cicd', label: 'CI/CD & Security' },
                 { key: 'observability', label: 'Observability' }
@@ -597,7 +623,7 @@ const App = () => {
             {/* Slider Navigation Controls */}
             <div className="apple-slider-nav-bar apple-reveal">
               <span className="apple-slider-counter">
-                0{activeProjectSlide + 1} of 0{filteredProjects.length}
+                {lang === 'id' ? `0${activeProjectSlide + 1} dari 0${filteredProjects.length}` : `0${activeProjectSlide + 1} of 0${filteredProjects.length}`}
               </span>
               <div className="apple-slider-arrows">
                 <button 
@@ -637,7 +663,7 @@ const App = () => {
                     <article key={project.id} className="apple-slide-card apple-card">
                       <div className="apple-case-layout">
                         <div className="apple-case-media">
-                          <div className="apple-media-frame">
+                          <div className="apple-media-frame apple-img-zoom">
                             <img src={project.image} alt={curr[project.nameKey]} />
                           </div>
                           <div className="apple-case-tools">
@@ -670,7 +696,7 @@ const App = () => {
                               }} 
                               className="apple-pricing-blue-pill compact"
                             >
-                              Open Simulator ↗
+                              {lang === 'id' ? 'Buka Simulator ↗' : 'Open Simulator ↗'}
                             </a>
                           </div>
                         </div>
@@ -800,8 +826,12 @@ push-image:
         <section id="simulators" className="apple-section-band studio-mist">
           <div className="apple-container">
             <div className="apple-section-headline-block apple-reveal">
-              <span className="apple-section-kicker">LAB WORKBENCH • (04)</span>
-              <h2 className="apple-section-title">Interactive Engineering Simulators.</h2>
+              <span className="apple-section-kicker">
+                {lang === 'id' ? 'LAB WORKBENCH • (04)' : 'LAB WORKBENCH • (04)'}
+              </span>
+              <h2 className="apple-section-title">
+                {lang === 'id' ? 'Simulator Rekayasa Interaktif.' : 'Interactive Engineering Simulators.'}
+              </h2>
             </div>
 
             <div className="apple-card apple-reveal">
@@ -864,8 +894,12 @@ push-image:
         <section id="certifications" className="apple-section-band gallery-white">
           <div className="apple-container">
             <div className="apple-section-headline-block apple-reveal">
-              <span className="apple-section-kicker">CREDENTIALS • (05)</span>
-              <h2 className="apple-section-title">Verified Certifications & Education.</h2>
+              <span className="apple-section-kicker">
+                {lang === 'id' ? 'KREDENSIAL • (05)' : 'CREDENTIALS • (05)'}
+              </span>
+              <h2 className="apple-section-title">
+                {lang === 'id' ? 'Sertifikasi Terverifikasi & Pendidikan.' : 'Verified Certifications & Education.'}
+              </h2>
             </div>
 
             {/* Academic Record Card */}
@@ -896,8 +930,12 @@ push-image:
         <section id="experience" className="apple-section-band studio-mist">
           <div className="apple-container">
             <div className="apple-section-headline-block apple-reveal">
-              <span className="apple-section-kicker">TRAJECTORY • (06)</span>
-              <h2 className="apple-section-title">Professional Experience & Career.</h2>
+              <span className="apple-section-kicker">
+                {lang === 'id' ? 'REKAM JEJAK • (06)' : 'TRAJECTORY • (06)'}
+              </span>
+              <h2 className="apple-section-title">
+                {lang === 'id' ? 'Pengalaman Kerja & Karir Profesional.' : 'Professional Experience & Career.'}
+              </h2>
             </div>
 
             <div className="apple-ledger-list">
@@ -929,8 +967,12 @@ push-image:
         <section id="contact" className="apple-section-band gallery-white">
           <div className="apple-container">
             <div className="apple-section-headline-block apple-reveal text-center">
-              <span className="apple-section-kicker">CONNECT • (07)</span>
-              <h2 className="apple-section-title">Direct Inquiries & Communication.</h2>
+              <span className="apple-section-kicker">
+                {lang === 'id' ? 'HUBUNGI SAYA • (07)' : 'CONNECT • (07)'}
+              </span>
+              <h2 className="apple-section-title">
+                {lang === 'id' ? 'Komunikasi & Diskusi Peluang Karir.' : 'Direct Inquiries & Communication.'}
+              </h2>
             </div>
 
             <p className="apple-contact-subtext apple-reveal text-center">
@@ -1008,7 +1050,7 @@ push-image:
         <div className="apple-container apple-footer-inner">
           <div className="apple-footer-top">
             <a href="#home" onClick={(e) => handleNavClick(e, 'home')} className="apple-blue-link">
-              ↑ Back to top
+              {lang === 'id' ? '↑ Kembali ke atas' : '↑ Back to top'}
             </a>
           </div>
 
@@ -1020,7 +1062,7 @@ push-image:
           </div>
 
           <p className="apple-footer-copy">
-            Copyright © 2026 Renaldy Imran Hermawan. All rights reserved.
+            {lang === 'id' ? 'Hak Cipta © 2026 Renaldy Imran Hermawan. Seluruh hak dilindungi.' : 'Copyright © 2026 Renaldy Imran Hermawan. All rights reserved.'}
           </p>
         </div>
       </footer>
