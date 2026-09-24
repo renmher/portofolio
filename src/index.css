@@ -334,27 +334,39 @@ button, input, textarea, select {
 }
 
 /* ==========================================================================
-   HERO PRODUCT STAGE (GALLERY WHITE, 80PX/600 HEADLINE)
+   HERO PRODUCT STAGE (GALLERY WHITE, BALANCED 2-COLUMN SHOWROOM)
    ========================================================================== */
 .apple-hero-stage {
-  padding-top: 110px;
+  padding-top: 100px;
   padding-bottom: 70px;
   background: var(--bg-canvas);
   border-bottom: 1px solid var(--border-hairline);
 }
 
-.apple-hero-center {
+.apple-hero-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 56px;
+  align-items: center;
+}
+
+.apple-hero-left {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.apple-hero-right {
+  display: flex;
+  justify-content: flex-end;
 }
 
 .apple-launch-status {
   font-family: var(--font-sf-pro-text);
   font-size: 12px;
   font-weight: 600;
-  letter-spacing: -0.12px;
+  letter-spacing: 0.04em;
   color: var(--color-launch-orange);
   margin-bottom: 8px;
   display: block;
@@ -362,20 +374,20 @@ button, input, textarea, select {
 
 .apple-hero-display {
   font-family: var(--font-sf-pro-display);
-  font-size: clamp(40px, 7vw, var(--text-hero-display));
-  line-height: var(--leading-hero-display);
-  letter-spacing: var(--tracking-hero-display);
+  font-size: clamp(38px, 5.5vw, 68px);
+  line-height: 1.05;
+  letter-spacing: -0.025em;
   font-weight: 600;
   color: var(--text-main);
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 .apple-hero-subhead {
   font-family: var(--font-sf-pro-display);
-  font-size: clamp(19px, 2.8vw, 26px);
+  font-size: clamp(18px, 2.4vw, 24px);
   font-weight: 500;
   color: var(--text-secondary);
-  letter-spacing: -0.02em;
+  letter-spacing: -0.015em;
   margin-bottom: 18px;
 }
 
@@ -410,10 +422,10 @@ button, input, textarea, select {
 
 .apple-hero-body {
   font-size: var(--text-body);
-  line-height: var(--leading-body);
+  line-height: 1.6;
   letter-spacing: var(--tracking-body);
   color: var(--text-secondary);
-  max-width: 680px;
+  max-width: 560px;
   margin-bottom: 28px;
 }
 
@@ -421,8 +433,8 @@ button, input, textarea, select {
 .apple-hero-actions {
   display: flex;
   align-items: center;
-  gap: 16px;
-  margin-bottom: 48px;
+  gap: 14px;
+  margin-bottom: 28px;
 }
 
 .apple-pricing-blue-pill {
@@ -476,8 +488,8 @@ button, input, textarea, select {
 .apple-hero-media-wrapper {
   position: relative;
   width: 100%;
-  max-width: 600px;
-  margin-bottom: 32px;
+  max-width: 380px;
+  margin: 0;
 }
 
 .apple-device-frame {
@@ -485,11 +497,13 @@ button, input, textarea, select {
   width: 100%;
   border-radius: var(--radius-images);
   overflow: hidden;
+  border: 1px solid var(--border-hairline);
+  background: var(--bg-mist);
 }
 
 .apple-hero-photo {
   width: 100%;
-  aspect-ratio: 16 / 11;
+  aspect-ratio: 4 / 4.8;
   object-fit: cover;
   border-radius: var(--radius-images);
   display: block;
@@ -498,24 +512,23 @@ button, input, textarea, select {
 /* Floating 28px Status Capsule */
 .apple-floating-capsule {
   position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
+  bottom: 16px;
+  left: 16px;
+  right: 16px;
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 10px 20px;
-  background: rgba(255, 255, 255, 0.92);
+  padding: 10px 18px;
+  background: rgba(255, 255, 255, 0.94);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-radius: var(--radius-pills);
   border: 1px solid rgba(0, 0, 0, 0.08);
-  white-space: nowrap;
 }
 
 [data-theme="dark"] .apple-floating-capsule {
   background: rgba(28, 28, 30, 0.92);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.14);
 }
 
 .apple-status-dot {
@@ -546,8 +559,11 @@ button, input, textarea, select {
 
 .apple-social-row {
   display: flex;
-  gap: 24px;
-  margin-top: 10px;
+  gap: 20px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-hairline);
+  width: 100%;
+  max-width: 560px;
 }
 
 .apple-blue-link {
@@ -1718,6 +1734,24 @@ button, input, textarea, select {
 
   .apple-mobile-nav {
     display: flex;
+  }
+
+  .apple-hero-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .apple-hero-left {
+    align-items: center;
+    text-align: center;
+  }
+
+  .apple-hero-right {
+    justify-content: center;
+  }
+
+  .apple-social-row {
+    justify-content: center;
   }
 
   .apple-case-layout {

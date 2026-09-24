@@ -307,129 +307,133 @@ const App = () => {
             HERO PRODUCT STAGE (APPLE WHITE GALLERY, 80PX/600 HEADLINE)
             ============================================================== */}
         <section id="home" className="apple-hero-stage">
-          <div className="apple-container apple-hero-center">
-            {/* Launch Status / Kicker */}
-            <span className="apple-launch-status apple-reveal apple-stagger-1">
-              NEW RELEASE • JUNIOR DEVOPS & SRE
-            </span>
+          <div className="apple-container apple-hero-grid">
+            <div className="apple-hero-left">
+              {/* Launch Status / Kicker */}
+              <span className="apple-launch-status apple-reveal apple-stagger-1">
+                JUNIOR DEVOPS & L1 CLOUD ENGINEER SUPPORT
+              </span>
 
-            {/* Display Headline 80px/600 */}
-            <h1 className="apple-hero-display apple-reveal apple-stagger-2">
-              Renaldy Imran.
-            </h1>
+              {/* Display Headline 80px/600 */}
+              <h1 className="apple-hero-display apple-reveal apple-stagger-2">
+                Renaldy Imran.
+              </h1>
 
-            {/* Sub-headline Statement */}
-            <p className="apple-hero-subhead apple-reveal apple-stagger-3">
-              Engineering Cloud Reliability at Production Scale.
-            </p>
+              {/* Sub-headline Statement */}
+              <p className="apple-hero-subhead apple-reveal apple-stagger-3">
+                Engineering Cloud Reliability at Production Scale.
+              </p>
 
-            {/* Typing Terminal Badge */}
-            <div className="apple-typing-pill apple-reveal apple-stagger-3">
-              <span className="apple-typing-prompt">&gt; </span>
-              <span className="apple-typing-text">{displayText}</span>
-              <span className="apple-typing-cursor">|</span>
-            </div>
-
-            {/* Story Paragraph */}
-            <p className="apple-hero-body apple-reveal apple-stagger-3">
-              {lang === 'id'
-                ? "Merancang arsitektur cloud multi-environment yang tangguh, otomatisasi siklus CI/CD pipeline dengan pemindaian keamanan statis, serta orkestrasi Kubernetes deklaratif untuk menjamin keandalan sistem skala produksi."
-                : "Architecting resilient multi-environment cloud systems, automated CI/CD delivery pipelines with static security quality gates, and declarative Kubernetes orchestration for production reliability."}
-            </p>
-
-            {/* Action Buttons: Pricing Blue Pill & Outlined Explore Pill */}
-            <div className="apple-hero-actions apple-reveal apple-stagger-3">
-              <div className="apple-cv-dropdown-wrapper" ref={cvDropdownRef}>
-                <button 
-                  type="button" 
-                  onClick={() => setIsCvDropdownOpen(!isCvDropdownOpen)} 
-                  className="apple-pricing-blue-pill"
-                  aria-expanded={isCvDropdownOpen}
-                >
-                  <span>Download CV</span>
-                  <i className={`fa-solid fa-chevron-${isCvDropdownOpen ? 'up' : 'down'}`}></i>
-                </button>
-
-                {isCvDropdownOpen && (
-                  <div className="apple-cv-menu">
-                    <a 
-                      href="/cv-renaldy-id.pdf" 
-                      download="CV-Renaldy-Imran-Hermawan-ID.pdf"
-                      onClick={() => setIsCvDropdownOpen(false)}
-                      className="apple-cv-item"
-                    >
-                      <i className="fa-solid fa-file-pdf"></i>
-                      <div className="apple-cv-text">
-                        <span className="apple-cv-title">Versi Bahasa Indonesia</span>
-                        <span className="apple-cv-sub">Standar ATS Nasional (PDF)</span>
-                      </div>
-                    </a>
-
-                    <a 
-                      href="/cv-renaldy.pdf" 
-                      download="CV-Renaldy-Imran-Hermawan.pdf"
-                      onClick={() => setIsCvDropdownOpen(false)}
-                      className="apple-cv-item"
-                    >
-                      <i className="fa-solid fa-file-pdf"></i>
-                      <div className="apple-cv-text">
-                        <span className="apple-cv-title">International English</span>
-                        <span className="apple-cv-sub">Global Tech Standard (PDF)</span>
-                      </div>
-                    </a>
-
-                    <a 
-                      href="/?mode=cv-builder" 
-                      onClick={() => setIsCvDropdownOpen(false)}
-                      className="apple-cv-item builder"
-                    >
-                      <i className="fa-solid fa-sliders"></i>
-                      <div className="apple-cv-text">
-                        <span className="apple-cv-title">Interactive CV Builder</span>
-                        <span className="apple-cv-sub">A4 Live Document Generator ↗</span>
-                      </div>
-                    </a>
-                  </div>
-                )}
+              {/* Typing Terminal Badge */}
+              <div className="apple-typing-pill apple-reveal apple-stagger-3">
+                <span className="apple-typing-prompt">&gt; </span>
+                <span className="apple-typing-text">{displayText}</span>
+                <span className="apple-typing-cursor">|</span>
               </div>
 
-              <a href="#portfolio" onClick={(e) => handleNavClick(e, 'portfolio')} className="apple-explore-pill">
-                <span>Explore Deployments ↓</span>
-              </a>
+              {/* Story Paragraph */}
+              <p className="apple-hero-body apple-reveal apple-stagger-3">
+                {lang === 'id'
+                  ? "Merancang arsitektur cloud multi-environment yang tangguh, otomatisasi siklus CI/CD pipeline dengan pemindaian keamanan statis, serta orkestrasi Kubernetes deklaratif untuk menjamin keandalan sistem skala produksi."
+                  : "Architecting resilient multi-environment cloud systems, automated CI/CD delivery pipelines with static security quality gates, and declarative Kubernetes orchestration for production reliability."}
+              </p>
+
+              {/* Action Buttons: Pricing Blue Pill & Outlined Explore Pill */}
+              <div className="apple-hero-actions apple-reveal apple-stagger-3">
+                <div className="apple-cv-dropdown-wrapper" ref={cvDropdownRef}>
+                  <button 
+                    type="button" 
+                    onClick={() => setIsCvDropdownOpen(!isCvDropdownOpen)} 
+                    className="apple-pricing-blue-pill"
+                    aria-expanded={isCvDropdownOpen}
+                  >
+                    <span>Download CV</span>
+                    <i className={`fa-solid fa-chevron-${isCvDropdownOpen ? 'up' : 'down'}`}></i>
+                  </button>
+
+                  {isCvDropdownOpen && (
+                    <div className="apple-cv-menu">
+                      <a 
+                        href="/cv-renaldy-id.pdf" 
+                        download="CV-Renaldy-Imran-Hermawan-ID.pdf"
+                        onClick={() => setIsCvDropdownOpen(false)}
+                        className="apple-cv-item"
+                      >
+                        <i className="fa-solid fa-file-pdf"></i>
+                        <div className="apple-cv-text">
+                          <span className="apple-cv-title">Versi Bahasa Indonesia</span>
+                          <span className="apple-cv-sub">Standar ATS Nasional (PDF)</span>
+                        </div>
+                      </a>
+
+                      <a 
+                        href="/cv-renaldy.pdf" 
+                        download="CV-Renaldy-Imran-Hermawan.pdf"
+                        onClick={() => setIsCvDropdownOpen(false)}
+                        className="apple-cv-item"
+                      >
+                        <i className="fa-solid fa-file-pdf"></i>
+                        <div className="apple-cv-text">
+                          <span className="apple-cv-title">International English</span>
+                          <span className="apple-cv-sub">Global Tech Standard (PDF)</span>
+                        </div>
+                      </a>
+
+                      <a 
+                        href="/?mode=cv-builder" 
+                        onClick={() => setIsCvDropdownOpen(false)}
+                        className="apple-cv-item builder"
+                      >
+                        <i className="fa-solid fa-sliders"></i>
+                        <div className="apple-cv-text">
+                          <span className="apple-cv-title">Interactive CV Builder</span>
+                          <span className="apple-cv-sub">A4 Live Document Generator ↗</span>
+                        </div>
+                      </a>
+                    </div>
+                  )}
+                </div>
+
+                <a href="#portfolio" onClick={(e) => handleNavClick(e, 'portfolio')} className="apple-explore-pill">
+                  <span>Explore Deployments ↓</span>
+                </a>
+              </div>
+
+              {/* Social Links Bar */}
+              <div className="apple-social-row apple-reveal apple-stagger-3">
+                <a href="https://github.com/renmher" target="_blank" rel="noopener noreferrer" className="apple-blue-link">
+                  GitHub ↗
+                </a>
+                <a href="https://linkedin.com/in/renaldyimran" target="_blank" rel="noopener noreferrer" className="apple-blue-link">
+                  LinkedIn ↗
+                </a>
+                <a href="https://www.threads.net/@renmher" target="_blank" rel="noopener noreferrer" className="apple-blue-link">
+                  Threads ↗
+                </a>
+                <a href="https://wa.me/6287872481308" target="_blank" rel="noopener noreferrer" className="apple-blue-link">
+                  WhatsApp ↗
+                </a>
+              </div>
             </div>
 
-            {/* Center Product Media Render & Floating Status Capsule */}
-            <div className="apple-hero-media-wrapper apple-reveal apple-stagger-3">
-              <div className="apple-device-frame">
-                <img src="/profile.png" alt="Renaldy Imran Hermawan" className="apple-hero-photo" />
-                
-                {/* Floating 28px Status Capsule */}
-                <div className="apple-floating-capsule">
-                  <span className="apple-status-dot"></span>
-                  <div className="apple-capsule-info">
-                    <span className="apple-capsule-title">
-                      {lang === 'id' ? 'SIAP KERJA: DEVOPS & SRE' : 'OPEN TO WORK: DEVOPS & SRE'}
-                    </span>
-                    <span className="apple-capsule-sub">Kubernetes • GCP • GitLab CI • Observability</span>
+            <div className="apple-hero-right">
+              {/* Center Product Media Render & Floating Status Capsule */}
+              <div className="apple-hero-media-wrapper apple-reveal apple-stagger-2">
+                <div className="apple-device-frame">
+                  <img src="/profile.png" alt="Renaldy Imran Hermawan" className="apple-hero-photo" />
+                  
+                  {/* Floating 28px Status Capsule */}
+                  <div className="apple-floating-capsule">
+                    <span className="apple-status-dot"></span>
+                    <div className="apple-capsule-info">
+                      <span className="apple-capsule-title">
+                        {lang === 'id' ? 'SIAP KERJA: DEVOPS & SRE' : 'OPEN TO WORK: DEVOPS & SRE'}
+                      </span>
+                      <span className="apple-capsule-sub">Kubernetes • GCP • GitLab CI • Observability</span>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-
-            {/* Social Links Bar */}
-            <div className="apple-social-row apple-reveal">
-              <a href="https://github.com/renmher" target="_blank" rel="noopener noreferrer" className="apple-blue-link">
-                GitHub ↗
-              </a>
-              <a href="https://linkedin.com/in/renaldyimran" target="_blank" rel="noopener noreferrer" className="apple-blue-link">
-                LinkedIn ↗
-              </a>
-              <a href="https://www.threads.net/@renmher" target="_blank" rel="noopener noreferrer" className="apple-blue-link">
-                Threads ↗
-              </a>
-              <a href="https://wa.me/6287872481308" target="_blank" rel="noopener noreferrer" className="apple-blue-link">
-                WhatsApp ↗
-              </a>
             </div>
           </div>
         </section>
