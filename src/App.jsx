@@ -9,7 +9,7 @@ import { experiencesData, getDurationText } from './data/experiences';
 import { translations } from './data/translations';
 import { projectsList } from './data/projects';
 
-// Typing effect ala Tomasz Gajda / modern portfolio
+// Typing effect ala Apple showcase
 const typingTexts = [
   'Junior DevOps Engineer',
   'Cloud Infrastructure Specialist',
@@ -50,7 +50,7 @@ const App = () => {
         setCharIndex(prev => prev + 1);
 
         if (charIndex + 1 === currentFullText.length) {
-          setTimeout(() => setIsDeleting(true), 2000);
+          setTimeout(() => setIsDeleting(true), 2200);
         }
       } else {
         setDisplayText(currentFullText.slice(0, charIndex - 1));
@@ -65,6 +65,43 @@ const App = () => {
 
     return () => clearTimeout(timeout);
   }, [charIndex, isDeleting, textIndex]);
+
+  // Click outside listener for CV Dropdown
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (cvDropdownRef.current && !cvDropdownRef.current.contains(e.target)) {
+        setIsCvDropdownOpen(false);
+      }
+    };
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        setIsCvDropdownOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
+
+  // Apple Scroll Reveal Intersection Observer
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('apple-visible');
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.apple-reveal, .apple-card, .apple-slide-card, .apple-ledger-item').forEach(el => {
+      observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, [lang, activePortfolioFilter]);
 
   // Touch Swipe on Project Slider
   const projectTouchStartX = useRef(null);
@@ -144,7 +181,7 @@ const App = () => {
     document.body.setAttribute('data-theme', theme);
     const metaTheme = document.querySelector('meta[name="theme-color"]');
     if (metaTheme) {
-      metaTheme.setAttribute('content', theme === 'dark' ? '#0B0F17' : '#FBF9F5');
+      metaTheme.setAttribute('content', theme === 'dark' ? '#000000' : '#ffffff');
     }
     localStorage.setItem('theme', theme);
   }, [theme]);
@@ -176,25 +213,6 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (cvDropdownRef.current && !cvDropdownRef.current.contains(e.target)) {
-        setIsCvDropdownOpen(false);
-      }
-    };
-    const handleKeyDown = (e) => {
-      if (e.key === 'Escape') {
-        setIsCvDropdownOpen(false);
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    document.addEventListener('keydown', handleKeyDown);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-      document.removeEventListener('keydown', handleKeyDown);
-    };
-  }, []);
-
-  useEffect(() => {
     if (window.history.scrollRestoration) {
       window.history.scrollRestoration = 'manual';
     }
@@ -221,41 +239,40 @@ const App = () => {
   });
 
   return (
-    <div className="lux-root">
+    <div className="apple-root">
       {/* Scroll Progress Bar */}
-      <div className="lux-scroll-progress" style={{ width: `${scrollProgress}%` }} />
+      <div className="apple-scroll-progress" style={{ width: `${scrollProgress}%` }} />
 
       {/* ==============================================================
-          NAVIGATION BAR (WARM LUXURY EDITORIAL + TOMASZ STRUCTURE)
+          GLOBAL STORE & PRODUCT LOCAL NAVIGATION (APPLE STYLE)
           ============================================================== */}
-      <header className="lux-header">
-        <div className="lux-header-container">
-          <a href="#home" onClick={(e) => handleNavClick(e, 'home')} className="lux-brand">
-            <span className="lux-brand-badge">RI</span>
-            <span className="lux-brand-text">Renaldy Imran</span>
+      <header className="apple-global-nav">
+        <div className="apple-nav-container">
+          <a href="#home" onClick={(e) => handleNavClick(e, 'home')} className="apple-nav-brand">
+            <span className="apple-brand-name">Renaldy Imran</span>
           </a>
 
-          <nav className="lux-desktop-nav" aria-label="Main Navigation">
-            <a href="#about" onClick={(e) => handleNavClick(e, 'about')} className={activeSection === 'about' ? 'active' : ''}>About</a>
-            <a href="#skills" onClick={(e) => handleNavClick(e, 'skills')} className={activeSection === 'skills' ? 'active' : ''}>Skills</a>
-            <a href="#portfolio" onClick={(e) => handleNavClick(e, 'portfolio')} className={activeSection === 'portfolio' ? 'active' : ''}>Portfolio</a>
-            <a href="#simulators" onClick={(e) => handleNavClick(e, 'simulators')} className={activeSection === 'simulators' ? 'active' : ''}>Workbench</a>
-            <a href="#certifications" onClick={(e) => handleNavClick(e, 'certifications')} className={activeSection === 'certifications' ? 'active' : ''}>{lang === 'id' ? 'Sertifikasi' : 'Certs'}</a>
-            <a href="#experience" onClick={(e) => handleNavClick(e, 'experience')} className={activeSection === 'experience' ? 'active' : ''}>{lang === 'id' ? 'Karir' : 'Career'}</a>
-            <a href="#contact" onClick={(e) => handleNavClick(e, 'contact')} className="lux-nav-contact-link">Contact</a>
+          <nav className="apple-desktop-nav" aria-label="Main Navigation">
+            <a href="#about" onClick={(e) => handleNavClick(e, 'about')} className={activeSection === 'about' ? 'active' : ''}>Overview</a>
+            <a href="#skills" onClick={(e) => handleNavClick(e, 'skills')} className={activeSection === 'skills' ? 'active' : ''}>Tech Specs</a>
+            <a href="#portfolio" onClick={(e) => handleNavClick(e, 'portfolio')} className={activeSection === 'portfolio' ? 'active' : ''}>Deployments</a>
+            <a href="#simulators" onClick={(e) => handleNavClick(e, 'simulators')} className={activeSection === 'simulators' ? 'active' : ''}>Lab Workbench</a>
+            <a href="#certifications" onClick={(e) => handleNavClick(e, 'certifications')} className={activeSection === 'certifications' ? 'active' : ''}>Credentials</a>
+            <a href="#experience" onClick={(e) => handleNavClick(e, 'experience')} className={activeSection === 'experience' ? 'active' : ''}>Trajectory</a>
+            <a href="#contact" onClick={(e) => handleNavClick(e, 'contact')} className="apple-nav-link-blue">Contact</a>
           </nav>
 
-          <div className="lux-header-actions">
-            <button type="button" onClick={toggleLanguage} className="lux-action-btn" title="Ganti Bahasa">
+          <div className="apple-nav-controls">
+            <button type="button" onClick={toggleLanguage} className="apple-control-pill" title="Toggle Language">
               {lang === 'id' ? 'EN' : 'ID'}
             </button>
-            <button type="button" onClick={toggleTheme} className="lux-action-btn" title="Toggle Tema">
+            <button type="button" onClick={toggleTheme} className="apple-control-pill" title="Toggle Theme">
               {theme === 'dark' ? <i className="fa-solid fa-sun"></i> : <i className="fa-solid fa-moon"></i>}
             </button>
             <a 
               href={lang === 'id' ? "/cv-renaldy-id.pdf" : "/cv-renaldy.pdf"} 
               download={lang === 'id' ? "CV-Renaldy-Imran-Hermawan-ID.pdf" : "CV-Renaldy-Imran-Hermawan.pdf"}
-              className="lux-action-cta"
+              className="apple-pricing-blue-pill compact"
             >
               CV ↗
             </a>
@@ -263,219 +280,224 @@ const App = () => {
         </div>
       </header>
 
-      {/* Mobile Bottom Bar */}
-      <nav className="lux-mobile-bar" aria-label="Mobile Navigation">
+      {/* Mobile Floating Local Navigation */}
+      <nav className="apple-mobile-nav" aria-label="Mobile Navigation">
         <a href="#home" onClick={(e) => handleNavClick(e, 'home')} className={activeSection === 'home' ? 'active' : ''}>
-          <i className="fa-solid fa-house"></i>
           <span>Home</span>
         </a>
         <a href="#about" onClick={(e) => handleNavClick(e, 'about')} className={activeSection === 'about' ? 'active' : ''}>
-          <i className="fa-solid fa-user"></i>
           <span>About</span>
         </a>
         <a href="#skills" onClick={(e) => handleNavClick(e, 'skills')} className={activeSection === 'skills' ? 'active' : ''}>
-          <i className="fa-solid fa-wrench"></i>
-          <span>Skills</span>
+          <span>Specs</span>
         </a>
         <a href="#portfolio" onClick={(e) => handleNavClick(e, 'portfolio')} className={activeSection === 'portfolio' ? 'active' : ''}>
-          <i className="fa-solid fa-diagram-project"></i>
           <span>Works</span>
         </a>
         <a href="#simulators" onClick={(e) => handleNavClick(e, 'simulators')} className={activeSection === 'simulators' ? 'active' : ''}>
-          <i className="fa-solid fa-terminal"></i>
           <span>Lab</span>
         </a>
         <a href="#contact" onClick={(e) => handleNavClick(e, 'contact')} className={activeSection === 'contact' ? 'active' : ''}>
-          <i className="fa-solid fa-envelope"></i>
           <span>Contact</span>
         </a>
       </nav>
 
       <main>
         {/* ==============================================================
-            HERO SECTION: WARM LUXURY EDITORIAL + PROPORTIONAL HEADLINE
+            HERO PRODUCT STAGE (APPLE WHITE GALLERY, 80PX/600 HEADLINE)
             ============================================================== */}
-        <section id="home" className="lux-hero">
-          <div className="lux-container lux-hero-grid">
-            <div className="lux-hero-left">
-              <span className="lux-eyebrow">HI, I AM</span>
-              <h1 className="lux-hero-name">Renaldy Imran</h1>
-              <h2 className="lux-hero-job">Junior DevOps & Cloud Engineer.</h2>
+        <section id="home" className="apple-hero-stage">
+          <div className="apple-container apple-hero-center">
+            {/* Launch Status / Kicker */}
+            <span className="apple-launch-status apple-reveal apple-stagger-1">
+              NEW RELEASE • JUNIOR DEVOPS & SRE
+            </span>
 
-              {/* Typing Effect Badge */}
-              <div className="lux-typing-box">
-                <span className="typing-prompt">&gt; </span>
-                <span className="typing-content">{displayText}</span>
-                <span className="typing-cursor">|</span>
+            {/* Display Headline 80px/600 */}
+            <h1 className="apple-hero-display apple-reveal apple-stagger-2">
+              Renaldy Imran.
+            </h1>
+
+            {/* Sub-headline Statement */}
+            <p className="apple-hero-subhead apple-reveal apple-stagger-3">
+              Engineering Cloud Reliability at Production Scale.
+            </p>
+
+            {/* Typing Terminal Badge */}
+            <div className="apple-typing-pill apple-reveal apple-stagger-3">
+              <span className="apple-typing-prompt">&gt; </span>
+              <span className="apple-typing-text">{displayText}</span>
+              <span className="apple-typing-cursor">|</span>
+            </div>
+
+            {/* Story Paragraph */}
+            <p className="apple-hero-body apple-reveal apple-stagger-3">
+              {lang === 'id'
+                ? "Merancang arsitektur cloud multi-environment yang tangguh, otomatisasi siklus CI/CD pipeline dengan pemindaian keamanan statis, serta orkestrasi Kubernetes deklaratif untuk menjamin keandalan sistem skala produksi."
+                : "Architecting resilient multi-environment cloud systems, automated CI/CD delivery pipelines with static security quality gates, and declarative Kubernetes orchestration for production reliability."}
+            </p>
+
+            {/* Action Buttons: Pricing Blue Pill & Outlined Explore Pill */}
+            <div className="apple-hero-actions apple-reveal apple-stagger-3">
+              <div className="apple-cv-dropdown-wrapper" ref={cvDropdownRef}>
+                <button 
+                  type="button" 
+                  onClick={() => setIsCvDropdownOpen(!isCvDropdownOpen)} 
+                  className="apple-pricing-blue-pill"
+                  aria-expanded={isCvDropdownOpen}
+                >
+                  <span>Download CV</span>
+                  <i className={`fa-solid fa-chevron-${isCvDropdownOpen ? 'up' : 'down'}`}></i>
+                </button>
+
+                {isCvDropdownOpen && (
+                  <div className="apple-cv-menu">
+                    <a 
+                      href="/cv-renaldy-id.pdf" 
+                      download="CV-Renaldy-Imran-Hermawan-ID.pdf"
+                      onClick={() => setIsCvDropdownOpen(false)}
+                      className="apple-cv-item"
+                    >
+                      <i className="fa-solid fa-file-pdf"></i>
+                      <div className="apple-cv-text">
+                        <span className="apple-cv-title">Versi Bahasa Indonesia</span>
+                        <span className="apple-cv-sub">Standar ATS Nasional (PDF)</span>
+                      </div>
+                    </a>
+
+                    <a 
+                      href="/cv-renaldy.pdf" 
+                      download="CV-Renaldy-Imran-Hermawan.pdf"
+                      onClick={() => setIsCvDropdownOpen(false)}
+                      className="apple-cv-item"
+                    >
+                      <i className="fa-solid fa-file-pdf"></i>
+                      <div className="apple-cv-text">
+                        <span className="apple-cv-title">International English</span>
+                        <span className="apple-cv-sub">Global Tech Standard (PDF)</span>
+                      </div>
+                    </a>
+
+                    <a 
+                      href="/?mode=cv-builder" 
+                      onClick={() => setIsCvDropdownOpen(false)}
+                      className="apple-cv-item builder"
+                    >
+                      <i className="fa-solid fa-sliders"></i>
+                      <div className="apple-cv-text">
+                        <span className="apple-cv-title">Interactive CV Builder</span>
+                        <span className="apple-cv-sub">A4 Live Document Generator ↗</span>
+                      </div>
+                    </a>
+                  </div>
+                )}
               </div>
 
-              <p className="lux-hero-narrative">
-                {lang === 'id'
-                  ? "Merancang arsitektur cloud tangguh, otomatisasi siklus CI/CD pipeline dengan pemindaian keamanan statis, serta orkestrasi Kubernetes deklaratif untuk menjamin keandalan sistem skala produksi."
-                  : "Architecting resilient multi-environment cloud systems, automated CI/CD delivery pipelines with static security quality gates, and declarative Kubernetes orchestration for production reliability."}
-              </p>
+              <a href="#portfolio" onClick={(e) => handleNavClick(e, 'portfolio')} className="apple-explore-pill">
+                <span>Explore Deployments ↓</span>
+              </a>
+            </div>
 
-              <div className="lux-hero-actions">
-                <div className="lux-cv-dropdown-wrap" ref={cvDropdownRef}>
-                  <button 
-                    type="button"
-                    onClick={() => setIsCvDropdownOpen(!isCvDropdownOpen)} 
-                    className="lux-btn-primary lux-btn-cv"
-                    aria-expanded={isCvDropdownOpen}
-                  >
-                    <span>Download CV</span>
-                    <i className={`fa-solid fa-chevron-${isCvDropdownOpen ? 'up' : 'down'}`}></i>
-                  </button>
-                  
-                  {isCvDropdownOpen && (
-                    <div className="lux-cv-dropdown-menu">
-                      <a 
-                        href="/cv-renaldy-id.pdf" 
-                        download="CV-Renaldy-Imran-Hermawan-ID.pdf"
-                        onClick={() => setIsCvDropdownOpen(false)}
-                        className="lux-cv-dropdown-item"
-                      >
-                        <i className="fa-solid fa-file-pdf"></i>
-                        <div className="lux-cv-item-text">
-                          <span className="lux-cv-item-title">Versi Bahasa Indonesia</span>
-                          <span className="lux-cv-item-sub">Standar ATS Nasional (PDF)</span>
-                        </div>
-                      </a>
-
-                      <a 
-                        href="/cv-renaldy.pdf" 
-                        download="CV-Renaldy-Imran-Hermawan.pdf"
-                        onClick={() => setIsCvDropdownOpen(false)}
-                        className="lux-cv-dropdown-item"
-                      >
-                        <i className="fa-solid fa-file-pdf"></i>
-                        <div className="lux-cv-item-text">
-                          <span className="lux-cv-item-title">International English</span>
-                          <span className="lux-cv-item-sub">Global Tech Standard (PDF)</span>
-                        </div>
-                      </a>
-
-                      <a 
-                        href="/?mode=cv-builder" 
-                        onClick={() => setIsCvDropdownOpen(false)}
-                        className="lux-cv-dropdown-item lux-cv-builder-item"
-                      >
-                        <i className="fa-solid fa-sliders"></i>
-                        <div className="lux-cv-item-text">
-                          <span className="lux-cv-item-title">Interactive CV Builder</span>
-                          <span className="lux-cv-item-sub">Custom A4 Live Generator ↗</span>
-                        </div>
-                      </a>
-                    </div>
-                  )}
+            {/* Center Product Media Render & Floating Status Capsule */}
+            <div className="apple-hero-media-wrapper apple-reveal apple-stagger-3">
+              <div className="apple-device-frame">
+                <img src="/profile.png" alt="Renaldy Imran Hermawan" className="apple-hero-photo" />
+                
+                {/* Floating 28px Status Capsule */}
+                <div className="apple-floating-capsule">
+                  <span className="apple-status-dot"></span>
+                  <div className="apple-capsule-info">
+                    <span className="apple-capsule-title">
+                      {lang === 'id' ? 'SIAP KERJA: DEVOPS & SRE' : 'OPEN TO WORK: DEVOPS & SRE'}
+                    </span>
+                    <span className="apple-capsule-sub">Kubernetes • GCP • GitLab CI • Observability</span>
+                  </div>
                 </div>
-
-                <a href="#portfolio" onClick={(e) => handleNavClick(e, 'portfolio')} className="lux-btn-secondary">
-                  <span>Explore Works ↓</span>
-                </a>
-              </div>
-
-              {/* Social Links Row */}
-              <div className="lux-social-links">
-                <a href="https://github.com/renmher" target="_blank" rel="noopener noreferrer" title="GitHub">
-                  <i className="fa-brands fa-github"></i> <span>GitHub</span>
-                </a>
-                <a href="https://linkedin.com/in/renaldyimran" target="_blank" rel="noopener noreferrer" title="LinkedIn">
-                  <i className="fa-brands fa-linkedin"></i> <span>LinkedIn</span>
-                </a>
-                <a href="https://www.threads.net/@renmher" target="_blank" rel="noopener noreferrer" title="Threads">
-                  <i className="fa-brands fa-threads"></i> <span>Threads</span>
-                </a>
-                <a href="https://wa.me/6287872481308" target="_blank" rel="noopener noreferrer" title="WhatsApp">
-                  <i className="fa-brands fa-whatsapp"></i> <span>WhatsApp</span>
-                </a>
               </div>
             </div>
 
-            <div className="lux-hero-right">
-              <div className="lux-photo-frame">
-                <img src="/profile.png" alt="Renaldy Imran Hermawan" className="lux-profile-img" />
-                <div className="lux-photo-chip">
-                  <span className="lux-status-dot"></span>
-                  <span className="lux-status-text">
-                    {lang === 'id' ? 'SIAP KERJA: DEVOPS & SRE' : 'OPEN TO WORK: DEVOPS & SRE'}
-                  </span>
-                </div>
-              </div>
+            {/* Social Links Bar */}
+            <div className="apple-social-row apple-reveal">
+              <a href="https://github.com/renmher" target="_blank" rel="noopener noreferrer" className="apple-blue-link">
+                GitHub ↗
+              </a>
+              <a href="https://linkedin.com/in/renaldyimran" target="_blank" rel="noopener noreferrer" className="apple-blue-link">
+                LinkedIn ↗
+              </a>
+              <a href="https://www.threads.net/@renmher" target="_blank" rel="noopener noreferrer" className="apple-blue-link">
+                Threads ↗
+              </a>
+              <a href="https://wa.me/6287872481308" target="_blank" rel="noopener noreferrer" className="apple-blue-link">
+                WhatsApp ↗
+              </a>
             </div>
           </div>
         </section>
 
         {/* ==============================================================
-            STATEMENT BANNER (EDITORIAL STATEMENT)
+            HIGHLIGHTS STAGE: STUDIO MIST BAND (#f5f5f7)
             ============================================================== */}
-        <section className="lux-statement-banner">
-          <div className="lux-container">
-            <div className="lux-statement-inner">
-              <span className="lux-statement-tag">PHILOSOPHY • SRE & RELIABILITY</span>
-              <h2 className="lux-statement-heading">Cloud Reliability & Production Uptime.</h2>
-              <p className="lux-statement-desc">
-                {lang === 'id'
-                  ? "Fokus pada arsitektur cloud multi-environment yang tangguh, otomatisasi siklus CI/CD pipeline dengan pemindaian keamanan statis, serta orkestrasi Kubernetes deklaratif. Menjamin stabilitas infrastruktur skala produksi dan resolusi insiden secara real-time."
-                  : "Dedicated to architecting resilient multi-environment cloud systems, automated CI/CD delivery pipelines with static security quality gates, and declarative Kubernetes orchestration. Ensuring production uptime and rapid incident resolution."}
-              </p>
+        <section className="apple-section-band studio-mist">
+          <div className="apple-container">
+            <div className="apple-band-header apple-reveal">
+              <div>
+                <span className="apple-section-kicker">SRE & RELIABILITY</span>
+                <h2 className="apple-band-title">Cloud Reliability & Production Uptime.</h2>
+              </div>
+              <a href="#portfolio" onClick={(e) => handleNavClick(e, 'portfolio')} className="apple-blue-link">
+                Explore works ↗
+              </a>
             </div>
+
+            <p className="apple-band-narrative apple-reveal">
+              {lang === 'id'
+                ? "Fokus pada arsitektur cloud multi-environment yang tangguh, otomatisasi siklus CI/CD pipeline dengan pemindaian keamanan statis, serta orkestrasi Kubernetes deklaratif. Menjamin stabilitas infrastruktur skala produksi dan resolusi insiden secara real-time."
+                : "Dedicated to architecting resilient multi-environment cloud systems, automated CI/CD delivery pipelines with static security quality gates, and declarative Kubernetes orchestration. Ensuring production uptime and rapid incident resolution."}
+            </p>
           </div>
         </section>
 
         {/* ==============================================================
-            SECTION: ABOUT ME (3 PILLARS ARCHITECTURE)
+            SECTION: ABOUT (GALLERY WHITE CANVAS, 28PX FEATURE CARDS)
             ============================================================== */}
-        <section id="about" className="lux-section">
-          <div className="lux-container">
-            <div className="lux-section-header">
-              <span className="lux-section-tag">EXPLORE • (01)</span>
-              <h2 className="lux-section-title">Architecting Resilient Cloud Systems.</h2>
-              <div className="lux-separator">
-                <span className="lux-separator-diamond"></span>
-              </div>
+        <section id="about" className="apple-section-band gallery-white">
+          <div className="apple-container">
+            <div className="apple-section-headline-block apple-reveal">
+              <span className="apple-section-kicker">OVERVIEW • (01)</span>
+              <h2 className="apple-section-title">Architecting Resilient Cloud Systems.</h2>
             </div>
 
-            <div className="lux-narrative-block">
-              <p className="lux-narrative-p">{curr["about-narrative-p1"]}</p>
-              <p className="lux-narrative-p">{curr["about-narrative-p2"]}</p>
+            <div className="apple-story-paragraphs apple-reveal">
+              <p className="apple-feature-copy">{curr["about-narrative-p1"]}</p>
+              <p className="apple-feature-copy">{curr["about-narrative-p2"]}</p>
             </div>
 
-            {/* 3 Pillars */}
-            <div className="lux-pillars-grid">
-              <div className="lux-pillar-card">
-                <div className="lux-pillar-header">
-                  <span className="lux-pillar-num">01</span>
-                  <div className="lux-pillar-icon"><i className="fa-solid fa-cloud"></i></div>
-                </div>
-                <h3 className="lux-pillar-title">Cloud & Architecture.</h3>
-                <p className="lux-pillar-desc">
+            {/* 3 Pillars in 28px Feature Cards */}
+            <div className="apple-cards-grid">
+              <div className="apple-card apple-reveal">
+                <span className="apple-card-kicker">PILLAR 01</span>
+                <h3 className="apple-card-heading">Cloud & Architecture.</h3>
+                <p className="apple-card-copy">
                   {lang === 'id'
                     ? 'Merancang arsitektur cloud VPC di GCP & AWS, penyediaan server deklaratif menggunakan Terraform (IaC), dan isolasi jaringan multi-tier.'
                     : 'Architecting VPC cloud networks in GCP & AWS, declarative infrastructure provisioning using Terraform (IaC), and secure multi-tier networking.'}
                 </p>
               </div>
 
-              <div className="lux-pillar-card">
-                <div className="lux-pillar-header">
-                  <span className="lux-pillar-num">02</span>
-                  <div className="lux-pillar-icon"><i className="fa-solid fa-gears"></i></div>
-                </div>
-                <h3 className="lux-pillar-title">CI/CD & Automation.</h3>
-                <p className="lux-pillar-desc">
+              <div className="apple-card apple-reveal">
+                <span className="apple-card-kicker">PILLAR 02</span>
+                <h3 className="apple-card-heading">CI/CD & Automation.</h3>
+                <p className="apple-card-copy">
                   {lang === 'id'
                     ? 'Membangun pipeline GitLab CI / GitHub Actions terotomatisasi, kontainerisasi Docker, scanning Trivy & SonarQube, dan GitOps Kustomize.'
                     : 'Building automated GitLab CI / GitHub Actions workflows, Docker containers, Trivy CVE scanning, SonarQube quality gates, and GitOps.'}
                 </p>
               </div>
 
-              <div className="lux-pillar-card">
-                <div className="lux-pillar-header">
-                  <span className="lux-pillar-num">03</span>
-                  <div className="lux-pillar-icon"><i className="fa-solid fa-chart-line"></i></div>
-                </div>
-                <h3 className="lux-pillar-title">SRE & Observability.</h3>
-                <p className="lux-pillar-desc">
+              <div className="apple-card apple-reveal">
+                <span className="apple-card-kicker">PILLAR 03</span>
+                <h3 className="apple-card-heading">SRE & Observability.</h3>
+                <p className="apple-card-copy">
                   {lang === 'id'
                     ? 'Pemantauan real-time 24/7 menggunakan VictoriaMetrics, Grafana, VictoriaLogs, penanganan crash loop, dan sistem alarm otomatis ke Telegram.'
                     : '24/7 real-time telemetry using VictoriaMetrics, Grafana, VictoriaLogs, crash resolution, and instant Telegram alert notifications.'}
@@ -486,57 +508,52 @@ const App = () => {
         </section>
 
         {/* ==============================================================
-            SECTION: TECHNICAL SKILLS
+            SECTION: TECH SPECS (STUDIO MIST BAND #f5f5f7)
             ============================================================== */}
-        <section id="skills" className="lux-section">
-          <div className="lux-container">
-            <div className="lux-section-header">
-              <span className="lux-section-tag">CAPABILITIES • (02)</span>
-              <h2 className="lux-section-title">Engineering Stack & Infrastructure.</h2>
-              <div className="lux-separator">
-                <span className="lux-separator-diamond"></span>
-              </div>
+        <section id="skills" className="apple-section-band studio-mist">
+          <div className="apple-container">
+            <div className="apple-section-headline-block apple-reveal">
+              <span className="apple-section-kicker">TECH SPECS • (02)</span>
+              <h2 className="apple-section-title">Engineering Stack & Toolchain.</h2>
             </div>
 
-            <div className="lux-skills-group mb-10">
-              <h3 className="lux-group-title">PRIMARY PRODUCTION STACK:</h3>
-              <div className="lux-skills-grid">
+            <div className="apple-specs-block mb-10 apple-reveal">
+              <span className="apple-specs-label">PRIMARY PRODUCTION STACK</span>
+              <div className="apple-specs-grid">
                 {[
-                  { name: 'KUBERNETES', icon: 'fa-solid fa-cubes', cat: 'Orchestration' },
-                  { name: 'DOCKER', icon: 'fa-brands fa-docker', cat: 'Containers' },
-                  { name: 'GITLAB CI', icon: 'fa-brands fa-gitlab', cat: 'Pipelines' },
-                  { name: 'TERRAFORM', icon: 'fa-solid fa-server', cat: 'IaC' },
-                  { name: 'GOOGLE CLOUD', icon: 'fa-brands fa-google', cat: 'Cloud Platform' },
-                  { name: 'AWS', icon: 'fa-brands fa-aws', cat: 'Cloud Platform' },
-                  { name: 'GRAFANA', icon: 'fa-solid fa-chart-line', cat: 'Observability' },
-                  { name: 'VICTORIAMETRICS', icon: 'fa-solid fa-database', cat: 'Time Series' },
-                  { name: 'TRIVY', icon: 'fa-solid fa-shield-halved', cat: 'Security' },
-                  { name: 'LINUX OS', icon: 'fa-brands fa-linux', cat: 'Operating System' }
+                  { name: 'KUBERNETES', cat: 'Orchestration' },
+                  { name: 'DOCKER', cat: 'Containers' },
+                  { name: 'GITLAB CI', cat: 'Automation' },
+                  { name: 'TERRAFORM', cat: 'IaC' },
+                  { name: 'GOOGLE CLOUD', cat: 'Cloud Platform' },
+                  { name: 'AWS', cat: 'Cloud Platform' },
+                  { name: 'GRAFANA', cat: 'Observability' },
+                  { name: 'VICTORIAMETRICS', cat: 'Time Series' },
+                  { name: 'TRIVY', cat: 'Security Scanning' },
+                  { name: 'LINUX OS', cat: 'Operating System' }
                 ].map((s, idx) => (
-                  <div key={idx} className="lux-skill-card">
-                    <i className={s.icon}></i>
-                    <span className="lux-skill-name">{s.name}</span>
-                    <span className="lux-skill-cat">{s.cat}</span>
+                  <div key={idx} className="apple-spec-pill">
+                    <span className="apple-spec-name">{s.name}</span>
+                    <span className="apple-spec-cat">{s.cat}</span>
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="lux-skills-group">
-              <h3 className="lux-group-title">NETWORKING & TOOLING:</h3>
-              <div className="lux-skills-grid">
+            <div className="apple-specs-block apple-reveal">
+              <span className="apple-specs-label">NETWORKING & TOOLING</span>
+              <div className="apple-specs-grid">
                 {[
-                  { name: 'MIKROTIK MTCNA', icon: 'fa-solid fa-network-wired', cat: 'Routing' },
-                  { name: 'TCP/IP & DNS', icon: 'fa-solid fa-route', cat: 'Networking' },
-                  { name: 'BASH SCRIPTING', icon: 'fa-solid fa-terminal', cat: 'Scripting' },
-                  { name: 'SONARQUBE', icon: 'fa-solid fa-magnifying-glass-chart', cat: 'Quality Gate' },
-                  { name: 'HARBOR REGISTRY', icon: 'fa-solid fa-box-archive', cat: 'Registry' },
-                  { name: 'TELEGRAM ALERTS', icon: 'fa-solid fa-bell', cat: 'Incident Dispatch' }
+                  { name: 'MIKROTIK MTCNA', cat: 'Routing' },
+                  { name: 'TCP/IP & DNS', cat: 'Network Protocols' },
+                  { name: 'BASH SCRIPTING', cat: 'Shell Scripting' },
+                  { name: 'SONARQUBE', cat: 'Quality Gate' },
+                  { name: 'HARBOR REGISTRY', cat: 'Artifacts' },
+                  { name: 'TELEGRAM ALERTS', cat: 'Incident Dispatch' }
                 ].map((s, idx) => (
-                  <div key={idx} className="lux-skill-card">
-                    <i className={s.icon}></i>
-                    <span className="lux-skill-name">{s.name}</span>
-                    <span className="lux-skill-cat">{s.cat}</span>
+                  <div key={idx} className="apple-spec-pill">
+                    <span className="apple-spec-name">{s.name}</span>
+                    <span className="apple-spec-cat">{s.cat}</span>
                   </div>
                 ))}
               </div>
@@ -545,30 +562,27 @@ const App = () => {
         </section>
 
         {/* ==============================================================
-            SECTION: PORTFOLIO & CASE STUDIES
+            SECTION: DEPLOYMENTS (GALLERY WHITE CANVAS, 28PX CARDS)
             ============================================================== */}
-        <section id="portfolio" className="lux-section">
-          <div className="lux-container">
-            <div className="lux-section-header">
-              <span className="lux-section-tag">WORKS • (03)</span>
-              <h2 className="lux-section-title">Selected Case Studies & Deployments.</h2>
-              <div className="lux-separator">
-                <span className="lux-separator-diamond"></span>
-              </div>
+        <section id="portfolio" className="apple-section-band gallery-white">
+          <div className="apple-container">
+            <div className="apple-section-headline-block apple-reveal">
+              <span className="apple-section-kicker">DEPLOYMENTS • (03)</span>
+              <h2 className="apple-section-title">Selected Case Studies & Highlights.</h2>
             </div>
 
-            {/* Filter Tabs */}
-            <div className="lux-filter-tabs">
+            {/* Filter Tabs in Apple Rounded Style */}
+            <div className="apple-filter-row apple-reveal">
               {[
-                { key: 'all', label: 'ALL (03)' },
-                { key: 'gitops', label: 'GITOPS & K8S' },
-                { key: 'cicd', label: 'CI/CD & SECURITY' },
-                { key: 'observability', label: 'OBSERVABILITY' }
+                { key: 'all', label: 'All Case Studies (03)' },
+                { key: 'gitops', label: 'GitOps & K8s' },
+                { key: 'cicd', label: 'CI/CD & Security' },
+                { key: 'observability', label: 'Observability' }
               ].map(tab => (
                 <button
                   key={tab.key}
                   type="button"
-                  className={`lux-tab-btn ${activePortfolioFilter === tab.key ? 'active' : ''}`}
+                  className={`apple-filter-btn ${activePortfolioFilter === tab.key ? 'active' : ''}`}
                   onClick={() => setActivePortfolioFilter(tab.key)}
                 >
                   {tab.label}
@@ -576,74 +590,71 @@ const App = () => {
               ))}
             </div>
 
-            {/* Slider Controls */}
-            <div className="lux-slider-controls">
-              <span className="lux-slider-counter">
-                0{activeProjectSlide + 1} / 0{filteredProjects.length}
+            {/* Slider Navigation Controls */}
+            <div className="apple-slider-nav-bar apple-reveal">
+              <span className="apple-slider-counter">
+                0{activeProjectSlide + 1} of 0{filteredProjects.length}
               </span>
-              <div className="lux-slider-buttons">
+              <div className="apple-slider-arrows">
                 <button 
                   type="button"
-                  className="lux-slider-arrow" 
+                  className="apple-arrow-btn" 
                   onClick={() => setActiveProjectSlide(prev => prev > 0 ? prev - 1 : filteredProjects.length - 1)}
                   title="Previous Case Study"
                 >
-                  <i className="fa-solid fa-arrow-left"></i> <span>PREV</span>
+                  <i className="fa-solid fa-chevron-left"></i>
                 </button>
                 <button 
                   type="button"
-                  className="lux-slider-arrow" 
+                  className="apple-arrow-btn" 
                   onClick={() => setActiveProjectSlide(prev => prev < filteredProjects.length - 1 ? prev + 1 : 0)}
                   title="Next Case Study"
                 >
-                  <span>NEXT</span> <i className="fa-solid fa-arrow-right"></i>
+                  <i className="fa-solid fa-chevron-right"></i>
                 </button>
               </div>
             </div>
 
             {/* Slider Stage */}
             <div 
-              className="lux-slider-stage"
+              className="apple-slider-stage"
               onTouchStart={onProjectTouchStart}
               onTouchMove={onProjectTouchMove}
               onTouchEnd={onProjectTouchEnd}
             >
               <div 
-                className="lux-slider-track"
+                className="apple-slider-track"
                 style={{ transform: `translateX(-${activeProjectSlide * 100}%)` }}
               >
                 {filteredProjects.map((project) => {
                   const activeTab = projectTabs[project.id] || 'overview';
                   const isFlagship = project.id === 3;
                   return (
-                    <div key={project.id} className="lux-project-slide">
-                      <div className="lux-project-grid">
-                        <div className="lux-project-visual">
-                          <div className="lux-project-img-wrap">
+                    <article key={project.id} className="apple-slide-card apple-card">
+                      <div className="apple-case-layout">
+                        <div className="apple-case-media">
+                          <div className="apple-media-frame">
                             <img src={project.image} alt={curr[project.nameKey]} />
                           </div>
-                          <p className="lux-project-caption">
-                            {curr[project.nameKey]}. Production environment deployment.
-                          </p>
-                          <div className="lux-project-tags">
+                          <div className="apple-case-tools">
                             {project.tools.map((t, idx) => (
-                              <span key={idx} className="lux-tool-tag">{t}</span>
+                              <span key={idx} className="apple-tool-badge">{t}</span>
                             ))}
                           </div>
-                          <div className="lux-project-actions">
+                          <div className="apple-case-ctas">
                             {project.id === 3 && (
                               <>
-                                <a href="/projects/cbs-presentation.pdf" target="_blank" rel="noopener noreferrer" className="lux-btn-action">
-                                  <i className="fa-solid fa-file-pdf"></i> <span>Slide PDF ↗</span>
+                                <a href="/projects/cbs-presentation.pdf" target="_blank" rel="noopener noreferrer" className="apple-blue-link">
+                                  Slide PDF ↗
                                 </a>
-                                <a href={project.repoUrl} target="_blank" rel="noopener noreferrer" className="lux-btn-action">
-                                  <i className="fa-brands fa-gitlab"></i> <span>GitLab Repo ↗</span>
+                                <a href={project.repoUrl} target="_blank" rel="noopener noreferrer" className="apple-blue-link">
+                                  GitLab Repo ↗
                                 </a>
                               </>
                             )}
                             {project.id !== 3 && project.repoUrl && (
-                              <a href={project.repoUrl} target="_blank" rel="noopener noreferrer" className="lux-btn-action">
-                                <i className="fa-brands fa-github"></i> <span>GitHub Repo ↗</span>
+                              <a href={project.repoUrl} target="_blank" rel="noopener noreferrer" className="apple-blue-link">
+                                GitHub Repo ↗
                               </a>
                             )}
                             <a 
@@ -653,28 +664,27 @@ const App = () => {
                                 setActiveSimulatorTab(project.id === 3 ? 'gitops' : project.id === 1 ? 'pipeline' : 'monitoring'); 
                                 document.getElementById('simulators')?.scrollIntoView({ behavior: 'smooth' }); 
                               }} 
-                              className="lux-btn-action primary"
+                              className="apple-pricing-blue-pill compact"
                             >
-                              <i className="fa-solid fa-play"></i> <span>Live Simulator ↗</span>
+                              Open Simulator ↗
                             </a>
                           </div>
                         </div>
 
-                        <div className="lux-project-details">
+                        <div className="apple-case-details">
                           {isFlagship && (
-                            <div className="lux-flagship-badge">
-                              <span className="dot pulse"></span>
-                              <span>STATUS: KUBERNETES K3S LIVE CLUSTER</span>
-                            </div>
+                            <span className="apple-launch-status mb-2">
+                              KUBERNETES K3S LIVE CLUSTER
+                            </span>
                           )}
-                          <h3 className="lux-project-title">{curr[project.nameKey]}.</h3>
+                          <h3 className="apple-feature-heading">{curr[project.nameKey]}.</h3>
 
-                          <div className="lux-story-tabs">
+                          <div className="apple-story-tabs">
                             {['overview', 'problem', 'solution', 'impact', 'architecture', 'code'].map((tab) => (
                               <button
                                 key={tab}
                                 type="button"
-                                className={`lux-story-tab-btn ${activeTab === tab ? 'active' : ''}`}
+                                className={`apple-tab-item ${activeTab === tab ? 'active' : ''}`}
                                 onClick={() => handleProjectTabChange(project.id, tab)}
                               >
                                 {tab === 'overview' && curr["proj-tab-overview"]}
@@ -687,33 +697,33 @@ const App = () => {
                             ))}
                           </div>
 
-                          <div className="lux-story-content">
-                            {activeTab === 'overview' && <p className="lux-story-p">{curr[project.overviewKey]}</p>}
-                            {activeTab === 'problem' && <p className="lux-story-p">{curr[project.problemKey]}</p>}
+                          <div className="apple-tab-content">
+                            {activeTab === 'overview' && <p className="apple-tab-text">{curr[project.overviewKey]}</p>}
+                            {activeTab === 'problem' && <p className="apple-tab-text">{curr[project.problemKey]}</p>}
                             {activeTab === 'solution' && (
                               <div>
-                                <p className="lux-story-role"><strong>Role:</strong> {curr[project.roleKey]}</p>
-                                <p className="lux-story-p">{curr[project.solutionKey]}</p>
+                                <p className="apple-role-label"><strong>Role:</strong> {curr[project.roleKey]}</p>
+                                <p className="apple-tab-text">{curr[project.solutionKey]}</p>
                               </div>
                             )}
-                            {activeTab === 'impact' && <p className="lux-story-p">{curr[project.impactKey]}</p>}
+                            {activeTab === 'impact' && <p className="apple-tab-text">{curr[project.impactKey]}</p>}
                             {activeTab === 'architecture' && (
-                              <div className="lux-arch-grid">
+                              <div className="apple-arch-grid">
                                 {project.architectureFlow?.map((node, i) => (
-                                  <div key={i} className="lux-arch-node">
-                                    <div className="lux-arch-step">STEP {node.step}</div>
-                                    <h4 className="lux-arch-title">{node.title}</h4>
-                                    <p className="lux-arch-detail">{node.detail}</p>
+                                  <div key={i} className="apple-arch-cell">
+                                    <span className="apple-arch-step">STEP {node.step}</span>
+                                    <h4 className="apple-arch-name">{node.title}</h4>
+                                    <p className="apple-arch-desc">{node.detail}</p>
                                   </div>
                                 ))}
                               </div>
                             )}
                             {activeTab === 'code' && project.id === 3 && (
-                              <div className="lux-code-viewer">
-                                <div className="lux-code-header">
-                                  <span><i className="fa-solid fa-terminal"></i> scripts/deploy.sh (Vault & Kustomize)</span>
+                              <div className="apple-code-wrapper">
+                                <div className="apple-code-bar">
+                                  <span>scripts/deploy.sh (Vault & Kustomize)</span>
                                 </div>
-                                <pre className="lux-code-body">
+                                <pre className="apple-code-block">
                                   <code>{`# 1. Target Namespace
 NAMESPACE="renaldy-imran-cbs-\${ENV}"
 kubectl create namespace "\${NAMESPACE}" --dry-run=client -o yaml | kubectl apply -f -
@@ -733,11 +743,11 @@ kubectl rollout restart deployment/"\${APP_NAME}" -n "\${NAMESPACE}"`}</code>
                               </div>
                             )}
                             {activeTab === 'code' && project.id === 1 && (
-                              <div className="lux-code-viewer">
-                                <div className="lux-code-header">
-                                  <span><i className="fa-solid fa-code"></i> .gitlab-ci.yml (Trivy & SonarQube)</span>
+                              <div className="apple-code-wrapper">
+                                <div className="apple-code-bar">
+                                  <span>.gitlab-ci.yml (Trivy & SonarQube)</span>
                                 </div>
-                                <pre className="lux-code-body">
+                                <pre className="apple-code-block">
                                   <code>{`stages: [test, security-scan, build-push, deploy]
 
 sonarqube-check:
@@ -755,11 +765,11 @@ push-image:
                               </div>
                             )}
                             {activeTab === 'code' && project.id === 2 && (
-                              <div className="lux-code-viewer">
-                                <div className="lux-code-header">
-                                  <span><i className="fa-solid fa-bell"></i> alert-rules.yml (PromQL & Telegram)</span>
+                              <div className="apple-code-wrapper">
+                                <div className="apple-code-bar">
+                                  <span>alert-rules.yml (PromQL & Telegram)</span>
                                 </div>
-                                <pre className="lux-code-body">
+                                <pre className="apple-code-block">
                                   <code>{`- alert: HostHighCpuLoad
   expr: 100 - (avg by(instance) (rate(node_cpu_seconds_total{mode="idle"}[2m])) * 100) > 85
   for: 2m
@@ -772,7 +782,7 @@ push-image:
                           </div>
                         </div>
                       </div>
-                    </div>
+                    </article>
                   );
                 })}
               </div>
@@ -781,44 +791,41 @@ push-image:
         </section>
 
         {/* ==============================================================
-            SECTION: DEVOPS WORKBENCH (INTERACTIVE SIMULATORS)
+            SECTION: WORKBENCH (STUDIO MIST BAND #f5f5f7)
             ============================================================== */}
-        <section id="simulators" className="lux-section">
-          <div className="lux-container">
-            <div className="lux-section-header">
-              <span className="lux-section-tag">LAB • (04)</span>
-              <h2 className="lux-section-title">Interactive Engineering Workbench.</h2>
-              <div className="lux-separator">
-                <span className="lux-separator-diamond"></span>
-              </div>
+        <section id="simulators" className="apple-section-band studio-mist">
+          <div className="apple-container">
+            <div className="apple-section-headline-block apple-reveal">
+              <span className="apple-section-kicker">LAB WORKBENCH • (04)</span>
+              <h2 className="apple-section-title">Interactive Engineering Simulators.</h2>
             </div>
 
-            <div className="lux-workbench-shell">
-              <div className="lux-workbench-tabs">
+            <div className="apple-card apple-reveal">
+              <div className="apple-workbench-nav">
                 <button 
                   type="button"
-                  className={`lux-wb-tab ${activeSimulatorTab === 'pipeline' ? 'active' : ''}`}
+                  className={`apple-wb-tab ${activeSimulatorTab === 'pipeline' ? 'active' : ''}`}
                   onClick={() => setActiveSimulatorTab('pipeline')}
                 >
                   <i className="fa-solid fa-terminal"></i> 1. CI/CD Pipeline
                 </button>
                 <button 
                   type="button"
-                  className={`lux-wb-tab ${activeSimulatorTab === 'gitops' ? 'active' : ''}`}
+                  className={`apple-wb-tab ${activeSimulatorTab === 'gitops' ? 'active' : ''}`}
                   onClick={() => setActiveSimulatorTab('gitops')}
                 >
                   <i className="fa-solid fa-cloud"></i> 2. GitOps & K8s
                 </button>
                 <button 
                   type="button"
-                  className={`lux-wb-tab ${activeSimulatorTab === 'monitoring' ? 'active' : ''}`}
+                  className={`apple-wb-tab ${activeSimulatorTab === 'monitoring' ? 'active' : ''}`}
                   onClick={() => setActiveSimulatorTab('monitoring')}
                 >
                   <i className="fa-solid fa-chart-line"></i> 3. Observability & Alarm
                 </button>
               </div>
 
-              <div className="lux-workbench-content">
+              <div className="apple-workbench-content">
                 {activeSimulatorTab === 'pipeline' && (
                   <PipelineSimulator 
                     lang={lang} 
@@ -848,30 +855,29 @@ push-image:
         </section>
 
         {/* ==============================================================
-            SECTION: CERTIFICATIONS & EDUCATION
+            SECTION: CREDENTIALS (GALLERY WHITE CANVAS)
             ============================================================== */}
-        <section id="certifications" className="lux-section">
-          <div className="lux-container">
-            <div className="lux-section-header">
-              <span className="lux-section-tag">CREDENTIALS • (05)</span>
-              <h2 className="lux-section-title">Verified Certifications & Education.</h2>
-              <div className="lux-separator">
-                <span className="lux-separator-diamond"></span>
-              </div>
+        <section id="certifications" className="apple-section-band gallery-white">
+          <div className="apple-container">
+            <div className="apple-section-headline-block apple-reveal">
+              <span className="apple-section-kicker">CREDENTIALS • (05)</span>
+              <h2 className="apple-section-title">Verified Certifications & Education.</h2>
             </div>
 
             {/* Academic Record Card */}
-            <div className="lux-edu-card mb-10">
-              <div className="lux-edu-icon">
-                <i className="fa-solid fa-graduation-cap"></i>
-              </div>
-              <div className="lux-edu-details">
-                <span className="lux-edu-badge">SARJANA KOMPUTER (S.KOM)</span>
-                <h3 className="lux-edu-school">Universitas Bani Saleh : Teknik Informatika</h3>
-                <p className="lux-edu-desc">
-                  Fokus pada Administrasi Jaringan Komputer, Arsitektur Sistem Cloud, dan Keandalan Infrastruktur. Lulus tahun 2024.
-                </p>
-                <span className="lux-edu-year"><i className="fa-solid fa-calendar"></i> 2020 - 2024 • Bekasi, Indonesia</span>
+            <div className="apple-card mb-8 apple-reveal">
+              <div className="apple-edu-layout">
+                <div className="apple-edu-icon">
+                  <i className="fa-solid fa-graduation-cap"></i>
+                </div>
+                <div className="apple-edu-text">
+                  <span className="apple-launch-status">SARJANA KOMPUTER (S.KOM)</span>
+                  <h3 className="apple-feature-heading" style={{ fontSize: '24px' }}>Universitas Bani Saleh : Teknik Informatika</h3>
+                  <p className="apple-card-copy">
+                    Fokus pada Administrasi Jaringan Komputer, Arsitektur Sistem Cloud, dan Keandalan Infrastruktur. Lulus tahun 2024.
+                  </p>
+                  <span className="apple-spec-cat"><i className="fa-solid fa-calendar"></i> 2020 - 2024 • Bekasi, Indonesia</span>
+                </div>
               </div>
             </div>
 
@@ -881,32 +887,29 @@ push-image:
         </section>
 
         {/* ==============================================================
-            SECTION: CAREER PATH (EXECUTIVE LEDGER)
+            SECTION: TRAJECTORY (STUDIO MIST BAND #f5f5f7)
             ============================================================== */}
-        <section id="experience" className="lux-section">
-          <div className="lux-container">
-            <div className="lux-section-header">
-              <span className="lux-section-tag">RECORD • (06)</span>
-              <h2 className="lux-section-title">Professional Career Ledger.</h2>
-              <div className="lux-separator">
-                <span className="lux-separator-diamond"></span>
-              </div>
+        <section id="experience" className="apple-section-band studio-mist">
+          <div className="apple-container">
+            <div className="apple-section-headline-block apple-reveal">
+              <span className="apple-section-kicker">TRAJECTORY • (06)</span>
+              <h2 className="apple-section-title">Professional Experience & Career.</h2>
             </div>
 
-            <div className="lux-career-ledger">
+            <div className="apple-ledger-list">
               {experiencesData.map((exp) => (
-                <article key={exp.id} className="lux-ledger-row">
-                  <div className="lux-ledger-left">
-                    <span className="lux-ledger-date">{exp.dateText[lang]}</span>
-                    <span className="lux-ledger-dur">{getDurationText(exp, lang)}</span>
-                    {exp.type && <span className="lux-ledger-badge">{exp.type[lang]}</span>}
+                <article key={exp.id} className="apple-card apple-ledger-item apple-reveal">
+                  <div className="apple-ledger-meta">
+                    <span className="apple-ledger-date">{exp.dateText[lang]}</span>
+                    <span className="apple-ledger-dur">{getDurationText(exp, lang)}</span>
+                    {exp.type && <span className="apple-ledger-badge">{exp.type[lang]}</span>}
                   </div>
-                  <div className="lux-ledger-right">
-                    <h3 className="lux-ledger-title">
+                  <div className="apple-ledger-body">
+                    <h3 className="apple-ledger-role">
                       <i className={`fa-solid ${exp.icon}`}></i> {curr[exp.titleKey]}
                     </h3>
                     <div 
-                      className="lux-ledger-desc" 
+                      className="apple-ledger-desc" 
                       dangerouslySetInnerHTML={{ __html: curr[exp.descKey] }} 
                     />
                   </div>
@@ -917,35 +920,32 @@ push-image:
         </section>
 
         {/* ==============================================================
-            SECTION: CONTACT (BALANCED 2X2 GRID + CLI ENDPOINT)
+            SECTION: CONTACT (GALLERY WHITE CANVAS)
             ============================================================== */}
-        <section id="contact" className="lux-section lux-contact-section">
-          <div className="lux-container">
-            <div className="lux-section-header">
-              <span className="lux-section-tag">CONNECT • (07)</span>
-              <h2 className="lux-section-title">Direct Inquiries & Communication.</h2>
-              <div className="lux-separator">
-                <span className="lux-separator-diamond"></span>
-              </div>
+        <section id="contact" className="apple-section-band gallery-white">
+          <div className="apple-container">
+            <div className="apple-section-headline-block apple-reveal text-center">
+              <span className="apple-section-kicker">CONNECT • (07)</span>
+              <h2 className="apple-section-title">Direct Inquiries & Communication.</h2>
             </div>
 
-            <p className="lux-contact-intro">
+            <p className="apple-contact-subtext apple-reveal text-center">
               {lang === 'id' 
                 ? "Tertarik berdiskusi seputar peluang kerja DevOps, Cloud Infrastructure, atau kolaborasi teknik? Hubungi saya langsung melalui tautan di bawah."
                 : "Interested in discussing DevOps opportunities, cloud infrastructure, or technical collaboration? Reach out directly through the links below."}
             </p>
 
             {/* CLI Resume Box */}
-            <div className="lux-cli-box mb-8">
-              <div className="lux-cli-header">
-                <span className="dot pulse"></span>
+            <div className="apple-card apple-cli-card mb-8 apple-reveal">
+              <div className="apple-cli-header">
+                <span className="apple-status-dot"></span>
                 <span>CLI RESUME ENDPOINT (RAW JSON)</span>
               </div>
-              <div className="lux-cli-body">
+              <div className="apple-cli-body">
                 <code>$ curl -s https://justinbony.my.id/resume.json</code>
                 <button 
                   type="button" 
-                  className="lux-cli-copy-btn" 
+                  className="apple-explore-pill compact" 
                   onClick={() => {
                     navigator.clipboard.writeText('curl -s https://justinbony.my.id/resume.json');
                     setCurlCopied(true);
@@ -959,37 +959,37 @@ push-image:
               </div>
             </div>
 
-            {/* Symmetrical 2x2 Contact Grid */}
-            <div className="lux-contact-grid">
-              <button type="button" className="lux-contact-card" onClick={handleCopyEmail}>
+            {/* Contact Grid in 28px Cards */}
+            <div className="apple-contact-grid">
+              <button type="button" className="apple-card apple-contact-tile" onClick={handleCopyEmail}>
                 <i className="fa-solid fa-envelope"></i>
-                <div className="lux-card-text">
-                  <span className="lux-card-label">Email:</span>
-                  <span className="lux-card-val">{emailCopied ? (curr["email-success"] || "Tersalin ke Clipboard!") : "renaldyimran@gmail.com ↗"}</span>
+                <div className="apple-contact-meta">
+                  <span className="apple-spec-cat">Email:</span>
+                  <span className="apple-contact-val">{emailCopied ? (curr["email-success"] || "Tersalin ke Clipboard!") : "renaldyimran@gmail.com ↗"}</span>
                 </div>
               </button>
 
-              <a href="https://wa.me/6287872481308" target="_blank" rel="noopener noreferrer" className="lux-contact-card">
+              <a href="https://wa.me/6287872481308" target="_blank" rel="noopener noreferrer" className="apple-card apple-contact-tile">
                 <i className="fa-brands fa-whatsapp"></i>
-                <div className="lux-card-text">
-                  <span className="lux-card-label">WhatsApp:</span>
-                  <span className="lux-card-val">+62 878-7248-1308 ↗</span>
+                <div className="apple-contact-meta">
+                  <span className="apple-spec-cat">WhatsApp:</span>
+                  <span className="apple-contact-val">+62 878-7248-1308 ↗</span>
                 </div>
               </a>
 
-              <a href="https://linkedin.com/in/renaldyimran" target="_blank" rel="noopener noreferrer" className="lux-contact-card">
+              <a href="https://linkedin.com/in/renaldyimran" target="_blank" rel="noopener noreferrer" className="apple-card apple-contact-tile">
                 <i className="fa-brands fa-linkedin"></i>
-                <div className="lux-card-text">
-                  <span className="lux-card-label">LinkedIn:</span>
-                  <span className="lux-card-val">linkedin.com/in/renaldyimran ↗</span>
+                <div className="apple-contact-meta">
+                  <span className="apple-spec-cat">LinkedIn:</span>
+                  <span className="apple-contact-val">linkedin.com/in/renaldyimran ↗</span>
                 </div>
               </a>
 
-              <a href="https://github.com/renmher" target="_blank" rel="noopener noreferrer" className="lux-contact-card">
+              <a href="https://github.com/renmher" target="_blank" rel="noopener noreferrer" className="apple-card apple-contact-tile">
                 <i className="fa-brands fa-github"></i>
-                <div className="lux-card-text">
-                  <span className="lux-card-label">GitHub:</span>
-                  <span className="lux-card-val">github.com/renmher ↗</span>
+                <div className="apple-contact-meta">
+                  <span className="apple-spec-cat">GitHub:</span>
+                  <span className="apple-contact-val">github.com/renmher ↗</span>
                 </div>
               </a>
             </div>
@@ -998,30 +998,30 @@ push-image:
       </main>
 
       {/* ==============================================================
-          EDITORIAL FOOTER
+          STUDIO MIST FOOTER
           ============================================================== */}
-      <footer className="lux-footer">
-        <div className="lux-container lux-footer-content">
-          <div className="lux-footer-top">
-            <a href="#home" onClick={(e) => handleNavClick(e, 'home')} className="lux-back-top">
-              <i className="fa-solid fa-arrow-up"></i> <span>BACK TO TOP</span>
+      <footer className="apple-footer studio-mist">
+        <div className="apple-container apple-footer-inner">
+          <div className="apple-footer-top">
+            <a href="#home" onClick={(e) => handleNavClick(e, 'home')} className="apple-blue-link">
+              ↑ Back to top
             </a>
           </div>
 
-          <div className="lux-footer-socials">
-            <a href="https://github.com/renmher" target="_blank" rel="noopener noreferrer" title="GitHub"><i className="fa-brands fa-github"></i></a>
-            <a href="https://linkedin.com/in/renaldyimran" target="_blank" rel="noopener noreferrer" title="LinkedIn"><i className="fa-brands fa-linkedin"></i></a>
-            <a href="https://www.threads.net/@renmher" target="_blank" rel="noopener noreferrer" title="Threads"><i className="fa-brands fa-threads"></i></a>
-            <a href="https://wa.me/6287872481308" target="_blank" rel="noopener noreferrer" title="WhatsApp"><i className="fa-brands fa-whatsapp"></i></a>
+          <div className="apple-footer-links">
+            <a href="https://github.com/renmher" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a href="https://linkedin.com/in/renaldyimran" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href="https://www.threads.net/@renmher" target="_blank" rel="noopener noreferrer">Threads</a>
+            <a href="https://wa.me/6287872481308" target="_blank" rel="noopener noreferrer">WhatsApp</a>
           </div>
 
-          <p className="lux-copyright">
-            <strong>©2026 Renaldy Imran Hermawan.</strong> All Rights Reserved.
+          <p className="apple-footer-copy">
+            Copyright © 2026 Renaldy Imran Hermawan. All rights reserved.
           </p>
         </div>
       </footer>
 
-      {/* Floating Chatbot Assistant (Closed by default, click to open) */}
+      {/* Floating Chatbot Assistant */}
       <Chatbot lang={lang} />
     </div>
   );
