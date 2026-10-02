@@ -3,8 +3,8 @@ export const skillsList = [
       name: "GCP, AWS",
       icon: "fa-solid fa-cloud",
       desc: {
-        id: "Mendeploy VM, monitoring via CloudWatch, dan konfigurasi VPC jaringan cloud.",
-        en: "Deploying VM instances, monitoring via CloudWatch, and configuring cloud VPC networks."
+        id: "Mendeploy VM, monitoring via Cloud Monitoring & CloudWatch, dan konfigurasi VPC jaringan cloud.",
+        en: "Deploying VM instances, monitoring via Cloud Monitoring & CloudWatch, and configuring cloud VPC networks."
       }
     },
     {

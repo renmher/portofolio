@@ -48,8 +48,8 @@ export const experiencesData = [
     titleKey: "exp-job2",
     descKey: "exp-job2-desc",
     chatbotSummary: {
-      id: "Monitoring AWS via CloudWatch, tiket JIRA, dan Cloud Armor di PT. Data Labs Analytics.",
-      en: "JIRA tickets, AWS monitoring, and Cloud Armor at PT. Data Labs Analytics."
+      id: "Monitoring GCP via Cloud Monitoring, tiket JIRA, dan Cloud Armor di PT. Data Labs Analytics.",
+      en: "JIRA tickets, GCP Cloud Monitoring, and Cloud Armor at PT. Data Labs Analytics."
     }
   },
   {
