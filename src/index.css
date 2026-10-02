@@ -693,8 +693,12 @@ button, input, textarea, select {
   color: var(--link-blue);
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  transition: opacity 0.15s ease;
+  gap: 6px;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.apple-blue-link i {
+  font-size: 14px;
 }
 
 .apple-blue-link:hover {

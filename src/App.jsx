@@ -459,16 +459,16 @@ const App = () => {
               {/* Social Links Bar */}
               <div className="apple-social-row apple-reveal apple-stagger-3">
                 <a href="https://github.com/renmher" target="_blank" rel="noopener noreferrer" className="apple-blue-link">
-                  GitHub ↗
+                  <i className="fa-brands fa-github"></i> <span>GitHub ↗</span>
                 </a>
                 <a href="https://linkedin.com/in/renaldyimran" target="_blank" rel="noopener noreferrer" className="apple-blue-link">
-                  LinkedIn ↗
+                  <i className="fa-brands fa-linkedin"></i> <span>LinkedIn ↗</span>
                 </a>
                 <a href="https://www.threads.net/@renmher" target="_blank" rel="noopener noreferrer" className="apple-blue-link">
-                  Threads ↗
+                  <i className="fa-brands fa-threads"></i> <span>Threads ↗</span>
                 </a>
                 <a href="https://wa.me/6287872481308" target="_blank" rel="noopener noreferrer" className="apple-blue-link">
-                  WhatsApp ↗
+                  <i className="fa-brands fa-whatsapp"></i> <span>WhatsApp ↗</span>
                 </a>
               </div>
             </div>
