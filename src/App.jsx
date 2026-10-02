@@ -513,7 +513,7 @@ const App = () => {
                 {lang === 'id' ? 'TENTANG SAYA • (01)' : 'OVERVIEW • (01)'}
               </span>
               <h2 className="apple-section-title">
-                {lang === 'id' ? 'Merancang Arsitektur Cloud yang Tangguh.' : 'Architecting Resilient Cloud Systems.'}
+                {lang === 'id' ? 'Membangun Infrastruktur Cloud Skala Produksi.' : 'Building Production-Grade Cloud Systems.'}
               </h2>
             </div>
 

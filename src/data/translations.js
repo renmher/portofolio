@@ -76,8 +76,8 @@ export const translations = {
       "brand-interest-val": "Platform Engineering, SRE, DevSecOps, Cloud-Native Systems",
 
       // About Me Section Narrative
-      "about-narrative-p1": "Halo! Saya Renaldy Imran Hermawan, lulusan Sarjana Komputer (S.Kom) dari Universitas Bani Saleh yang berdedikasi sebagai Junior DevOps & Cloud Engineer. Dengan latar belakang kuat dalam administrasi jaringan dan infrastruktur IT, saya berfokus pada otomatisasi siklus deployment (CI/CD), orkestrasi kontainer (Docker & Kubernetes), serta pengamanan pipeline (DevSecOps). Saya memiliki rekam jejak dalam merancang pipeline GitLab CI yang aman, mengelola registri kontainer, dan mengonfigurasi pemantauan real-time menggunakan Grafana dan VictoriaMetrics.",
-      "about-narrative-p2": "Tujuan karir saya adalah menjadi Platform Engineer yang dapat merancang sistem infrastruktur skala besar yang handal dan efisien. Saya percaya bahwa otomatisasi dan observabilitas aktif adalah kunci dari stabilitas sistem. Dengan kombinasi keterampilan teknis di multi-cloud (GCP/AWS) dan keahlian kolaboratif yang terasah melalui pengalaman kerja kontrak maupun magang, saya siap membantu tim mempercepat siklus rilis produk dengan risiko operasional seminimal mungkin.",
+      "about-narrative-p1": "Saya Renaldy Imran Hermawan (S.Kom), Junior DevOps & Cloud Engineer dengan spesialisasi otomasi pipeline CI/CD, orkestrasi kontainer (Docker & Kubernetes), dan observabilitas sistem. Berpengalaman merancang pipeline GitLab CI yang aman (Trivy & SonarQube), manajemen cluster multi-environment, serta pemantauan real-time menggunakan Grafana dan VictoriaMetrics.",
+      "about-narrative-p2": "Fokus karir saya adalah Platform Engineering: mengelola infrastruktur cloud (GCP & AWS) yang stabil dengan target zero-downtime, serta mempercepat siklus rilis aplikasi dengan risiko operasional seminimal mungkin.",
 
       // Skills & Tools Section Categories
       "skills-title": "Skills & <span class='gradient-text'>Tools</span>",
@@ -218,8 +218,8 @@ export const translations = {
       "brand-interest-val": "Platform Engineering, SRE, DevSecOps, Cloud-Native Systems",
 
       // About Me Section Narrative
-      "about-narrative-p1": "Hello! I am Renaldy Imran Hermawan, a Computer Science graduate (S.Kom) from Bani Saleh University, dedicated to working as a Junior DevOps & Cloud Engineer. With a solid foundation in network administration and IT infrastructure, I focus on automating deployment cycles (CI/CD), container orchestration (Docker & Kubernetes), and securing delivery pipelines (DevSecOps). I have a proven track record of designing secure GitLab CI pipelines, managing container registries, and configuring real-time observability using Grafana and VictoriaMetrics.",
-      "about-narrative-p2": "My career goal is to grow into a Platform Engineer capable of designing resilient and efficient large-scale infrastructure systems. I believe that automation and active observability are the cornerstones of system stability. Combining technical proficiency in multi-cloud environments (GCP/AWS) with strong collaborative skills refined across contract roles and internships, I am ready to help teams accelerate software release cycles while minimizing operational risks.",
+      "about-narrative-p1": "I am Renaldy Imran Hermawan (S.Kom), a Junior DevOps & Cloud Engineer specializing in CI/CD pipeline automation, container orchestration (Docker & Kubernetes), and system observability. Experienced in engineering secure GitLab CI delivery pipelines (Trivy & SonarQube), multi-environment cluster management, and real-time telemetry using Grafana and VictoriaMetrics.",
+      "about-narrative-p2": "My career path targets Platform Engineering: running high-availability cloud infrastructure (GCP & AWS) with zero-downtime objectives, and accelerating release cycles with minimal operational overhead.",
 
       // Skills & Tools Section Categories
       "skills-title": "Skills & <span class='gradient-text'>Tools</span>",
