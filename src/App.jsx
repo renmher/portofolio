@@ -462,26 +462,6 @@ const App = () => {
             ============================================================== */}
         <section className="apple-section-band studio-mist">
           <div className="apple-container">
-            <div className="apple-band-header apple-reveal">
-              <div>
-                <span className="apple-section-kicker">
-                  {lang === 'id' ? 'KEANDALAN CLOUD & SRE' : 'SRE & RELIABILITY'}
-                </span>
-                <h2 className="apple-band-title">
-                  {lang === 'id' ? 'Stabilitas Sistem & Waktu Aktif Produksi.' : 'Cloud Reliability & Production Uptime.'}
-                </h2>
-              </div>
-              <a href="#portfolio" onClick={(e) => handleNavClick(e, 'portfolio')} className="apple-blue-link">
-                {lang === 'id' ? 'Lihat proyek ↗' : 'Explore works ↗'}
-              </a>
-            </div>
-
-            <p className="apple-band-narrative apple-reveal">
-              {lang === 'id'
-                ? "Fokus pada arsitektur cloud multi-environment yang tangguh, otomatisasi siklus CI/CD pipeline dengan pemindaian keamanan statis, serta orkestrasi Kubernetes deklaratif. Menjamin stabilitas infrastruktur skala produksi dan resolusi insiden secara real-time."
-                : "Dedicated to architecting resilient multi-environment cloud systems, automated CI/CD delivery pipelines with static security quality gates, and declarative Kubernetes orchestration. Ensuring production uptime and rapid incident resolution."}
-            </p>
-
             {/* Apple Big Spec Metrics Banner */}
             <div className="apple-metrics-grid apple-reveal">
               <div className="apple-metric-card apple-card">

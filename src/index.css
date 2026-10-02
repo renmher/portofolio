@@ -726,7 +726,7 @@ button, input, textarea, select {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
-  margin-top: 40px;
+  margin-top: 0;
 }
 
 .apple-metric-card {
