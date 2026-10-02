@@ -33,6 +33,16 @@ const App = () => {
   const [activeSimulatorTab, setActiveSimulatorTab] = useState('pipeline');
   const [isCvDropdownOpen, setIsCvDropdownOpen] = useState(false);
   const cvDropdownRef = useRef(null);
+  const [toastMsg, setToastMsg] = useState('');
+  const toastTimeoutRef = useRef(null);
+
+  const showToast = (msg) => {
+    if (toastTimeoutRef.current) clearTimeout(toastTimeoutRef.current);
+    setToastMsg(msg);
+    toastTimeoutRef.current = setTimeout(() => {
+      setToastMsg('');
+    }, 2400);
+  };
 
   // Typing animation
   const [textIndex, setTextIndex] = useState(0);
@@ -173,6 +183,7 @@ const App = () => {
   const handleCopyEmail = () => {
     navigator.clipboard.writeText('renaldyimran@gmail.com').then(() => {
       setEmailCopied(true);
+      showToast(lang === 'id' ? 'Email berhasil disalin ke clipboard' : 'Email copied to clipboard');
       setTimeout(() => setEmailCopied(false), 2000);
     });
   };
@@ -242,6 +253,14 @@ const App = () => {
     <div className="apple-root">
       {/* Scroll Progress Bar */}
       <div className="apple-scroll-progress" style={{ width: `${scrollProgress}%` }} />
+
+      {/* Apple Dynamic Island Toast */}
+      {toastMsg && (
+        <div className="apple-dynamic-island" role="status" aria-live="polite">
+          <span className="apple-island-check">✓</span>
+          <span className="apple-island-text">{toastMsg}</span>
+        </div>
+      )}
 
       {/* ==============================================================
           GLOBAL STORE & PRODUCT LOCAL NAVIGATION (APPLE STYLE)
@@ -462,6 +481,45 @@ const App = () => {
                 ? "Fokus pada arsitektur cloud multi-environment yang tangguh, otomatisasi siklus CI/CD pipeline dengan pemindaian keamanan statis, serta orkestrasi Kubernetes deklaratif. Menjamin stabilitas infrastruktur skala produksi dan resolusi insiden secara real-time."
                 : "Dedicated to architecting resilient multi-environment cloud systems, automated CI/CD delivery pipelines with static security quality gates, and declarative Kubernetes orchestration. Ensuring production uptime and rapid incident resolution."}
             </p>
+
+            {/* Apple Big Spec Metrics Banner */}
+            <div className="apple-metrics-grid apple-reveal">
+              <div className="apple-metric-card apple-card">
+                <span className="apple-metric-number">&lt;8 Min</span>
+                <h3 className="apple-metric-title">
+                  {lang === 'id' ? 'Siklus Rilis CI/CD' : 'CI/CD Release Cycle'}
+                </h3>
+                <p className="apple-metric-desc">
+                  {lang === 'id'
+                    ? 'Dipangkas 93% dari 2 jam dengan pipeline GitLab CI terintegrasi Trivy & SonarQube.'
+                    : 'Reduced by 93% from 2 hours via automated GitLab CI with Trivy & SonarQube gates.'}
+                </p>
+              </div>
+
+              <div className="apple-metric-card apple-card">
+                <span className="apple-metric-number">99.98%</span>
+                <h3 className="apple-metric-title">
+                  {lang === 'id' ? 'SLA Uptime Produksi' : 'Production Uptime SLA'}
+                </h3>
+                <p className="apple-metric-desc">
+                  {lang === 'id'
+                    ? 'Stabilitas sistem terdistribusi pada cluster Kubernetes K3s multi-environment (alpha, beta, prod).'
+                    : 'High availability across multi-environment K3s Kubernetes clusters managed with GitOps.'}
+                </p>
+              </div>
+
+              <div className="apple-metric-card apple-card">
+                <span className="apple-metric-number">95%</span>
+                <h3 className="apple-metric-title">
+                  {lang === 'id' ? 'Penurunan MTTD Insiden' : 'MTTD Alert Reduction'}
+                </h3>
+                <p className="apple-metric-desc">
+                  {lang === 'id'
+                    ? 'Deteksi anomali real-time menggunakan Grafana, VictoriaMetrics, dan Telegram alert dispatch.'
+                    : 'Faster incident detection with VictoriaMetrics time-series telemetry and automated Telegram dispatch.'}
+                </p>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -738,14 +796,19 @@ const App = () => {
                             )}
                             {activeTab === 'impact' && <p className="apple-tab-text">{curr[project.impactKey]}</p>}
                             {activeTab === 'architecture' && (
-                              <div className="apple-arch-grid">
-                                {project.architectureFlow?.map((node, i) => (
-                                  <div key={i} className="apple-arch-cell">
-                                    <span className="apple-arch-step">STEP {node.step}</span>
-                                    <h4 className="apple-arch-name">{node.title}</h4>
-                                    <p className="apple-arch-desc">{node.detail}</p>
-                                  </div>
-                                ))}
+                              <div className="apple-arch-flow">
+                                <div className="apple-arch-grid">
+                                  {project.architectureFlow?.map((node, i) => (
+                                    <div key={i} className="apple-arch-cell">
+                                      <div className="apple-arch-header">
+                                        <span className="apple-arch-step">STEP {node.step}</span>
+                                        <span className="apple-arch-pulse-dot"></span>
+                                      </div>
+                                      <h4 className="apple-arch-name">{node.title}</h4>
+                                      <p className="apple-arch-desc">{node.detail}</p>
+                                    </div>
+                                  ))}
+                                </div>
                               </div>
                             )}
                             {activeTab === 'code' && project.id === 3 && (
@@ -995,6 +1058,7 @@ push-image:
                   onClick={() => {
                     navigator.clipboard.writeText('curl -s https://justinbony.my.id/resume.json');
                     setCurlCopied(true);
+                    showToast(lang === 'id' ? 'Perintah curl berhasil disalin' : 'Curl command copied to clipboard');
                     setTimeout(() => setCurlCopied(false), 2000);
                   }}
                   title="Copy Command"
