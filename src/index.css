@@ -208,14 +208,35 @@ button, input, textarea, select {
   filter: blur(0);
 }
 
-/* 28px Feature Card Entrance & Hover Lift */
+/* 28px Feature Card Entrance & Spotlight */
 .apple-card {
+  position: relative;
   background: var(--bg-surface);
   border-radius: var(--radius-cards);
   border: 1px solid var(--border-hairline);
   padding: var(--card-padding);
   transition: opacity 0.85s var(--apple-ease), transform 0.85s var(--apple-ease), border-color 0.25s ease, box-shadow 0.35s var(--apple-ease);
   will-change: opacity, transform;
+  overflow: hidden;
+}
+
+.apple-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(420px circle at var(--mouse-x, -999px) var(--mouse-y, -999px), rgba(0, 113, 227, 0.05), transparent 75%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 1;
+}
+
+.apple-card:hover::before {
+  opacity: 1;
+}
+
+[data-theme="dark"] .apple-card::before {
+  background: radial-gradient(420px circle at var(--mouse-x, -999px) var(--mouse-y, -999px), rgba(41, 151, 255, 0.08), transparent 75%);
 }
 
 .apple-card.apple-reveal {
@@ -500,6 +521,7 @@ button, input, textarea, select {
 }
 
 .apple-pricing-blue-pill {
+  position: relative;
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -511,6 +533,29 @@ button, input, textarea, select {
   border-radius: var(--radius-buttons);
   cursor: pointer;
   transition: var(--transition-smooth);
+  overflow: hidden;
+}
+
+.apple-pricing-blue-pill::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -70%;
+  width: 25%;
+  height: 200%;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.35) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: rotate(25deg);
+  pointer-events: none;
+}
+
+.apple-pricing-blue-pill:hover::after {
+  left: 140%;
+  transition: left 0.75s ease-in-out;
 }
 
 .apple-pricing-blue-pill:hover {
@@ -561,12 +606,8 @@ button, input, textarea, select {
   overflow: hidden;
   border: 1px solid var(--border-hairline);
   background: var(--bg-mist);
-  transition: transform 0.6s var(--apple-ease), box-shadow 0.6s var(--apple-ease);
-}
-
-.apple-device-frame:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.08) !important;
+  transform-style: preserve-3d;
+  will-change: transform;
 }
 
 .apple-hero-photo {

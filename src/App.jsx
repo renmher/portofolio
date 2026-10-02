@@ -35,6 +35,29 @@ const App = () => {
   const cvDropdownRef = useRef(null);
   const [toastMsg, setToastMsg] = useState('');
   const toastTimeoutRef = useRef(null);
+  const [tiltStyle, setTiltStyle] = useState({});
+
+  const handleProfileMouseMove = (e) => {
+    const card = e.currentTarget;
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const rotateX = ((y - centerY) / centerY) * -6;
+    const rotateY = ((x - centerX) / centerX) * 6;
+    setTiltStyle({
+      transform: `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`,
+      transition: 'transform 0.1s ease-out'
+    });
+  };
+
+  const handleProfileMouseLeave = () => {
+    setTiltStyle({
+      transform: 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)',
+      transition: 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)'
+    });
+  };
 
   const showToast = (msg) => {
     if (toastTimeoutRef.current) clearTimeout(toastTimeoutRef.current);
@@ -112,6 +135,21 @@ const App = () => {
 
     return () => observer.disconnect();
   }, [lang, activePortfolioFilter]);
+
+  // Spotlight Cursor Glow for Apple Cards
+  useEffect(() => {
+    const handleCardSpotlight = (e) => {
+      document.querySelectorAll('.apple-card').forEach(card => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        card.style.setProperty('--mouse-x', `${x}px`);
+        card.style.setProperty('--mouse-y', `${y}px`);
+      });
+    };
+    window.addEventListener('mousemove', handleCardSpotlight);
+    return () => window.removeEventListener('mousemove', handleCardSpotlight);
+  }, []);
 
   // Touch Swipe on Project Slider
   const projectTouchStartX = useRef(null);
@@ -436,9 +474,14 @@ const App = () => {
             </div>
 
             <div className="apple-hero-right">
-              {/* Center Product Media Render & Floating Status Capsule */}
+              {/* Center Product Media Render & Floating Status Capsule with 3D Tilt */}
               <div className="apple-hero-media-wrapper apple-reveal apple-stagger-2">
-                <div className="apple-device-frame apple-img-zoom">
+                <div 
+                  className="apple-device-frame apple-img-zoom"
+                  onMouseMove={handleProfileMouseMove}
+                  onMouseLeave={handleProfileMouseLeave}
+                  style={tiltStyle}
+                >
                   <img src="/profile.png" alt="Renaldy Imran Hermawan" className="apple-hero-photo" />
                   
                   {/* Floating 28px Status Capsule */}
