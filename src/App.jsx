@@ -59,6 +59,29 @@ const App = () => {
     });
   };
 
+  const handleMagneticMove = (e) => {
+    const btn = e.currentTarget;
+    const rect = btn.getBoundingClientRect();
+    const x = e.clientX - (rect.left + rect.width / 2);
+    const y = e.clientY - (rect.top + rect.height / 2);
+    btn.style.transform = `translate(${x * 0.22}px, ${y * 0.22}px)`;
+  };
+
+  const handleMagneticLeave = (e) => {
+    e.currentTarget.style.transform = 'translate(0px, 0px)';
+  };
+
+  const handleButtonRipple = (e) => {
+    const btn = e.currentTarget;
+    const rect = btn.getBoundingClientRect();
+    const ripple = document.createElement('span');
+    ripple.className = 'apple-ripple';
+    ripple.style.left = `${e.clientX - rect.left}px`;
+    ripple.style.top = `${e.clientY - rect.top}px`;
+    btn.appendChild(ripple);
+    setTimeout(() => ripple.remove(), 600);
+  };
+
   const showToast = (msg) => {
     if (toastTimeoutRef.current) clearTimeout(toastTimeoutRef.current);
     setToastMsg(msg);
@@ -400,7 +423,12 @@ const App = () => {
                 <div className="apple-cv-dropdown-wrapper" ref={cvDropdownRef}>
                   <button 
                     type="button" 
-                    onClick={() => setIsCvDropdownOpen(!isCvDropdownOpen)} 
+                    onClick={(e) => {
+                      handleButtonRipple(e);
+                      setIsCvDropdownOpen(!isCvDropdownOpen);
+                    }} 
+                    onMouseMove={handleMagneticMove}
+                    onMouseLeave={handleMagneticLeave}
                     className="apple-pricing-blue-pill"
                     aria-expanded={isCvDropdownOpen}
                   >
@@ -451,7 +479,16 @@ const App = () => {
                   )}
                 </div>
 
-                <a href="#portfolio" onClick={(e) => handleNavClick(e, 'portfolio')} className="apple-explore-pill">
+                <a 
+                  href="#portfolio" 
+                  onClick={(e) => {
+                    handleButtonRipple(e);
+                    handleNavClick(e, 'portfolio');
+                  }} 
+                  onMouseMove={handleMagneticMove}
+                  onMouseLeave={handleMagneticLeave}
+                  className="apple-explore-pill"
+                >
                   <span>{lang === 'id' ? 'Jelajahi Proyek ↓' : 'Explore Deployments ↓'}</span>
                 </a>
               </div>
@@ -476,8 +513,11 @@ const App = () => {
             <div className="apple-hero-right">
               {/* Center Product Media Render & Floating Status Capsule with 3D Tilt */}
               <div className="apple-hero-media-wrapper apple-reveal apple-stagger-2">
+                {/* Ambient Studio Halo Glow */}
+                <div className="apple-halo-glow" aria-hidden="true"></div>
+
                 <div 
-                  className="apple-device-frame apple-img-zoom"
+                  className="apple-device-frame apple-img-zoom apple-border-beam"
                   onMouseMove={handleProfileMouseMove}
                   onMouseLeave={handleProfileMouseLeave}
                   style={tiltStyle}
