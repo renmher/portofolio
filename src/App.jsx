@@ -5,6 +5,7 @@ import GitOpsSimulator from './components/GitOpsSimulator';
 import ObservabilitySimulator from './components/ObservabilitySimulator';
 import Chatbot from './components/Chatbot';
 import CVBuilder from './components/CVBuilder';
+import CommandPalette from './components/CommandPalette';
 import { experiencesData, getDurationText } from './data/experiences';
 import { translations } from './data/translations';
 import { projectsList } from './data/projects';
@@ -36,6 +37,7 @@ const App = () => {
   const [toastMsg, setToastMsg] = useState('');
   const toastTimeoutRef = useRef(null);
   const [tiltStyle, setTiltStyle] = useState({});
+  const [isPaletteOpen, setIsPaletteOpen] = useState(false);
 
   const handleProfileMouseMove = (e) => {
     const card = e.currentTarget;
@@ -121,6 +123,18 @@ const App = () => {
 
     return () => clearTimeout(timeout);
   }, [charIndex, isDeleting, textIndex]);
+
+  // Global Keyboard Shortcut for Command Palette (Ctrl+K or Cmd+K)
+  useEffect(() => {
+    const handleGlobalKeyDown = (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        setIsPaletteOpen(prev => !prev);
+      }
+    };
+    window.addEventListener('keydown', handleGlobalKeyDown);
+    return () => window.removeEventListener('keydown', handleGlobalKeyDown);
+  }, []);
 
   // Click outside listener for CV Dropdown
   useEffect(() => {
@@ -343,6 +357,14 @@ const App = () => {
           </nav>
 
           <div className="apple-nav-controls">
+            <button 
+              type="button" 
+              onClick={() => setIsPaletteOpen(true)} 
+              className="apple-control-pill apple-cmd-k-btn" 
+              title={lang === 'id' ? "Buka Spotlight Command Palette (Ctrl+K)" : "Open Command Palette (Ctrl+K)"}
+            >
+              <i className="fa-solid fa-magnifying-glass" style={{ fontSize: '10px' }}></i> <span>⌘K</span>
+            </button>
             <button type="button" onClick={toggleLanguage} className="apple-control-pill" title="Toggle Language">
               {lang === 'id' ? 'EN' : 'ID'}
             </button>
@@ -1183,6 +1205,19 @@ push-image:
 
       {/* Floating Chatbot Assistant */}
       <Chatbot lang={lang} />
+
+      {/* Apple Spotlight / Command Palette Modal */}
+      <CommandPalette 
+        isOpen={isPaletteOpen}
+        onClose={() => setIsPaletteOpen(false)}
+        lang={lang}
+        theme={theme}
+        toggleTheme={toggleTheme}
+        toggleLanguage={toggleLanguage}
+        onNavigate={(id) => handleNavClick(new Event('click'), id)}
+        onCopyEmail={handleCopyEmail}
+        showToast={showToast}
+      />
     </div>
   );
 };

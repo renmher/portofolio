@@ -2089,3 +2089,225 @@ button, input, textarea, select {
 .mb-2 { margin-bottom: 8px; }
 .mb-8 { margin-bottom: 32px; }
 .mb-10 { margin-bottom: 40px; }
+
+/* ==========================================================================
+   APPLE SPOTLIGHT / COMMAND PALETTE (CTRL+K)
+   ========================================================================== */
+.apple-cmd-k-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--bg-mist);
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: var(--radius-buttons);
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.apple-cmd-k-btn:hover {
+  color: var(--text-main);
+  background: var(--border-control);
+}
+
+.apple-spotlight-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 10005;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 80px 20px 20px;
+}
+
+[data-theme="dark"] .apple-spotlight-backdrop {
+  background: rgba(0, 0, 0, 0.65);
+}
+
+.apple-spotlight-modal {
+  width: 100%;
+  max-width: 600px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: saturate(180%) blur(24px);
+  -webkit-backdrop-filter: saturate(180%) blur(24px);
+  border: 1px solid var(--border-hairline);
+  border-radius: 20px;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.22) !important;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: spotlightPop 0.25s var(--apple-ease);
+}
+
+[data-theme="dark"] .apple-spotlight-modal {
+  background: rgba(28, 28, 30, 0.94);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5) !important;
+}
+
+@keyframes spotlightPop {
+  from { opacity: 0; transform: scale(0.96) translateY(-14px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.apple-spotlight-input-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border-hairline);
+}
+
+.apple-spotlight-search-icon {
+  font-size: 16px;
+  color: var(--color-pricing-blue);
+}
+
+.apple-spotlight-input {
+  flex-grow: 1;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-main);
+  background: transparent;
+  outline: none;
+}
+
+.apple-spotlight-input::placeholder {
+  color: var(--text-muted);
+  font-size: 13.5px;
+}
+
+.apple-spotlight-kbd-hint {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: var(--bg-mist);
+  color: var(--text-muted);
+  border: 1px solid var(--border-hairline);
+}
+
+.apple-spotlight-results {
+  max-height: 340px;
+  overflow-y: auto;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.apple-spotlight-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.apple-spotlight-item.selected {
+  background: var(--color-pricing-blue);
+  color: #ffffff;
+}
+
+.apple-spotlight-item-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.apple-spotlight-item-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: var(--bg-mist);
+  color: var(--color-pricing-blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  flex-shrink: 0;
+}
+
+.apple-spotlight-item.selected .apple-spotlight-item-icon {
+  background: rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+}
+
+.apple-spotlight-item-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.apple-spotlight-item-title {
+  font-size: 13.5px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.apple-spotlight-item-category {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.apple-spotlight-item.selected .apple-spotlight-item-category {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.apple-spotlight-enter-icon {
+  font-size: 11px;
+  color: var(--text-muted);
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.apple-spotlight-item.selected .apple-spotlight-enter-icon {
+  opacity: 1;
+  color: #ffffff;
+}
+
+.apple-spotlight-empty {
+  padding: 32px 20px;
+  text-align: center;
+  font-size: 13.5px;
+  color: var(--text-muted);
+}
+
+.apple-spotlight-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 18px;
+  background: var(--bg-mist);
+  border-top: 1px solid var(--border-hairline);
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.apple-spotlight-footer-keys {
+  display: flex;
+  gap: 12px;
+}
+
+.apple-spotlight-footer-keys kbd {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-hairline);
+  padding: 1px 4px;
+  border-radius: 3px;
+  margin-right: 2px;
+}
+
+.apple-spotlight-badge {
+  font-size: 10.5px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
