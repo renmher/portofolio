@@ -458,47 +458,34 @@ const App = () => {
         </section>
 
         {/* ==============================================================
-            HIGHLIGHTS STAGE: STUDIO MIST BAND (#f5f5f7)
+            TECH STACK INFINITE TICKER (APPLE / VERCEL STYLE MARQUEE)
             ============================================================== */}
-        <section className="apple-section-band studio-mist">
-          <div className="apple-container">
-            {/* Apple Big Spec Metrics Banner */}
-            <div className="apple-metrics-grid apple-reveal">
-              <div className="apple-metric-card apple-card">
-                <span className="apple-metric-number">&lt;8 Min</span>
-                <h3 className="apple-metric-title">
-                  {lang === 'id' ? 'Siklus Rilis CI/CD' : 'CI/CD Release Cycle'}
-                </h3>
-                <p className="apple-metric-desc">
-                  {lang === 'id'
-                    ? 'Dipangkas 93% dari 2 jam dengan pipeline GitLab CI terintegrasi Trivy & SonarQube.'
-                    : 'Reduced by 93% from 2 hours via automated GitLab CI with Trivy & SonarQube gates.'}
-                </p>
-              </div>
-
-              <div className="apple-metric-card apple-card">
-                <span className="apple-metric-number">99.98%</span>
-                <h3 className="apple-metric-title">
-                  {lang === 'id' ? 'SLA Uptime Produksi' : 'Production Uptime SLA'}
-                </h3>
-                <p className="apple-metric-desc">
-                  {lang === 'id'
-                    ? 'Stabilitas sistem terdistribusi pada cluster Kubernetes K3s multi-environment (alpha, beta, prod).'
-                    : 'High availability across multi-environment K3s Kubernetes clusters managed with GitOps.'}
-                </p>
-              </div>
-
-              <div className="apple-metric-card apple-card">
-                <span className="apple-metric-number">95%</span>
-                <h3 className="apple-metric-title">
-                  {lang === 'id' ? 'Penurunan MTTD Insiden' : 'MTTD Alert Reduction'}
-                </h3>
-                <p className="apple-metric-desc">
-                  {lang === 'id'
-                    ? 'Deteksi anomali real-time menggunakan Grafana, VictoriaMetrics, dan Telegram alert dispatch.'
-                    : 'Faster incident detection with VictoriaMetrics time-series telemetry and automated Telegram dispatch.'}
-                </p>
-              </div>
+        <section className="apple-ticker-section studio-mist" aria-label="Tech Stack Ticker">
+          <div className="apple-ticker-track">
+            <div className="apple-ticker-content">
+              {[
+                'KUBERNETES', 'DOCKER', 'GITLAB CI', 'TERRAFORM', 'GOOGLE CLOUD',
+                'AWS', 'GRAFANA', 'VICTORIAMETRICS', 'TRIVY', 'LINUX OS',
+                'MIKROTIK MTCNA', 'KUSTOMIZE', 'SONARQUBE', 'HARBOR'
+              ].map((tech, i) => (
+                <span key={i} className="apple-ticker-item">
+                  <span className="apple-ticker-dot">•</span>
+                  <span className="apple-ticker-text">{tech}</span>
+                </span>
+              ))}
+            </div>
+            {/* Duplicated content for seamless infinite loop */}
+            <div className="apple-ticker-content" aria-hidden="true">
+              {[
+                'KUBERNETES', 'DOCKER', 'GITLAB CI', 'TERRAFORM', 'GOOGLE CLOUD',
+                'AWS', 'GRAFANA', 'VICTORIAMETRICS', 'TRIVY', 'LINUX OS',
+                'MIKROTIK MTCNA', 'KUSTOMIZE', 'SONARQUBE', 'HARBOR'
+              ].map((tech, i) => (
+                <span key={`dup-${i}`} className="apple-ticker-item">
+                  <span className="apple-ticker-dot">•</span>
+                  <span className="apple-ticker-text">{tech}</span>
+                </span>
+              ))}
             </div>
           </div>
         </section>
