@@ -15,7 +15,7 @@ const typingTexts = [
   'Junior DevOps Engineer',
   'Cloud Infrastructure Specialist',
   'Kubernetes & GitOps Practitioner',
-  'Observability & SRE Lead'
+  'L1 Cloud Engineer Support'
 ];
 
 const App = () => {
@@ -352,7 +352,7 @@ const App = () => {
             <a href="#portfolio" onClick={(e) => handleNavClick(e, 'portfolio')} className={activeSection === 'portfolio' ? 'active' : ''}>{lang === 'id' ? 'Portofolio' : 'Deployments'}</a>
             <a href="#simulators" onClick={(e) => handleNavClick(e, 'simulators')} className={activeSection === 'simulators' ? 'active' : ''}>{lang === 'id' ? 'Lab Simulator' : 'Lab Workbench'}</a>
             <a href="#certifications" onClick={(e) => handleNavClick(e, 'certifications')} className={activeSection === 'certifications' ? 'active' : ''}>{lang === 'id' ? 'Sertifikasi' : 'Credentials'}</a>
-            <a href="#experience" onClick={(e) => handleNavClick(e, 'experience')} className={activeSection === 'experience' ? 'active' : ''}>{lang === 'id' ? 'Karir' : 'Trajectory'}</a>
+            <a href="#experience" onClick={(e) => handleNavClick(e, 'experience')} className={activeSection === 'experience' ? 'active' : ''}>{lang === 'id' ? 'Pengalaman' : 'Experience'}</a>
             <a href="#contact" onClick={(e) => handleNavClick(e, 'contact')} className="apple-nav-link-blue">{lang === 'id' ? 'Kontak' : 'Contact'}</a>
           </nav>
 
@@ -394,7 +394,7 @@ const App = () => {
           <span>{lang === 'id' ? 'Keahlian' : 'Specs'}</span>
         </a>
         <a href="#portfolio" onClick={(e) => handleNavClick(e, 'portfolio')} className={activeSection === 'portfolio' ? 'active' : ''}>
-          <span>{lang === 'id' ? 'Karya' : 'Works'}</span>
+          <span>{lang === 'id' ? 'Proyek' : 'Projects'}</span>
         </a>
         <a href="#simulators" onClick={(e) => handleNavClick(e, 'simulators')} className={activeSection === 'simulators' ? 'active' : ''}>
           <span>{lang === 'id' ? 'Lab' : 'Lab'}</span>
@@ -423,7 +423,7 @@ const App = () => {
 
               {/* Sub-headline Statement */}
               <p className="apple-hero-subhead apple-reveal apple-stagger-3">
-                {lang === 'id' ? 'Rekayasa Keandalan Cloud Skala Produksi.' : 'Engineering Cloud Reliability at Production Scale.'}
+                {lang === 'id' ? 'Spesialis Otomatisasi CI/CD & Infrastruktur Cloud.' : 'CI/CD Automation & Cloud Infrastructure Specialist.'}
               </p>
 
               {/* Typing Terminal Badge */}
@@ -436,8 +436,8 @@ const App = () => {
               {/* Story Paragraph */}
               <p className="apple-hero-body apple-reveal apple-stagger-3">
                 {lang === 'id'
-                  ? "Merancang arsitektur cloud multi-environment yang tangguh, otomatisasi siklus CI/CD pipeline dengan pemindaian keamanan statis, serta orkestrasi Kubernetes deklaratif untuk menjamin keandalan sistem skala produksi."
-                  : "Architecting resilient multi-environment cloud systems, automated CI/CD delivery pipelines with static security quality gates, and declarative Kubernetes orchestration for production reliability."}
+                  ? "Fokus pada pengelolaan infrastruktur cloud, otomatisasi pipeline CI/CD dengan security quality gates, serta orkestrasi kontainer Kubernetes untuk operasional skala produksi."
+                  : "Focused on multi-environment cloud infrastructure management, automated CI/CD pipelines with integrated security quality gates, and Kubernetes container orchestration for production-grade operations."}
               </p>
 
               {/* Action Buttons: Pricing Blue Pill & Outlined Explore Pill */}
@@ -551,7 +551,7 @@ const App = () => {
                     <span className="apple-status-dot"></span>
                     <div className="apple-capsule-info">
                       <span className="apple-capsule-title">
-                        {lang === 'id' ? 'SIAP KERJA: DEVOPS & SRE' : 'OPEN TO WORK: DEVOPS & SRE'}
+                        {lang === 'id' ? 'SIAP KERJA: DEVOPS & L1 CLOUD ENGINEER' : 'OPEN TO WORK: DEVOPS & L1 CLOUD ENGINEER'}
                       </span>
                       <span className="apple-capsule-sub">Kubernetes • GCP • GitLab CI • Observability</span>
                     </div>
@@ -643,7 +643,7 @@ const App = () => {
               <div className="apple-card apple-reveal">
                 <span className="apple-card-kicker">PILLAR 03</span>
                 <h3 className="apple-card-heading">
-                  {lang === 'id' ? 'SRE & Observabilitas.' : 'SRE & Observability.'}
+                  {lang === 'id' ? 'Monitoring & Observabilitas.' : 'Monitoring & Observability.'}
                 </h3>
                 <p className="apple-card-copy">
                   {lang === 'id'
@@ -662,10 +662,10 @@ const App = () => {
           <div className="apple-container">
             <div className="apple-section-headline-block apple-reveal">
               <span className="apple-section-kicker">
-                {lang === 'id' ? 'SPESIFIKASI TEKNIS • (02)' : 'TECH SPECS • (02)'}
+                {lang === 'id' ? 'KEAHLIAN TEKNIS • (02)' : 'TECH SPECS • (02)'}
               </span>
               <h2 className="apple-section-title">
-                {lang === 'id' ? 'Stack Rekayasa & Alat Produksi.' : 'Engineering Stack & Toolchain.'}
+                {lang === 'id' ? 'Alat Tempur & Ekosistem Teknologi.' : 'Engineering Toolchain & Tech Stack.'}
               </h2>
             </div>
 
@@ -1066,10 +1066,10 @@ push-image:
           <div className="apple-container">
             <div className="apple-section-headline-block apple-reveal">
               <span className="apple-section-kicker">
-                {lang === 'id' ? 'REKAM JEJAK • (06)' : 'TRAJECTORY • (06)'}
+                {lang === 'id' ? 'PENGALAMAN KERJA • (06)' : 'WORK EXPERIENCE • (06)'}
               </span>
               <h2 className="apple-section-title">
-                {lang === 'id' ? 'Pengalaman Kerja & Karir Profesional.' : 'Professional Experience & Career.'}
+                {lang === 'id' ? 'Pengalaman Kerja & Karir Profesional.' : 'Professional Work Experience.'}
               </h2>
             </div>
 
@@ -1103,17 +1103,17 @@ push-image:
           <div className="apple-container">
             <div className="apple-section-headline-block apple-reveal text-center">
               <span className="apple-section-kicker">
-                {lang === 'id' ? 'HUBUNGI SAYA • (07)' : 'CONNECT • (07)'}
+                {lang === 'id' ? 'KONTAK • (07)' : 'CONTACT • (07)'}
               </span>
               <h2 className="apple-section-title">
-                {lang === 'id' ? 'Komunikasi & Diskusi Peluang Karir.' : 'Direct Inquiries & Communication.'}
+                {lang === 'id' ? 'Mari Berdiskusi Peluang Kerja.' : 'Direct Inquiries & Opportunities.'}
               </h2>
             </div>
 
             <p className="apple-contact-subtext apple-reveal text-center">
               {lang === 'id' 
-                ? "Tertarik berdiskusi seputar peluang kerja DevOps, Cloud Infrastructure, atau kolaborasi teknik? Hubungi saya langsung melalui tautan di bawah."
-                : "Interested in discussing DevOps opportunities, cloud infrastructure, or technical collaboration? Reach out directly through the links below."}
+                ? "Terbuka untuk peluang kerja full-time, kontrak, maupun kolaborasi teknis sebagai Junior DevOps atau L1 Cloud Engineer Support."
+                : "Open for full-time opportunities, contract roles, and technical collaborations as Junior DevOps or L1 Cloud Engineer Support."}
             </p>
 
             {/* CLI Resume Box */}

@@ -100,7 +100,7 @@ const CommandPalette = ({
       id: 'nav-experience',
       icon: 'fa-solid fa-briefcase',
       category: lang === 'id' ? 'Navigasi' : 'Navigation',
-      title: lang === 'id' ? 'Lompat ke Pengalaman Karir' : 'Go to Career Trajectory',
+      title: lang === 'id' ? 'Lompat ke Pengalaman Kerja' : 'Go to Work Experience',
       action: () => {
         onNavigate('experience');
         onClose();
