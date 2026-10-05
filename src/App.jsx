@@ -326,6 +326,11 @@ const App = () => {
 
   return (
     <div className="apple-root">
+      {/* Skip to Content for Keyboard Accessibility (R-32) */}
+      <a href="#main-content" className="apple-skip-link">
+        {lang === 'id' ? 'Lompat ke konten utama' : 'Skip to main content'}
+      </a>
+
       {/* Scroll Progress Bar */}
       <div className="apple-scroll-progress" style={{ width: `${scrollProgress}%` }} />
 
@@ -404,7 +409,7 @@ const App = () => {
         </a>
       </nav>
 
-      <main>
+      <main id="main-content">
         {/* ==============================================================
             HERO PRODUCT STAGE (APPLE WHITE GALLERY, 80PX/600 HEADLINE)
             ============================================================== */}
